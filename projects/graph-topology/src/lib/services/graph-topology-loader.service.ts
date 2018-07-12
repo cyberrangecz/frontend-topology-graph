@@ -20,7 +20,7 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class GraphTopologyLoaderService {
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   /**

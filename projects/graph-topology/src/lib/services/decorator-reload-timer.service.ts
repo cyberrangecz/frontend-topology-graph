@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
 import {Observable, Subject} from 'rxjs';
+import {ConfigService} from './config.service';
 
 /**
  * Service for managing time period in which decorators are reloaded.
@@ -17,7 +17,7 @@ export class DecoratorReloadTimerService {
   private _onReloadPeriodChangeSubject: Subject<number> = new Subject();
   onReloadPeriodChange: Observable<number> = this._onReloadPeriodChangeSubject.asObservable();
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     this.setInitialValues();
   }
 
@@ -69,8 +69,8 @@ export class DecoratorReloadTimerService {
   }
 
   private setInitialValues() {
-    if (environment.useRealTime) {
-      this._currentReloadPeriod = environment.defaultDecoratorRefreshPeriodInSeconds;
+    if (this.configService.conf.useRealTime) {
+      this._currentReloadPeriod = this.configService.conf.defaultDecoratorRefreshPeriodInSeconds;
     } else {
       this._currentReloadPeriod = 0;
     }

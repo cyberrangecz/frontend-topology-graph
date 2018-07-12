@@ -3,7 +3,6 @@ import {Link} from '../model/link/link';
 import {Node} from '../model/node/node';
 import {GraphTopologyLoaderService} from '../services/graph-topology-loader.service';
 import {DecoratorLoaderService} from '../services/decorator-loader.service';
-import {environment} from '../../environments/environment';
 import {HostNode} from '../model/node/host-node';
 import {RouterNode} from '../model/node/router-node';
 
@@ -19,6 +18,7 @@ import {D3Service} from '../services/d3.service';
 import {D3ZoomEventService} from '../services/d3-zoom-event.service';
 import {MatSnackBar} from '@angular/material';
 import {interval} from 'rxjs/internal/observable/interval';
+import {ConfigService} from '../services/config.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -27,7 +27,7 @@ import {interval} from 'rxjs/internal/observable/interval';
  * its safe to construct graph-visual.
  */
 @Component({
-  selector: 'app-force-graph',
+  selector: 'lib-force-graph',
   templateUrl: './force-graph.component.html',
   styleUrls: ['./force-graph.component.css']
 })
@@ -49,6 +49,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
 
   constructor(
     public snackBar: MatSnackBar,
+    private configService: ConfigService,
     private topologyLoaderService: GraphTopologyLoaderService,
     private decoratorLoaderService: DecoratorLoaderService,
     private decoratorEventService: DecoratorEventService,
@@ -90,7 +91,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   loadTopology() {
     this.loadedTopology = false;
-    this.topologyLoaderService.getTopology(environment.topologyRestUrl)
+    this.topologyLoaderService.getTopology(this.configService.conf.topologyRestUrl)
       .subscribe(
         data => {
           this.nodes = data.nodes;
@@ -250,8 +251,8 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    * Subscribes to periodical reload of decorators
    */
   private subscribeDecoratorsPeriodicalReload() {
-    if (environment.defaultDecoratorRefreshPeriodInSeconds > 0) {
-      this._decoratorPeriodicalReloadSubscription = interval(environment.defaultDecoratorRefreshPeriodInSeconds * 1000)
+    if (this.configService.conf.defaultDecoratorRefreshPeriodInSeconds > 0) {
+      this._decoratorPeriodicalReloadSubscription = interval(this.configService.conf.defaultDecoratorRefreshPeriodInSeconds * 1000)
         .subscribe(
           () => {
             this.reloadAllDecorators();

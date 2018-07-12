@@ -3,9 +3,9 @@ import {DecoratorReloadTimerService} from './decorator-reload-timer.service';
 import {DecoratorEventService} from './decorator-event.service';
 import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
 import {Observable, Subject} from 'rxjs';
-import {environment} from '../../environments/environment';
 import * as moment from 'moment';
 import {DurationInputArg2, Moment} from 'moment';
+import {ConfigService} from './config.service';
 
 /**
  * Service passing the time which should be used when requesting for decorators
@@ -24,8 +24,10 @@ export class DecoratorTimeService implements OnDestroy {
 
   private _decoratorReloadSubscription;
 
-  constructor(private decoratorReloadTimerService: DecoratorReloadTimerService,
-              private decoratorEventService: DecoratorEventService) {
+  constructor(
+    private configService: ConfigService,
+    private decoratorReloadTimerService: DecoratorReloadTimerService,
+    private decoratorEventService: DecoratorEventService) {
 
     this.subscribeDecoratorReload();
     this.setInitialValues();
@@ -158,7 +160,7 @@ export class DecoratorTimeService implements OnDestroy {
   }
 
   private setInitialValues() {
-    this._useRealTime = environment.useRealTime;
+    this._useRealTime = this.configService.conf.useRealTime;
     if (this._useRealTime) {
       this._from = 'now-' + this.decoratorReloadTimerService.getReloadPeriod() + 's';
       this._to = 'now';

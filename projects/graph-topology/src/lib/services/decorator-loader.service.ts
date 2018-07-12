@@ -12,7 +12,6 @@ import {NodeSemaphoreDecoratorStatusEnum} from '../model/enums/node-semaphore-de
 import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
 import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
 import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {environment} from '../../environments/environment';
 import {DecoratorEventService} from './decorator-event.service';
 import {DecoratorFilterService} from './decorator-filter.service';
 import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
@@ -25,6 +24,7 @@ import {DecoratorHttpPostBody} from '../model/others/decorator-http-post-body';
 import {DecoratorTimeService} from './decorator-time.service';
 import {DecoratorStateService} from './decorator-state.service';
 import {map} from 'rxjs/operators';
+import {ConfigService} from './config.service';
 
 
 const httpOptions = {
@@ -45,6 +45,7 @@ export class DecoratorLoaderService {
   decoratorLoaderError: Observable<string> = this._decoratorLoaderErrorSubject.asObservable();
 
   constructor(private http: HttpClient,
+              private configService: ConfigService,
               private decoratorEventService: DecoratorEventService,
               private decoratorsFilterService: DecoratorFilterService,
               private decoratorTimeService: DecoratorTimeService,
@@ -141,7 +142,7 @@ export class DecoratorLoaderService {
   private retrieveHostNodeDecorators(hostNodeIds: number[],
                                      hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
-    const url = environment.decoratorsRestUrl + '/nodes/decorators';
+    const url = this.configService.conf.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
@@ -193,7 +194,7 @@ export class DecoratorLoaderService {
                                        routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
 
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
-    const url = environment.decoratorsRestUrl + '/nodes/decorators';
+    const url = this.configService.conf.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
@@ -231,7 +232,7 @@ export class DecoratorLoaderService {
   private retrieveLinkDecorators(linkIds: number[], linkDecoratorTypes: LinkDecoratorTypeEnum[]): Observable<LinkDecorator[]>[] {
 
     const observablesToReturn: Observable<LinkDecorator[]>[] = [];
-    const url = environment.decoratorsRestUrl + '/links/decorators';
+    const url = this.configService.conf.decoratorsRestUrl + '/links/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 

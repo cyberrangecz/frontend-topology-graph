@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DecoratorFilterMenuComponent} from './force-graph-sidebar/decorator-filter-menu/decorator-filter-menu.component';
 import {AbsoluteTimeComponent} from './force-graph-sidebar/decorator-time-picker/absolute-time/absolute-time.component';
@@ -19,12 +19,13 @@ import {DecoratorTimeService} from '../services/decorator-time.service';
 import {D3ZoomEventService} from '../services/d3-zoom-event.service';
 import {GraphEventService} from '../services/graph-event.service';
 import {GraphVisualComponentsModule} from '../visuals/graph-visual-components.module';
-import {GraphRoutingModule} from './graph-routing.module';
 import {GraphMaterialModule} from './graph-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DecoratorStateService} from '../services/decorator-state.service';
 import {DirectivesModule} from '../directives/directives.module';
 import {GraphLockService} from '../services/graph-lock.service';
+import {TopologyConfig} from '../others/topology.config';
+import {ConfigService} from '../services/config.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +33,6 @@ import {GraphLockService} from '../services/graph-lock.service';
     ReactiveFormsModule,
     GraphMaterialModule,
     GraphVisualComponentsModule,
-    GraphRoutingModule,
     DirectivesModule
   ],
   declarations: [
@@ -46,6 +46,7 @@ import {GraphLockService} from '../services/graph-lock.service';
     RelativeTimeComponent,
   ],
   providers: [
+    ConfigService,
     D3Service,
     D3ZoomEventService,
     ContextMenuService,
@@ -58,7 +59,16 @@ import {GraphLockService} from '../services/graph-lock.service';
     DecoratorStateService,
     GraphEventService,
     GraphLockService,
+  ],
+  exports: [
+    ForceGraphComponent
   ]
 })
 export class GraphModule {
+  static forRoot(config: TopologyConfig): ModuleWithProviders {
+    return {
+      ngModule: GraphModule,
+      providers: [ConfigService, {provide: 'config', useValue: 'config'}]
+    };
+  }
 }
