@@ -1,0 +1,46 @@
+<mat-drawer-container class="sidenav-container" autosize>
+  <mat-drawer #drawer class="left-sidenav" mode="side"  position="end">
+    <app-force-graph-sidebar>
+    </app-force-graph-sidebar>
+  </mat-drawer>
+  <div class="sidenav-content">
+
+    <button
+      class="sidenav-button"
+      type="button"
+      mat-icon-button
+      (click)="drawer.toggle(); toggleSidebar()">
+      <mat-icon *ngIf="!sidebarOpen">menu</mat-icon>
+      <mat-icon *ngIf="sidebarOpen">chevron_right</mat-icon>
+    </button>
+
+<!--    <button
+      class="zoom-in"
+      mat-icon-button
+      (click)="zoomIn()">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button
+      class="zoom-out"
+      mat-icon-button
+      (click)="zoomOut()">
+      <mat-icon>zoom_out</mat-icon>
+    </button>-->
+
+
+    <!-- RESET ZOOM BUTTON -->
+    <button
+      class="zoom-reset"
+      mat-icon-button
+      *ngIf="showZoomResetButton"
+      (click)="resetZoom()">
+      <mat-icon>filter_center_focus</mat-icon>
+    </button>
+
+    <!-- GRAPH -->
+    <graph *ngIf="loadedTopology"
+           [nodes]="nodes"
+           [links]="links">
+    </graph>
+  </div>
+</mat-drawer-container>

@@ -1,0 +1,20 @@
+mat-checkbox.decorator-type {
+  margin-bottom: 0;
+  cursor: pointer;
+  display: block;
+  padding: .25rem 2rem;
+}
+
+/* Place category labels and checkboxes more to the left */
+mat-card-title {
+  padding-left: 0.5rem;
+}
+
+mat-card {
+  margin: 0.25rem 0.25rem;
+}
+
+mat-slide-toggle {
+  margin: 0.5rem;
+}
+

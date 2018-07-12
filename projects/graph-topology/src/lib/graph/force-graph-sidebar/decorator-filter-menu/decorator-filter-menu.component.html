@@ -1,0 +1,43 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Decorator filters
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-slide-toggle
+    color="primary"
+    [checked]="showDecoratorsFilterMenu"
+    (change)="toggleDecoratorsFilterMenu()">
+    <p *ngIf="!showDecoratorsFilterMenu">Enable decorators</p>
+    <p *ngIf="showDecoratorsFilterMenu">Disable decorators</p>
+  </mat-slide-toggle>
+  <!--CATEGORY CHECKBOXES-->
+  <mat-card *ngFor="let categoryCheckbox of categoryCheckboxes">
+    <mat-card-title>
+      <mat-checkbox
+        (click)="toggleAndCheckCategoryCheckbox(categoryCheckbox)"
+        [(ngModel)]="categoryCheckbox.checked"
+        [disabled]="categoryCheckbox.disabled"
+        [(indeterminate)]="indeterminate">
+        {{ categoryCheckbox.categoryType }}
+      </mat-checkbox>
+    </mat-card-title>
+
+    <!--DECORATOR TYPE OF EACH CATEGORY CHECKBOXES-->
+    <mat-card-content>
+      <mat-checkbox
+        class="decorator-type"
+        *ngFor="let decoratorCheckbox of categoryCheckbox.decoratorCheckboxes"
+        (change)="toggleAndCheckDecoratorCheckbox(categoryCheckbox, decoratorCheckbox)"
+        (click)="toggleAndCheckDecoratorCheckbox(categoryCheckbox, decoratorCheckbox)"
+        [(ngModel)]="decoratorCheckbox.checked"
+        [disabled]="decoratorCheckbox.disabled"
+        [(indeterminate)]="indeterminate">
+        {{ decoratorCheckbox.decoratorType }}
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
+</mat-expansion-panel>
+
+

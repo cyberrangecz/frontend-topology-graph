@@ -1,0 +1,26 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Decorator time picker
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-slide-toggle
+    [checked]="!useRealTime"
+    [disabled]="!activeDecorators"
+    (change)="toggleManualDate()">
+    <p *ngIf="!useRealTime">Use current time</p>
+    <p *ngIf="useRealTime">Choose time</p>
+  </mat-slide-toggle>
+
+  <mat-tab-group>
+    <mat-tab label="Absolute">
+        <app-absolute-time
+          [manualDateEnabled]="!useRealTime"></app-absolute-time>
+    </mat-tab>
+    <mat-tab label="Relative">
+      <app-relative-time
+      [manualDateEnabled]="!useRealTime"></app-relative-time>
+    </mat-tab>
+  </mat-tab-group>
+</mat-expansion-panel>

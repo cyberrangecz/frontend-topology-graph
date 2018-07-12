@@ -1,0 +1,133 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><b>From</b></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="fromDate"
+             [matDatepicker]="fromPicker"
+             [disabled]="!manualDateEnabled || !decoratorsActive"
+             placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a hour"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="fromTimeHours">
+        <mat-option *ngFor="let hour of hours"
+                    [value]="hour">
+          {{ hour }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a minute"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="fromTimeMinutes">
+        <mat-option *ngFor="let minute of minutes"
+                    [value]="minute">
+          {{ minute }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a second"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="fromTimeSeconds">
+        <mat-option *ngFor="let second of seconds"
+                    [value]="second">
+          {{ second }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-button
+            color="accent"
+            [disabled]="!manualDateEnabled || !decoratorsActive"
+            (click)="setFromTimeNow()">
+      Set to now
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><b>To</b></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="toDate"
+             [matDatepicker]="toPicker"
+             [disabled]="!manualDateEnabled || !decoratorsActive"
+             placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a hour"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="toTimeHours">
+        <mat-option *ngFor="let hour of hours"
+                    [value]="hour">
+          {{ hour }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a minute"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="toTimeMinutes">
+        <mat-option *ngFor="let minute of minutes"
+                    [value]="minute">
+          {{ minute }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        placeholder="Choose a second"
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        [(value)]="toTimeSeconds">
+        <mat-option *ngFor="let second of seconds"
+                    [value]="second">
+          {{ second }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button
+            color="accent"
+            [disabled]="!manualDateEnabled || !decoratorsActive"
+            (click)="setToTimeNow()">
+      Set to now
+    </button>
+    <mat-card-footer>
+      <button
+        class="confirm"
+        mat-raised-button
+        [disabled]="!manualDateEnabled || !decoratorsActive"
+        color="accent"
+        (click)="setAbsoluteTime()">
+        Confirm
+      </button>
+    </mat-card-footer>
+
+    <!-- disabled binding without quotes. Bug/feature in Angular Material-->
+
+  </mat-card-content>
+</mat-card>
+
+

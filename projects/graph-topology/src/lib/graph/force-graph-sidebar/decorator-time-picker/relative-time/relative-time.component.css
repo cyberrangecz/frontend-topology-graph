@@ -1,0 +1,15 @@
+button {
+  margin-left: 60%;
+}
+
+mat-form-field.numberInput {
+  display: inline-block;
+  width: 120px;
+  margin: 0.25rem;
+}
+
+mat-form-field {
+  display: inline-block;
+  margin: 0.25rem;
+  width: 120px;
+}

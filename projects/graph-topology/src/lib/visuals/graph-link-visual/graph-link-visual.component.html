@@ -1,0 +1,80 @@
+<svg>
+  <g>
+    <!-- LINK -->
+    <line
+      class="link"
+      [attr.x1]="link.source.x"
+      [attr.y1]="link.source.y"
+      [attr.x2]="link.target.x"
+      [attr.y2]="link.target.y">
+    </line>
+    <!-- animation motion path from source to target. USE THIS as mpath if other animated decorators are added -->
+    <path
+      [id]="'motion-path-' + link.id"
+      [attr.d]="'M' + (link.source.x) + ' ' + (link.source.y)  +
+       ' L' + (link.target.x) + ' ' + (link.target.y)"
+      fill="none">
+    </path>
+  </g>
+
+  <!-- SPEED LINK DECORATOR -->
+     <g
+       *ngIf="speedDecorator != null"
+       ngClass="link-speed {{ linkDecoratorSpeed }}"
+     >
+       <!-- for having multiple animated objects -->
+       <g *ngFor="let id of [0,1,2,3,4,5]">
+
+         <!-- animated object -->
+         <g
+           [id]="'speed-triangle-' + id + '-' + link.id"
+           transform="scale(-1,1) translate(0,0)">
+           <polygon
+             class="speed-decorator"
+             points="0,10 15,5 15,15">
+           </polygon>
+         </g>
+
+         <!-- svg animation (attr.begin is used to delay animation if multiple objects are animated)-->
+         <animateMotion
+           [attr.xlink:href]="'#speed-triangle-'+ id + '-' + link.id"
+           [attr.dur]="calculateDecoratorAnimationDuration(linkDecoratorSpeed) + 'ms'"
+           [attr.begin]="(id * 500) + 'ms'"
+           fill="freeze"
+           repeatCount="indefinite"
+           rotate="auto">
+             <mpath
+             [attr.xlink:href]="'#motion-path-' + link.id">
+             </mpath>
+         </animateMotion>
+       </g>
+     </g>
+
+  <!--- MAIL LINK DECORATOR -->
+  <g *ngIf="mailDecorator != null"
+     ngClass="mail-speed {{ linkDecoratorMailSpeed }}">
+
+    <!-- animated object -->
+    <g
+      [id]="'mail-' + link.id"
+      transform="scale(-1,-1) translate(0,0)">
+      <image
+        width="50"
+        height="30"
+        xlink:href="/assets/images/decorators/mail.svg">
+      </image>
+    </g>
+
+    <!-- svg animation -->
+    <animateMotion
+      [attr.xlink:href]="'#mail-' + link.id"
+      [attr.dur]="calculateDecoratorAnimationDuration(linkDecoratorMailSpeed) + 'ms'"
+      fill="freeze"
+      repeatCount="indefinite"
+      rotate="auto">
+      <mpath
+        [attr.xlink:href]="'#motion-path-' + link.id">
+      </mpath>
+    </animateMotion>
+  </g>
+</svg>

@@ -1,0 +1,88 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <strong>From</strong>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+      <mat-form-field class="numberInput">
+        <input matInput
+               type="number"
+               [min]="MIN"
+               [max]="MAX"
+               [formControl]="fromForm"
+               [disableControl]="!manualDateEnabled || !activeDecorators"
+               placeholder="Insert a number"
+               [(ngModel)]="fromAmount"
+               [errorStateMatcher]="matcher">
+        <mat-hint>Valid range is {{ MIN }} to {{ MAX }}</mat-hint>
+        <mat-error *ngIf="fromForm.hasError('min') || fromForm.hasError('max') && !toForm.hasError('required')">
+          Please enter a valid number in range {{ MIN }} to {{ MAX }}
+        </mat-error>
+        <mat-error *ngIf="fromForm.hasError('required')">
+          Number is required.
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        [disabled]="!manualDateEnabled || !activeDecorators"
+        [(value)]="fromOption">
+        <mat-option *ngFor="let option of fromOptions"
+                    [value]="option">
+          {{ option.getDisplayString() }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <strong>To</strong>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+      <mat-form-field class="numberInput">
+        <input matInput
+               [formControl]="toForm"
+               [disableControl]="!manualDateEnabled || !activeDecorators"
+               type="number"
+               [min]="MIN"
+               [max]="MAX"
+               placeholder="Insert a number"
+               [(ngModel)]="toAmount"
+               [errorStateMatcher]="matcher">
+        <mat-hint>Valid range is {{ MIN }} to {{ MAX }}</mat-hint>
+        <mat-error *ngIf="toForm.hasError('min') || toForm.hasError('max') && !toForm.hasError('required')">
+          Please enter a valid number in range {{ MIN }} to {{ MAX }}
+        </mat-error>
+        <mat-error *ngIf="toForm.hasError('required')">
+          Number is required.
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        [disabled]="!manualDateEnabled || !activeDecorators"
+        [(value)]="toOption">
+        <mat-option *ngFor="let option of toOptions"
+                    [value]="option">
+          {{ option.getDisplayString() }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-footer>
+    <button mat-raised-button
+            color="accent"
+            [disabled]="!manualDateEnabled || !activeDecorators"
+            (click)="setRelativeTime()">
+      Confirm
+    </button>
+  </mat-card-footer>
+</mat-card>

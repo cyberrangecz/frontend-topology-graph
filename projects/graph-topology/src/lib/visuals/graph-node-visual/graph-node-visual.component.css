@@ -1,0 +1,30 @@
+
+text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+title {
+  display: block;
+}
+
+g.node rect {
+  fill: rgb(245,245,245);
+  cursor: pointer;
+  stroke: #ababab;
+}
+
+g.node.online rect {
+  stroke: green;
+
+}
+
+g.node.offline rect {
+  stroke:red;
+}
+
+image {
+  cursor: pointer;
+}
+

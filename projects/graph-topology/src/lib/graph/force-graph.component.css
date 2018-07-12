@@ -1,0 +1,44 @@
+button.zoom-reset {
+  position:fixed;
+  top:50px;
+  left:0;
+  margin: 10px;
+}
+
+button {
+  position:fixed;
+  top:0;
+  right:0;
+  margin: 10px;
+}
+
+button.zoom-in {
+  position:absolute;
+  top:0;
+  left:30px;
+  margin: 10px;
+}
+
+button.zoom-out {
+  position:absolute;
+  top:0;
+  left:0;
+  margin: 10px;
+}
+
+.sidenav-container {
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+}
+
+.sidenav {
+  padding: 20px;
+}

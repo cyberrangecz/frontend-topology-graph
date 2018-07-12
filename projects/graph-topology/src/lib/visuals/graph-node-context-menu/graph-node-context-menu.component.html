@@ -1,0 +1,20 @@
+<svg xmlns:attr.xlink="">
+  <g
+    *ngIf="node.showContextMenu"
+    class="items">
+    <g
+      *ngFor="let item of node.contextMenuItems"
+      class="item"
+      (click)="item.subject.next(item.type)">
+      <rect class="item"
+        [attr.x]="location.left + 20"
+        [attr.y]="(item.id * 20) + location.top - 100">
+      </rect>
+      <text class="item"
+        [attr.x] = "location.left + 30"
+        [attr.y] = "location.top + (item.id * 20)  - 85">
+        {{item.title}}
+      </text>
+    </g>
+  </g>
+</svg>

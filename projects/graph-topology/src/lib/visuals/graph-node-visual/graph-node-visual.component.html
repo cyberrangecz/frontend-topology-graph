@@ -1,0 +1,66 @@
+<svg>
+  <!-- NODE WRAPPER -->
+  <g
+    ngClass="node {{ statusDecorator.status }}"
+    [contextMenu]="this"
+    (dblclick)="onDoubleClick()"
+    [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+    <title>
+      {{ node }}
+    </title>
+
+    <!-- NODE -->
+    <rect
+      [attr.x]="width / (-2)"
+      [attr.y]="height / (-2)"
+      rx="5"
+      ry="5"
+      [attr.width]="width"
+      [attr.height]="height">
+    </rect>
+
+    <!-- PHYSICAL ROLE IMAGE -->
+    <image
+      *ngIf="!isSubnetHidden()"
+      ngClass="{{ node.physicalRole }}"
+      [attr.xlink:href]="'./assets/images/icons/' + node.physicalRole +'.svg'"
+      [attr.x]="width / (-2) + 5"
+      [attr.y]="height / (-2) + 5"
+      [attr.width]="30"
+      [attr.height]="30">
+    </image>
+    <!-- different position for cloud type which has bigger icon -->
+    <image
+      *ngIf="isSubnetHidden()"
+      ngClass="{{ node.physicalRole }}"
+      [attr.xlink:href]="'./assets/images/icons/' + node.physicalRole +'.svg'"
+      [attr.x]="width / (-2) + 5"
+      [attr.y]="height / (-2)"
+      [attr.width]="45"
+      [attr.height]="45">
+    </image>
+
+    <!-- LOGICAL ROLE DECORATOR ICON -->
+    <image *ngIf="logicalRoleDecorator != null"
+           [attr.xlink:href]="'./assets/images/icons/' + logicalRoleDecorator.role +'.svg'"
+           [attr.x]="logicalRoleDecorator.x"
+           [attr.y]="logicalRoleDecorator.y"
+           [attr.width]="30"
+           [attr.height]="30">
+    </image>
+    <!-- TEXT LABELS - NAME, IPs etc. -->
+    <text *ngFor="let label of labels"
+      [attr.x]="label.x"
+      [attr.y]="label.y">
+      {{ label.text }}
+    </text>
+  </g>
+
+  <!-- SEMAPHORE DECORATOR -->
+  <g *ngIf="semaphoreDecorator != null"
+     [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+     [semaphore-decorator]="semaphoreDecorator">
+  </g>
+
+  <g [context]="this"></g>
+</svg>
