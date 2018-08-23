@@ -3,6 +3,9 @@
   "dest": "../../dist/graph-topology",
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "externals": {
+      "moment": "moment"
+    }
   }
 }

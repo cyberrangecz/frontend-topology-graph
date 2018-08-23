@@ -1,7 +1,9 @@
 import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
 import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';
-import * as moment from 'moment';
 import {Moment} from 'moment';
+import * as momentNs from 'moment';
+
+const moment = momentNs;
 
 /**
  * A model for relative time. Consists of value, time unit and operator.
