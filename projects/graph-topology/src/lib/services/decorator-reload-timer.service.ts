@@ -69,8 +69,8 @@ export class DecoratorReloadTimerService {
   }
 
   private setInitialValues() {
-    if (this.configService.conf.useRealTime) {
-      this._currentReloadPeriod = this.configService.conf.defaultDecoratorRefreshPeriodInSeconds;
+    if (this.configService.config.useRealTime) {
+      this._currentReloadPeriod = this.configService.config.defaultDecoratorRefreshPeriodInSeconds;
     } else {
       this._currentReloadPeriod = 0;
     }

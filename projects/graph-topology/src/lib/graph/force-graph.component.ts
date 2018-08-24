@@ -91,7 +91,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   loadTopology() {
     this.loadedTopology = false;
-    this.topologyLoaderService.getTopology(this.configService.conf.topologyRestUrl)
+    this.topologyLoaderService.getTopology(this.configService.config.topologyRestUrl)
       .subscribe(
         data => {
           this.nodes = data.nodes;
@@ -251,8 +251,8 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    * Subscribes to periodical reload of decorators
    */
   private subscribeDecoratorsPeriodicalReload() {
-    if (this.configService.conf.defaultDecoratorRefreshPeriodInSeconds > 0) {
-      this._decoratorPeriodicalReloadSubscription = interval(this.configService.conf.defaultDecoratorRefreshPeriodInSeconds * 1000)
+    if (this.configService.config.defaultDecoratorRefreshPeriodInSeconds > 0) {
+      this._decoratorPeriodicalReloadSubscription = interval(this.configService.config.defaultDecoratorRefreshPeriodInSeconds * 1000)
         .subscribe(
           () => {
             this.reloadAllDecorators();

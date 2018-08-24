@@ -1,11 +1,13 @@
 
 export class TopologyConfig {
 
-  public topologyRestUrl: string;
+  topologyRestUrl: string;
 
-  public decoratorsRestUrl: string;
+  decoratorsRestUrl: string;
 
-  public defaultDecoratorRefreshPeriodInSeconds: number;
+  defaultDecoratorRefreshPeriodInSeconds: number;
 
-  public useRealTime: boolean;
+  useRealTime: boolean;
+
+
 }

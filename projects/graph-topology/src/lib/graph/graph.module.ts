@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DecoratorFilterMenuComponent} from './force-graph-sidebar/decorator-filter-menu/decorator-filter-menu.component';
 import {AbsoluteTimeComponent} from './force-graph-sidebar/decorator-time-picker/absolute-time/absolute-time.component';
@@ -65,10 +65,20 @@ import {ConfigService} from '../services/config.service';
   ]
 })
 export class GraphModule {
+  constructor (@Optional() @SkipSelf() parentModule: GraphModule) {
+    if (parentModule) {
+      throw new Error(
+        'GraphModule is already loaded. Import it in the main module only');
+    }
+  }
+
   static forRoot(config: TopologyConfig): ModuleWithProviders {
+    console.log('try2');
     return {
       ngModule: GraphModule,
-      providers: [ConfigService, {provide: 'config', useValue: 'config'}]
+      providers: [
+        { provide: TopologyConfig, useValue: config }
+        ]
     };
   }
 }

@@ -1,12 +1,12 @@
-import {Inject, Injectable, InjectionToken} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TopologyConfig} from '../others/topology.config';
 
 @Injectable()
 export class ConfigService {
 
-  conf: TopologyConfig;
+  config: TopologyConfig;
 
-  constructor(@Inject(new InjectionToken<string>('config')) private config: TopologyConfig ) {
-    this.conf = config;
+  constructor(configurationFile: TopologyConfig ) {
+    this.config = configurationFile;
   }
 }

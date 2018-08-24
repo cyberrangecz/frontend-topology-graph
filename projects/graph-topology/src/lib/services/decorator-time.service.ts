@@ -162,7 +162,7 @@ export class DecoratorTimeService implements OnDestroy {
   }
 
   private setInitialValues() {
-    this._useRealTime = this.configService.conf.useRealTime;
+    this._useRealTime = this.configService.config.useRealTime;
     if (this._useRealTime) {
       this._from = 'now-' + this.decoratorReloadTimerService.getReloadPeriod() + 's';
       this._to = 'now';

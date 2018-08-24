@@ -142,7 +142,7 @@ export class DecoratorLoaderService {
   private retrieveHostNodeDecorators(hostNodeIds: number[],
                                      hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
-    const url = this.configService.conf.decoratorsRestUrl + '/nodes/decorators';
+    const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
@@ -194,7 +194,7 @@ export class DecoratorLoaderService {
                                        routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
 
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
-    const url = this.configService.conf.decoratorsRestUrl + '/nodes/decorators';
+    const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
@@ -232,7 +232,7 @@ export class DecoratorLoaderService {
   private retrieveLinkDecorators(linkIds: number[], linkDecoratorTypes: LinkDecoratorTypeEnum[]): Observable<LinkDecorator[]>[] {
 
     const observablesToReturn: Observable<LinkDecorator[]>[] = [];
-    const url = this.configService.conf.decoratorsRestUrl + '/links/decorators';
+    const url = this.configService.config.decoratorsRestUrl + '/links/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
