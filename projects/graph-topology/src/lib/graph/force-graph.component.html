@@ -40,7 +40,9 @@
     <!-- GRAPH -->
     <graph *ngIf="loadedTopology"
            [nodes]="nodes"
-           [links]="links">
+           [links]="links"
+           [width]="width"
+           [height]="height">
     </graph>
   </div>
 </mat-drawer-container>

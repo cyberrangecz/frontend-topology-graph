@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Link} from '../model/link/link';
 import {Node} from '../model/node/node';
 import {GraphTopologyLoaderService} from '../services/graph-topology-loader.service';
@@ -32,6 +32,9 @@ import {ConfigService} from '../services/config.service';
   styleUrls: ['./force-graph.component.css']
 })
 export class ForceGraphComponent implements OnInit, OnDestroy {
+
+  @Input('width') width: number;
+  @Input('height') height: number;
 
   nodes: Node[];
   links: Link[];

@@ -24,13 +24,11 @@ import {GraphLockService} from '../../services/graph-lock.service';
 export class GraphVisualComponent implements OnInit, OnDestroy {
   @Input('nodes') nodes: Node[];
   @Input('links') links: Link[];
+  @Input('width') width: number;
+  @Input('height') height: number;
 
   graph: ForceDirectedGraph;
-
   lockedCanvas: boolean;
-
-  private width: number =  window.innerWidth - 25;
-  private height: number =  window.innerHeight - 70;
 
   private _graphEventSubscription: Subscription;
   private _graphLockSubscription: Subscription;
@@ -55,8 +53,8 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
   get options() {
     if (this.lockedCanvas) {
       return {
-        width: window.innerWidth - 25,
-        height: window.innerHeight - 70
+        width: this.width,
+        height: this.height
       };
     } else {
       return {
@@ -253,8 +251,6 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
     this._graphLockSubscription = this.graphLockService.lockedEvent.subscribe((value) => {
       this.lockedCanvas = value;
       if (this.lockedCanvas) {
-        this.width = window.innerWidth - 25;
-        this.height = window.innerHeight - 70;
         this.graph.lock();
         this.graph.onResize(this.options);
       } else {
@@ -269,7 +265,6 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
    */
   private subscribeD3GraphResize() {
     this._d3ResizeSubscription = this.d3Service.resizeEvent.subscribe(((value) => {
-      console.log(value);
       if (this.width < value.x) {
         this.width = value.x + 500;
       }

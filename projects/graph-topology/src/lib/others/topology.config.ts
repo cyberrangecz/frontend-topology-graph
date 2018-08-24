@@ -8,6 +8,4 @@ export class TopologyConfig {
   defaultDecoratorRefreshPeriodInSeconds: number;
 
   useRealTime: boolean;
-
-
 }
