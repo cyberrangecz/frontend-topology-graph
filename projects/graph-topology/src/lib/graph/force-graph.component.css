@@ -1,4 +1,4 @@
-button.zoom-reset {
+/*button.zoom-reset {
   position:fixed;
   top:50px;
   left:0;
@@ -24,7 +24,7 @@ button.zoom-out {
   top:0;
   left:0;
   margin: 10px;
-}
+}*/
 
 .sidenav-container {
   height: 100%;
