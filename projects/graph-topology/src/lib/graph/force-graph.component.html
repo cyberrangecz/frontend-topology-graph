@@ -1,4 +1,7 @@
-<mat-drawer-container class="sidenav-container" autosize>
+<mat-drawer-container
+  [style.width.px]="width"
+  [style.height.px]="height"
+  class="sidenav-container" autosize>
   <mat-drawer #drawer class="left-sidenav" mode="side"  position="end">
     <app-force-graph-sidebar>
     </app-force-graph-sidebar>
@@ -41,9 +44,8 @@
     <graph *ngIf="loadedTopology"
            [nodes]="nodes"
            [links]="links"
-           [width]="width"
-           [height]="height">
+           [width]="width - 40"
+           [height]="height - 10">
     </graph>
-
   </div>
 </mat-drawer-container>

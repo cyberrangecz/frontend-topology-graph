@@ -26,10 +26,12 @@ import {DirectivesModule} from '../directives/directives.module';
 import {GraphLockService} from '../services/graph-lock.service';
 import {TopologyConfig} from '../others/topology.config';
 import {ConfigService} from '../services/config.service';
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     GraphMaterialModule,
     GraphVisualComponentsModule,
@@ -73,7 +75,6 @@ export class GraphModule {
   }
 
   static forRoot(config: TopologyConfig): ModuleWithProviders {
-    console.log('try2');
     return {
       ngModule: GraphModule,
       providers: [
