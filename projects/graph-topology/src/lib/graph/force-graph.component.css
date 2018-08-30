@@ -1,5 +1,8 @@
-mat-drawer-container {
-  display: flex;
+button {
+  position: absolute;
+  top:0;
+  right:0;
+  margin: 10px;
 }
 
 /*button.zoom-reset {
@@ -9,12 +12,7 @@ mat-drawer-container {
   margin: 10px;
 }
 
-button {
-  position:fixed;
-  top:0;
-  right:0;
-  margin: 10px;
-}
+
 
 button.zoom-in {
   position:absolute;

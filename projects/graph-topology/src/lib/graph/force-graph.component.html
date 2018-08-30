@@ -8,14 +8,7 @@
   </mat-drawer>
   <div class="sidenav-content">
 
-    <button
-      class="sidenav-button"
-      type="button"
-      mat-icon-button
-      (click)="drawer.toggle(); toggleSidebar()">
-      <mat-icon *ngIf="!sidebarOpen">menu</mat-icon>
-      <mat-icon *ngIf="sidebarOpen">chevron_right</mat-icon>
-    </button>
+
 
 <!--    <button
       class="zoom-in"
@@ -45,7 +38,16 @@
            [nodes]="nodes"
            [links]="links"
            [width]="width - 40"
-           [height]="height - 10">
+           [height]="height - 20">
     </graph>
+
+    <button
+      class="sidenav-button"
+      type="button"
+      mat-icon-button
+      (click)="drawer.toggle(); toggleSidebar()">
+      <mat-icon *ngIf="!sidebarOpen">menu</mat-icon>
+      <mat-icon *ngIf="sidebarOpen">chevron_right</mat-icon>
+    </button>
   </div>
 </mat-drawer-container>
