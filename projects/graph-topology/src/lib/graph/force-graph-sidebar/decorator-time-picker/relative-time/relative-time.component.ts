@@ -7,15 +7,6 @@ import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {DecoratorStateService} from '../../../../services/decorator-state.service';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class InputNumberErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-
 @Component({
   selector: 'app-relative-time',
   templateUrl: './relative-time.component.html',
@@ -27,20 +18,6 @@ export class RelativeTimeComponent implements OnInit, OnDestroy {
   readonly MAX = 100;
 
   @Input('manualDateEnabled') manualDateEnabled;
-
-  fromForm = new FormControl('', [
-    Validators.required,
-    Validators.min(this.MIN),
-    Validators.max(this.MAX)
-  ]);
-
-  toForm = new FormControl('',[
-    Validators.required,
-    Validators.min(this.MIN),
-    Validators.max(this.MAX)
-  ]);
-
-  matcher = new InputNumberErrorStateMatcher();
 
   fromOptions: RelativeTimeOption[] = [];
   toOptions: RelativeTimeOption[] = [];

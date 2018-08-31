@@ -11,18 +11,11 @@
                type="number"
                [min]="MIN"
                [max]="MAX"
-               [formControl]="fromForm"
                [disableControl]="!manualDateEnabled || !activeDecorators"
                placeholder="Insert a number"
                [(ngModel)]="fromAmount"
-               [errorStateMatcher]="matcher">
+                required>
         <mat-hint>Valid range is {{ MIN }} to {{ MAX }}</mat-hint>
-        <mat-error *ngIf="fromForm.hasError('min') || fromForm.hasError('max') && !toForm.hasError('required')">
-          Please enter a valid number in range {{ MIN }} to {{ MAX }}
-        </mat-error>
-        <mat-error *ngIf="fromForm.hasError('required')">
-          Number is required.
-        </mat-error>
       </mat-form-field>
 
     <mat-form-field>
@@ -49,21 +42,14 @@
 
       <mat-form-field class="numberInput">
         <input matInput
-               [formControl]="toForm"
                [disableControl]="!manualDateEnabled || !activeDecorators"
                type="number"
                [min]="MIN"
                [max]="MAX"
                placeholder="Insert a number"
                [(ngModel)]="toAmount"
-               [errorStateMatcher]="matcher">
+               required>
         <mat-hint>Valid range is {{ MIN }} to {{ MAX }}</mat-hint>
-        <mat-error *ngIf="toForm.hasError('min') || toForm.hasError('max') && !toForm.hasError('required')">
-          Please enter a valid number in range {{ MIN }} to {{ MAX }}
-        </mat-error>
-        <mat-error *ngIf="toForm.hasError('required')">
-          Number is required.
-        </mat-error>
       </mat-form-field>
 
     <mat-form-field>

@@ -155,7 +155,6 @@ export class DecoratorLoaderService {
         from,
         to);
 
-      console.log(requestBody);
       // send post request and parse it with appropriate method
       switch (hostNodeDecoratorType) {
         case HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator : {
@@ -205,7 +204,6 @@ export class DecoratorLoaderService {
         routerNodeIds,
         from,
         to);
-      console.log(requestBody);
 
       switch (routerNodeDecoratorType) {
         case RouterNodeDecoratorTypeEnum.LogicalRoleDecorator: {
@@ -243,8 +241,6 @@ export class DecoratorLoaderService {
         linkIds,
         from,
         to);
-
-       console.log(requestBody);
 
       switch (linkDecoratorType) {
         case LinkDecoratorTypeEnum.LinkSpeedDecorator : {
@@ -360,7 +356,6 @@ export class DecoratorLoaderService {
             decorators.forEach(dec => nodeDecorators.push(dec));
           }),
         err => {
-          console.log(err);
           this.triggerDecoratorLoadError();
           this.decoratorStateService.setActive(false);
           this.decoratorEventService
@@ -393,7 +388,6 @@ export class DecoratorLoaderService {
             decorators.forEach(dec => nodeDecorators.push(dec));
           }),
         err => {
-          console.log(err);
           this.triggerDecoratorLoadError();
           this.decoratorStateService.setActive(false);
           this.decoratorEventService
@@ -421,7 +415,6 @@ export class DecoratorLoaderService {
           .forEach(decorators => decorators
             .forEach(dec => linkDecorators.push(dec))),
         err => {
-          console.log(err);
           this.triggerDecoratorLoadError();
           this.decoratorStateService.setActive(false);
           this.decoratorEventService
