@@ -27,6 +27,8 @@ import {GraphLockService} from '../services/graph-lock.service';
 import {TopologyConfig} from '../others/topology.config';
 import {ConfigService} from '../services/config.service';
 import {HttpClientModule} from '@angular/common/http';
+import {RemoteConnectionService} from '../services/remote-connection.service';
+import {SpiceClientLibModule} from 'spice-client-lib';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     GraphMaterialModule,
     GraphVisualComponentsModule,
-    DirectivesModule
+    DirectivesModule,
+    SpiceClientLibModule
   ],
   declarations: [
     ForceGraphSidebarComponent,
@@ -49,6 +52,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   providers: [
     ConfigService,
+    RemoteConnectionService,
     D3Service,
     D3ZoomEventService,
     ContextMenuService,

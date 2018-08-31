@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
+import {RemoteConnectionService} from './remote-connection.service';
 
 /**
  * Service used for handling mouse events after right click.
@@ -11,7 +12,7 @@ export class ContextMenuService {
 
   private _items;
 
-  constructor() {
+  constructor(private remoteConnectionService: RemoteConnectionService) {
     this._items = [
       {
         id: 1,
@@ -60,8 +61,7 @@ export class ContextMenuService {
   handleMenuItem(type: ContextMenuItemsEnum, nodeId: number) {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
-
-        // call remote connection service
+        this.remoteConnectionService.establishConnection(nodeId);
         break;
       }
       case ContextMenuItemsEnum.Start: {
