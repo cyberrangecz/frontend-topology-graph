@@ -3,8 +3,7 @@ import {RelativeTimeOption} from './relative-time-option';
 import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
 import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';
 import {DecoratorTimeService} from '../../../../services/decorator-time.service';
-import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { MatSnackBar} from '@angular/material';
 import {DecoratorStateService} from '../../../../services/decorator-state.service';
 
 @Component({
