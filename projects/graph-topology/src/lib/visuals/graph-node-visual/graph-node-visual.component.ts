@@ -1,7 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Node } from '../../model/node/node';
 import { RouterNode } from '../../model/node/router-node';
-import { Subject } from 'rxjs';
 import {NodeSemaphoreDecorator} from '../../model/decorators/node-semaphore-decorator';
 import {NodeStatusDecorator} from '../../model/decorators/node-status-decorator';
 import {DecoratorEventService} from '../../services/decorator-event.service';
@@ -15,7 +14,6 @@ import {DecoratorEventMessageEnum} from '../../model/enums/decorator-event-messa
 import {HostNode} from '../../model/node/host-node';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {GraphEventService} from '../../services/graph-event.service';
-import {ContextMenuItemsEnum} from '../../model/enums/node-context-menu-items-enum';
 import {DecoratorReloadTimerService} from '../../services/decorator-reload-timer.service';
 
 /**
@@ -24,8 +22,7 @@ import {DecoratorReloadTimerService} from '../../services/decorator-reload-timer
 @Component({
   selector: '[nodeVisual]',
   templateUrl: './graph-node-visual.component.html',
-  styleUrls: ['./graph-node-visual.component.css'],
-
+  styleUrls: ['./graph-node-visual.component.css']
 })
 export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
@@ -34,8 +31,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   @Input('nodeVisual') node: Node;
 
-  showContextMenu: boolean;
-  contextMenuItems = [];
+  isHost: boolean;
   width: number;
   height: number;
   labels = [];
@@ -51,8 +47,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
               private decoratorReloadTimerService: DecoratorReloadTimerService) {
     // unknown status decorator is created because node class is resolved from it
     this.statusDecorator = new NodeStatusDecorator(0, StatusEnum.Unknown);
-
-    this.contextMenuItems = this.initContextMenuItems();
     this.subscribeToDecoratorEvents();
 
   }
@@ -65,6 +59,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     this.width = this.calculateNodeWidth();
     this.height = this.calculateNodeHeight();
     this.initLabels();
+    this.isHost = this.node instanceof HostNode;
   }
 
   /**
@@ -115,44 +110,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
           }
         }
       );
-  }
-
-  /**
-   * Initializes context menu
-   */
-  private initContextMenuItems() {
-    return [
-      {
-        id: 1,
-        type: ContextMenuItemsEnum.RemoteConnection,
-        title: ContextMenuItemsEnum.RemoteConnection,
-        subject: new Subject()
-      }
-/*      {
-        id: 2,
-        type: ContextMenuItemsEnum.Start,
-        title: ContextMenuItemsEnum.Start,
-        subject: new Subject()
-      },
-      {
-        id: 3,
-        type: ContextMenuItemsEnum.Restart,
-        title: ContextMenuItemsEnum.Restart,
-        subject: new Subject()
-      },
-      {
-        id: 4,
-        type: ContextMenuItemsEnum.CreateRunningSnapshot,
-        title: ContextMenuItemsEnum.CreateRunningSnapshot,
-        subject: new Subject()
-      },
-      {
-        id: 5,
-        type: ContextMenuItemsEnum.RevertRunningSnapshot,
-        title: ContextMenuItemsEnum.RevertRunningSnapshot,
-        subject: new Subject()
-      },*/
-    ];
   }
 
   /**

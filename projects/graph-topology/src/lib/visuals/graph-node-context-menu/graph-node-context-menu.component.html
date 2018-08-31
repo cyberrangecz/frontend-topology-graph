@@ -1,11 +1,11 @@
 <svg xmlns:attr.xlink="">
   <g
-    *ngIf="node.showContextMenu"
+    *ngIf="isDisplayed"
     class="items">
     <g
-      *ngFor="let item of node.contextMenuItems"
+      *ngFor="let item of items"
       class="item"
-      (click)="item.subject.next(item.type)">
+      (click)="onItemClick(item)">
       <rect class="item"
         [attr.x]="location.left + 20"
         [attr.y]="location.top + (item.id * 20)">

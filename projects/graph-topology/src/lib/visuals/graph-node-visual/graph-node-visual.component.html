@@ -2,7 +2,7 @@
   <!-- NODE WRAPPER -->
   <g
     ngClass="node {{ statusDecorator.status }}"
-    [contextMenu]="this"
+    [contextMenu]="node"
     (dblclick)="onDoubleClick()"
     [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
     <title>
@@ -62,5 +62,5 @@
      [semaphore-decorator]="semaphoreDecorator">
   </g>
 
-  <g [context]="this"></g>
+  <g *ngIf="isHost" [context]="node.id"></g>
 </svg>

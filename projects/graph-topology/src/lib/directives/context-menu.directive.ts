@@ -1,8 +1,7 @@
 import { Directive, Input } from '@angular/core';
-import { D3Service } from '../services/d3.service';
 import { ContextMenuService } from '../services/context-menu.service';
-import { GraphNodeVisualComponent } from '../visuals/graph-node-visual/graph-node-visual.component';
-import { HostNode } from '../model/node/host-node';
+import { Node } from '../model/node/node';
+
 
 /**
  * Directive for marking objects with context menu
@@ -10,14 +9,13 @@ import { HostNode } from '../model/node/host-node';
 @Directive({
   selector: '[contextMenu]',
   host:{'(contextmenu)': 'rightClicked($event)'}
-
 })
 
 export class ContextMenuDirective {
 
-  @Input('contextMenu') visualNode: GraphNodeVisualComponent;
+  @Input('contextMenu') node: Node;
+  constructor(private contextMenuService: ContextMenuService) {
 
-  constructor(private contextMenuService: ContextMenuService, private d3Service: D3Service) {
   }
 
   /**
@@ -26,10 +24,13 @@ export class ContextMenuDirective {
    * @param {MouseEvent} event
    */
   rightClicked(event: MouseEvent) {
-    if (this.visualNode.node instanceof HostNode) {
-      this.visualNode.showContextMenu = !this.visualNode.showContextMenu;
-      this.contextMenuService.show.next({ position: { x: this.visualNode.node.x, y: this.visualNode.node.y}, obj: this.visualNode.contextMenuItems});
-    }
+    this.contextMenuService.show.next({
+      position: {
+        x: this.node.x,
+        y: this.node.y
+      },
+      nodeId: this.node.id,
+    });
     event.preventDefault();
   }
 }
