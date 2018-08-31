@@ -9,6 +9,7 @@ To use the library you need to have installed:
 * npm
 * Angular Material v6 or higher
 * D3.js v5 or higher
+* [KYPO2 Spice Client](https://gitlab.ics.muni.cz/kypo2/services-and-portlets/kypo2-spice-client) installed in package.json
 
 ## Usage
 
