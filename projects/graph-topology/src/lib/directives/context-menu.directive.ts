@@ -28,7 +28,7 @@ export class ContextMenuDirective {
   rightClicked(event: MouseEvent) {
     if (this.visualNode.node instanceof HostNode) {
       this.visualNode.showContextMenu = !this.visualNode.showContextMenu;
-      this.contextMenuService.show.next({event: event, obj: this.visualNode.contextMenuItems});
+      this.contextMenuService.show.next({ position: { x: this.visualNode.node.x, y: this.visualNode.node.y}, obj: this.visualNode.contextMenuItems});
     }
     event.preventDefault();
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { GraphNodeVisualComponent } from '../graph-node-visual/graph-node-visual.component';
 import { ContextMenuService } from '../../services/context-menu.service';
 import {ContextMenuItemsEnum} from '../../model/enums/node-context-menu-items-enum';
@@ -21,7 +21,7 @@ export class NodeContextMenuComponent implements OnInit {
   private mouseLocation: { left: number, top: number} = {left: 0, top: 0};
 
   constructor(private contextMenuService: ContextMenuService) {
-    contextMenuService.show.subscribe(e => this.showMenu(e.event, e.obj));
+    contextMenuService.show.subscribe(e => this.showMenu(e.position, e.obj));
   }
 
   ngOnInit() {
@@ -37,6 +37,7 @@ export class NodeContextMenuComponent implements OnInit {
   contextMenuCallback(type) {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
+        console.log('start' + this.node.node.id);
         // call remote connection service
         break;
       }
@@ -66,7 +67,7 @@ export class NodeContextMenuComponent implements OnInit {
    * Location parameters of mouse right click
    * @returns {{left: number; top: number}} object describing click location
    */
-  get location(){
+  get location() {
     return {
       left: this.mouseLocation.left,
       top: this.mouseLocation.top
@@ -78,11 +79,11 @@ export class NodeContextMenuComponent implements OnInit {
    * @param event sent by context menu service
    * @param items to be shown in menu
    */
-  showMenu(event, items) {
+  showMenu(position, items) {
     this.node.contextMenuItems = items;
     this.mouseLocation = {
-      left: event.clientX,
-      top: event.clientY
+      left: position.x,
+      top: position.y
     };
   }
 

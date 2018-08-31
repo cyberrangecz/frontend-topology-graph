@@ -127,8 +127,8 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
         type: ContextMenuItemsEnum.RemoteConnection,
         title: ContextMenuItemsEnum.RemoteConnection,
         subject: new Subject()
-      },
-      {
+      }
+/*      {
         id: 2,
         type: ContextMenuItemsEnum.Start,
         title: ContextMenuItemsEnum.Start,
@@ -151,7 +151,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
         type: ContextMenuItemsEnum.RevertRunningSnapshot,
         title: ContextMenuItemsEnum.RevertRunningSnapshot,
         subject: new Subject()
-      },
+      },*/
     ];
   }
 

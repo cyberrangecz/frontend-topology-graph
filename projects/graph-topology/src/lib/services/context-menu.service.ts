@@ -8,5 +8,5 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class ContextMenuService {
 
-  public show: Subject<{event: MouseEvent, obj: any[]}> = new Subject();
+  public show: Subject<{ position: { x: number, y: number }, obj: any[] }> = new Subject();
 }
