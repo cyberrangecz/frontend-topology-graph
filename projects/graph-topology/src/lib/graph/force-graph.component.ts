@@ -67,14 +67,17 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.loadTopology();
-    if (this.decoratorReloadTimerService.getReloadPeriod() > 0) {
+    if (this.configService.config.useDecorators && this.decoratorReloadTimerService.getReloadPeriod() > 0) {
       setTimeout(() => this.loadAllDecorators(), 100);
     }
 
-    this.subscribeDecoratorsPeriodicalReload();
-    this.subscribeDecoratorTimer();
-    this.subscribeDecoratorReloadEvent();
-    this.subscribeDecoratorError();
+    if (this.configService.config.useDecorators) {
+      this.subscribeDecoratorsPeriodicalReload();
+      this.subscribeDecoratorTimer();
+      this.subscribeDecoratorReloadEvent();
+      this.subscribeDecoratorError();
+    }
+
     this.subscribeZoomChangeEvent();
   }
 
@@ -84,7 +87,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   reloadTopology() {
     this.loadTopology();
-    if (this.decoratorReloadTimerService.getReloadPeriod() > 0) {
+    if (this.configService.config.useDecorators && this.decoratorReloadTimerService.getReloadPeriod() > 0) {
       setTimeout(() => this.loadAllDecorators(), 100);
     }
   }

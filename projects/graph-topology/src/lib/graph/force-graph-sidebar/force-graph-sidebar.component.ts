@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ConfigService} from '../../services/config.service';
 /**
  * Component of navigational bar
  */
@@ -9,10 +10,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ForceGraphSidebarComponent implements OnInit {
 
+  displayDecorators: boolean;
 
-  constructor() { }
+  constructor(private configService: ConfigService) { }
 
   ngOnInit() {
+    this.displayDecorators = this.configService.config.useDecorators;
   }
 
 }
