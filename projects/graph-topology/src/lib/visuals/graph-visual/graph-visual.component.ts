@@ -30,6 +30,9 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
   graph: ForceDirectedGraph;
   lockedCanvas: boolean;
 
+  defaultWidth: number;
+  defaultHeight: number;
+
   private _graphEventSubscription: Subscription;
   private _graphLockSubscription: Subscription;
   private _d3ResizeSubscription: Subscription;
@@ -53,8 +56,8 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
   get options() {
     if (this.lockedCanvas) {
       return {
-        width: this.width,
-        height: this.height
+        width: this.defaultWidth,
+        height: this.defaultHeight
       };
     } else {
       return {
@@ -69,6 +72,9 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
    * Creates graph visualization and subscribes for its ticks
    */
   ngOnInit() {
+    this.defaultWidth = this.width;
+    this.defaultHeight = this.height;
+
     this.graph = this.d3Service.createForceDirectedGraph(this.nodes, this.links, this.options);
     this.lockedCanvas = this.graphLockService.getLocked();
 
@@ -252,6 +258,9 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
       this.lockedCanvas = value;
       if (this.lockedCanvas) {
         this.graph.lock();
+        this.width = this.defaultWidth;
+        this.height = this.defaultHeight;
+
         this.graph.onResize(this.options);
       } else {
         this.graph.unlock();
