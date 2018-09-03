@@ -5,6 +5,8 @@ export class TopologyConfig {
 
   decoratorsRestUrl: string;
 
+  sandboxRestUrl: string;
+
   defaultDecoratorRefreshPeriodInSeconds: number;
 
   useRealTime: boolean;

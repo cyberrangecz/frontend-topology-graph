@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
+import {Node} from '../../model/node/node';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -14,7 +15,7 @@ import { ContextMenuService } from '../../services/context-menu.service';
 })
 export class NodeContextMenuComponent implements OnInit {
 
-  @Input('context') nodeId: number;
+  @Input('context') node: Node;
 
   isDisplayed: boolean = false;
   items;
@@ -34,7 +35,7 @@ export class NodeContextMenuComponent implements OnInit {
    * @param type of menu item user clicked on
    */
   onItemClick(item) {
-    this.contextMenuService.handleMenuItem(item.type, this.nodeId);
+    this.contextMenuService.handleMenuItem(item.type, this.node);
   }
 
   /**
@@ -54,7 +55,7 @@ export class NodeContextMenuComponent implements OnInit {
    * @param items to be shown in menu
    */
   showMenu(position, nodeId) {
-    if (this.nodeId === nodeId) {
+    if (this.node.id === nodeId) {
       this.menuLocation = {
         left: position.x,
         top: position.y
