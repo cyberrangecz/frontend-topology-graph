@@ -1,4 +1,4 @@
-import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DecoratorFilterMenuComponent} from './force-graph-sidebar/decorator-filter-menu/decorator-filter-menu.component';
 import {AbsoluteTimeComponent} from './force-graph-sidebar/decorator-time-picker/absolute-time/absolute-time.component';
@@ -27,7 +27,6 @@ import {GraphLockService} from '../services/graph-lock.service';
 import {TopologyConfig} from '../others/topology.config';
 import {ConfigService} from '../services/config.service';
 import {HttpClientModule} from '@angular/common/http';
-import {SandboxService} from '../services/sandbox.service';
 import {SpiceClientLibModule} from 'spice-client-lib';
 import {HostService} from '../services/host.service';
 @NgModule({
@@ -53,7 +52,6 @@ import {HostService} from '../services/host.service';
   ],
   providers: [
     ConfigService,
-    SandboxService,
     HostService,
     D3Service,
     D3ZoomEventService,

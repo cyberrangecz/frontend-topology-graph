@@ -12,4 +12,6 @@ export class TopologyConfig {
   useRealTime: boolean;
 
   useDecorators: boolean;
+
+  sandboxName: string;
 }

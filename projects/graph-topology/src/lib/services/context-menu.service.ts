@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {SandboxService} from './sandbox.service';
 import {Node} from '../model/node/node';
 import {HostService} from './host.service';
 
@@ -14,8 +13,7 @@ export class ContextMenuService {
 
   private readonly _items;
 
-  constructor(private sandboxService: SandboxService,
-              private hostService: HostService) {
+  constructor(private hostService: HostService) {
     this._items = [
       {
         id: 1,
@@ -66,23 +64,23 @@ export class ContextMenuService {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
         // TODO: ip address of the sandbox?
-        this.sandboxService.establishRemoteConnection(node.name, node.nodeInterfaces[0].address4);
+        this.hostService.establishRemoteConnection(node.name);
         break;
       }
       case ContextMenuItemsEnum.Start: {
-        this.hostService.start('scenario', node.name);
+        this.hostService.start(node.name);
         break;
       }
       case ContextMenuItemsEnum.Restart: {
-        this.hostService.restart('scenario', node.name);
+        this.hostService.restart(node.name);
         break;
       }
       case ContextMenuItemsEnum.CreateRunningSnapshot: {
-        this.sandboxService.createRunningSnapshot('scenario');
+        this.hostService.createRunningSnapshot(node.name);
         break;
       }
       case ContextMenuItemsEnum.RevertRunningSnapshot: {
-        this.sandboxService.revertRunningSnapshot('scenario');
+        this.hostService.revertRunningSnapshot(node.name);
         break;
       }
       default: {
