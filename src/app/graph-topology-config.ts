@@ -5,7 +5,7 @@ export class CustomTopologyConfig extends TopologyConfig {
   decoratorsRestUrl = '';
   defaultDecoratorRefreshPeriodInSeconds = 3;
   topologyRestUrl = '/assets/sample-data/graph-test-data.json';
-  sandboxRestUrl = 'http://kypo2.ics.muni.cz:5000/scenario/sandbox';
+  scenarioRestUrl = 'http://kypo2.ics.muni.cz:5000/scenario/';
   useRealTime = false;
   useDecorators = false;
 }

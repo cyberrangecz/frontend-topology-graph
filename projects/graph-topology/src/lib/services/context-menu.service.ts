@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {RemoteConnectionService} from './remote-connection.service';
+import {SandboxService} from './sandbox.service';
 import {Node} from '../model/node/node';
+import {HostService} from './host.service';
 
 /**
  * Service used for handling mouse events after right click.
@@ -11,40 +12,37 @@ import {Node} from '../model/node/node';
 @Injectable()
 export class ContextMenuService {
 
-  private _items;
+  private readonly _items;
 
-  constructor(private remoteConnectionService: RemoteConnectionService) {
+  constructor(private sandboxService: SandboxService,
+              private hostService: HostService) {
     this._items = [
       {
         id: 1,
         type: ContextMenuItemsEnum.RemoteConnection,
         title: ContextMenuItemsEnum.RemoteConnection,
-      }
-      /*      {
-              id: 2,
-              type: ContextMenuItemsEnum.Start,
-              title: ContextMenuItemsEnum.Start,
-              subject: new Subject()
-            },
-            {
-              id: 3,
-              type: ContextMenuItemsEnum.Restart,
-              title: ContextMenuItemsEnum.Restart,
-              subject: new Subject()
-            },
-            {
-              id: 4,
-              type: ContextMenuItemsEnum.CreateRunningSnapshot,
-              title: ContextMenuItemsEnum.CreateRunningSnapshot,
-              subject: new Subject()
-            },
-            {
-              id: 5,
-              type: ContextMenuItemsEnum.RevertRunningSnapshot,
-              title: ContextMenuItemsEnum.RevertRunningSnapshot,
-              subject: new Subject()
-            },*/
-    ];
+      },
+      {
+        id: 2,
+        type: ContextMenuItemsEnum.Start,
+        title: ContextMenuItemsEnum.Start,
+      },
+      {
+        id: 3,
+        type: ContextMenuItemsEnum.Restart,
+        title: ContextMenuItemsEnum.Restart,
+      },
+      {
+        id: 4,
+        type: ContextMenuItemsEnum.CreateRunningSnapshot,
+        title: ContextMenuItemsEnum.CreateRunningSnapshot,
+      },
+      {
+        id: 5,
+        type: ContextMenuItemsEnum.RevertRunningSnapshot,
+        title: ContextMenuItemsEnum.RevertRunningSnapshot,
+      },
+];
   }
 
   show: Subject<{
@@ -59,31 +57,36 @@ export class ContextMenuService {
     return this._items;
   }
 
+  /**
+   * Handles chosen context menu item by taking appropriate actions
+   * @param type type of the context menu item
+   * @param node node associated with the context menu
+   */
   handleMenuItem(type: ContextMenuItemsEnum, node: Node) {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
         // TODO: ip address of the sandbox?
-        this.remoteConnectionService.establishConnection(node.name, node.nodeInterfaces[0].address4);
+        this.sandboxService.establishRemoteConnection(node.name, node.nodeInterfaces[0].address4);
         break;
       }
       case ContextMenuItemsEnum.Start: {
-        // call start service
+        this.hostService.start('scenario', node.name);
         break;
       }
       case ContextMenuItemsEnum.Restart: {
-        // call restart service
+        this.hostService.restart('scenario', node.name);
         break;
       }
       case ContextMenuItemsEnum.CreateRunningSnapshot: {
-        // call create running snapshot service
+        this.sandboxService.createRunningSnapshot('scenario');
         break;
       }
       case ContextMenuItemsEnum.RevertRunningSnapshot: {
-        // call revert running snapshot service
+        this.sandboxService.revertRunningSnapshot('scenario');
         break;
       }
       default: {
-        // error
+        console.error('No such choice int the graph context menu');
       }
     }
   }

@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 
 @Injectable()
-export class RemoteConnectionService {
+export class SandboxService {
 
   constructor(
     private configService: ConfigService,
@@ -19,7 +19,7 @@ export class RemoteConnectionService {
    * @param nodeName name of the node
    * @param ipAddress ip address of a node with which should the connection be established
    */
-  establishConnection(nodeName: string, ipAddress: string) {
+  establishRemoteConnection(nodeName: string, ipAddress: string) {
     this.getSandboxNameByIp(ipAddress)
       .subscribe((response => {
         this.spice.openClient({
@@ -29,7 +29,16 @@ export class RemoteConnectionService {
       }));
   }
 
-  private getSandboxNameByIp(ipAddress: string): Observable<any> {
-   return this.http.get(this.configService.config.sandboxRestUrl + '/name/ + ' + ipAddress);
+  getSandboxNameByIp(ipAddress: string): Observable<any> {
+   return this.http.get(this.configService.config.scenarioRestUrl + 'sandbox/name/ + ' + ipAddress);
   }
+
+  createRunningSnapshot(scenarioName: string): Observable<any> {
+    return this.http.get(this.configService.config.scenarioRestUrl + 'sandbox/createRunningSnapshotName/' + scenarioName)
+  }
+
+  revertRunningSnapshot(scenarioName: string): Observable<any> {
+    return this.http.get(this.configService.config.scenarioRestUrl + 'sandbox/revertRunningSnapshot/' + scenarioName)
+  }
+
 }

@@ -27,8 +27,9 @@ import {GraphLockService} from '../services/graph-lock.service';
 import {TopologyConfig} from '../others/topology.config';
 import {ConfigService} from '../services/config.service';
 import {HttpClientModule} from '@angular/common/http';
-import {RemoteConnectionService} from '../services/remote-connection.service';
+import {SandboxService} from '../services/sandbox.service';
 import {SpiceClientLibModule} from 'spice-client-lib';
+import {HostService} from '../services/host.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +53,8 @@ import {SpiceClientLibModule} from 'spice-client-lib';
   ],
   providers: [
     ConfigService,
-    RemoteConnectionService,
+    SandboxService,
+    HostService,
     D3Service,
     D3ZoomEventService,
     ContextMenuService,

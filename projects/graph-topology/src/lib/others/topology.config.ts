@@ -5,7 +5,7 @@ export class TopologyConfig {
 
   decoratorsRestUrl: string;
 
-  sandboxRestUrl: string;
+  scenarioRestUrl: string;
 
   defaultDecoratorRefreshPeriodInSeconds: number;
 
