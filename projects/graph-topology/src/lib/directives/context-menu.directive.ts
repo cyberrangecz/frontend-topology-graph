@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { ContextMenuService } from '../services/context-menu.service';
-import { Node } from '../model/node/node';
+import { Node } from 'graph-topology-model-lib';
 
 
 /**

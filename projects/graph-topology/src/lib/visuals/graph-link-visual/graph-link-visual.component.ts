@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Link } from '../../model/link/link';
+import { Link } from 'graph-topology-model-lib';
 import { LinkSpeedDecorator } from '../../model/decorators/link-speed-decorator';
 import {DecoratorEventService} from '../../services/decorator-event.service';
 import {LinkMailDecorator} from '../../model/decorators/link-mail-decorator';

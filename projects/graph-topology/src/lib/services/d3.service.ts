@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
-import { Link } from '../model/link/link';
-import { Node} from '../model/node/node';
+import { Link } from 'graph-topology-model-lib';
+import { Node} from 'graph-topology-model-lib';
 import * as d3 from 'd3';
-import {NodePhysicalRoleEnum} from '../model/enums/node-physical-role-enum';
-import {RouterNode} from '../model/node/router-node';
+import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
+import {RouterNode} from 'graph-topology-model-lib';
 import {D3ZoomEventService} from './d3-zoom-event.service';
 import {GraphLockService} from './graph-lock.service';
 import {Subject, Observable} from 'rxjs';

@@ -1,10 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Link} from '../model/link/link';
-import {Node} from '../model/node/node';
+import {Link} from 'graph-topology-model-lib';
+import {Node} from 'graph-topology-model-lib';
 import {GraphTopologyLoaderService} from '../services/graph-topology-loader.service';
 import {DecoratorLoaderService} from '../services/decorator-loader.service';
-import {HostNode} from '../model/node/host-node';
-import {RouterNode} from '../model/node/router-node';
+import {HostNode} from 'graph-topology-model-lib';
+import {RouterNode} from 'graph-topology-model-lib';
 
 import {DecoratorEventService} from '../services/decorator-event.service';
 import {DecoratorReloadRequestEvent} from '../model/events/decorator-reload-request-event';

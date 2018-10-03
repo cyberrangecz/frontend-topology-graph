@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
-import {Node} from '../../model/node/node';
+import {Node} from 'graph-topology-model-lib';
 
 /**
  * Visual component for displaying context meu of node after right click

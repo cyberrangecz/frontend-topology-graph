@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {DecoratorReloadTimerService} from '../../../services/decorator-reload-timer.service';
 import {DecoratorEventService} from '../../../services/decorator-event.service';
 import {DecoratorCategoryEnum} from '../../../model/enums/decorator-category-enum';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {Node} from '../model/node/node';
+import {Node} from 'graph-topology-model-lib';
 import {HostService} from './host.service';
 
 /**

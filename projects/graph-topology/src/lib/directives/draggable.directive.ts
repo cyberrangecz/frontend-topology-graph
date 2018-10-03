@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { Node} from '../model/node/node';
+import { Node} from 'graph-topology-model-lib';
 import { ForceDirectedGraph} from '../model/graph/force-directed-graph';
 import { D3Service } from '../services/d3.service';
 
