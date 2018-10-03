@@ -3,12 +3,12 @@ import {GraphTopologyLoaderService} from '../graph-topology-loader.service';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 import {HttpClient} from '@angular/common/http';
 import {asyncData} from '../../testing/async-observable-helpers';
-import {RouterNode} from '../../model/node/router-node';
-import {NodePhysicalRoleEnum} from '../../model/enums/node-physical-role-enum';
-import {HostNode} from '../../model/node/host-node';
-import {NodeInterface} from '../../model/node-interface/node-interface';
-import {Link} from '../../model/link/link';
-import {LinkTypeEnum} from '../../model/enums/link-type-enum';
+import {RouterNode} from 'graph-topology-model-lib';
+import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
+import {HostNode} from 'graph-topology-model-lib';
+import {NodeInterface} from 'graph-topology-model-lib';
+import {Link} from 'graph-topology-model-lib';
+import {LinkTypeEnum} from 'graph-topology-model-lib';
 import {emptyTopology, multipleInterfaces, simpleTopology} from '../../testing/topology-test-jsons';
 
 

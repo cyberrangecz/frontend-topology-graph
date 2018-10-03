@@ -1,7 +1,9 @@
 import Dictionary from 'typescript-collections/dist/lib/Dictionary';
-import {Node} from '../../node/node';
+
+import {Node} from 'graph-topology-model-lib';
+
 import {Point} from '../../others/point';
-import {RouterNode} from '../../node/router-node';
+import {RouterNode} from 'graph-topology-model-lib';
 
 /**
  * Creates hierarchical layout. Creates dictionary of node ids and its calculated x,y positions

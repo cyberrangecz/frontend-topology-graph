@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import { Link } from '../../model/link/link';
-import { Node } from '../../model/node/node';
+import { Link } from 'graph-topology-model-lib';
+import { Node } from 'graph-topology-model-lib';
 import {GraphEventService} from '../../services/graph-event.service';
 import {GraphEventTypeEnum} from '../../model/enums/graph-event-type-enum';
 import {Subscription} from 'rxjs';
 import {GraphEvent} from '../../model/events/graph-event';
-import {RouterNode} from '../../model/node/router-node';
-import {NodePhysicalRoleEnum} from '../../model/enums/node-physical-role-enum';
+import {RouterNode} from 'graph-topology-model-lib';
+import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
 import {DecoratorEventService} from '../../services/decorator-event.service';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {GraphLockService} from '../../services/graph-lock.service';

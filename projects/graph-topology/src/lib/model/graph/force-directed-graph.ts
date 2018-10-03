@@ -1,11 +1,7 @@
 import {EventEmitter} from '@angular/core';
 import * as d3 from 'd3';
-import { Link } from '../link/link';
-import { Node } from '../node/node';
-import { RouterNode } from '../node/router-node';
-import { NodePhysicalRoleEnum } from '../enums/node-physical-role-enum';
-import { LinkTypeEnum } from '../enums/link-type-enum';
 import {HierarchicalLayoutCreator} from './layout-creators/hierarchical-layout-creator';
+import {Link, LinkTypeEnum, Node, RouterNode, NodePhysicalRoleEnum} from 'graph-topology-model-lib';
 /**
  * Model of force directed graph-visual. Used for displaying graph-visual visualization and user interaction with it.
  * Uses D3 and needs to get nodes, links and options (window size) on creation.

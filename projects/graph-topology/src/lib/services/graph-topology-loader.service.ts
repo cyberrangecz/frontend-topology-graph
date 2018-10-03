@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Link } from '../model/link/link';
+import { Link } from 'graph-topology-model-lib';
 import { HttpClient } from '@angular/common/http';
-import {Node} from '../model/node/node';
-import {HostNode} from '../model/node/host-node';
-import {RouterNode} from '../model/node/router-node';
-import {LinkTypeEnum} from '../model/enums/link-type-enum';
+import {Node} from 'graph-topology-model-lib';
+import {HostNode} from 'graph-topology-model-lib';
+import {RouterNode} from 'graph-topology-model-lib';
+import {LinkTypeEnum} from 'graph-topology-model-lib';
 import {Observable} from 'rxjs';
-import {NodeInterface} from '../model/node-interface/node-interface';
-import {NodePhysicalRoleEnum} from '../model/enums/node-physical-role-enum';
+import {NodeInterface} from 'graph-topology-model-lib';
+import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
 import {map} from 'rxjs/operators';
 
 /**

@@ -13,7 +13,7 @@ import {HttpClient} from '@angular/common/http';
 import {HostNodeDecoratorTypeEnum} from '../../model/enums/host-node-decorator-type-enum';
 import {LinkDecoratorTypeEnum} from '../../model/enums/link-decorator-type-enum';
 import {asyncData, testAsync} from '../../testing/async-observable-helpers';
-import {RouterNode} from '../../model/node/router-node';
+import {RouterNode} from 'graph-topology-model-lib';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {LinkDecorator} from '../../model/decorators/link-decorator';
 import {LinkSpeedDecorator} from '../../model/decorators/link-speed-decorator';

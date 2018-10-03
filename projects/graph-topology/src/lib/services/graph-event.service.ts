@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {GraphEventTypeEnum} from '../model/enums/graph-event-type-enum';
 import {GraphEvent} from '../model/events/graph-event';
-import {RouterNode} from '../model/node/router-node';
-import {Node} from '../model/node/node';
+import {RouterNode} from 'graph-topology-model-lib';
+import {Node} from 'graph-topology-model-lib';
 
 
 /**
