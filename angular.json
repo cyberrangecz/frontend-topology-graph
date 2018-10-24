@@ -71,7 +71,7 @@
       }
     },
     "graph-topology-lib": {
-      "root": "",
+      "root": "./",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
