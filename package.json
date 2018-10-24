@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pack": "cd dist/graph-topology && npm pack",
-    "generate-package": "npm install && npm run build-library  cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack"
+    "generate-package": "npm install && npm run build-library && cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack"
   },
   "private": true,
   "dependencies": {
