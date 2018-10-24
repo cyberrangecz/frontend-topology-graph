@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
 import { Link } from 'graph-topology-model-lib';
@@ -21,7 +21,7 @@ import {GraphLockService} from '../../services/graph-lock.service';
   templateUrl: './graph-visual.component.html',
   styleUrls: ['./graph-visual.component.css'],
 })
-export class GraphVisualComponent implements OnInit, OnDestroy {
+export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input('nodes') nodes: Node[];
   @Input('links') links: Link[];
   @Input('width') width: number;
@@ -44,9 +44,12 @@ export class GraphVisualComponent implements OnInit, OnDestroy {
               private ref: ChangeDetectorRef) {
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.graph.onResize(this.options);
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('width' in changes || 'height' in changes) {
+      this.defaultWidth = this.width;
+      this.defaultHeight = this.height;
+      this.graph.onResize(this.options);
+    }
   }
 
   /**
