@@ -8,6 +8,7 @@ import {RouterNode} from 'graph-topology-model-lib';
 import {D3ZoomEventService} from './d3-zoom-event.service';
 import {GraphLockService} from './graph-lock.service';
 import {Subject, Observable} from 'rxjs';
+import {DraggedNodeService} from './dragged-node.service';
 
 /**
  * Service used for interaction between D3 library events and visual components through directives.
@@ -25,6 +26,7 @@ export class D3Service {
   resizeEvent: Observable<{x: number, y: number}> = this._resizeEventSubject.asObservable();
 
   constructor(private d3ZoomEventService: D3ZoomEventService,
+              private draggedNodeService: DraggedNodeService,
               private graphLockService: GraphLockService) {
 
   }
@@ -107,12 +109,12 @@ export class D3Service {
     const d3element = d3.select(element);
     const lockService = this.graphLockService;
     const resizeEventSubject = this._resizeEventSubject;
-
+    const dragService = this.draggedNodeService;
     // drag started by user
     function started() {
+      dragService.emitNodeTouchedEvent(node);
       // since d3 v4.13.0 default propagation to parent needs to be stopped
       d3.event.sourceEvent.stopPropagation();
-
       if (!d3.event.active) {
         graph.simulation.alphaTarget(0.3).restart();
       }
@@ -141,6 +143,10 @@ export class D3Service {
 
       // node is dragged, its position is recalculated here
       function dragged() {
+        if (dragService.lastDraggedNodeId !== node.id) {
+          dragService.emitNodeDragStartedEvent(node);
+        }
+
         if (lockService.getLocked()) {
           // prevents dragging outside the window
           node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x));
@@ -194,6 +200,10 @@ export class D3Service {
 
       // dragging is stopped by user
       function ended() {
+        if (dragService.lastDraggedNodeId === node.id) {
+          dragService.emitNodeDragEndedEvent();
+        }
+
         if (!d3.event.active) {
           graph.simulation.alphaTarget(0).restart();
         }

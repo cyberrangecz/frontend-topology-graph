@@ -19,6 +19,7 @@ import {D3ZoomEventService} from '../services/d3-zoom-event.service';
 import {MatSnackBar} from '@angular/material';
 import {interval} from 'rxjs/internal/observable/interval';
 import {ConfigService} from '../services/config.service';
+import {DraggedNodeService} from '../services/dragged-node.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -58,7 +59,8 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private d3ZoomEventService: D3ZoomEventService,
-    private d3Service: D3Service) {
+    private d3Service: D3Service,
+    private draggedNode: DraggedNodeService) {
   }
 
 

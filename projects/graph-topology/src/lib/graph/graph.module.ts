@@ -29,6 +29,7 @@ import {ConfigService} from '../services/config.service';
 import {HttpClientModule} from '@angular/common/http';
 import {SpiceClientLibModule} from 'spice-client-lib';
 import {HostService} from '../services/host.service';
+import {DraggedNodeService} from '../services/dragged-node.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -65,6 +66,7 @@ import {HostService} from '../services/host.service';
     DecoratorStateService,
     GraphEventService,
     GraphLockService,
+    DraggedNodeService
   ],
   exports: [
     ForceGraphComponent
