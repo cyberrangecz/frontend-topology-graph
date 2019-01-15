@@ -39,7 +39,7 @@ const httpOptions = {
  * Decorators can be filtered. If user doesn't want to display them there is no need to retrieve them from backend.
  */
 @Injectable()
-export class DecoratorLoaderService {
+export class DecoratorFacade {
 
   private _decoratorLoaderErrorSubject: Subject<string> = new Subject();
   decoratorLoaderError: Observable<string> = this._decoratorLoaderErrorSubject.asObservable();

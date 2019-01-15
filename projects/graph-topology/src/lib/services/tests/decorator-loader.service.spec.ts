@@ -5,7 +5,7 @@ import {DecoratorFilterService} from '../decorator-filter.service';
 import {async, TestBed} from '@angular/core/testing';
 import {DecoratorReloadTimerService} from '../decorator-reload-timer.service';
 import {DecoratorTimeService} from '../decorator-time.service';
-import {DecoratorLoaderService} from '../decorator-loader.service';
+import {DecoratorFacade} from '../decorator-facade.service';
 import {MockDecoratorTimeService} from './mock-decorator-time.service';
 import {MockDecoratorReloadTimerService} from './mock-decorator-reload-timer.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -24,7 +24,7 @@ import {DecoratorStateService} from '../decorator-state.service';
 let filterService: DecoratorFilterService;
 let eventService: DecoratorEventService;
 let timeService: DecoratorTimeService;
-let loaderService: DecoratorLoaderService;
+let loaderService: DecoratorFacade;
 let stateService: DecoratorStateService;
 
 let httpClientSpy: { post: jasmine.Spy };
@@ -55,7 +55,7 @@ describe('Decorator loader service', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        DecoratorLoaderService,
+        DecoratorFacade,
         DecoratorFilterService,
         {provide: DecoratorStateService, useValue: stateServiceSpy},
         {provide: DecoratorEventService, useValue: eventServiceSpy},
@@ -67,7 +67,7 @@ describe('Decorator loader service', () => {
     filterService = TestBed.get(DecoratorFilterService);
     eventService = TestBed.get(DecoratorEventService);
     timeService = TestBed.get(DecoratorTimeService);
-    loaderService = TestBed.get(DecoratorLoaderService);
+    loaderService = TestBed.get(DecoratorFacade);
     stateService = TestBed.get(DecoratorStateService);
   });
 

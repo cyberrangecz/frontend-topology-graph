@@ -9,6 +9,9 @@ import {Observable} from 'rxjs';
 import {NodeInterface} from 'graph-topology-model-lib';
 import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
 import {map} from 'rxjs/operators';
+import {ConfigService} from './config.service';
+import {TopologySerializer} from './topology-serializer.service';
+import {TopologyDTO} from '../model/DTO/topology-dto.model';
 
 /**
  * Service for getting JSON data about topology of network and parsing them to model suitable for visualization
@@ -18,23 +21,21 @@ import {map} from 'rxjs/operators';
  */
 
 @Injectable()
-export class GraphTopologyLoaderService {
+export class TopologyFacade {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private topologySerializer: TopologySerializer,
+              private configService: ConfigService) {
   }
 
   /**
    * Sends HTTP request and parses data for topology model
-   * @param {string} url where should be send GET request
    * @returns {Observable<{nodes: Node[], links: Link[]}>} Observable of topology model
    * Caller needs to subscribe for it.
    */
-  getTopology(url: string): Observable<{nodes: Node[], links: Link[]}> {
-    return this.http.get(url)
-      .pipe(map(
-        response => {
-          return this.parseResponse(response);
-        }
+  getTopology(): Observable<{nodes: Node[], links: Link[]}> {
+    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl)
+      .pipe(map(response => this.topologySerializer.serializeTopology(response)
       ));
    }
 

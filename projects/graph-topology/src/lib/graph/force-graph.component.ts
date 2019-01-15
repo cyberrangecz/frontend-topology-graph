@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Link} from 'graph-topology-model-lib';
 import {Node} from 'graph-topology-model-lib';
-import {GraphTopologyLoaderService} from '../services/graph-topology-loader.service';
-import {DecoratorLoaderService} from '../services/decorator-loader.service';
+import {TopologyFacade} from '../services/topology-facade.service';
+import {DecoratorFacade} from '../services/decorator-facade.service';
 import {HostNode} from 'graph-topology-model-lib';
 import {RouterNode} from 'graph-topology-model-lib';
 
@@ -54,8 +54,8 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   constructor(
     public snackBar: MatSnackBar,
     private configService: ConfigService,
-    private topologyLoaderService: GraphTopologyLoaderService,
-    private decoratorLoaderService: DecoratorLoaderService,
+    private topologyLoaderService: TopologyFacade,
+    private decoratorLoaderService: DecoratorFacade,
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private d3ZoomEventService: D3ZoomEventService,
@@ -99,7 +99,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   loadTopology() {
     this.loadedTopology = false;
-    this.topologyLoaderService.getTopology(this.configService.config.topologyRestUrl)
+    this.topologyLoaderService.getTopology()
       .subscribe(
         data => {
           this.nodes = data.nodes;

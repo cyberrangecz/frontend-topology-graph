@@ -1,5 +1,5 @@
 import {TestBed} from '@angular/core/testing';
-import {GraphTopologyLoaderService} from '../graph-topology-loader.service';
+import {TopologyFacade} from '../topology-facade.service';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 import {HttpClient} from '@angular/common/http';
 import {asyncData} from '../../testing/async-observable-helpers';
@@ -12,7 +12,7 @@ import {LinkTypeEnum} from 'graph-topology-model-lib';
 import {emptyTopology, multipleInterfaces, simpleTopology} from '../../testing/topology-test-jsons';
 
 
-let loaderService: GraphTopologyLoaderService;
+let loaderService: TopologyFacade;
 let httpClientSpy: { get: jasmine.Spy };
 
 describe('Graph topology loader service', () => {
@@ -26,12 +26,12 @@ describe('Graph topology loader service', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        GraphTopologyLoaderService,
+        TopologyFacade,
         {provide: HttpClient, useValue: httpClientSpy}
       ]
     });
 
-    loaderService = TestBed.get(GraphTopologyLoaderService);
+    loaderService = TestBed.get(TopologyFacade);
   });
 
   it('should have called http get one time', () => {
