@@ -10,13 +10,13 @@ import {LinkDecoratorTypeEnum} from '../enums/link-decorator-type-enum';
 export class DecoratorReloadRequestEvent {
   decoratorCategory: DecoratorCategoryEnum;
   decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum;
-  ids: number[];
+  names: string[];
 
 
   constructor(decoratorCategory: DecoratorCategoryEnum,
               decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-              ids: number[] = null) {
-    this.ids = ids;
+              names: string[] = null) {
+    this.names = names;
     this.decoratorCategory = decoratorCategory;
     this.decoratorType = decoratorType;
   }

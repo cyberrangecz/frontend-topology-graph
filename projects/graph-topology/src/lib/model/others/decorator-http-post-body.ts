@@ -2,11 +2,11 @@ export class DecoratorHttpPostBody {
   from: string | number;
   to: string | number;
   decorators_type: string;
-  ids: number[];
+  names: string[];
 
-  constructor(decorators_type: string, ids: number[], from: string | number, to: string | number) {
+  constructor(decorators_type: string, names: string[], from: string | number, to: string | number) {
     this.decorators_type = decorators_type;
-    this.ids = ids;
+    this.names = names;
     this.from = from;
     this.to = to;
   }

@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Link } from 'graph-topology-model-lib';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Node} from 'graph-topology-model-lib';
-import {HostNode} from 'graph-topology-model-lib';
-import {RouterNode} from 'graph-topology-model-lib';
-import {LinkTypeEnum} from 'graph-topology-model-lib';
 import {Observable} from 'rxjs';
-import {NodeInterface} from 'graph-topology-model-lib';
-import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
 import {map} from 'rxjs/operators';
 import {ConfigService} from './config.service';
 import {TopologySerializer} from './topology-serializer.service';
@@ -34,124 +29,12 @@ export class TopologyFacade {
    * Caller needs to subscribe for it.
    */
   getTopology(): Observable<{nodes: Node[], links: Link[]}> {
-    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl)
+    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl, { headers: this.createAuthorizationHeader() })
       .pipe(map(response => this.topologySerializer.serializeTopology(response)
       ));
    }
 
-  /**
-   * Parses provides JSON response and creates topology model usable in application
-   * @param httpResponse JSON response describing the topology
-   * @returns {{nodes: Node[], links: Link[]}} Created nodes and links which should be usable in applications graphs
-   */
-  private parseResponse(httpResponse): {nodes: Node[], links: Link[]} {
-    const interfaces: NodeInterface[] = this.parseInterfaces(httpResponse.topology);
-    const nodes: Node[] = this.parseNodes(httpResponse.topology);
-    this.matchNodesWithInterfaces(nodes, interfaces);
-
-    const links: Link[] = this.parseLinks(httpResponse.topology, nodes, interfaces);
-    this.createHierarchicalStructure(nodes, links);
-    return {nodes, links};
+   private createAuthorizationHeader(): HttpHeaders {
+    return new HttpHeaders().set('Authorization', this.configService.config.authorizationToken);
   }
-
-  private createHierarchicalStructure(nodes: Node[], links: Link[]) {
-    const topLayerNodes = nodes.filter((node) => node instanceof RouterNode);
-    topLayerNodes.forEach((node) => {
-      const router = node as RouterNode;
-      router.children = this.findChildrenOfNode(router, nodes, links);
-    });
-  }
-
-  private findChildrenOfNode(node: Node, nodes: Node[], links: Link[]): Node[] {
-    const children: Node[] = [];
-    const nodeLinks = links.filter(link => link.type === LinkTypeEnum.InterfaceOverlay
-      && (link.sourceInterface.nodeId === node.id || link.targetInterface.nodeId === node.id));
-
-    nodeLinks.forEach((link) => {
-      if (link.sourceInterface.nodeId === node.id) {
-        children.push(nodes.find(d => d.id === link.targetInterface.nodeId));
-      }
-    });
-    return children;
-  }
-
-  private parseInterfaces(jsonTopology): NodeInterface[] {
-    const interfaces: NodeInterface[] = [];
-    for (const nodeInterface of jsonTopology.interfaces) {
-      interfaces.push(new NodeInterface(
-        nodeInterface.id,
-        nodeInterface.node_id,
-        nodeInterface.ipv4_address,
-        nodeInterface.ipv6_address
-      ));
-    }
-    return interfaces;
-  }
-
-  private parseNodes(jsonTopology): Node[] {
-    const nodes: Node[] = [];
-    for (const node of jsonTopology.nodes) {
-
-      if (node.router) {
-        nodes.push(new RouterNode(
-          node.id,
-          NodePhysicalRoleEnum[this.getPhysicalRoleString(node.physical_role)],
-          node.name));
-      } else {
-        nodes.push(new HostNode(
-          node.id,
-          NodePhysicalRoleEnum[this.getPhysicalRoleString(node.physical_role)],
-          node.name));
-      }
-    }
-    return nodes;
-  }
-
-  private parseLinks(jsonTopology, nodes: Node[], interfaces: NodeInterface[]): Link[] {
-    const links: Link[] = [];
-    for (const link of jsonTopology.links) {
-      const linkType = link.between_routers ? LinkTypeEnum.InternetworkingOverlay : LinkTypeEnum.InterfaceOverlay;
-
-      const sourceInterface = this.findInterfaceById(link.source_interface_id, interfaces);
-      const targetInterface = this.findInterfaceById(link.target_interface_id, interfaces);
-
-      links.push(new Link(
-        link.id,
-        sourceInterface,
-        targetInterface,
-        this.findNodeById(sourceInterface.nodeId, nodes),
-        this.findNodeById(targetInterface.nodeId, nodes),
-        linkType));
-    }
-    return links;
-  }
-
-  private matchNodesWithInterfaces(nodes: Node[], interfaces: NodeInterface[]) {
-    nodes.forEach((node) => {
-      node.nodeInterfaces = this.findInterfaceForNode(node.id, interfaces);
-    });
-  }
-
-  private findInterfaceForNode(nodeId: number, interfaces: NodeInterface[]): NodeInterface[] {
-    return interfaces.filter(nodeInterface => nodeInterface.nodeId === nodeId);
-  }
-
-  private findNodeById(nodeId, nodes: Node[]) {
-    return nodes.find(node => node.id === nodeId);
-  }
-
-  private findInterfaceById(interfaceId: number, interfaces: NodeInterface[]) {
-    return interfaces.find(nodeInterface => nodeInterface.id === interfaceId);
-  }
-
-
-  /**
-   * Helper method to transfer physical string to match PascalCase Enum
-   * @param {string} role
-   * @returns {string}
-   */
-  private getPhysicalRoleString(role: string): string {
-    return role.charAt(0).toUpperCase() + role.slice(1);
-  }
-
 }

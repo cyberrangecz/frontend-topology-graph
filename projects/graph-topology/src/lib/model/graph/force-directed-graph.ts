@@ -1,7 +1,7 @@
 import {EventEmitter} from '@angular/core';
 import * as d3 from 'd3';
 import {HierarchicalLayoutCreator} from './layout-creators/hierarchical-layout-creator';
-import {Link, LinkTypeEnum, Node, RouterNode, NodePhysicalRoleEnum} from 'graph-topology-model-lib';
+import {Link, LinkTypeEnum, Node, RouterNode, NodePhysicalRoleEnum, SwitchNode} from 'graph-topology-model-lib';
 /**
  * Model of force directed graph-visual. Used for displaying graph-visual visualization and user interaction with it.
  * Uses D3 and needs to get nodes, links and options (window size) on creation.
@@ -253,7 +253,7 @@ export class ForceDirectedGraph {
    * Adding subnetwork of router node to graph-visual (called by Node itself when changing state)
    * @param {RouterNode} node which sub networking is to be added.
    */
-  addSubnetwork(node: RouterNode) {
+  addSubnetwork(node: SwitchNode) {
     // saves router node position to remain in fixed position when applying forces to its children nodes
     const tempX = node.x;
     const tempY = node.y;
@@ -290,7 +290,7 @@ export class ForceDirectedGraph {
    * Children nodes are add to active nodes and removed from non-active
    * @param {parent} parent node of subnetwork
    */
-  private addSubnetworkNodes(parent: RouterNode) {
+  private addSubnetworkNodes(parent: SwitchNode) {
     const nodes = parent.children;
     for (let i = nodes.length - 1; i >= 0; i--) {
       const children = nodes[i];
@@ -324,9 +324,9 @@ export class ForceDirectedGraph {
 
   /**
    * Removes subnetwork of router node to graph-visual (called by Node itself when changing state)
-   * @param {RouterNode} node which sub network is to be removed.
+   * @param {SwitchNode} node which sub network is to be removed.
    */
-  removeSubnetwork(node: RouterNode) {
+  removeSubnetwork(node: SwitchNode) {
     this.removeLinks(this.findSubnetLinksToRemove(node.children));
     this.removeSubnetworkNodes(node.children);
   }
@@ -380,10 +380,10 @@ export class ForceDirectedGraph {
 
   /**
    * Helper method to find all previously deleted links that should be added back to graph-visual after adding new nodes
-   * @param {RouterNode} parent parent of nodes which links should be added back to the graph-visual
+   * @param {SwitchNode} parent parent of nodes which links should be added back to the graph-visual
    * @returns {Link[]} set of links which were selected to be added back to the graph-visual
    */
-  private findSubnetLinksToAdd(parent: RouterNode): Link[] {
+  private findSubnetLinksToAdd(parent: SwitchNode): Link[] {
     const nodes = parent.children;
     const result: Link[] = [];
     this.nonActiveLinks.forEach(
@@ -473,9 +473,9 @@ export class ForceDirectedGraph {
 
   /**
    * This method applies forces to subnet for better positioning of revealed nodes.
-   * @param {RouterNode} parent router node which subnet is revealed
+   * @param {SwitchNode} parent router node which subnet is revealed
    */
-  private subnetNodesForce(parent: RouterNode) {
+  private subnetNodesForce(parent: SwitchNode) {
   this.simulation
     .force('collide',
       d3.forceCollide(
@@ -586,13 +586,13 @@ export class ForceDirectedGraph {
       .force('collide', d3.forceCollide().radius(50).strength(0.6))
       .force('y', d3.forceY((d, i, nodes) => {
         const node = nodes[i] as Node;
-        const nodePosition = nodePositions.getValue(node.id);
+        const nodePosition = nodePositions.getValue(node.name);
         return nodePosition ? nodePosition.y : 0;
         }
       ).strength(1))
       .force('x', d3.forceX((d, i, nodes) => {
         const node = nodes[i] as Node;
-        const nodePosition = nodePositions.getValue(node.id);
+        const nodePosition = nodePositions.getValue(node.name);
         return nodePosition ? nodePosition.x : 0;
       }).strength(1))
       .alphaTarget(0.3)

@@ -53,93 +53,93 @@ export class DecoratorFacade {
   }
 
   /**Loads decorators for router, host nodes and links
-   * Receives IDs of nodes and links whose decorators should be retrieved.
-   * @param {number[]} hostNodeIds IDs of host nodes whose decorators should be retrieved
-   * @param {number[]} routerNodeIds IDs of router nodes whose decorators should be retrieved
-   * @param {number[]} linkIds IDs of links whose decorators should be retrieved
+   * Receives names of nodes and links whose decorators should be retrieved.
+   * @param {number[]} hostNodeNames names of host nodes whose decorators should be retrieved
+   * @param {number[]} routerNodeNames names of router nodes whose decorators should be retrieved
+   * @param {number[]} linkNames names of links whose decorators should be retrieved
    */
-  loadAllDecorators(hostNodeIds: number[], routerNodeIds: number[], linkIds: number[]) {
-    this.loadRouterNodeDecorators(routerNodeIds);
-    this.loadHostNodeDecorators(hostNodeIds);
-    this.loadLinkDecorators(linkIds);
+  loadAllDecorators(hostNodeNames: string[], routerNodeNames: string[], linkNames: string[]) {
+    this.loadHostNodeDecorators(hostNodeNames);
+    this.loadRouterNodeDecorators(routerNodeNames);
+    this.loadLinkDecorators(linkNames);
   }
 
   /**
    * Loads decorators for router nodes
-   * @param {number[]} routerNodeIds IDs of router nodes whose decorators should be retrieved
+   * @param {string[]} routerNodeNames names of router nodes whose decorators should be retrieved
    */
-  loadRouterNodeDecorators(routerNodeIds: number[]) {
+  loadRouterNodeDecorators(routerNodeNames: string[]) {
     const routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[] = this.decoratorsFilterService.getActiveRouterDecorators();
-    if (routerNodeIds != null && routerNodeIds.length > 0) {
+    if (routerNodeNames != null && routerNodeNames.length > 0) {
       this.passRouterNodeDecoratorsToGraph(
-        this.retrieveRouterNodeDecorators(routerNodeIds, routerNodeDecoratorTypes),
+        this.retrieveRouterNodeDecorators(routerNodeNames, routerNodeDecoratorTypes),
         routerNodeDecoratorTypes);
     }
   }
 
   /**
    * Loads decorators for host nodes
-   * @param {number[]} hostNodeIds IDs of host nodes whose decorators should be retrieved
+   * @param {string[]} hostNodeNames names of host nodes whose decorators should be retrieved
    */
-  loadHostNodeDecorators(hostNodeIds: number[]) {
+  loadHostNodeDecorators(hostNodeNames: string[]) {
     const hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[] = this.decoratorsFilterService.getActiveHostDecorators();
-    if (hostNodeIds != null && hostNodeIds.length > 0) {
+    if (hostNodeNames != null && hostNodeNames.length > 0) {
       this.passHostNodeDecoratorsToGraph(
-        this.retrieveHostNodeDecorators(hostNodeIds, hostNodeDecoratorTypes), hostNodeDecoratorTypes);
+        this.retrieveHostNodeDecorators(hostNodeNames, hostNodeDecoratorTypes), hostNodeDecoratorTypes);
     }
   }
 
   /**
    * Loads decorators for links
-   * @param {number[]} linkIds IDs of links whose decorators should be retrieved
+   * @param {string[]} linkNames IDs of links whose decorators should be retrieved
    */
-  loadLinkDecorators(linkIds: number[]) {
+  loadLinkDecorators(linkNames: string[]) {
     const linkDecoratorTypes: LinkDecoratorTypeEnum[] = this.decoratorsFilterService.getActiveLinkDecorators();
-    if (linkIds != null && linkIds.length > 0) {
-      this.passLinkDecoratorsToGraph(this.retrieveLinkDecorators(linkIds, linkDecoratorTypes), linkDecoratorTypes);
+    if (linkNames != null && linkNames.length > 0) {
+      this.passLinkDecoratorsToGraph(this.retrieveLinkDecorators(linkNames, linkDecoratorTypes), linkDecoratorTypes);
     }
   }
 
   /**
    * Loads decorators of certain type for router nodes
-   * @param {number[]} routerNodeIds IDs of router nodes whose decorators should be retrieved
+   * @param {string[]} routerNodeNames names of router nodes whose decorators should be retrieved
    * @param {RouterNodeDecoratorTypeEnum} decoratorType type of decorator which should be retrieved
    */
-  loadRouterDecoratorsOfType(routerNodeIds: number[], decoratorType: RouterNodeDecoratorTypeEnum) {
-    if (routerNodeIds != null && routerNodeIds.length > 0) {
-      this.passRouterNodeDecoratorsToGraph(this.retrieveRouterNodeDecorators(routerNodeIds, [decoratorType]), [decoratorType]);
+  loadRouterDecoratorsOfType(routerNodeNames: string[], decoratorType: RouterNodeDecoratorTypeEnum) {
+    if (routerNodeNames != null && routerNodeNames.length > 0) {
+      this.passRouterNodeDecoratorsToGraph(this.retrieveRouterNodeDecorators(routerNodeNames, [decoratorType]), [decoratorType]);
       }
   }
 
   /**
    * Loads decorators of certain type for host nodes
-   * @param {number[]} hostNodeIds IDs of host nodes whose decorators should be retrieved
+   * @param {string[]} hostNodeNames names of host nodes whose decorators should be retrieved
    * @param {HostNodeDecoratorTypeEnum} decoratorType type of decorator which should be retrieved
    */
-  loadHostDecoratorsOfType(hostNodeIds: number[], decoratorType: HostNodeDecoratorTypeEnum) {
-    if (hostNodeIds != null && hostNodeIds.length > 0) {
-      this.passHostNodeDecoratorsToGraph(this.retrieveHostNodeDecorators(hostNodeIds, [decoratorType]), [decoratorType]);
+  loadHostDecoratorsOfType(hostNodeNames: string[], decoratorType: HostNodeDecoratorTypeEnum) {
+    if (hostNodeNames != null && hostNodeNames.length > 0) {
+      this.passHostNodeDecoratorsToGraph(this.retrieveHostNodeDecorators(hostNodeNames, [decoratorType]), [decoratorType]);
     }
   }
 
   /**
    * Loads decorators of certain type for links
-   * @param {number[]} linkIds IDs of links whose decorators should be retrieved
+   * @param {string[]} linkNames names of links whose decorators should be retrieved
    * @param {LinkDecoratorTypeEnum} decoratorType type of decorator which should be retrieved
    */
-  loadLinkDecoratorsOfType(linkIds: number[], decoratorType: LinkDecoratorTypeEnum) {
-    if (linkIds != null && linkIds.length > 0) {
-      this.passLinkDecoratorsToGraph(this.retrieveLinkDecorators(linkIds, [decoratorType]), [decoratorType]);
+  loadLinkDecoratorsOfType(linkNames: string[], decoratorType: LinkDecoratorTypeEnum) {
+    if (linkNames != null && linkNames.length > 0) {
+      this.passLinkDecoratorsToGraph(this.retrieveLinkDecorators(linkNames, [decoratorType]), [decoratorType]);
     }
   }
 
   /**
    * Retrieves host node decorators for every id based on desired decorator types
-   * @param {number[]} hostNodeIds list of node ids which decorators should be retrieved
+   * @param {string[]} hostNodeNames list of node names which decorators should be retrieved
    * @param {HostNodeDecoratorTypeEnum[]} hostNodeDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<NodeDecorator[]>[]} list of observables returned from requests
    */
-  private retrieveHostNodeDecorators(hostNodeIds: number[],
+  private retrieveHostNodeDecorators(hostNodeNames: string[],
                                      hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
@@ -151,7 +151,7 @@ export class DecoratorFacade {
       // create request body here
       const requestBody = new DecoratorHttpPostBody(
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.HostDecorators, hostNodeDecoratorType),
-        hostNodeIds,
+        hostNodeNames,
         from,
         to);
 
@@ -185,11 +185,11 @@ export class DecoratorFacade {
 
   /**
    * Retrieves router node decorators for every id based on desired decorator types
-   * @param {number[]} routerNodeIds list of node ids which decorators should be retrieved
+   * @param {string[]} routerNodeNames list of node names which decorators should be retrieved
    * @param {RouterNodeDecoratorTypeEnum[]} routerNodeDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<NodeDecorator[]>[] list of observables returned from requests
    */
-  private retrieveRouterNodeDecorators(routerNodeIds: number[],
+  private retrieveRouterNodeDecorators(routerNodeNames: string[],
                                        routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
 
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
@@ -201,7 +201,7 @@ export class DecoratorFacade {
 
       const requestBody = new DecoratorHttpPostBody(
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.RouterDecorators, routerNodeDecoratorType),
-        routerNodeIds,
+        routerNodeNames,
         from,
         to);
 
@@ -223,11 +223,11 @@ export class DecoratorFacade {
 
   /**
    * Retrieves link decorators for every id based on desired decorator types
-   * @param {number[]} linkIds list of link ids which decorators should be retrieved
+   * @param {string[]} linkNames list of link ids which decorators should be retrieved
    * @param {LinkDecoratorTypeEnum[]} linkDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<LinkDecorator[]>[]} list of observables returned from requests
    */
-  private retrieveLinkDecorators(linkIds: number[], linkDecoratorTypes: LinkDecoratorTypeEnum[]): Observable<LinkDecorator[]>[] {
+  private retrieveLinkDecorators(linkNames: string[], linkDecoratorTypes: LinkDecoratorTypeEnum[]): Observable<LinkDecorator[]>[] {
 
     const observablesToReturn: Observable<LinkDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/links/decorators';
@@ -238,7 +238,7 @@ export class DecoratorFacade {
 
       const requestBody = new DecoratorHttpPostBody(
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.LinkDecorators, linkDecoratorType),
-        linkIds,
+        linkNames,
         from,
         to);
 

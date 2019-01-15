@@ -7,6 +7,8 @@ export class TopologyConfig {
 
   scenarioRestUrl: string;
 
+  authorizationToken: string;
+
   defaultDecoratorRefreshPeriodInSeconds: number;
 
   useRealTime: boolean;

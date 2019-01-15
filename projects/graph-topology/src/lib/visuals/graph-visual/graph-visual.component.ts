@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import { Link } from 'graph-topology-model-lib';
+import {Link, SwitchNode} from 'graph-topology-model-lib';
 import { Node } from 'graph-topology-model-lib';
 import {GraphEventService} from '../../services/graph-event.service';
 import {GraphEventTypeEnum} from '../../model/enums/graph-event-type-enum';
@@ -138,7 +138,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    */
   private expandAllSubnetworks() {
     this.graph.nodes.forEach(node => {
-      if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Cloud) {
+      if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Cloud) {
         this.expandSubnetworkOfNode(node);
       }
     });
@@ -146,16 +146,16 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Recursively expands subnetworks of node
-   * @param {RouterNode} node which subnetworks should be expanded
+   * @param {SwitchNode} node which subnetworks should be expanded
    */
-  private expandSubnetworkOfNode(node: RouterNode) {
-    node.changeRouterPhysicalRole();
+  private expandSubnetworkOfNode(node: SwitchNode) {
+    node.changeSwitchPhysicalRole();
     this.graph.addSubnetwork(node);
     this.loadDecoratorsForSubnet(node);
     // recursively expand all children nodes
     if (node.children != null && node.children.length > 0) {
       node.children.forEach(d => {
-        if (d instanceof RouterNode && d.physicalRole === NodePhysicalRoleEnum.Cloud) {
+        if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Cloud) {
           this.expandSubnetworkOfNode(d);
         }
       });
@@ -164,38 +164,38 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Extract ids of subnet and sends request for reloading decorators for all new nodes and links.
-   * @param {RouterNode} node
+   * @param {SwitchNode} node
    */
-  private loadDecoratorsForSubnet(node: RouterNode) {
+  private loadDecoratorsForSubnet(node: SwitchNode) {
     if (node.physicalRole === NodePhysicalRoleEnum.Router) {
-      const hostIds: number[] = [];
-      const routerIds: number[] = [];
+      const hostNames: string[] = [];
+      const routerNames: string[] = [];
       node.children.forEach(
         child => {
-          if (child instanceof RouterNode) {
-            routerIds.push(child.id);
+          if (child instanceof SwitchNode) {
+            routerNames.push(child.name);
           } else {
-            hostIds.push(child.id);
+            hostNames.push(child.name);
           }
         });
 
       // We call reload of decorators on all affected hosts and routers
       // and all links (we cannot select connected links from this component)
       // 100 ms timeout is to give application enough time to load new components completely before loading decorators.
-      if (hostIds.length > 0) {
+      if (hostNames.length > 0) {
         setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostIds),
+            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostNames),
           100);
       }
 
-      if (routerIds.length > 0) {
+      if (routerNames.length > 0) {
         setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerIds),
+            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerNames),
           100
         );
       }
 
-      if (routerIds.length > 0 || hostIds.length > 0) {
+      if (routerNames.length > 0 || hostNames.length > 0) {
         setTimeout(() =>
             this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
           100);
@@ -208,7 +208,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    */
   private collapseAllSubnetworks() {
     this.graph.getRouterNodes(this.graph.nodes).forEach(node => {
-      if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+      if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
         this.collapseSubnetworkOfNode(node);
       }
     });
@@ -218,12 +218,12 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Recursively collapses subnetworks of node.
    * @param {RouterNode} node which subnetworks should be collapsed
    */
-  private collapseSubnetworkOfNode(node: RouterNode) {
-    node.changeRouterPhysicalRole();
+  private collapseSubnetworkOfNode(node: SwitchNode) {
+    node.changeSwitchPhysicalRole();
     // recursively collapse all children nodes
     if (node.children != null && node.children.length > 0) {
       node.children.forEach(d => {
-        if (d instanceof RouterNode && d.physicalRole === NodePhysicalRoleEnum.Router) {
+        if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Router) {
           this.collapseSubnetworkOfNode(d);
         }
       });

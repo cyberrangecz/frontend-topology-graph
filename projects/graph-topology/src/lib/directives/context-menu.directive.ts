@@ -29,7 +29,7 @@ export class ContextMenuDirective {
         x: this.node.x,
         y: this.node.y
       },
-      nodeId: this.node.id,
+      nodeName: this.node.name,
     });
     event.preventDefault();
   }

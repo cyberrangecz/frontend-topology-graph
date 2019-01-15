@@ -2,9 +2,9 @@
  * Abstract class of link decorator
  */
 export abstract class LinkDecorator {
-  linkId: number;
+  linkName: string;
 
-  constructor(linkId: number) {
-    this.linkId = linkId;
+  constructor(linkName: string) {
+    this.linkName = linkName;
   }
 }

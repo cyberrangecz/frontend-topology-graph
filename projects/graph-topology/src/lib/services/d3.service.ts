@@ -143,7 +143,7 @@ export class D3Service {
 
       // node is dragged, its position is recalculated here
       function dragged() {
-        if (dragService.lastDraggedNodeId !== node.id) {
+        if (dragService.lastDraggedNodeName !== node.name) {
           dragService.emitNodeDragStartedEvent(node);
         }
 
@@ -200,7 +200,7 @@ export class D3Service {
 
       // dragging is stopped by user
       function ended() {
-        if (dragService.lastDraggedNodeId === node.id) {
+        if (dragService.lastDraggedNodeName === node.name) {
           dragService.emitNodeDragEndedEvent();
         }
 

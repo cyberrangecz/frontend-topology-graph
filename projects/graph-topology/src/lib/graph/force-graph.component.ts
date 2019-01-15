@@ -113,7 +113,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    * Calls service to load decorators with node and link ids
    */
   loadAllDecorators() {
-    this.decoratorLoaderService.loadAllDecorators(this.getHostNodeIds(), this.getRouterNodeIds(), this.getLinkIds());
+    this.decoratorLoaderService.loadAllDecorators(this.getHostNodeNames(), this.getRouterNodeNames(), this.getLinkNames());
   }
 
   /**
@@ -148,15 +148,15 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   private processDecoratorReloadRequest(reloadEvent: DecoratorReloadRequestEvent) {
     switch (reloadEvent.decoratorCategory) {
       case DecoratorCategoryEnum.RouterDecorators: {
-        this.processDecoratorRouterReload(reloadEvent.ids, reloadEvent.decoratorType as RouterNodeDecoratorTypeEnum);
+        this.processDecoratorRouterReload(reloadEvent.names, reloadEvent.decoratorType as RouterNodeDecoratorTypeEnum);
         break;
       }
       case DecoratorCategoryEnum.HostDecorators: {
-        this.processDecoratorHostReload(reloadEvent.ids, reloadEvent.decoratorType as HostNodeDecoratorTypeEnum);
+        this.processDecoratorHostReload(reloadEvent.names, reloadEvent.decoratorType as HostNodeDecoratorTypeEnum);
         break;
       }
       case DecoratorCategoryEnum.LinkDecorators: {
-        this.processDecoratorLinkReload(reloadEvent.ids, reloadEvent.decoratorType as LinkDecoratorTypeEnum);
+        this.processDecoratorLinkReload(reloadEvent.names, reloadEvent.decoratorType as LinkDecoratorTypeEnum);
         break;
       }
     }
@@ -164,82 +164,82 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
 
   /**
    * Processes request to reload router decorator of certain type
-   * @param {number[]} ids array of ids of elements whose decorators should be reloaded. If null all ids are used
+   * @param {string[]} names array of ids of elements whose decorators should be reloaded. If null all ids are used
    * @param {RouterNodeDecoratorTypeEnum} decoratorType decorator type which should be reloaded.
    * If null all active decorator types are reloaded
    */
-  private processDecoratorRouterReload(ids: number[], decoratorType: RouterNodeDecoratorTypeEnum) {
-    if ((ids === null || ids.length <= 0) && (decoratorType == null)) {
-      this.decoratorLoaderService.loadRouterNodeDecorators(this.getRouterNodeIds());
-    } else if (ids === null || ids.length <= 0) {
-      this.decoratorLoaderService.loadRouterDecoratorsOfType(this.getRouterNodeIds(), decoratorType);
+  private processDecoratorRouterReload(names: string[], decoratorType: RouterNodeDecoratorTypeEnum) {
+    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+      this.decoratorLoaderService.loadRouterNodeDecorators(this.getRouterNodeNames());
+    } else if (names === null || names.length <= 0) {
+      this.decoratorLoaderService.loadRouterDecoratorsOfType(this.getRouterNodeNames(), decoratorType);
     } else if (decoratorType === null) {
-      this.decoratorLoaderService.loadRouterNodeDecorators(ids);
+      this.decoratorLoaderService.loadRouterNodeDecorators(names);
     } else {
-      this.decoratorLoaderService.loadRouterDecoratorsOfType(ids, decoratorType);
+      this.decoratorLoaderService.loadRouterDecoratorsOfType(names, decoratorType);
     }
   }
 
   /**
    * Processes request to reload host decorator of certain type
-   * @param {number[]} ids array of ids of elements whose decorators should be reloaded. If null all ids are used
+   * @param {string[]} names array of names of elements whose decorators should be reloaded. If null all names are used
    * @param {HostNodeDecoratorTypeEnum} decoratorType decorator type which should be reloaded.
    * If null all active decorator types are reloaded
    */
-  private processDecoratorHostReload(ids: number[], decoratorType: HostNodeDecoratorTypeEnum) {
-    if ((ids === null || ids.length <= 0) && (decoratorType == null)) {
-      this.decoratorLoaderService.loadHostNodeDecorators(this.getHostNodeIds());
-    } else if (ids === null || ids.length <= 0) {
-      this.decoratorLoaderService.loadHostDecoratorsOfType(this.getHostNodeIds(), decoratorType);
+  private processDecoratorHostReload(names: string[], decoratorType: HostNodeDecoratorTypeEnum) {
+    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+      this.decoratorLoaderService.loadHostNodeDecorators(this.getHostNodeNames());
+    } else if (names === null || names.length <= 0) {
+      this.decoratorLoaderService.loadHostDecoratorsOfType(this.getHostNodeNames(), decoratorType);
     } else if (decoratorType === null) {
-      this.decoratorLoaderService.loadHostNodeDecorators(ids);
+      this.decoratorLoaderService.loadHostNodeDecorators(names);
     } else {
-      this.decoratorLoaderService.loadHostDecoratorsOfType(ids, decoratorType);
+      this.decoratorLoaderService.loadHostDecoratorsOfType(names, decoratorType);
     }
   }
 
   /**
    * Process request to reload link decorator of certain type
-   * @param {number[]} ids array of ids of elements whose decorators should be reloaded. If null all ids are used
+   * @param {string[]} names array of names of elements whose decorators should be reloaded. If null all names are used
    * @param {LinkDecoratorTypeEnum} decoratorType decorator type which should be reloaded.
    * If null all active decorator types are reloaded
    */
-  private processDecoratorLinkReload(ids: number[], decoratorType: LinkDecoratorTypeEnum) {
-    if ((ids === null || ids.length <= 0) && (decoratorType == null)) {
-      this.decoratorLoaderService.loadLinkDecorators(this.getLinkIds());
-    } else if (ids === null || ids.length <= 0) {
-      this.decoratorLoaderService.loadLinkDecoratorsOfType(this.getLinkIds(), decoratorType);
+  private processDecoratorLinkReload(names: string[], decoratorType: LinkDecoratorTypeEnum) {
+    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+      this.decoratorLoaderService.loadLinkDecorators(this.getLinkNames());
+    } else if (names === null || names.length <= 0) {
+      this.decoratorLoaderService.loadLinkDecoratorsOfType(this.getLinkNames(), decoratorType);
     } else if (decoratorType === null) {
-      this.decoratorLoaderService.loadLinkDecorators(ids);
+      this.decoratorLoaderService.loadLinkDecorators(names);
     } else {
-      this.decoratorLoaderService.loadLinkDecoratorsOfType(ids, decoratorType);
+      this.decoratorLoaderService.loadLinkDecoratorsOfType(names, decoratorType);
     }
   }
 
   /**
-   * Method to find and return all ids of host nodes in graph-visual.
-   * @returns {number[]} array of host nodes ids
+   * Method to find and return all names of host nodes in graph-visual.
+   * @returns {number[]} array of host nodes names
    */
-  private getHostNodeIds(): number[] {
+  private getHostNodeNames(): string[] {
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
     return this.nodes
       .filter(node => node instanceof HostNode)
-      .map(({id}) => id);
+      .map(({name}) => name);
   }
 
   /**
-   * Method to find and return all ids of router nodes in graph-visual
-   * @returns {number[]} array of router nodes ids
+   * Method to find and return all names of router nodes in graph-visual
+   * @returns {number[]} array of router nodes names
    */
-  private getRouterNodeIds(): number[] {
+  private getRouterNodeNames(): string[] {
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
     return this.nodes
       .filter(node => node instanceof RouterNode)
-      .map(({id}) => id);
+      .map(({name}) => name);
 
   }
 
@@ -247,11 +247,11 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    * Method to find and return all ids of links in graph-visual
    * @returns {number[]} array of link ids
    */
-  private getLinkIds(): number[] {
+  private getLinkNames(): string[] {
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
-    return this.links.map(({id}) => id);
+    return this.links.map(({id}) => id.toString());
 
   }
 

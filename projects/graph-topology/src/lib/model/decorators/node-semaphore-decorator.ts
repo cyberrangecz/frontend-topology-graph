@@ -9,8 +9,8 @@ export class NodeSemaphoreDecorator extends NodeHostDecorator {
   y: number;
   status: NodeSemaphoreDecoratorStatusEnum;
 
-  constructor(nodeId: number, status: NodeSemaphoreDecoratorStatusEnum) {
-    super(nodeId);
+  constructor(nodeName: string, status: NodeSemaphoreDecoratorStatusEnum) {
+    super(nodeName);
     this.status = status;
   }
 }

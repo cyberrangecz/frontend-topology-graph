@@ -7,8 +7,8 @@ import { LinkDecorator } from './link-decorator';
 export class LinkSpeedDecorator extends LinkDecorator {
   speed: number;
 
-  constructor(linkId: number, speed: number) {
-    super(linkId);
+  constructor(linkName: string, speed: number) {
+    super(linkName);
     this.speed = speed;
   }
 }
