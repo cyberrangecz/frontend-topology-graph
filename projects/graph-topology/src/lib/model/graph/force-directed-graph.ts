@@ -291,7 +291,7 @@ export class ForceDirectedGraph {
    * @param {parent} parent node of subnetwork
    */
   private addSubnetworkNodes(parent: SwitchNode) {
-    const nodes = parent.children;
+    const nodes = parent.children.filter(node => !(node instanceof RouterNode));
     for (let i = nodes.length - 1; i >= 0; i--) {
       const children = nodes[i];
       const nonActiveIndex = this.nonActiveNodes.indexOf(children);
@@ -327,8 +327,10 @@ export class ForceDirectedGraph {
    * @param {SwitchNode} node which sub network is to be removed.
    */
   removeSubnetwork(node: SwitchNode) {
-    this.removeLinks(this.findSubnetLinksToRemove(node.children));
-    this.removeSubnetworkNodes(node.children);
+    this.removeLinks(this.findSubnetLinksToRemove(node.children
+      .filter(node => !(node instanceof RouterNode))));
+    this.removeSubnetworkNodes(node.children
+      .filter(node => !(node instanceof RouterNode)));
   }
 
   /**
@@ -384,7 +386,7 @@ export class ForceDirectedGraph {
    * @returns {Link[]} set of links which were selected to be added back to the graph-visual
    */
   private findSubnetLinksToAdd(parent: SwitchNode): Link[] {
-    const nodes = parent.children;
+    const nodes = parent.children.filter(node => !(node instanceof RouterNode));
     const result: Link[] = [];
     this.nonActiveLinks.forEach(
       (l) => {

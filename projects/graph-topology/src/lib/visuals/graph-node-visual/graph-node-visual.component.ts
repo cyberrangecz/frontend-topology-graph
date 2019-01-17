@@ -304,7 +304,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @returns {boolean} true if hidden, false otherwise
    */
   isSubnetHidden(): boolean {
-    return this.node instanceof RouterNode && this.node.physicalRole === NodePhysicalRoleEnum.Cloud;
+    return this.node instanceof SwitchNode && this.node.physicalRole === NodePhysicalRoleEnum.Cloud;
   }
 
   /**
@@ -313,7 +313,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    */
   private calculateNodeWidth(): number  {
     return this.DEFAULT_NODE_WIDTH;
-    // TODO Calculate based on length of strings displayed in th enode
+    // TODO Calculate based on length of strings displayed in the node
   }
 
   /**
@@ -341,17 +341,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
         });
       yPosition += 12;
     }
-
-    if (this.node.nodePorts[0].mac != null) {
-      this.labels.push(
-        {
-          x: xPosition,
-          y: yPosition,
-          text: this.node.nodePorts[0].mac
-        });
-      yPosition += 12;
-    }
-
     if (this.node.name != null) {
       this.labels.push(
         {
