@@ -154,7 +154,7 @@ export class TopologySerializer {
         && (link.target instanceof RouterNode || link.target instanceof SwitchNode)) {
       return LinkTypeEnum.InternetworkingOverlay;
     }
-    return LinkTypeEnum.InternetworkingOverlay;
+    return LinkTypeEnum.InterfaceOverlay;
   }
 
   private findSwitchesInNodes(nodes: Node[]): SwitchNode[] {
