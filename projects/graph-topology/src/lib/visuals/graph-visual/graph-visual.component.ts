@@ -207,8 +207,8 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Collapses every subnetwork in a graph
    */
   private collapseAllSubnetworks() {
-    this.graph.getRouterNodes(this.graph.nodes).forEach(node => {
-      if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+    this.graph.getSwitchNodes(this.graph.nodes).forEach(node => {
+      if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
         this.collapseSubnetworkOfNode(node);
       }
     });

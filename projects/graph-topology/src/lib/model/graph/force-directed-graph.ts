@@ -1,7 +1,8 @@
 import {EventEmitter} from '@angular/core';
 import * as d3 from 'd3';
 import {HierarchicalLayoutCreator} from './layout-creators/hierarchical-layout-creator';
-import {Link, LinkTypeEnum, Node, RouterNode, NodePhysicalRoleEnum, SwitchNode} from 'graph-topology-model-lib';
+import {Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from 'graph-topology-model-lib';
+
 /**
  * Model of force directed graph-visual. Used for displaying graph-visual visualization and user interaction with it.
  * Uses D3 and needs to get nodes, links and options (window size) on creation.
@@ -515,14 +516,9 @@ export class ForceDirectedGraph {
       .restart();
   }
 
-   getRouterNodes(nodes: Node[]): RouterNode[] {
-    const routerNodes: RouterNode[] = [];
-    nodes.forEach(node => {
-      if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
-        routerNodes.push(node);
-      }
-    });
-    return routerNodes;
+   getSwitchNodes(nodes: Node[]): SwitchNode[] {
+    return nodes.filter(node => node instanceof SwitchNode
+        && node.physicalRole === NodePhysicalRoleEnum.Switch) as SwitchNode[];
   }
 
   /* -----------------------LAYOUTS----------------------- */
