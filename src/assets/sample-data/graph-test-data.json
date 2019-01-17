@@ -1,179 +1,187 @@
 {
-  "topology": {
-    "nodes": [
-      {
-        "id": 9,
-        "name": "Lan1",
-        "physical_role": "router",
-        "router": true
-      },
-      {
-        "id": 5,
-        "name": "Pc3",
-        "physical_role": "desktop",
-        "router": false
-      },
-      {
-        "id": 3,
-        "name": "Pc2",
-        "physical_role": "desktop",
-        "router": false
-      },
-      {
-        "id": 10,
-        "name": "Lan2",
-        "physical_role": "router",
-        "router": true
-      },
-      {
-        "id": 7,
-        "name": "Server",
-        "physical_role": "server",
-        "router": false
-      },
-      {
-        "id": 1,
-        "name": "Pc1",
-        "physical_role": "desktop",
-        "router": false
-      },
-      {
-        "id": 11,
-        "name": "Lan3",
-        "physical_role": "router",
-        "router": true
-      }
-    ],
-    "links": [
-      {
-        "id": 18,
-        "source_interface_id": 9,
-        "target_interface_id": 10,
-        "between_routers": true
-      },
-      {
-        "id": 24,
-        "source_interface_id": 11,
-        "target_interface_id": 9,
-        "between_routers": true
-      },
-      {
-        "id": 25,
-        "source_interface_id": 9,
-        "target_interface_id": 11,
-        "between_routers": true
-      },
-      {
-        "id": 17,
-        "source_interface_id": 8,
-        "target_interface_id": 10,
-        "between_routers": false
-      },
-      {
-        "id": 22,
-        "source_interface_id": 11,
-        "target_interface_id": 6,
-        "between_routers": false
-      },
-      {
-        "id": 12,
-        "source_interface_id": 2,
-        "target_interface_id": 9,
-        "between_routers": false
-      },
-      {
-        "id": 19,
-        "source_interface_id": 10,
-        "target_interface_id": 9,
-        "between_routers": true
-      },
-      {
-        "id": 20,
-        "source_interface_id": 10,
-        "target_interface_id": 11,
-        "between_routers": true
-      },
-      {
-        "id": 13,
-        "source_interface_id": 9,
-        "target_interface_id": 2,
-        "between_routers": false
-      },
-      {
-        "id": 15,
-        "source_interface_id": 9,
-        "target_interface_id": 4,
-        "between_routers": false
-      },
-      {
-        "id": 14,
-        "source_interface_id": 4,
-        "target_interface_id": 9,
-        "between_routers": false
-      },
-      {
-        "id": 23,
-        "source_interface_id": 6,
-        "target_interface_id": 11,
-        "between_routers": false
-      },
-      {
-        "id": 16,
-        "source_interface_id": 10,
-        "target_interface_id": 8,
-        "between_routers": false
-      },
-      {
-        "id": 21,
-        "source_interface_id": 11,
-        "target_interface_id": 10,
-        "between_routers": true
-      }
-    ],
-    "interfaces": [
-      {
-        "id": 6,
-        "node_id": 5,
-        "ipv4_address": "150.150.3.2",
-        "ipv6_address": null
-      },
-      {
-        "id": 9,
-        "node_id": 9,
-        "ipv4_address": "150.150.2.1",
-        "ipv6_address": null
-      },
-      {
-        "id": 8,
-        "node_id": 7,
-        "ipv4_address": "150.150.1.2",
-        "ipv6_address": null
-      },
-      {
-        "id": 11,
-        "node_id": 11,
-        "ipv4_address": "150.150.3.1",
-        "ipv6_address": null
-      },
-      {
-        "id": 4,
-        "node_id": 3,
-        "ipv4_address": "150.150.2.3",
-        "ipv6_address": null
-      },
-      {
-        "id": 10,
-        "node_id": 10,
-        "ipv4_address": "150.150.1.1",
-        "ipv6_address": null
-      },
-
-      {
-        "id": 2,
-        "node_id": 1,
-        "ipv4_address": "150.150.2.2",
-        "ipv6_address": null
-      }
-    ]
-  }
+  "hosts": [
+    {
+      "name": "vm1"
+    },
+    {
+      "name": "vm3"
+    },
+    {
+      "name": "vm2"
+    },
+    {
+      "name": "vm4"
+    }
+  ],
+  "ports": [
+    {
+      "name": "switch_6",
+      "network": "s2"
+    },
+    {
+      "name": "switch_7",
+      "network": "s2"
+    },
+    {
+      "name": "switch_4",
+      "network": "s1"
+    },
+    {
+      "name": "switch_5",
+      "network": "r2-network"
+    },
+    {
+      "name": "switch_8",
+      "network": "r1-network"
+    },
+    {
+      "name": "switch_2",
+      "network": "s1"
+    },
+    {
+      "name": "switch_3",
+      "network": "s1"
+    },
+    {
+      "name": "switch_0",
+      "network": "s3"
+    },
+    {
+      "name": "switch_1",
+      "network": "s3"
+    },
+    {
+      "name": "Link-14",
+      "ip": "10.10.30.5",
+      "network": "s3",
+      "node": "vm4",
+      "mac": "fa:16:3e:e8:91:47"
+    },
+    {
+      "name": "Link-25",
+      "ip": "10.10.30.4",
+      "network": "s3",
+      "node": "r2",
+      "mac": "fa:16:3e:9d:a3:b5"
+    },
+    {
+      "name": "Link-16",
+      "ip": "10.10.10.5",
+      "network": "s1",
+      "node": "vm2",
+      "mac": "fa:16:3e:f3:ce:2c"
+    },
+    {
+      "name": "Link-27",
+      "ip": "10.10.10.3",
+      "network": "s1",
+      "node": "vm1",
+      "mac": "fa:16:3e:47:74:5f"
+    },
+    {
+      "name": "Link-21",
+      "ip": "10.10.10.4",
+      "network": "s1",
+      "node": "r1",
+      "mac": "fa:16:3e:a2:4d:a8"
+    },
+    {
+      "name": "Link-23",
+      "ip": "200.100.100.3",
+      "network": "r2-network",
+      "node": "r2",
+      "mac": "fa:16:3e:71:85:7f"
+    },
+    {
+      "name": "Link-22",
+      "ip": "10.10.20.4",
+      "network": "s2",
+      "node": "r1",
+      "mac": "fa:16:3e:df:04:fe"
+    },
+    {
+      "name": "Link-18",
+      "ip": "10.10.20.5",
+      "network": "s2",
+      "node": "vm3",
+      "mac": "fa:16:3e:28:6d:a6"
+    },
+    {
+      "name": "Link-19",
+      "ip": "100.100.100.4",
+      "network": "r1-network",
+      "node": "r1",
+      "mac": "fa:16:3e:30:fc:68"
+    }
+  ],
+  "switches": [
+    {
+      "name": "r2-network",
+      "cidr": "200.100.100.0/29"
+    },
+    {
+      "name": "r1-network",
+      "cidr": "100.100.100.0/29"
+    },
+    {
+      "name": "s1",
+      "cidr": "10.10.10.0/24"
+    },
+    {
+      "name": "s2",
+      "cidr": "10.10.20.0/24"
+    },
+    {
+      "name": "s3",
+      "cidr": "10.10.30.0/24"
+    }
+  ],
+  "routers": [
+    {
+      "name": "r1",
+      "cidr": "100.100.100.0/29"
+    },
+    {
+      "name": "r2",
+      "cidr": "200.100.100.0/29"
+    }
+  ],
+  "links": [
+    {
+      "port_a": "Link-22",
+      "port_b": "switch_6"
+    },
+    {
+      "port_a": "Link-16",
+      "port_b": "switch_2"
+    },
+    {
+      "port_a": "Link-18",
+      "port_b": "switch_7"
+    },
+    {
+      "port_a": "Link-19",
+      "port_b": "switch_8"
+    },
+    {
+      "port_a": "Link-21",
+      "port_b": "switch_4"
+    },
+    {
+      "port_a": "Link-23",
+      "port_b": "switch_5"
+    },
+    {
+      "port_a": "Link-27",
+      "port_b": "switch_3"
+    },
+    {
+      "port_a": "Link-14",
+      "port_b": "switch_0"
+    },
+    {
+      "port_a": "Link-25",
+      "port_b": "switch_1"
+    }
+  ]
 }

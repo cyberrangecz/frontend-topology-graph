@@ -1,13 +1,10 @@
-import { Injectable } from '@angular/core';
-import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
-import { Link } from 'graph-topology-model-lib';
-import { Node} from 'graph-topology-model-lib';
+import {Injectable} from '@angular/core';
+import {ForceDirectedGraph} from '../model/graph/force-directed-graph';
+import {Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from 'graph-topology-model-lib';
 import * as d3 from 'd3';
-import {NodePhysicalRoleEnum} from 'graph-topology-model-lib';
-import {RouterNode} from 'graph-topology-model-lib';
 import {D3ZoomEventService} from './d3-zoom-event.service';
 import {GraphLockService} from './graph-lock.service';
-import {Subject, Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {DraggedNodeService} from './dragged-node.service';
 
 /**
@@ -123,7 +120,7 @@ export class D3Service {
       node.fy = node.y;
 
       // starting dragging on all children nodes for moving subnetworks as a whole
-      if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+      if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
         dragStartedSubnetwork(node);
       }
 
@@ -135,7 +132,7 @@ export class D3Service {
           child.fx = child.x;
           child.fy = child.y;
 
-          if (child instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+          if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
             dragStartedSubnetwork(child);
           }
         }
@@ -158,7 +155,7 @@ export class D3Service {
             || node.fy <= 50
             || node.fy >= graph.getGraphHeight() - 50;
           // calculation made also on children nodes to maintain distances inside subnetwork
-          if (!onBorder && node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+          if (!onBorder && node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
             draggedSubnetwork(node);
           }
         } else {
@@ -174,14 +171,19 @@ export class D3Service {
           if (outside) {
             resizeEventSubject.next({x: node.fx, y: node.fy});
           }
-          if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+          if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
             draggedSubnetwork(node);
           }
         }
 
         //  recursive function to recalculate position of all nodes in parent subnetwork
         function draggedSubnetwork(router) {
-          for (const child of router.children) {
+          // TODO decide whether this is expected behaviour?
+          const draggedNodes = router.children
+            .filter(node => !(node instanceof RouterNode)
+              && !(node.physicalRole === NodePhysicalRoleEnum.Router));
+
+          for (const child of draggedNodes) {
 
             if (lockService.getLocked()) {
               // prevents dragging outside the window
@@ -191,7 +193,7 @@ export class D3Service {
               child.fx = d3.event.x + (child.x - node.x);
               child.fy = d3.event.y + (child.y - node.y);
             }
-              if (child instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+              if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
                 draggedSubnetwork(child);
             }
           }
@@ -211,7 +213,7 @@ export class D3Service {
         node.fy = null;
 
         // clear children nodes attributes
-        if (node instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+        if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
           dragEndSubnetwork(node);
         }
 
@@ -221,7 +223,7 @@ export class D3Service {
             child.fx = null;
             child.fy = null;
 
-            if (child instanceof RouterNode && node.physicalRole === NodePhysicalRoleEnum.Router) {
+            if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
               dragEndSubnetwork(child);
             }
           }
