@@ -5,7 +5,7 @@ import {NodeDecorator} from './node-decorator';
  */
 export abstract class NodeHostDecorator extends NodeDecorator {
 
-  constructor(nodeId: number) {
-    super(nodeId);
+  constructor(nodeName: string) {
+    super(nodeName);
   }
 }

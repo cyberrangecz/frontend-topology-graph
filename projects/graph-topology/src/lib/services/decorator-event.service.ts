@@ -100,14 +100,14 @@ export class DecoratorEventService {
    * @param {DecoratorCategoryEnum} categoryType category of element and its decorator - ROUTER, HOST or LINK. Cannot be null
    * @param {HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum} decoratorType
    * decorator type which should be reloaded. If is null, all types are reloaded
-   * @param {number[]} ids array of ids of topology elements whose decorators should be reloaded.
+   * @param {string[]} names array of names of topology elements whose decorators should be reloaded.
    * Can be omitted - null is passed  as default value- applies to all elements
    */
   public triggerDecoratorReloadRequest(categoryType: DecoratorCategoryEnum,
                                        decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-                                       ids: number[] = null) {
+                                       names: string[] = null) {
 
-    this.onDecoratorReloadRequestSubject.next(new DecoratorReloadRequestEvent(categoryType, decoratorType, ids));
+    this.onDecoratorReloadRequestSubject.next(new DecoratorReloadRequestEvent(categoryType, decoratorType, names));
   }
 }
 

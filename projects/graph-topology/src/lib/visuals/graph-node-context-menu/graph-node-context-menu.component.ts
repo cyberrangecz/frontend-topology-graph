@@ -26,7 +26,7 @@ export class NodeContextMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.contextMenuService.show.subscribe(e => this.showMenu(e.position, e.nodeId));
+    this.contextMenuService.show.subscribe(e => this.showMenu(e.position, e.nodeName));
     this.items = this.contextMenuService.getItems();
   }
 
@@ -54,8 +54,8 @@ export class NodeContextMenuComponent implements OnInit {
    * @param event sent by context menu service
    * @param items to be shown in menu
    */
-  showMenu(position, nodeId) {
-    if (this.node.id === nodeId) {
+  showMenu(position, nodeName) {
+    if (this.node.name === nodeName) {
       this.menuLocation = {
         left: position.x,
         top: position.y

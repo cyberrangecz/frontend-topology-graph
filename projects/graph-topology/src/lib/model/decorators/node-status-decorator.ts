@@ -7,8 +7,8 @@ import {NodeHostDecorator} from './node-host-decorator';
 export class NodeStatusDecorator extends NodeHostDecorator {
   status: StatusEnum;
 
-  constructor(nodeId: number, status: StatusEnum) {
-    super(nodeId);
+  constructor(nodeName: string, status: StatusEnum) {
+    super(nodeName);
     this.status = status;
   }
 }

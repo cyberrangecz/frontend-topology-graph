@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Node } from 'graph-topology-model-lib';
+import {Node, SwitchNode} from 'graph-topology-model-lib';
 import { RouterNode } from 'graph-topology-model-lib';
 import {NodeSemaphoreDecorator} from '../../model/decorators/node-semaphore-decorator';
 import {NodeStatusDecorator} from '../../model/decorators/node-status-decorator';
@@ -46,7 +46,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
               private graphEventService: GraphEventService,
               private decoratorReloadTimerService: DecoratorReloadTimerService) {
     // unknown status decorator is created because node class is resolved from it
-    this.statusDecorator = new NodeStatusDecorator(0, StatusEnum.Unknown);
+    this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
     this.subscribeToDecoratorEvents();
 
   }
@@ -66,7 +66,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Changing node sub network state(collapsed or revealed) if node is of type Router. Reloads decorator for all children nodes
    */
   onDoubleClick() {
-    if (this.node instanceof RouterNode) {
+    if (this.node instanceof SwitchNode) {
       this.changeSubnetworkState(this.node);
       this.loadDecoratorsForSubnet(this.node);
     }
@@ -74,23 +74,23 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   /**
    * Changes subnetwork state (Revealed -> Hidden, Hidden -> Revealed) and sends requests to graph to delete hidden nodes and links
-   * @param {RouterNode} node which state should be changed
+   * @param {SwitchNode} node which state should be changed
    */
-  private changeSubnetworkState(node: RouterNode) {
-    node.changeRouterPhysicalRole();
+  private changeSubnetworkState(node: SwitchNode) {
+    node.changeSwitchPhysicalRole();
 
     if (node.physicalRole === NodePhysicalRoleEnum.Cloud) {
       // recursively collapse all child nodes
       if (node.children != null && node.children.length > 0) {
         node.children.forEach(d => {
-          if (d instanceof RouterNode && d.physicalRole === NodePhysicalRoleEnum.Router) {
+          if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
             this.changeSubnetworkState(d);
           }
         });
       }
       this.graphEventService.hideSubnet(node);
 
-    } else if (node.physicalRole === NodePhysicalRoleEnum.Router) {
+    } else if (node.physicalRole === NodePhysicalRoleEnum.Switch) {
       this.graphEventService.revealSubnet(node);
     }
   }
@@ -116,36 +116,36 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Extract ids of subnet and sends request for reloading decorators for all new nodes and links.
    * @param {RouterNode} node
    */
-  private loadDecoratorsForSubnet(node: RouterNode) {
+  private loadDecoratorsForSubnet(node: SwitchNode) {
     if (node.physicalRole === NodePhysicalRoleEnum.Router) {
-      const hostIds: number[] = [];
-      const routerIds: number[] = [];
+      const hostNames: string[] = [];
+      const routerNames: string[] = [];
       node.children.forEach(
         child => {
           if (child instanceof RouterNode) {
-            routerIds.push(child.id);
+            routerNames.push(child.name);
           } else {
-            hostIds.push(child.id);
+            hostNames.push(child.name);
           }
         });
 
       // We call reload of decorators on all affected hosts and routers
       // and all links (we cannot select connected links from this component)
       // 100 ms timeout is to give application enough time to load new components completely before loading decorators.
-      if (hostIds.length > 0) {
+      if (hostNames.length > 0) {
         setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostIds),
+            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostNames),
           100);
       }
 
-      if (routerIds.length > 0) {
+      if (routerNames.length > 0) {
         setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerIds),
+            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerNames),
           100
         );
       }
 
-      if (routerIds.length > 0 || hostIds.length > 0) {
+      if (routerNames.length > 0 || hostNames.length > 0) {
         setTimeout(() =>
             this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
           100);
@@ -161,7 +161,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
                             nodeDecorators: NodeDecorator[]) {
 
     // extract decorators for this node
-    const decorators = nodeDecorators.filter(d => d.nodeId === this.node.id);
+    const decorators = nodeDecorators.filter(d => d.nodeName === this.node.name);
 
     if (category === DecoratorCategoryEnum.RouterDecorators && this.node instanceof RouterNode) {
       this.addActiveRouterDecorators(decorators);
@@ -214,7 +214,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   private removeNonActiveHostDecorators(activeDecoratorTypes: HostNodeDecoratorTypeEnum[], activeDecorators: NodeDecorator[]) {
     if (activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeStatusDecorator)
       && !activeDecorators.find(dec => dec instanceof NodeStatusDecorator)) {
-      this.statusDecorator = new NodeStatusDecorator(0, StatusEnum.Unknown);
+      this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
     }
 
     if (activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator)
@@ -290,7 +290,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
           break;
         }
         case HostNodeDecoratorTypeEnum.NodeStatusDecorator: {
-          this.statusDecorator = new NodeStatusDecorator(0, StatusEnum.Unknown);
+          this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
           break;
         }
         default:
@@ -304,7 +304,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @returns {boolean} true if hidden, false otherwise
    */
   isSubnetHidden(): boolean {
-    return this.node instanceof RouterNode && this.node.physicalRole === NodePhysicalRoleEnum.Cloud;
+    return this.node instanceof SwitchNode && this.node.physicalRole === NodePhysicalRoleEnum.Cloud;
   }
 
   /**
@@ -312,36 +312,8 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @returns {number} calculated width of node
    */
   private calculateNodeWidth(): number  {
-    let currentWidth = this.DEFAULT_NODE_WIDTH;
-    let longestStringLen = 12; // default value that matches 75px width
-
-    if (this.node.nodeInterfaces[0].address4 != null
-      && this.node.nodeInterfaces[0].address6 != null) {
-      this.height = 75;
-    }
-
-    // adding +5 width for every char in ipv4 address longer than current longest string to be drawn
-    if (this.node.nodeInterfaces[0].address4 != null
-      && this.node.nodeInterfaces[0].address4.length > 12) {
-      currentWidth += (this.node.nodeInterfaces[0].address4.length - 12) * 5;
-      longestStringLen = this.node.nodeInterfaces[0].address4.length;
-    }
-
-    // adding +5 width for every char in name longer than current longest string to be drawn
-    if (this.node.name != null
-      && this.node.name.length > longestStringLen) {
-      currentWidth += (this.node.name.length - 12 ) * 5;
-      longestStringLen = this.node.name.length;
-    }
-
-    // adding +5 width for every char in ipv6 address longer than current longest string to be drawn
-    if (this.node.nodeInterfaces[0].address6 != null
-      && this.node.nodeInterfaces[0].address6.length > longestStringLen) {
-      currentWidth += (this.node.nodeInterfaces[0].address6.length - 12) * 5;
-      longestStringLen = this.node.nodeInterfaces[0].address6.length;
-    }
-
-    return currentWidth;
+    return this.DEFAULT_NODE_WIDTH;
+    // TODO Calculate based on length of strings displayed in the node
   }
 
   /**
@@ -349,14 +321,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @returns {number} calculated height of node
    */
   private calculateNodeHeight(): number {
-    const height = this.DEFAULT_NODE_HEIGHT;
-    if (this.node.nodeInterfaces[0].address4 != null
-      && this.node.nodeInterfaces[0].address6 != null
-      && this.node.name != null) {
-      return height + 10;
-    } else {
-      return height;
-    }
+    return this.DEFAULT_NODE_HEIGHT;
   }
 
   /**
@@ -367,26 +332,15 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     let xPosition = this.width / (-2) + 5;
     let yPosition = this.height / (-2) + 50;
 
-    if (this.node.nodeInterfaces[0].address4 != null) {
+    if (this.node.nodePorts[0].ip != null) {
       this.labels.push(
         {
           x: xPosition,
           y: yPosition,
-          text: this.node.nodeInterfaces[0].address4
+          text: this.node.nodePorts[0].ip
         });
       yPosition += 12;
     }
-
-    if (this.node.nodeInterfaces[0].address6 != null) {
-      this.labels.push(
-        {
-          x: xPosition,
-          y: yPosition,
-          text: this.node.nodeInterfaces[0].address6
-        });
-      yPosition += 12;
-    }
-
     if (this.node.name != null) {
       this.labels.push(
         {

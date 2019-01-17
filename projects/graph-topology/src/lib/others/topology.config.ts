@@ -7,6 +7,7 @@ export class TopologyConfig {
 
   scenarioRestUrl: string;
 
+
   defaultDecoratorRefreshPeriodInSeconds: number;
 
   useRealTime: boolean;
@@ -14,4 +15,7 @@ export class TopologyConfig {
   useDecorators: boolean;
 
   sandboxName: string;
+
+  authorizationToken?: string;
+
 }

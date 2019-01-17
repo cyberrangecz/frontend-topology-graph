@@ -48,7 +48,7 @@ export class ContextMenuService {
       x: number,
       y: number
     },
-    nodeId: number
+    nodeName: string
   }> = new Subject();
 
   getItems() {

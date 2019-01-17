@@ -1,6 +1,6 @@
 import Dictionary from 'typescript-collections/dist/lib/Dictionary';
 
-import {Node} from 'graph-topology-model-lib';
+import {Node, SwitchNode} from 'graph-topology-model-lib';
 
 import {Point} from '../../others/point';
 import {RouterNode} from 'graph-topology-model-lib';
@@ -12,18 +12,18 @@ export class HierarchicalLayoutCreator {
   private readonly DISTANCE_BETWEEN_TREE_LEVELS = 150;
 
   private nodes: Node[];
-  private nodePositions: Dictionary<number, Point>;
+  private nodePositions: Dictionary<string, Point>;
 
   private width: number;
   private height: number;
 
-  private layers: Dictionary<number, number>;
+  private layers: Dictionary<string, number>;
 
 
   constructor(width: number, height) {
     this.nodes = [];
-    this.nodePositions = new Dictionary<number, Point>();
-    this.layers = new Dictionary<number, number>();
+    this.nodePositions = new Dictionary<string, Point>();
+    this.layers = new Dictionary<string, number>();
     this.width = width;
     this.height = height;
   }
@@ -39,9 +39,9 @@ export class HierarchicalLayoutCreator {
   /**
    * Calculates position from nodes
    * @param {Node[]} nodes to which positions should be calculated
-   * @returns {Dictionary<number, Point>} calculated dictionary of node ids and positions
+   * @returns {Dictionary<string, Point>} calculated dictionary of node names and positions
    */
-  getPositionsForNodes(nodes: Node[]): Dictionary<number, Point>  {
+  getPositionsForNodes(nodes: Node[]): Dictionary<string, Point>  {
     this.nodes = nodes;
     this.initializePositions();
     this.calculateNodeLayers();
@@ -53,7 +53,7 @@ export class HierarchicalLayoutCreator {
    * Initializes dictionary with default ids and positions
    */
   private initializePositions() {
-    this.nodes.forEach(node => this.nodePositions.setValue(node.id, new Point(-1, -1)));
+    this.nodes.forEach(node => this.nodePositions.setValue(node.name, new Point(-1, -1)));
   }
 
   /**
@@ -80,12 +80,12 @@ export class HierarchicalLayoutCreator {
    */
   private calculateXPositionForSubnets(topLayerNodes: Node[]) {
     topLayerNodes.forEach(node => {
-      if (node instanceof RouterNode
+      if (node instanceof SwitchNode
         && node.children !== null
         && node.children.length > 0
         && this.nodes.includes(node.children[0])) {
 
-        const nodeXPosition = this.nodePositions.getValue(node.id).x;
+        const nodeXPosition = this.nodePositions.getValue(node.name).x;
         this.calculateXPositionsForSubnetsRecursively(node.children, nodeXPosition);
       }
     });
@@ -97,20 +97,20 @@ export class HierarchicalLayoutCreator {
    * @param {number} parentXPosition calculated position of parent
    */
   private calculateXPositionsForSubnetsRecursively(nodes: Node[], parentXPosition: number) {
-    nodes.sort((a, b) => a.id - b.id);
-    const middleNodeId = this.getMiddleNodeId(nodes);
+    nodes.sort((a, b) => a.name.localeCompare(b.name));
+    const middleNodeId = this.getMiddleNodeName(nodes);
     const distanceCoefficient = this.calculateSubnetDistanceCoefficient();
     this.setXPositionForMiddleNodeInSubnet(middleNodeId, distanceCoefficient, nodes.length, parentXPosition);
 
     this.calculateXPositionsForNodes(nodes, middleNodeId, distanceCoefficient);
 
     nodes.forEach(node => {
-      if (node instanceof RouterNode
+      if (node instanceof SwitchNode
         && node.children !== null
         && node.children.length > 0
         && this.nodes.includes(node.children[0])) {
 
-        const nodeXPosition = this.nodePositions.getValue(node.id).x;
+        const nodeXPosition = this.nodePositions.getValue(node.name).x;
         this.calculateXPositionsForSubnetsRecursively(node.children, nodeXPosition);
       }
     });
@@ -121,72 +121,72 @@ export class HierarchicalLayoutCreator {
    * @param {Node[]} nodes top layer nodes
    */
   private calculateXPositionForTopLayer(nodes: Node[]) {
-    nodes.sort((a, b) => a.id - b.id);
+    nodes.sort((a, b) => a.name.localeCompare(b.name));
 
-    const middleNodeId = this.getMiddleNodeId(nodes);
+    const middleNodeName = this.getMiddleNodeName(nodes);
     const distanceCoefficient = this.calculateTopLayerDistanceCoefficient(nodes.length);
-    this.setXPositionForMiddleNodeInTopLayer(middleNodeId, distanceCoefficient, nodes.length);
+    this.setXPositionForMiddleNodeInTopLayer(middleNodeName, distanceCoefficient, nodes.length);
 
-    this.calculateXPositionsForNodes(nodes, middleNodeId, distanceCoefficient);
+    this.calculateXPositionsForNodes(nodes, middleNodeName, distanceCoefficient);
   }
 
   /**
    * Calculates X position of nodes from certain layer based on provided parameters
    * @param {Node[]} nodes array of nodes whose positions should be calculated
-   * @param {number} middleNodeId id of middle node in provided array
+   * @param {number} middleNodeName name of middle node in provided array
    * @param {number} distanceCoefficient distance by which should be every next node shifted
    */
-  private calculateXPositionsForNodes(nodes: Node[], middleNodeId: number, distanceCoefficient: number) {
+  private calculateXPositionsForNodes(nodes: Node[], middleNodeName: string, distanceCoefficient: number) {
     let leftNodesCount = 0;
     let rightNodesCount = 0;
 
     nodes.forEach((node) => {
-      const middleXPosition = this.nodePositions.getValue(middleNodeId).x;
+      const middleXPosition = this.nodePositions.getValue(middleNodeName).x;
 
-      if (node.id > middleNodeId) {
-        this.setXPosition(node.id, (middleXPosition + (distanceCoefficient * (++rightNodesCount))));
-      } else if (node.id < middleNodeId) {
-        this.setXPosition(node.id, (middleXPosition - (distanceCoefficient * (++leftNodesCount))));
+      if (node.name.localeCompare(middleNodeName)) {
+        this.setXPosition(node.name, (middleXPosition + (distanceCoefficient * (++rightNodesCount))));
+      } else {
+        this.setXPosition(node.name, (middleXPosition - (distanceCoefficient * (++leftNodesCount))));
       }
     });
   }
 
   /**
    * Calculates and sets position for middle node in top layer (nodes without parents)
-   * @param {number} nodeId id of middle node
+   * @param {string} nodeName name of middle node
    * @param {number} distanceCoefficient distance by which should be middle position shifted if it is needed
    * @param {number} nodeCountInTopLayer number of nodes in top layer
    */
-  private setXPositionForMiddleNodeInTopLayer(nodeId: number, distanceCoefficient: number, nodeCountInTopLayer: number) {
+  private setXPositionForMiddleNodeInTopLayer(nodeName: string, distanceCoefficient: number, nodeCountInTopLayer: number) {
     if (nodeCountInTopLayer % 2 === 0) {
-      this.setXPosition(nodeId, ((this.width / 2) + (distanceCoefficient / 2)));
+      this.setXPosition(nodeName, ((this.width / 2) + (distanceCoefficient / 2)));
     } else {
-      this.setXPosition(nodeId, (this.width / 2));
+      this.setXPosition(nodeName, (this.width / 2));
     }
   }
 
   /**
    * Calculates and sets position for middle node in lower layer subnets
-   * @param {number} nodeId nodeId id of middle node
+   * @param {string} nodeName nodeId id of middle node
    * @param distanceCoefficient  distance by which should be middle position shifted if it is needed
    * @param {number} nodeCount number of nodes in current layer (only for the current subnet, not total count)
    * @param {number} parentXPosition calculated X position of parent of this subnet
    */
-  private setXPositionForMiddleNodeInSubnet(nodeId: number, distanceCoefficient, nodeCount: number, parentXPosition: number) {
+  private setXPositionForMiddleNodeInSubnet(nodeName: string, distanceCoefficient, nodeCount: number, parentXPosition: number) {
     if (nodeCount % 2 === 0) {
-      this.setXPosition(nodeId, (parentXPosition + (distanceCoefficient / 2)));
+      this.setXPosition(nodeName, (parentXPosition + (distanceCoefficient / 2)));
     } else {
-      this.setXPosition(nodeId, parentXPosition );
+      this.setXPosition(nodeName, parentXPosition );
     }
   }
 
   /**
-   * Returns id of middle node in provided array
-   * @param {Node[]} nodes array of nodes where should be the middle node  found
+   * Returns name of middle node in provided array
+   * @param {Node[]} nodes array of nodes where should be the middle node found
    * @returns {number} id of found middle node
    */
-  private getMiddleNodeId(nodes: Node[]): number {
-    return nodes[Math.floor((nodes.length / 2))].id;
+  private getMiddleNodeName(nodes: Node[]): string {
+    return nodes[Math.floor((nodes.length / 2))].name;
   }
 
   /**
@@ -210,48 +210,48 @@ export class HierarchicalLayoutCreator {
   /**
    * Calculates y position for each node in a graph for hierarchical layout.
    * First calculates how many levels are in the 'tree' then assigns y positions based on that information
-   * @returns {Dictionary<number, number>} dictionary of node ids as a keys and its y position as a value
+   * @returns {Dictionary<string, number>} dictionary of node names as a keys and its y position as a value
    */
  private calculateYPositions() {
    this.nodes.forEach(d => {
-     this.setYPosition(d.id, this.layers.getValue(d.id) * this.DISTANCE_BETWEEN_TREE_LEVELS);
+     this.setYPosition(d.name, this.layers.getValue(d.name) * this.DISTANCE_BETWEEN_TREE_LEVELS);
    });
  }
 
   /**
    * Sets Y position to id in dict
-   * @param {number} nodeId id of node
+   * @param {string} nodeName name of node
    * @param {number} value y value of node
    */
- private setYPosition(nodeId: number, value: number) {
-   this.nodePositions.getValue(nodeId).y = value;
+ private setYPosition(nodeName: string, value: number) {
+   this.nodePositions.getValue(nodeName).y = value;
  }
 
   /**
    * Sets X position to id in dict
-   * @param {number} nodeId id of node
+   * @param {string} nodeName name of node
    * @param {number} value x value of node
    */
- private setXPosition(nodeId: number, value: number) {
-   this.nodePositions.getValue(nodeId).x = value;
+ private setXPosition(nodeName: string, value: number) {
+   this.nodePositions.getValue(nodeName).x = value;
  }
 
   /**
    * Finds if node has set correct (not default) x position in dict
-   * @param {number} nodeId d of node
+   * @param {nodeName} nodeName name of node
    * @returns {boolean} true if correct x position is found, false otherwise
    */
- private hasXPosition(nodeId: number): boolean {
-   return this.nodePositions.getValue(nodeId).x >= 0;
+ private hasXPosition(nodeName: string): boolean {
+   return this.nodePositions.getValue(nodeName).x >= 0;
  }
 
   /**
    * Finds if node has set correct (not default) y position in dict
-   * @param {number} nodeId of node
+   * @param {string} nodeName of node
    * @returns {boolean} true if correct y position is found, false otherwise
    */
- private hasYPosition(nodeId: number) {
-   return this.nodePositions.getValue(nodeId).y >= 0;
+ private hasYPosition(nodeName: string) {
+   return this.nodePositions.getValue(nodeName).y >= 0;
 
  }
 
@@ -260,7 +260,7 @@ export class HierarchicalLayoutCreator {
    */
   private calculateNodeLayers() {
     this.nodes.forEach(node => {
-      if (!this.layers.getValue(node.id)) {
+      if (!this.layers.getValue(node.name)) {
         this.calculateNodeLayersRecursively(node, 1);
       }
     });
@@ -272,8 +272,8 @@ export class HierarchicalLayoutCreator {
    * @param {number} currLevel current layer (passed from parent or initial call - set to 1)
    */
   private calculateNodeLayersRecursively(node: Node, currLevel: number) {
-    this.layers.setValue(node.id, currLevel);
-    if (node instanceof RouterNode) {
+    this.layers.setValue(node.name, currLevel);
+    if (node instanceof SwitchNode) {
       node.children.forEach(child => this.calculateNodeLayersRecursively(child, (currLevel + 1)));
     }
   }
@@ -281,11 +281,11 @@ export class HierarchicalLayoutCreator {
   /**
    * Finds parent of a node
    * @param {Node} node which parent should be found
-   * @returns {RouterNode} parent of a node, null if node has no parent
+   * @returns {SwitchNode} parent of a node, null if node has no parent
    */
-  private findParent(node: Node): RouterNode {
+  private findParent(node: Node): SwitchNode {
     for (const d of this.nodes) {
-      if (d instanceof RouterNode && d.children.includes(node)) {
+      if (d instanceof SwitchNode && d.children.includes(node)) {
         return d;
       }
     }

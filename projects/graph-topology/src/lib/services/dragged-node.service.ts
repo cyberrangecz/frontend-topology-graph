@@ -5,7 +5,7 @@ import {INode} from 'graph-topology-model-lib';
 @Injectable()
 export class DraggedNodeService {
 
-  lastDraggedNodeId = -1;
+  lastDraggedNodeName = "";
 
   private _onNodeTouchedSubject: Subject<INode> = new Subject<INode>();
   public onNodeTouched: Observable<INode> = this._onNodeTouchedSubject.asObservable();
@@ -30,14 +30,14 @@ export class DraggedNodeService {
    * @param node INode interface - node in the graph
    */
   emitNodeDragStartedEvent(node: INode) {
-    this.lastDraggedNodeId = node.id;
+    this.lastDraggedNodeName = node.name;
     this._onNodeDragStartedSubject.next(node);
   }
   /**
-   * Sets lastDraggedNode attribute to -1 and emits empty observable event when dragging of a node stops
+   * Sets lastDraggedNode attribute to empty string and emits empty observable event when dragging of a node stops
    */
   emitNodeDragEndedEvent() {
-    this.lastDraggedNodeId = -1;
+    this.lastDraggedNodeName = "";
     this._onNodeDragEndedSubject.next(null);
   }
 }

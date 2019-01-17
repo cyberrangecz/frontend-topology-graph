@@ -12,8 +12,8 @@ import {DecoratorReloadTimerService} from '../services/decorator-reload-timer.se
 import {DecoratorFilterService} from '../services/decorator-filter.service';
 import {D3Service} from '../services/d3.service';
 import {ContextMenuService} from '../services/context-menu.service';
-import {GraphTopologyLoaderService} from '../services/graph-topology-loader.service';
-import {DecoratorLoaderService} from '../services/decorator-loader.service';
+import {TopologyFacade} from '../services/topology-facade.service';
+import {DecoratorFacade} from '../services/decorator-facade.service';
 import {DecoratorEventService} from '../services/decorator-event.service';
 import {DecoratorTimeService} from '../services/decorator-time.service';
 import {D3ZoomEventService} from '../services/d3-zoom-event.service';
@@ -30,6 +30,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SpiceClientLibModule} from 'spice-client-lib';
 import {HostService} from '../services/host.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
+import {TopologySerializer} from '../services/topology-serializer.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,9 +58,10 @@ import {DraggedNodeService} from '../services/dragged-node.service';
     D3Service,
     D3ZoomEventService,
     ContextMenuService,
-    GraphTopologyLoaderService,
+    TopologyFacade,
+    TopologySerializer,
     DecoratorReloadTimerService,
-    DecoratorLoaderService,
+    DecoratorFacade,
     DecoratorEventService,
     DecoratorFilterService,
     DecoratorTimeService,

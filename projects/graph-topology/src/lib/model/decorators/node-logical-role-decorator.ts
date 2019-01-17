@@ -9,8 +9,8 @@ export class NodeLogicalRoleDecorator extends NodeHostDecorator {
   y: number;
   role: NodeLogicalRoleEnum;
 
-  constructor(nodeId: number, role: NodeLogicalRoleEnum) {
-    super(nodeId);
+  constructor(nodeName: string, role: NodeLogicalRoleEnum) {
+    super(nodeName);
     this.role = role;
   }
 }

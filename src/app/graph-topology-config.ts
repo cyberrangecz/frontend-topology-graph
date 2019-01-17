@@ -9,4 +9,5 @@ export class CustomTopologyConfig extends TopologyConfig {
   sandboxName = 'sandbox1';
   useRealTime = false;
   useDecorators = false;
+  authorizationToken? = null;
 }

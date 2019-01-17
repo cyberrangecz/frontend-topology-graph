@@ -4,8 +4,8 @@ export class LinkMailDecorator extends LinkDecorator {
 
   amount: number;
 
-  constructor(linkId: number, amount: number) {
-    super(linkId);
+  constructor(linkName: string, amount: number) {
+    super(linkName);
     this.amount = amount;
   }
 }
