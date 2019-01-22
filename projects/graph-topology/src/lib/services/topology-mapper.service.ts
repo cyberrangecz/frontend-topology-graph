@@ -8,49 +8,47 @@ import {HostDTO} from '../model/DTO/host-dto.model';
 import {LinkDTO} from '../model/DTO/link-dto.model';
 
 @Injectable()
-export class TopologySerializer {
+export class TopologyMapper {
 
   linksCounter: number;
 
-  serializeTopology(topology: TopologyDTO): {nodes: Node[], links: Link[]} {
+  mapTopologyFromDTO(topology: TopologyDTO): {nodes: Node[], links: Link[]} {
     this.linksCounter = 0;
-    const ports = this.serializePorts(topology);
-    const nodes = this.serializeNodes(topology);
+    const ports = this.mapPortsFromDTO(topology);
+    const nodes = this.mapNodesFromDTO(topology);
     this.pairNodesWithPorts(nodes, ports);
-    const links = this.serializeLinks(topology, nodes);
+    const links = this.mapLinksFromDTO(topology, nodes);
     this.createHierarchicalStructure(nodes, links);
-    console.log(nodes);
-    console.log(links);
     return {
       nodes: nodes,
       links: links
     }
   }
 
-  private serializeNodes(topologyDTO: TopologyDTO): Node[] {
+  private mapNodesFromDTO(topologyDTO: TopologyDTO): Node[] {
     const result: Node[] = [];
     topologyDTO.hosts.forEach(hostDTO =>
-      result.push(this.serializeHost(hostDTO)));
+      result.push(this.mapHostFromDTO(hostDTO)));
 
     topologyDTO.switches.forEach(switchDTO =>
-      result.push(this.serializeSwitch(switchDTO)));
+      result.push(this.mapSwitchFromDTO(switchDTO)));
 
     topologyDTO.routers.forEach(routerDTO =>
-      result.push(this.serializeRouter(routerDTO)));
+      result.push(this.mapRouterFromDTO(routerDTO)));
     return result;
   }
 
-  private serializeLinks(topologyDTO: TopologyDTO, nodes: Node[]): Link[] {
+  private mapLinksFromDTO(topologyDTO: TopologyDTO, nodes: Node[]): Link[] {
     const links: Link[] = [];
-    topologyDTO.links.forEach(link => links.push(this.serializeLink(link, nodes)));
+    topologyDTO.links.forEach(link => links.push(this.mapLinkFromDTO(link, nodes)));
     return links;
   }
 
-  private serializePorts(topologyDTO: TopologyDTO): NodePort[] {
+  private mapPortsFromDTO(topologyDTO: TopologyDTO): NodePort[] {
     const ports: NodePort[] =[];
     topologyDTO.ports
       .forEach(portDTO =>
-        ports.push(this.serializePort(portDTO)));
+        ports.push(this.mapPortFromDTO(portDTO)));
     return ports;
   }
 
@@ -78,21 +76,16 @@ export class TopologySerializer {
     return children;
   }
 
-  private serializePort(portDTO: PortDTO): NodePort {
+  private mapPortFromDTO(portDTO: PortDTO): NodePort {
     const result = new NodePort();
     result.name = portDTO.name;
-    if (portDTO.node) {
-      result.nodeName = portDTO.node;
-      result.ip = portDTO.ip;
-      result.mac = portDTO.mac;
-    }
-    else {
-      result.nodeName = portDTO.network;
-    }
+    result.nodeName = portDTO.parent;
+    result.ip = portDTO.ip;
+    result.mac = portDTO.mac;
     return result;
   }
 
-  private serializeRouter(routerDTO: RouterDTO): RouterNode {
+  private mapRouterFromDTO(routerDTO: RouterDTO): RouterNode {
     const result = new RouterNode();
     result.cidr = routerDTO.cidr;
     result.name = routerDTO.name;
@@ -100,7 +93,7 @@ export class TopologySerializer {
     return result;
   }
 
-  private serializeSwitch(switchDTO: SwitchDTO): SwitchNode {
+  private mapSwitchFromDTO(switchDTO: SwitchDTO): SwitchNode {
     const result = new SwitchNode();
     result.cidr = switchDTO.cidr;
     result.name = switchDTO.name;
@@ -108,14 +101,14 @@ export class TopologySerializer {
     return result;
   }
 
-  private serializeHost(hostDTO: HostDTO): HostNode {
+  private mapHostFromDTO(hostDTO: HostDTO): HostNode {
     const result = new HostNode();
     result.name = hostDTO.name;
     result.physicalRole = NodePhysicalRoleEnum.Desktop;
     return result;
   }
 
-  private serializeLink(linkDTO: LinkDTO, nodes: Node[]): Link {
+  private mapLinkFromDTO(linkDTO: LinkDTO, nodes: Node[]): Link {
     const result = new Link();
     result.id = this.linksCounter;
     this.linksCounter++;

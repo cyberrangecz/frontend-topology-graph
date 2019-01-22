@@ -1,7 +1,6 @@
 export class PortDTO {
   name: string;
-  network: string;
+  parent: string;
   ip?: string;
-  node?: string;
   mac?: string;
 }

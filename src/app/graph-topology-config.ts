@@ -4,7 +4,7 @@ export class CustomTopologyConfig extends TopologyConfig {
 
   decoratorsRestUrl = '';
   defaultDecoratorRefreshPeriodInSeconds = 3;
-  topologyRestUrl = '/assets/sample-data/graph-test-data.json';
+  topologyRestUrl = 'http://localhost:8082/kypo2-rest-topology/api/v1/';
   scenarioRestUrl = 'http://kypo2.ics.muni.cz:5000/scenario/';
   sandboxName = 'sandbox1';
   useRealTime = false;

@@ -223,7 +223,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     // recursively collapse all children nodes
     if (node.children != null && node.children.length > 0) {
       node.children.forEach(d => {
-        if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Router) {
+        if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
           this.collapseSubnetworkOfNode(d);
         }
       });
