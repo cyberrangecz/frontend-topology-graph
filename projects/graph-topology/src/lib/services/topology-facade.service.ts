@@ -5,7 +5,7 @@ import {Node} from 'graph-topology-model-lib';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ConfigService} from './config.service';
-import {TopologySerializer} from './topology-serializer.service';
+import {TopologyMapper} from './topology-mapper.service';
 import {TopologyDTO} from '../model/DTO/topology-dto.model';
 
 /**
@@ -19,7 +19,7 @@ import {TopologyDTO} from '../model/DTO/topology-dto.model';
 export class TopologyFacade {
 
   constructor(private http: HttpClient,
-              private topologySerializer: TopologySerializer,
+              private topologySerializer: TopologyMapper,
               private configService: ConfigService) {
   }
 
@@ -29,8 +29,8 @@ export class TopologyFacade {
    * Caller needs to subscribe for it.
    */
   getTopology(): Observable<{nodes: Node[], links: Link[]}> {
-    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl, { headers: this.createAuthorizationHeader() })
-      .pipe(map(response => this.topologySerializer.serializeTopology(response)
+    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl + 'pools/1/sandboxes/1/topologies', { headers: this.createAuthorizationHeader() })
+      .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
       ));
    }
 

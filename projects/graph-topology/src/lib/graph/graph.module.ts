@@ -30,7 +30,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SpiceClientLibModule} from 'spice-client-lib';
 import {HostService} from '../services/host.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
-import {TopologySerializer} from '../services/topology-serializer.service';
+import {TopologyMapper} from '../services/topology-mapper.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -59,7 +59,7 @@ import {TopologySerializer} from '../services/topology-serializer.service';
     D3ZoomEventService,
     ContextMenuService,
     TopologyFacade,
-    TopologySerializer,
+    TopologyMapper,
     DecoratorReloadTimerService,
     DecoratorFacade,
     DecoratorEventService,
