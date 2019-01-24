@@ -15,103 +15,112 @@
   ],
   "ports": [
     {
-      "name": "switch_6",
-      "network": "s2"
+      "name": "Link-27_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
     },
     {
-      "name": "switch_7",
-      "network": "s2"
+      "name": "Link-18_s2",
+      "ip": null,
+      "parent": "s2",
+      "mac": null
     },
     {
-      "name": "switch_4",
-      "network": "s1"
+      "name": "Link-19_r1",
+      "ip": "100.100.100.4",
+      "parent": "r1",
+      "mac": "fa:16:3e:30:fc:68"
     },
     {
-      "name": "switch_5",
-      "network": "r2-network"
-    },
-    {
-      "name": "switch_8",
-      "network": "r1-network"
-    },
-    {
-      "name": "switch_2",
-      "network": "s1"
-    },
-    {
-      "name": "switch_3",
-      "network": "s1"
-    },
-    {
-      "name": "switch_0",
-      "network": "s3"
-    },
-    {
-      "name": "switch_1",
-      "network": "s3"
-    },
-    {
-      "name": "Link-14",
-      "ip": "10.10.30.5",
-      "network": "s3",
-      "node": "vm4",
-      "mac": "fa:16:3e:e8:91:47"
-    },
-    {
-      "name": "Link-25",
-      "ip": "10.10.30.4",
-      "network": "s3",
-      "node": "r2",
-      "mac": "fa:16:3e:9d:a3:b5"
-    },
-    {
-      "name": "Link-16",
-      "ip": "10.10.10.5",
-      "network": "s1",
-      "node": "vm2",
-      "mac": "fa:16:3e:f3:ce:2c"
-    },
-    {
-      "name": "Link-27",
-      "ip": "10.10.10.3",
-      "network": "s1",
-      "node": "vm1",
-      "mac": "fa:16:3e:47:74:5f"
-    },
-    {
-      "name": "Link-21",
-      "ip": "10.10.10.4",
-      "network": "s1",
-      "node": "r1",
-      "mac": "fa:16:3e:a2:4d:a8"
-    },
-    {
-      "name": "Link-23",
+      "name": "Link-23_r2",
       "ip": "200.100.100.3",
-      "network": "r2-network",
-      "node": "r2",
+      "parent": "r2",
       "mac": "fa:16:3e:71:85:7f"
     },
     {
-      "name": "Link-22",
+      "name": "Link-22_r1",
       "ip": "10.10.20.4",
-      "network": "s2",
-      "node": "r1",
+      "parent": "r1",
       "mac": "fa:16:3e:df:04:fe"
     },
     {
-      "name": "Link-18",
+      "name": "Link-22_s2",
+      "ip": null,
+      "parent": "s2",
+      "mac": null
+    },
+    {
+      "name": "Link-16_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
+    },
+    {
+      "name": "Link-16_vm2",
+      "ip": "10.10.10.5",
+      "parent": "vm2",
+      "mac": "fa:16:3e:f3:ce:2c"
+    },
+    {
+      "name": "Link-21_r1",
+      "ip": "10.10.10.4",
+      "parent": "r1",
+      "mac": "fa:16:3e:a2:4d:a8"
+    },
+    {
+      "name": "Link-25_r2",
+      "ip": "10.10.30.4",
+      "parent": "r2",
+      "mac": "fa:16:3e:9d:a3:b5"
+    },
+    {
+      "name": "Link-25_s3",
+      "ip": null,
+      "parent": "s3",
+      "mac": null
+    },
+    {
+      "name": "Link-21_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
+    },
+    {
+      "name": "Link-23_r2-network",
+      "ip": null,
+      "parent": "r2-network",
+      "mac": null
+    },
+    {
+      "name": "Link-18_vm3",
       "ip": "10.10.20.5",
-      "network": "s2",
-      "node": "vm3",
+      "parent": "vm3",
       "mac": "fa:16:3e:28:6d:a6"
     },
     {
-      "name": "Link-19",
-      "ip": "100.100.100.4",
-      "network": "r1-network",
-      "node": "r1",
-      "mac": "fa:16:3e:30:fc:68"
+      "name": "Link-14_s3",
+      "ip": null,
+      "parent": "s3",
+      "mac": null
+    },
+    {
+      "name": "Link-14_vm4",
+      "ip": "10.10.30.5",
+      "parent": "vm4",
+      "mac": "fa:16:3e:e8:91:47"
+    },
+    {
+      "name": "Link-27_vm1",
+      "ip": "10.10.10.3",
+      "parent": "vm1",
+      "mac": "fa:16:3e:47:74:5f"
+    },
+    {
+      "name": "Link-19_r1-network",
+      "ip": null,
+      "parent": "r1-network",
+      "mac": null
     }
   ],
   "switches": [
@@ -148,40 +157,40 @@
   ],
   "links": [
     {
-      "port_a": "Link-22",
-      "port_b": "switch_6"
+      "port_a": "Link-23_r2",
+      "port_b": "Link-23_r2-network"
     },
     {
-      "port_a": "Link-16",
-      "port_b": "switch_2"
+      "port_a": "Link-18_vm3",
+      "port_b": "Link-18_s2"
     },
     {
-      "port_a": "Link-18",
-      "port_b": "switch_7"
+      "port_a": "Link-21_r1",
+      "port_b": "Link-21_s1"
     },
     {
-      "port_a": "Link-19",
-      "port_b": "switch_8"
+      "port_a": "Link-25_r2",
+      "port_b": "Link-25_s3"
     },
     {
-      "port_a": "Link-21",
-      "port_b": "switch_4"
+      "port_a": "Link-19_r1",
+      "port_b": "Link-19_r1-network"
     },
     {
-      "port_a": "Link-23",
-      "port_b": "switch_5"
+      "port_a": "Link-22_r1",
+      "port_b": "Link-22_s2"
     },
     {
-      "port_a": "Link-27",
-      "port_b": "switch_3"
+      "port_a": "Link-14_vm4",
+      "port_b": "Link-14_s3"
     },
     {
-      "port_a": "Link-14",
-      "port_b": "switch_0"
+      "port_a": "Link-27_vm1",
+      "port_b": "Link-27_s1"
     },
     {
-      "port_a": "Link-25",
-      "port_b": "switch_1"
+      "port_a": "Link-16_vm2",
+      "port_b": "Link-16_s1"
     }
   ]
 }
