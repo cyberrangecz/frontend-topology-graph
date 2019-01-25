@@ -40,6 +40,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   nodes: Node[];
   links: Link[];
 
+  draggedNode: Node;
   loadedTopology = false;
   showZoomResetButton = false;
   sidebarOpen = false;
@@ -50,6 +51,9 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   private _decoratorReloadSubscription;
   private _decoratorLoadErrorSubscription;
   private _zoomResetSubscription;
+  private _nodeTouchedSubscription;
+  private _nodeDraggedSubscription;
+  private _nodeDragEndedSubscription;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -60,7 +64,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private d3ZoomEventService: D3ZoomEventService,
     private d3Service: D3Service,
-    private draggedNode: DraggedNodeService) {
+    private draggedNodeService: DraggedNodeService) {
   }
 
 
@@ -79,7 +83,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
       this.subscribeDecoratorReloadEvent();
       this.subscribeDecoratorError();
     }
-
+    this.subscribeDragNodeEvents();
     this.subscribeZoomChangeEvent();
   }
 
@@ -330,6 +334,21 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
     );
   }
 
+  private subscribeDragNodeEvents() {
+    this._nodeTouchedSubscription = this.draggedNodeService.onNodeTouched
+      .subscribe(node => {
+        // TODO
+      });
+    this._nodeDraggedSubscription = this.draggedNodeService.onNodeDragStarted
+      .subscribe(node => {
+        this.draggedNode = node;
+      });
+    this._nodeDragEndedSubscription = this.draggedNodeService.onNodeDragEnded
+      .subscribe(node => {
+        this.draggedNode = null;
+      })
+  }
+
   /**
    * Unsubscribe from observables at the end of this component
    */
@@ -348,6 +367,15 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
     }
     if (this._decoratorLoadErrorSubscription) {
       this._decoratorLoadErrorSubscription.unsubscribe();
+    }
+    if (this._nodeTouchedSubscription) {
+      this._nodeTouchedSubscription.unsubscribe();
+    }
+    if (this._nodeDraggedSubscription) {
+      this._nodeDraggedSubscription.unsubscribe();
+    }
+    if (this._nodeDragEndedSubscription) {
+      this._nodeDragEndedSubscription.unsubscribe();
     }
   }
 }

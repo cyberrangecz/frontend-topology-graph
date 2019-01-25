@@ -29,9 +29,15 @@ export class TopologyFacade {
    * Caller needs to subscribe for it.
    */
   getTopology(): Observable<{nodes: Node[], links: Link[]}> {
-    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl + 'pools/1/sandboxes/1/topologies', { headers: this.createAuthorizationHeader() })
-      .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
-      ));
+    if (this.configService.config.authorizationToken) {
+      return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl, { headers: this.createAuthorizationHeader() })
+        .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
+        ));
+    } else {
+      return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl)
+        .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
+        ));
+    }
    }
 
    private createAuthorizationHeader(): HttpHeaders {

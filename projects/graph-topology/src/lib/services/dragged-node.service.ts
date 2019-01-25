@@ -37,7 +37,6 @@ export class DraggedNodeService {
    * Sets lastDraggedNode attribute to empty string and emits empty observable event when dragging of a node stops
    */
   emitNodeDragEndedEvent() {
-    this.lastDraggedNodeName = "";
     this._onNodeDragEndedSubject.next(null);
   }
 }
