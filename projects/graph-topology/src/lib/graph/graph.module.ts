@@ -35,7 +35,6 @@ import {TopologyMapper} from '../services/topology-mapper.service';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
     GraphMaterialModule,
     GraphVisualComponentsModule,

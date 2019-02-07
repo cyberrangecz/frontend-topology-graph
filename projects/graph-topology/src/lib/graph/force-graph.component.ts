@@ -34,8 +34,10 @@ import {DraggedNodeService} from '../services/dragged-node.service';
 })
 export class ForceGraphComponent implements OnInit, OnDestroy {
 
-  @Input('width') width: number;
-  @Input('height') height: number;
+  @Input() width: number;
+  @Input() height: number;
+  @Input() authorizationToken: string;
+  @Input() sandboxId: number;
 
   nodes: Node[];
   links: Link[];
@@ -44,7 +46,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   loadedTopology = false;
   showZoomResetButton = false;
   sidebarOpen = false;
-
+  isError = false;
 
   private _decoratorPeriodicalReloadSubscription;
   private _decoratorTimerSubscription;
@@ -92,6 +94,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    * Reloads topology and its decorators.
    */
   reloadTopology() {
+    this.isError = false;
     this.loadTopology();
     if (this.configService.config.useDecorators && this.decoratorReloadTimerService.getReloadPeriod() > 0) {
       setTimeout(() => this.loadAllDecorators(), 100);
@@ -103,12 +106,15 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   loadTopology() {
     this.loadedTopology = false;
-    this.topologyLoaderService.getTopology()
+    this.topologyLoaderService.getTopology(this.sandboxId, this.authorizationToken)
       .subscribe(
         data => {
           this.nodes = data.nodes;
           this.links = data.links;
            this.loadedTopology = true;
+        },
+        err => {
+          this.isError = true;
         }
       );
   }

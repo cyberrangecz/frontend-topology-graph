@@ -41,6 +41,11 @@
            [height]="height - 20">
     </graph>
 
+    <div class="error-message" *ngIf="isError">
+      <h3>Topology data was not loaded properly.</h3>
+      <button mat-button color="primary" (click)="reloadTopology()">Try again</button>
+    </div>
+
     <button
       class="sidenav-button"
       type="button"
