@@ -26,7 +26,6 @@ import {DirectivesModule} from '../directives/directives.module';
 import {GraphLockService} from '../services/graph-lock.service';
 import {TopologyConfig} from '../others/topology.config';
 import {ConfigService} from '../services/config.service';
-import {HttpClientModule} from '@angular/common/http';
 import {SpiceClientLibModule} from 'spice-client-lib';
 import {HostService} from '../services/host.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
