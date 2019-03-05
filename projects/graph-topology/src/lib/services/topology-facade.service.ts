@@ -31,7 +31,7 @@ export class TopologyFacade {
   getTopology(sandboxId: number, authorizationToken: string): Observable<{nodes: Node[], links: Link[]}> {
     if (authorizationToken && authorizationToken !== '') {
       return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl + sandboxId + '/topologies',
-        { headers: this.createAuthorizationHeader() })
+        { headers: this.createAuthorizationHeader(authorizationToken) })
         .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
         ));
     } else {
@@ -41,7 +41,7 @@ export class TopologyFacade {
     }
    }
 
-   private createAuthorizationHeader(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', this.configService.config.authorizationToken);
+   private createAuthorizationHeader(authorizationToken: string): HttpHeaders {
+    return new HttpHeaders().set('Authorization', authorizationToken);
   }
 }
