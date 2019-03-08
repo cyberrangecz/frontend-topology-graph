@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Link} from 'graph-topology-model-lib';
 import {Node} from 'graph-topology-model-lib';
 import {TopologyFacade} from '../services/topology-facade.service';
@@ -37,6 +37,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
   @Input() width: number;
   @Input() height: number;
   @Input() sandboxId: number;
+  @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
 
   nodes: Node[];
   links: Link[];
@@ -111,6 +112,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
           this.nodes = data.nodes;
           this.links = data.links;
            this.loadedTopology = true;
+           this.onTopologyLoaded.emit(true);
         },
         err => {
           this.isError = true;
