@@ -3,5 +3,6 @@
 
 <lib-force-graph [width]="topologyWidth"
                  [height]="topologyHeight"
-                 [sandboxId]="9">
+                 [sandboxId]="9"
+                  (onTopologyLoaded)="topologyLoadingFinished($event)">
 </lib-force-graph>

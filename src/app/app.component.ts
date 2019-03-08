@@ -15,4 +15,8 @@ export class AppComponent {
     this.topologyWidth = event.target.innerWidth / 1.5;
     this.topologyHeight = event.target.innerHeight / 1.8;
   }
+
+  topologyLoadingFinished($event) {
+    console.log($event)
+  }
 }

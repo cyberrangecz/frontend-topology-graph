@@ -140,10 +140,7 @@ export class D3Service {
 
       // node is dragged, its position is recalculated here
       function dragged() {
-        if (dragService.lastDraggedNodeName !== node.name) {
           dragService.emitNodeDragStartedEvent(node);
-        }
-
         if (lockService.getLocked()) {
           // prevents dragging outside the window
           node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x));
@@ -202,9 +199,7 @@ export class D3Service {
 
       // dragging is stopped by user
       function ended() {
-        if (dragService.lastDraggedNodeName === node.name) {
           dragService.emitNodeDragEndedEvent();
-        }
 
         if (!d3.event.active) {
           graph.simulation.alphaTarget(0).restart();
