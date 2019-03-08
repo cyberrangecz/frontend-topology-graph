@@ -1,6 +1,6 @@
 {
   "name": "graph-topology",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "peerDependencies": {
     "spice-client-lib": ">=0.0.1",
     "graph-topology-model-lib": ">=1.0.0",

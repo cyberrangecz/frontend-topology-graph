@@ -36,7 +36,6 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
 
   @Input() width: number;
   @Input() height: number;
-  @Input() authorizationToken: string;
   @Input() sandboxId: number;
 
   nodes: Node[];
@@ -106,7 +105,7 @@ export class ForceGraphComponent implements OnInit, OnDestroy {
    */
   loadTopology() {
     this.loadedTopology = false;
-    this.topologyLoaderService.getTopology(this.sandboxId, this.authorizationToken)
+    this.topologyLoaderService.getTopology(this.sandboxId)
       .subscribe(
         data => {
           this.nodes = data.nodes;
