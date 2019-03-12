@@ -14,7 +14,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    GraphModule.forRoot(new CustomTopologyConfig()),
+    GraphModule.forRoot(CustomTopologyConfig),
   ],
   bootstrap: [AppComponent]
 })

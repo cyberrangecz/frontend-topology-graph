@@ -45,10 +45,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   constructor(private decoratorEventService: DecoratorEventService,
               private graphEventService: GraphEventService,
               private decoratorReloadTimerService: DecoratorReloadTimerService) {
-    // unknown status decorator is created because node class is resolved from it
-    this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
-    this.subscribeToDecoratorEvents();
-
   }
 
 
@@ -56,6 +52,9 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Sets width and height of node based on amount of node's attributes to be shown and calculates text labels and its position
    */
   ngOnInit(): void {
+    // unknown status decorator is created because node class is resolved from it
+    this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
+    this.subscribeToDecoratorEvents();
     this.width = this.calculateNodeWidth();
     this.height = this.calculateNodeHeight();
     this.initLabels();
