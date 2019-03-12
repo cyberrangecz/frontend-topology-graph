@@ -52,7 +52,7 @@
     <text *ngFor="let label of labels"
       [attr.x]="label.x"
       [attr.y]="label.y">
-      {{ label.text }}
+      {{ label.text | labelShortener }}
     </text>
   </g>
 

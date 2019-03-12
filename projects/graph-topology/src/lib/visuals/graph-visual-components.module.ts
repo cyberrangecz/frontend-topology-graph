@@ -6,6 +6,7 @@ import { GraphNodeVisualComponent } from './graph-node-visual/graph-node-visual.
 import { CommonModule } from '@angular/common';
 import {NodeVisualSemaphoreDecoratorComponent} from './graph-node-visual/graph-node-visual-decorators/node-visual-semaphore-decorator/node-visual-semaphore-decorator.component';
 import {DirectivesModule} from '../directives/directives.module';
+import {LabelShortenerPipe} from '../pipes/label-shortener.pipe';
 
 @NgModule({
   imports: [
@@ -13,12 +14,12 @@ import {DirectivesModule} from '../directives/directives.module';
     DirectivesModule
   ],
   declarations: [
+    LabelShortenerPipe,
     NodeContextMenuComponent,
     GraphVisualComponent,
     GraphLinkVisualComponent,
     GraphNodeVisualComponent,
     NodeVisualSemaphoreDecoratorComponent,
-
   ],
   exports: [
     GraphVisualComponent
