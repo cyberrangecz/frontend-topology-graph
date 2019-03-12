@@ -32,11 +32,11 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * @param {DecoratorEventService} decoratorEventService
    */
   constructor(private decoratorEventService: DecoratorEventService) {
-    this.subscribeDecoratorChange();
   }
 
 
   ngOnInit() {
+    this.subscribeDecoratorChange();
     // this.setSpeedDecoratorWayClass();
   }
 
