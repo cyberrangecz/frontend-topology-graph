@@ -1,0 +1,197 @@
+{"sandbox":{
+  "hosts": [
+    {
+      "name": "vm1"
+    },
+    {
+      "name": "vm3"
+    },
+    {
+      "name": "vm2"
+    },
+    {
+      "name": "vm4"
+    }
+  ],
+  "ports": [
+    {
+      "name": "Link-27_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
+    },
+    {
+      "name": "Link-18_s2",
+      "ip": null,
+      "parent": "s2",
+      "mac": null
+    },
+    {
+      "name": "Link-19_r1",
+      "ip": "100.100.100.4",
+      "parent": "r1",
+      "mac": "fa:16:3e:30:fc:68"
+    },
+    {
+      "name": "Link-23_r2",
+      "ip": "200.100.100.3",
+      "parent": "r2",
+      "mac": "fa:16:3e:71:85:7f"
+    },
+    {
+      "name": "Link-22_r1",
+      "ip": "10.10.20.4",
+      "parent": "r1",
+      "mac": "fa:16:3e:df:04:fe"
+    },
+    {
+      "name": "Link-22_s2",
+      "ip": null,
+      "parent": "s2",
+      "mac": null
+    },
+    {
+      "name": "Link-16_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
+    },
+    {
+      "name": "Link-16_vm2",
+      "ip": "10.10.10.5",
+      "parent": "vm2",
+      "mac": "fa:16:3e:f3:ce:2c"
+    },
+    {
+      "name": "Link-21_r1",
+      "ip": "10.10.10.4",
+      "parent": "r1",
+      "mac": "fa:16:3e:a2:4d:a8"
+    },
+    {
+      "name": "Link-25_r2",
+      "ip": "10.10.30.4",
+      "parent": "r2",
+      "mac": "fa:16:3e:9d:a3:b5"
+    },
+    {
+      "name": "Link-25_s3",
+      "ip": null,
+      "parent": "s3",
+      "mac": null
+    },
+    {
+      "name": "Link-21_s1",
+      "ip": null,
+      "parent": "s1",
+      "mac": null
+    },
+    {
+      "name": "Link-23_r2-network",
+      "ip": null,
+      "parent": "r2-network",
+      "mac": null
+    },
+    {
+      "name": "Link-18_vm3",
+      "ip": "10.10.20.5",
+      "parent": "vm3",
+      "mac": "fa:16:3e:28:6d:a6"
+    },
+    {
+      "name": "Link-14_s3",
+      "ip": null,
+      "parent": "s3",
+      "mac": null
+    },
+    {
+      "name": "Link-14_vm4",
+      "ip": "10.10.30.5",
+      "parent": "vm4",
+      "mac": "fa:16:3e:e8:91:47"
+    },
+    {
+      "name": "Link-27_vm1",
+      "ip": "10.10.10.3",
+      "parent": "vm1",
+      "mac": "fa:16:3e:47:74:5f"
+    },
+    {
+      "name": "Link-19_r1-network",
+      "ip": null,
+      "parent": "r1-network",
+      "mac": null
+    }
+  ],
+  "switches": [
+    {
+      "name": "r2-network",
+      "cidr": "200.100.100.0/29"
+    },
+    {
+      "name": "r1-network",
+      "cidr": "100.100.100.0/29"
+    },
+    {
+      "name": "s1",
+      "cidr": "10.10.10.0/24"
+    },
+    {
+      "name": "s2",
+      "cidr": "10.10.20.0/24"
+    },
+    {
+      "name": "s3",
+      "cidr": "10.10.30.0/24"
+    }
+  ],
+  "routers": [
+    {
+      "name": "r1",
+      "cidr": "100.100.100.0/29"
+    },
+    {
+      "name": "r2",
+      "cidr": "200.100.100.0/29"
+    }
+  ],
+  "links": [
+    {
+      "port_a": "Link-23_r2",
+      "port_b": "Link-23_r2-network"
+    },
+    {
+      "port_a": "Link-18_vm3",
+      "port_b": "Link-18_s2"
+    },
+    {
+      "port_a": "Link-21_r1",
+      "port_b": "Link-21_s1"
+    },
+    {
+      "port_a": "Link-25_r2",
+      "port_b": "Link-25_s3"
+    },
+    {
+      "port_a": "Link-19_r1",
+      "port_b": "Link-19_r1-network"
+    },
+    {
+      "port_a": "Link-22_r1",
+      "port_b": "Link-22_s2"
+    },
+    {
+      "port_a": "Link-14_vm4",
+      "port_b": "Link-14_s3"
+    },
+    {
+      "port_a": "Link-27_vm1",
+      "port_b": "Link-27_s1"
+    },
+    {
+      "port_a": "Link-16_vm2",
+      "port_b": "Link-16_s1"
+    }
+  ]
+}
+}
