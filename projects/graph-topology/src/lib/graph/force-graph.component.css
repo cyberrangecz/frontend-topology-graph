@@ -4,6 +4,21 @@ button {
   right: 0px;
 }
 
+.error-message {
+  margin: auto auto;
+}
+
+.loading {
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.try-again {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 /*button.zoom-reset {
   position:fixed;
   top:50px;

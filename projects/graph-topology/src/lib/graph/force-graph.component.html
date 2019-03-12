@@ -8,7 +8,16 @@
   </mat-drawer>
   <div class="sidenav-content">
 
+    <div class="error-message" *ngIf="isError">
+      <h3 >Topology data was not loaded properly.</h3>
+      <div class="try-again">
+        <button mat-button color="primary" (click)="reloadTopology()">Try again</button>
+      </div>
+    </div>
 
+    <div class="loading" *ngIf="!loadedTopology && !isError">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
 
 <!--    <button
       class="zoom-in"
@@ -40,11 +49,6 @@
            [width]="width - 40"
            [height]="height - 20">
     </graph>
-
-    <div class="error-message" *ngIf="isError">
-      <h3>Topology data was not loaded properly.</h3>
-      <button mat-button color="primary" (click)="reloadTopology()">Try again</button>
-    </div>
 
     <button
       class="sidenav-button"

@@ -48,7 +48,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     if ('width' in changes || 'height' in changes) {
       this.defaultWidth = this.width;
       this.defaultHeight = this.height;
-      this.graph.onResize(this.options);
+      if (this.graph) {
+        this.graph.onResize(this.options);
+      }
     }
   }
 
