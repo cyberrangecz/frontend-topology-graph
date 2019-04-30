@@ -2,23 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable, of} from 'rxjs';
-import {SpiceClientService} from 'spice-client-lib';
 
 @Injectable()
 export class HostService {
 
   constructor(private http: HttpClient,
-              private spice: SpiceClientService,
               private configService: ConfigService) {
   }
 
-  /**
-   * Establishes remote connection with a node through spice client
-   * @param nodeName name of the node
-   */
   establishRemoteConnection(consoleUrl: string) {
-/*    this.spice.openClient({
-    });*/
+    window.open(consoleUrl, "_blank");
   }
 
   /**

@@ -20,7 +20,7 @@ export class ContextMenuService {
         type: ContextMenuItemsEnum.RemoteConnection,
         title: ContextMenuItemsEnum.RemoteConnection,
       },
-      {
+/*      {
         id: 2,
         type: ContextMenuItemsEnum.Start,
         title: ContextMenuItemsEnum.Start,
@@ -39,7 +39,7 @@ export class ContextMenuService {
         id: 5,
         type: ContextMenuItemsEnum.RevertRunningSnapshot,
         title: ContextMenuItemsEnum.RevertRunningSnapshot,
-      },
+      },*/
 ];
   }
 
