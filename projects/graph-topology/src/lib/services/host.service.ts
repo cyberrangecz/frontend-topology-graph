@@ -1,26 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable} from 'rxjs';
-import {SpiceClientService} from 'spice-client-lib';
+import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class HostService {
 
   constructor(private http: HttpClient,
-              private spice: SpiceClientService,
               private configService: ConfigService) {
   }
 
-  /**
-   * Establishes remote connection with a node through spice client
-   * @param nodeName name of the node
-   */
-  establishRemoteConnection(nodeName: string) {
-    this.spice.openClient({
-      sandboxName: this.configService.config.sandboxName,
-      machineName: nodeName
-    });
+  establishRemoteConnection(consoleUrl: string) {
+    window.open(consoleUrl, "_blank");
   }
 
   /**
@@ -28,7 +19,8 @@ export class HostService {
    * @param hostName name of a host which should be started
    */
   start(hostName: string): Observable<any> {
-    return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/start')
+    return of(false)
+    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/start')
   }
 
   /**
@@ -36,7 +28,8 @@ export class HostService {
    * @param hostName name of a host which should be restarted
    */
   restart(hostName: string): Observable<any> {
-    return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/restart')
+    return of(false)
+    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/restart')
   }
 
   /**
@@ -44,7 +37,8 @@ export class HostService {
    * @param hostName name of a host for which should be created running snapshot
    */
   createRunningSnapshot(hostName: string): Observable<any> {
-    return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/createRunningSnapshot/' + hostName);
+    return of(false)
+    // return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/createRunningSnapshot/' + hostName);
   }
 
   /**
@@ -52,6 +46,7 @@ export class HostService {
    * @param hostName name of a host for which should be reverted running snapshot
    */
   revertRunningSnapshot(hostName: string): Observable<any> {
-    return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/revertRunningSnapshot/' + hostName);
+    return of(false)
+    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/revertRunningSnapshot/' + hostName);
   }
 }
