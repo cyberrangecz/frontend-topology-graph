@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {Node} from 'graph-topology-model-lib';
+import {HostNode, Node} from 'graph-topology-model-lib';
 import {HostService} from './host.service';
 
 /**
@@ -60,11 +60,10 @@ export class ContextMenuService {
    * @param type type of the context menu item
    * @param node node associated with the context menu
    */
-  handleMenuItem(type: ContextMenuItemsEnum, node: Node) {
+  handleMenuItem(type: ContextMenuItemsEnum, node: HostNode) {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
-        // TODO: ip address of the sandbox?
-        this.hostService.establishRemoteConnection(node.name);
+        this.hostService.establishRemoteConnection(node.consoleUrl);
         break;
       }
       case ContextMenuItemsEnum.Start: {
