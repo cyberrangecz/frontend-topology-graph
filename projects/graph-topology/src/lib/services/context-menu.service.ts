@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {HostNode, Node} from 'graph-topology-model-lib';
+import {HostNode, Node, RouterNode} from 'graph-topology-model-lib';
 import {HostService} from './host.service';
+import {Connectable} from 'graph-topology-model-lib/lib/node/connectable';
 
 /**
  * Service used for handling mouse events after right click.
@@ -60,26 +61,29 @@ export class ContextMenuService {
    * @param type type of the context menu item
    * @param node node associated with the context menu
    */
-  handleMenuItem(type: ContextMenuItemsEnum, node: HostNode) {
+  handleMenuItem(type: ContextMenuItemsEnum, node: Node) {
     switch (type) {
       case ContextMenuItemsEnum.RemoteConnection: {
-        this.hostService.establishRemoteConnection(node.consoleUrl);
+        if (node instanceof HostNode || node instanceof RouterNode) { // TODO: refactor
+          const connectable = node as unknown as Connectable;
+          this.hostService.establishRemoteConnection(connectable.consoleUrl);
+        }
         break;
       }
       case ContextMenuItemsEnum.Start: {
-        this.hostService.start(node.name);
+        // this.hostService.start(node.name);
         break;
       }
       case ContextMenuItemsEnum.Restart: {
-        this.hostService.restart(node.name);
+        // this.hostService.restart(node.name);
         break;
       }
       case ContextMenuItemsEnum.CreateRunningSnapshot: {
-        this.hostService.createRunningSnapshot(node.name);
+        // this.hostService.createRunningSnapshot(node.name);
         break;
       }
       case ContextMenuItemsEnum.RevertRunningSnapshot: {
-        this.hostService.revertRunningSnapshot(node.name);
+        // this.hostService.revertRunningSnapshot(node.name);
         break;
       }
       default: {

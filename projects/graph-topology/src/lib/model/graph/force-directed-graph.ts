@@ -305,7 +305,6 @@ export class ForceDirectedGraph {
         this.nodes.push(children);
       }
 
-
   }
 
   /**
@@ -407,7 +406,7 @@ export class ForceDirectedGraph {
    * children should be revealed (better results than just force collide)
    * @returns {number} x coordinate of child node
    */
-  private calculateChildXPosition(parent: RouterNode, i: number): number {
+  private calculateChildXPosition(parent: SwitchNode, i: number): number {
     // if parent is in the right side of graph-visual
     if (parent.x >= (this.width / 2)) {
       // if there are any nodes on right side of my parent
@@ -432,7 +431,7 @@ export class ForceDirectedGraph {
    * children should be revealed (better results than just force collide)
    * @returns {number} y coordinate of child node
    */
-  private calculateChildYPosition(parent: RouterNode, i: number): number {
+  private calculateChildYPosition(parent: SwitchNode, i: number): number {
     // if parent is in the lower part of graph-visual
     if (parent.y >= (this.height / 2)) {
       // if there are any nodes below my parent
