@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {GraphEventTypeEnum} from '../model/enums/graph-event-type-enum';
 import {GraphEvent} from '../model/events/graph-event';
-import {RouterNode} from 'graph-topology-model-lib';
+import {RouterNode, SwitchNode} from 'graph-topology-model-lib';
 import {Node} from 'graph-topology-model-lib';
 
 
@@ -45,11 +45,11 @@ export class GraphEventService {
     this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.TurnOffForces));
   }
 
-  hideSubnet(node: RouterNode) {
+  hideSubnet(node: SwitchNode) {
     this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.HideSubnet, node));
   }
 
-  revealSubnet(node: RouterNode) {
+  revealSubnet(node: SwitchNode) {
     this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.RevealSubnet, node));
   }
 }

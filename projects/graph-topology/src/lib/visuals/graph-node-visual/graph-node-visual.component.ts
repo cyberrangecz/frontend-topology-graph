@@ -31,7 +31,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   @Input('nodeVisual') node: Node;
 
-  isHost: boolean;
+  hasContextMenu: boolean;
   width: number;
   height: number;
   labels = [];
@@ -53,12 +53,12 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    */
   ngOnInit(): void {
     // unknown status decorator is created because node class is resolved from it
-    this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
+    this.statusDecorator = new NodeStatusDecorator('', StatusEnum.Unknown);
     this.subscribeToDecoratorEvents();
     this.width = this.calculateNodeWidth();
     this.height = this.calculateNodeHeight();
     this.initLabels();
-    this.isHost = this.node instanceof HostNode;
+    this.hasContextMenu = this.node instanceof HostNode || this.node instanceof RouterNode;
   }
 
   /**
