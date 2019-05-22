@@ -87,8 +87,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {"glob": "**/*", "input": "node_modules/spice-client-lib/spice-html5-client", "output": "spice"}
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
