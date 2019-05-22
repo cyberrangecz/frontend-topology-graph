@@ -25,9 +25,9 @@ export class LayoutTabComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
+/*  /!**
    * Turns on/off layouts
-   */
+   *!/
   toggleLayouts() {
     this.layoutDisabled = !this.layoutDisabled;
     if (this.layoutDisabled) {
@@ -35,7 +35,7 @@ export class LayoutTabComponent implements OnInit {
     } else {
       this.setActiveLayout(this.activeLayout);
     }
-  }
+  }*/
 
   /**
    * Locks and unlocks the graph canvas size
@@ -60,15 +60,15 @@ export class LayoutTabComponent implements OnInit {
   /**
    * disables layout
    */
-  private disableLayouts() {
+/*  private disableLayouts() {
     this.activeLayout = null;
     this.graphEventService.turnOffForces();
   }
 
-  /**
+  /!**
    * Sets current active layout
    * @param activeLayout a layout which should be set as active
-   */
+   *!/
   setActiveLayout(activeLayout) {
     this.graphEventService.turnOffForces();
     switch (activeLayout) {
@@ -79,7 +79,7 @@ export class LayoutTabComponent implements OnInit {
       default:
         break;
     }
-  }
+  }*/
 
   /**
    * Collapses all nodes

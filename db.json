@@ -1,16 +1,20 @@
 {"sandboxes":{
   "hosts": [
     {
-      "name": "vm1"
+      "name": "vm1",
+      "console_url": "https://www.google.com/"
     },
     {
-      "name": "vm3"
+      "name": "vm3",
+      "console_url": "https://www.google.com/"
     },
     {
-      "name": "vm2"
+      "name": "vm2",
+      "console_url": "https://www.google.com/"
     },
     {
-      "name": "vm4"
+      "name": "vm4",
+      "console_url": "https://www.google.com/"
     }
   ],
   "ports": [
@@ -148,11 +152,13 @@
   "routers": [
     {
       "name": "r1",
-      "cidr": "100.100.100.0/29"
+      "cidr": "100.100.100.0/29",
+      "console_url": "https://www.google.com/"
     },
     {
       "name": "r2",
-      "cidr": "200.100.100.0/29"
+      "cidr": "200.100.100.0/29",
+      "console_url": "https://www.google.com/"
     }
   ],
   "links": [

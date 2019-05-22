@@ -6,7 +6,10 @@
     <app-force-graph-sidebar>
     </app-force-graph-sidebar>
   </mat-drawer>
-  <div class="sidenav-content">
+  <div
+    [style.width.px]="width"
+    [style.height.px]="height"
+    class="sidenav-content">
 
     <div class="error-message" *ngIf="isError">
       <h3 >Topology data was not loaded properly.</h3>
