@@ -151,11 +151,10 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * @param {SwitchNode} node which subnetworks should be expanded
    */
   private expandSubnetworkOfNode(node: SwitchNode) {
-    node.changeSwitchPhysicalRole();
-    this.graph.addSubnetwork(node);
-    this.loadDecoratorsForSubnet(node);
-    // recursively expand all children nodes
-    if (node.children != null && node.children.length > 0) {
+    if (node.hasExpandableSubnetwork()) {
+      node.changeSwitchPhysicalRole();
+      this.graph.addSubnetwork(node);
+      this.loadDecoratorsForSubnet(node);
       node.children.forEach(d => {
         if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Cloud) {
           this.expandSubnetworkOfNode(d);
@@ -221,16 +220,15 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * @param {RouterNode} node which subnetworks should be collapsed
    */
   private collapseSubnetworkOfNode(node: SwitchNode) {
-    node.changeSwitchPhysicalRole();
-    // recursively collapse all children nodes
-    if (node.children != null && node.children.length > 0) {
+    if (node.hasExpandableSubnetwork()) {
+      node.changeSwitchPhysicalRole();
       node.children.forEach(d => {
         if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
           this.collapseSubnetworkOfNode(d);
         }
       });
+      this.graph.removeSubnetwork(node);
     }
-    this.graph.removeSubnetwork(node);
   }
 
   /**

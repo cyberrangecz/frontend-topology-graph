@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pack": "cd dist/graph-topology && npm pack",
-    "publish": "npm run generate-package && cd dist/graph-topology &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted",
-    "generate-package": "npm install && npm run build-library && cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack"
+    "generate-package": "npm install && npm run build-library && cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack",
+    "publish": "npm run generate-package && cd dist/graph-topology &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
   },
   "private": false,
   "dependencies": {
@@ -28,7 +28,7 @@
     "@types/d3": "^5.0.1",
     "core-js": "^2.5.4",
     "d3": "^5.7.0",
-    "graph-topology-model-lib": "1.0.2",
+    "graph-topology-model-lib": "1.0.5",
     "hammerjs": "^2.0.8",
     "moment": "^2.22.1",
     "rxjs": "^6.3.3",
