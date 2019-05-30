@@ -1,5 +1,5 @@
 export enum ContextMenuItemsEnum {
-  RemoteConnection = 'Remote connection',
+  OpenTerminal = 'Open terminal',
   Start = 'Start',
   Restart = 'Restart',
   CreateRunningSnapshot = 'Create running snapshot',

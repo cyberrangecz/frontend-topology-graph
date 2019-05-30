@@ -18,8 +18,8 @@ export class ContextMenuService {
     this._items = [
       {
         id: 1,
-        type: ContextMenuItemsEnum.RemoteConnection,
-        title: ContextMenuItemsEnum.RemoteConnection,
+        type: ContextMenuItemsEnum.OpenTerminal,
+        title: ContextMenuItemsEnum.OpenTerminal,
       },
 /*      {
         id: 2,
@@ -63,7 +63,7 @@ export class ContextMenuService {
    */
   handleMenuItem(type: ContextMenuItemsEnum, node: Node) {
     switch (type) {
-      case ContextMenuItemsEnum.RemoteConnection: {
+      case ContextMenuItemsEnum.OpenTerminal: {
         if (node instanceof HostNode || node instanceof RouterNode) { // TODO: refactor
           const connectable = node as unknown as Connectable;
           this.hostService.establishRemoteConnection(connectable.consoleUrl);
