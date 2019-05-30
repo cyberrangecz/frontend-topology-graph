@@ -65,7 +65,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Changing node sub network state(collapsed or revealed) if node is of type Router. Reloads decorator for all children nodes
    */
   onDoubleClick() {
-    if (this.node instanceof SwitchNode) {
+    if (this.node instanceof SwitchNode && this.node.hasExpandableSubnetwork()) {
       this.changeSubnetworkState(this.node);
       this.loadDecoratorsForSubnet(this.node);
     }
@@ -76,21 +76,21 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @param {SwitchNode} node which state should be changed
    */
   private changeSubnetworkState(node: SwitchNode) {
-    node.changeSwitchPhysicalRole();
+    if (node.hasExpandableSubnetwork()) {
+      node.changeSwitchPhysicalRole();
+      if (node.physicalRole === NodePhysicalRoleEnum.Cloud) {
+        if (node.children != null && node.children.length > 0) {
+          node.children.forEach(d => {
+            if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
+              this.changeSubnetworkState(d);
+            }
+          });
+        }
+        this.graphEventService.hideSubnet(node);
 
-    if (node.physicalRole === NodePhysicalRoleEnum.Cloud) {
-      // recursively collapse all child nodes
-      if (node.children != null && node.children.length > 0) {
-        node.children.forEach(d => {
-          if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
-            this.changeSubnetworkState(d);
-          }
-        });
+      } else if (node.physicalRole === NodePhysicalRoleEnum.Switch) {
+        this.graphEventService.revealSubnet(node);
       }
-      this.graphEventService.hideSubnet(node);
-
-    } else if (node.physicalRole === NodePhysicalRoleEnum.Switch) {
-      this.graphEventService.revealSubnet(node);
     }
   }
 
@@ -312,7 +312,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    */
   private calculateNodeWidth(): number  {
     return this.DEFAULT_NODE_WIDTH;
-    // TODO Calculate based on length of strings displayed in the node
   }
 
   /**
