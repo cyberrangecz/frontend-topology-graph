@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pack": "cd dist/graph-topology && npm pack",
+    "publish": "npm run generate-package && cd dist/graph-topology &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted",
     "generate-package": "npm install && npm run build-library && cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack"
   },
   "private": false,
