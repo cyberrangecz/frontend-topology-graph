@@ -6,7 +6,7 @@ import {DecoratorCheckboxModel} from './decorator-checkbox-model';
 import {RouterNodeDecoratorTypeEnum} from '../../../model/enums/router-node-decorator-type-enum';
 import {HostNodeDecoratorTypeEnum} from '../../../model/enums/host-node-decorator-type-enum';
 import {LinkDecoratorTypeEnum} from '../../../model/enums/link-decorator-type-enum';
-import {MAT_CHECKBOX_CLICK_ACTION} from '@angular/material';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 import {DecoratorStateService} from '../../../services/decorator-state.service';
 
 /**

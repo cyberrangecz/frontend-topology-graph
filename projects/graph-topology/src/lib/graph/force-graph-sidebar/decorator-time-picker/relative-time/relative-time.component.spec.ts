@@ -4,7 +4,7 @@ import {RelativeTimeComponent} from './relative-time.component';
 import {DecoratorTimeService} from '../../../../services/decorator-time.service';
 import {MockDecoratorReloadTimerService} from '../../../../services/tests/mock-decorator-reload-timer.service';
 import {MockDecoratorTimeService} from '../../../../services/tests/mock-decorator-time.service';
-import {MatSnackBar, MatSnackBarRef} from '@angular/material';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
 import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';
 import {AppModule} from '../../../../app.module';

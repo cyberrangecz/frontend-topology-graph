@@ -3,7 +3,7 @@ import {RelativeTimeOption} from './relative-time-option';
 import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
 import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';
 import {DecoratorTimeService} from '../../../../services/decorator-time.service';
-import { MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {DecoratorStateService} from '../../../../services/decorator-state.service';
 
 @Component({
