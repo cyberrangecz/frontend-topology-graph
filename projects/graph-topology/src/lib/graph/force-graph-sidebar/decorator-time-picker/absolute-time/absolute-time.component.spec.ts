@@ -6,7 +6,7 @@ import {MockDecoratorTimeService} from '../../../../services/tests/mock-decorato
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 import {GraphMaterialModule} from '../../../graph-material.module';
 import {GraphModule} from '../../../graph.module';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {APP_BASE_HREF} from '@angular/common';
 import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
 import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';

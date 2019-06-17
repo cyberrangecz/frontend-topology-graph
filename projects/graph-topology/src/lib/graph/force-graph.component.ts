@@ -16,7 +16,7 @@ import {DecoratorReloadTimerService} from '../services/decorator-reload-timer.se
 
 import {D3Service} from '../services/d3.service';
 import {D3ZoomEventService} from '../services/d3-zoom-event.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {interval} from 'rxjs/internal/observable/interval';
 import {ConfigService} from '../services/config.service';
 import {DraggedNodeService} from '../services/dragged-node.service';

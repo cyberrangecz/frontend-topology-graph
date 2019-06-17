@@ -17,6 +17,5 @@ export class AppComponent {
   }
 
   topologyLoadingFinished($event) {
-    console.log($event)
   }
 }
