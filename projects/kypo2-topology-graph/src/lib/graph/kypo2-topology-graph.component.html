@@ -1,0 +1,62 @@
+<mat-drawer-container
+  [style.width.px]="width"
+  [style.height.px]="height"
+  class="sidenav-container" autosize>
+  <mat-drawer #drawer class="left-sidenav" mode="side"  position="end">
+    <kypo2-topology-graph-sidebar></kypo2-topology-graph-sidebar>
+  </mat-drawer>
+  <div
+    class="sidenav-content">
+
+    <div class="error-message" *ngIf="isError">
+      <h3 >Topology data was not loaded properly.</h3>
+      <div class="try-again">
+        <button mat-button color="primary" (click)="reloadTopology()">Try again</button>
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="!loadedTopology && !isError">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+<!--    <button
+      class="zoom-in"
+      mat-icon-button
+      (click)="zoomIn()">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button
+      class="zoom-out"
+      mat-icon-button
+      (click)="zoomOut()">
+      <mat-icon>zoom_out</mat-icon>
+    </button>-->
+
+
+    <!-- RESET ZOOM BUTTON -->
+    <button
+      class="zoom-reset"
+      mat-icon-button
+      *ngIf="showZoomResetButton"
+      (click)="resetZoom()">
+      <mat-icon>filter_center_focus</mat-icon>
+    </button>
+
+    <!-- GRAPH -->
+    <graph *ngIf="loadedTopology"
+           [nodes]="nodes"
+           [links]="links"
+           [width]="width - 40"
+           [height]="height - 20">
+    </graph>
+
+    <button
+      class="sidenav-button"
+      type="button"
+      mat-icon-button
+      (click)="drawer.toggle(); toggleSidebar()">
+      <mat-icon *ngIf="!sidebarOpen">menu</mat-icon>
+      <mat-icon *ngIf="sidebarOpen">chevron_right</mat-icon>
+    </button>
+  </div>
+</mat-drawer-container>

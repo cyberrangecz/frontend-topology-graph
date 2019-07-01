@@ -1,16 +1,23 @@
 {
-  "name": "graph-topology-lib",
+  "name": "kypo2-topology-graph",
   "version": "1.0.0",
+  "author": "Martin Hamerník <445720@mail.muni.cz>",
+  "description": "Component visualizing network topology as a graph",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology"
+  },
+  "homepage": "https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build-library": "ng build --prod graph-topology",
+    "build-library": "ng build --prod kypo2-topology-graph",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "pack": "cd dist/graph-topology && npm pack",
-    "generate-package": "npm install && npm run build-library && cp -r ./projects/graph-topology/src/assets ./dist/graph-topology/lib/assets && npm run pack",
-    "publish": "npm run generate-package && cd dist/graph-topology &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
+    "pack": "cd dist/kypo2-topology-graph && npm pack",
+    "generate-package": "npm install && npm run build-library && cp -r projects/kypo2-topology-graph/src/assets ./dist/kypo2-topology-graph/lib/assets && npm run pack",
+    "publish": "npm run generate-package && cd dist/kypo2-topology-graph &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
   },
   "private": false,
   "dependencies": {
@@ -27,7 +34,7 @@
     "@types/d3": "^5.0.1",
     "core-js": "^2.5.4",
     "d3": "^5.7.0",
-    "graph-topology-model-lib": "1.0.6",
+    "kypo2-topology-graph-model": "1.0.0",
     "hammerjs": "^2.0.8",
     "moment": "^2.22.1",
     "rxjs": "^6.5.2",
