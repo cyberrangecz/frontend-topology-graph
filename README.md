@@ -1,5 +1,7 @@
 # Topology Graph Component
 
+**Current version: 1.0.0**
+
 Topology Graph Component is an Angular library using D3.js to visualize network graph topology.
 It can be imported as an independent component into your project.
 
