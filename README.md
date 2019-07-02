@@ -31,8 +31,9 @@ To use the topology component in your Angular application follow these steps:
 4. Use `<kypo2-topology-graph>` directive in your code and set its size by binding to `[width]` and `[height]` attributes. Pass sandbox id to component by binding to `[sandboxId]` attribute. If you wish to be notified when data of tology is loaded you can bind to `(onTopologyLoaded)` event.
 5. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
 
-If you wish to run this library locally you will need to have set up backend service locally. [Guide here](https://gitlab.ics.muni.cz/kypo2/services-and-portlets/kypo2-topology).
-If you don't want to run all necessary backend services locally you may try the component with mocked data using [JSON server](https://github.com/typicode/json-server). After installing json-server run `json-server -w db.json -r routes.json` in project dir.
+You will need to provide data for the components. This can be done in two ways
+* Set up backend service locally. [Guide here](https://gitlab.ics.muni.cz/kypo2/services-and-portlets/kypo2-topology).
+* Use mocked data with [JSON server](https://github.com/typicode/json-server). After installing json-server run `json-server -w db.json -r routes.json` in project dir.
 
 ## Developers
 
