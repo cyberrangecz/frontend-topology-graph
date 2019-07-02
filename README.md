@@ -9,7 +9,7 @@ It can be imported as an independent component into your project.
 
 To use the library you need to have installed:
 
-* npm
+* NPM with private [KYPO Nexus repository](https://projects.ics.muni.cz/projects/kbase/knowledgebase/articles/153)
 * Angular Material v8 or higher
 * D3.js v5 or higher
 * [Topology Graph Model library](https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology-model)
