@@ -1,0 +1,14 @@
+kypo2-angular-topology (0.0.0) stable; urgency=medium
+
+  * [382284da] Unite naming of project component modules
+  * [6395b318] Migrate to angular 8
+  * [0ac46670] Block expanding collapsing nodes without children
+  * [997b8f51] Rename remote connection to open terminal
+  * [57287777] Add consoleurl and remote connection to router nodes
+  * [69488692] Add consoleurl attribute to host node
+  * [02e3f4f1] Emit event when topology is loaded
+  * [02f88c75] Devel
+  * [1d271cec] Devel
+  * [97261ef1] Extrakce modelu topologie do samostatne knihovny
+
+ -- Martin Machac <machacm@ics.muni.cz>  Tue, 09 Jul 2019 08:31:15 +0200
