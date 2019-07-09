@@ -56,6 +56,7 @@ before_script:
 buildAngular:
     stage: buildAngular
     script:
+        - cp /usr/local/npmrc ~/.npmrc
         - npm install 
         - ng build --configuration=production
     only:
