@@ -114,6 +114,6 @@ deployDebian:
 deployAngular:
     stage: deployAngular
     script:
-        - 'npm run build-and-pack && cd dist/user-and-group-management && npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted'
+        - 'npm run generate-package && cd dist/kypo2-topology-graph &&  npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted'
     only:
         - tags
