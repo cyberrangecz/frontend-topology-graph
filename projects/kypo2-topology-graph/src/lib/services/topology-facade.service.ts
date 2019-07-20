@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Link } from 'kypo2-topology-graph-model';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Node} from 'kypo2-topology-graph-model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class TopologyFacade {
    * Caller needs to subscribe for it.
    */
   getTopology(sandboxId: number): Observable<{nodes: Node[], links: Link[]}> {
-    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl + sandboxId + '/topologies')
+    return this.http.get<TopologyDTO>(this.configService.config.topologyRestUrl + 'sandboxes/' + sandboxId + '/topologies')
       .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
       ));
    }
