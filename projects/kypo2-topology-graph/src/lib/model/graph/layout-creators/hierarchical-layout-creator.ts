@@ -1,8 +1,8 @@
-import Dictionary from 'typescript-collections/dist/lib/Dictionary';
 
 import {Node, SwitchNode} from 'kypo2-topology-graph-model';
 
 import {Point} from '../../others/point';
+import {Dictionary} from 'typescript-collections';
 
 /**
  * Creates hierarchical layout. Creates dictionary of node ids and its calculated x,y positions
