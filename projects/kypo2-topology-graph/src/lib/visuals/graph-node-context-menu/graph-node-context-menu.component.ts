@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import {Node} from 'kypo2-topology-graph-model';
+import {take} from 'rxjs/operators';
+import {ContextMenuItemsEnum} from '../../model/enums/node-context-menu-items-enum';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -35,7 +37,14 @@ export class NodeContextMenuComponent implements OnInit {
    * @param type of menu item user clicked on
    */
   onItemClick(item) {
-    this.contextMenuService.handleMenuItem(item.type, this.node);
+    this.contextMenuService.handleMenuItem(item.type, this.node)
+      .pipe(
+        take(1)
+      ).subscribe(result => {
+        if (result.type === ContextMenuItemsEnum.OpenTerminal) {
+          window.open(result.payload, '_blank');
+        }
+    });
   }
 
   /**

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Link} from 'kypo2-topology-graph-model';
 import {Node} from 'kypo2-topology-graph-model';
 import {TopologyFacade} from '../services/topology-facade.service';
@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {ConfigService} from '../services/config.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
 import {interval} from 'rxjs';
+import {SandboxService} from '../services/sandbox.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -32,7 +33,7 @@ import {interval} from 'rxjs';
   templateUrl: './kypo2-topology-graph.component.html',
   styleUrls: ['./kypo2-topology-graph.component.css']
 })
-export class Kypo2TopologyGraphComponent implements OnInit, OnDestroy {
+export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() width: number;
   @Input() height: number;
@@ -65,6 +66,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnDestroy {
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private d3ZoomEventService: D3ZoomEventService,
+    private sandboxService: SandboxService,
     private d3Service: D3Service,
     private draggedNodeService: DraggedNodeService) {
   }
@@ -89,6 +91,11 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnDestroy {
     this.subscribeZoomChangeEvent();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('sandboxId' in changes) {
+      this.sandboxService.setId(this.sandboxId);
+    }
+  }
 
   /**
    * Reloads topology and its decorators.

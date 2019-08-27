@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
 import {HostNode, Node, RouterNode} from 'kypo2-topology-graph-model';
 import {HostService} from './host.service';
 import {Connectable} from 'kypo2-topology-graph-model/lib/node/connectable';
+import {MenuItemResult} from '../model/events/menu-item-result';
+import {map} from 'rxjs/operators';
 
 /**
  * Service used for handling mouse events after right click.
@@ -61,12 +63,12 @@ export class ContextMenuService {
    * @param type type of the context menu item
    * @param node node associated with the context menu
    */
-  handleMenuItem(type: ContextMenuItemsEnum, node: Node) {
+  handleMenuItem(type: ContextMenuItemsEnum, node: Node): Observable<MenuItemResult> {
     switch (type) {
       case ContextMenuItemsEnum.OpenTerminal: {
-        if (node instanceof HostNode || node instanceof RouterNode) { // TODO: refactor
-          const connectable = node as unknown as Connectable;
-          this.hostService.establishRemoteConnection(connectable.consoleUrl);
+        if (node instanceof HostNode || node instanceof RouterNode) {
+          return this.hostService.getRemoteConnectionUrl(node.name)
+            .pipe(map(payload => new MenuItemResult(type, payload)));
         }
         break;
       }
