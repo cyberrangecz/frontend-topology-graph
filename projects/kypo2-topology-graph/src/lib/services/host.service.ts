@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable, of} from 'rxjs';
+import {SandboxService} from './sandbox.service';
+import {concatMap} from 'rxjs/operators';
+import {TopologyFacade} from './topology-facade.service';
 
 @Injectable()
 export class HostService {
 
-  constructor(private http: HttpClient,
+  constructor(private topologyFacade: TopologyFacade,
+              private sandboxService: SandboxService,
               private configService: ConfigService) {
   }
 
-  establishRemoteConnection(consoleUrl: string) {
-    window.open(consoleUrl, "_blank");
+  getRemoteConnectionUrl(vmName: string): Observable<string> {
+    return this.sandboxService.sandboxId$
+      .pipe(
+        concatMap(sandboxId => this.topologyFacade.getVMConsole(sandboxId, vmName))
+      )
   }
 
   /**

@@ -33,4 +33,10 @@ export class TopologyFacade {
       .pipe(map(response => this.topologySerializer.mapTopologyFromDTO(response)
       ));
    }
+
+   getVMConsole(sandboxId: number, vmName: string): Observable<string> {
+    return this.http.get<string>(this.configService.config.sandboxRestUrl + 'sandboxes/' + sandboxId + '/vms/' + vmName + '/console');
+   }
+
+
 }

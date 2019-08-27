@@ -89,7 +89,6 @@ export class TopologyMapper {
     const result = new RouterNode();
     result.cidr = routerDTO.cidr;
     result.name = routerDTO.name;
-    result.consoleUrl = routerDTO.console_url;
     result.physicalRole = NodePhysicalRoleEnum.Router;
     return result;
   }
@@ -105,7 +104,6 @@ export class TopologyMapper {
   private mapHostFromDTO(hostDTO: HostDTO): HostNode {
     const result = new HostNode();
     result.name = hostDTO.name;
-    result.consoleUrl = hostDTO.console_url;
     result.physicalRole = NodePhysicalRoleEnum.Desktop;
     return result;
   }

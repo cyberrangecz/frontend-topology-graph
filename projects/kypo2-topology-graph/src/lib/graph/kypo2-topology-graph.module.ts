@@ -29,6 +29,7 @@ import {ConfigService} from '../services/config.service';
 import {HostService} from '../services/host.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
 import {TopologyMapper} from '../services/topology-mapper.service';
+import {SandboxService} from '../services/sandbox.service';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import {TopologyMapper} from '../services/topology-mapper.service';
   ],
   providers: [
     ConfigService,
+    SandboxService,
     HostService,
     D3Service,
     D3ZoomEventService,
