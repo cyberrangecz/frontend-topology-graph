@@ -19,8 +19,10 @@ import {D3ZoomEventService} from '../services/d3-zoom-event.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {ConfigService} from '../services/config.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
-import {interval} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {SandboxService} from '../services/sandbox.service';
+import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
+import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -44,7 +46,8 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
   links: Link[];
 
   draggedNode: Node;
-  loadedTopology = false;
+  isLoading$: Observable<boolean>;
+  dataLoaded: boolean;
   showZoomResetButton = false;
   sidebarOpen = false;
   isError = false;
@@ -61,6 +64,8 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
   constructor(
     public snackBar: MatSnackBar,
     private configService: ConfigService,
+    private loadingService: Kypo2TopologyLoadingService,
+    private errorService: Kypo2TopologyErrorService,
     private topologyLoaderService: TopologyFacade,
     private decoratorLoaderService: DecoratorFacade,
     private decoratorEventService: DecoratorEventService,
@@ -76,6 +81,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * Loads first topology and decorators and subscribes for periodical refresh of decorators and decorator reload requests.
    */
   ngOnInit(): void {
+    this.subscribeLoading();
     this.loadTopology();
     if (this.configService.config.useDecorators && this.decoratorReloadTimerService.getReloadPeriod() > 0) {
       setTimeout(() => this.loadAllDecorators(), 100);
@@ -112,13 +118,13 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * Calls topology loader service and updates attributes based on result
    */
   loadTopology() {
-    this.loadedTopology = false;
+    this.dataLoaded = false;
     this.topologyLoaderService.getTopology(this.sandboxId)
       .subscribe(
         data => {
           this.nodes = data.nodes;
           this.links = data.links;
-           this.loadedTopology = true;
+           this.dataLoaded = true;
            this.onTopologyLoaded.emit(true);
         },
         err => {
@@ -363,6 +369,10 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
       })
   }
 
+  private subscribeLoading() {
+    this.isLoading$ = this.loadingService.isLoading$;
+  }
+
   /**
    * Unsubscribe from observables at the end of this component
    */
@@ -392,4 +402,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
       this._nodeDragEndedSubscription.unsubscribe();
     }
   }
+
+
 }

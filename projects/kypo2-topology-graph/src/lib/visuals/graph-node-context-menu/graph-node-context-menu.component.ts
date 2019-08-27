@@ -44,7 +44,8 @@ export class NodeContextMenuComponent implements OnInit {
         if (result.type === ContextMenuItemsEnum.OpenTerminal) {
           window.open(result.payload, '_blank');
         }
-    });
+      }
+  );
   }
 
   /**

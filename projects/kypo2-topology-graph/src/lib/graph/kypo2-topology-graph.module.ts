@@ -30,6 +30,8 @@ import {HostService} from '../services/host.service';
 import {DraggedNodeService} from '../services/dragged-node.service';
 import {TopologyMapper} from '../services/topology-mapper.service';
 import {SandboxService} from '../services/sandbox.service';
+import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
+import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
 
 @NgModule({
   imports: [
@@ -53,6 +55,8 @@ import {SandboxService} from '../services/sandbox.service';
   providers: [
     ConfigService,
     SandboxService,
+    Kypo2TopologyLoadingService,
+    Kypo2TopologyErrorService,
     HostService,
     D3Service,
     D3ZoomEventService,

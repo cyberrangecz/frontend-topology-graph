@@ -9,9 +9,12 @@ button {
 }
 
 .loading {
-  margin: auto auto;
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  margin-left: -45px;
+  margin-top: -45px;
+  left: 50%;
+  top: 50%;
+  z-index: 99999;
 }
 
 .try-again {
