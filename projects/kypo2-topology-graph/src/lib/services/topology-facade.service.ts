@@ -50,7 +50,7 @@ export class TopologyFacade {
 
    getVMConsole(sandboxId: number, vmName: string): Observable<string> {
      this.loadingService.setIsLoading(true);
-     return this.http.get<ConsoleDTO>(this.configService.config.sandboxRestUrl + 'sandboxes/' + sandboxId + '/vms/' + vmName + '/console')
+     return this.http.get<ConsoleDTO>(`${this.configService.config.sandboxRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console`)
       .pipe(
         map(resp => resp.url),
         tap(
@@ -63,5 +63,8 @@ export class TopologyFacade {
       );
    }
 
-
+   performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
+     return this.http.patch(`${this.configService.config.sandboxRestUrl}sandboxes/${sandboxId}/vms/${vmName}`,
+       { action: action});
+   }
 }

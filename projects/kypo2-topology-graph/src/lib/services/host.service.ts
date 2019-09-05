@@ -2,18 +2,39 @@ import {Injectable} from '@angular/core';
 import {ConfigService} from './config.service';
 import {Observable, of} from 'rxjs';
 import {SandboxService} from './sandbox.service';
-import {concatMap} from 'rxjs/operators';
+import {concatMap, map} from 'rxjs/operators';
 import {TopologyFacade} from './topology-facade.service';
+import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
+import {MenuItemResult} from '../model/events/menu-item-result';
 
 @Injectable()
 export class HostService {
 
   constructor(private topologyFacade: TopologyFacade,
-              private sandboxService: SandboxService,
-              private configService: ConfigService) {
+              private sandboxService: SandboxService) {
   }
 
-  getRemoteConnectionUrl(vmName: string): Observable<string> {
+  performAction(type: NodeActionEnum, vmName: string): Observable<any> {
+    switch (type) {
+      case NodeActionEnum.OpenTerminal: {
+        return this.getTerminalUrl(vmName);
+      }
+      case NodeActionEnum.Resume: {
+        return this.resume(vmName)
+      }
+      case NodeActionEnum.Reboot: {
+        return this.reboot(vmName);
+      }
+      case NodeActionEnum.Suspend: {
+        return this.suspend(vmName);
+      }
+      default: {
+        console.error('No such choice int the graph context menu');
+      }
+    }
+  }
+
+  getTerminalUrl(vmName: string): Observable<string> {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.getVMConsole(sandboxId, vmName))
@@ -21,38 +42,36 @@ export class HostService {
   }
 
   /**
-   * Calls REST API to restart host
-   * @param hostName name of a host which should be started
+   * Calls REST API to resume host
+   * @param vmName name of a host which should be resumed
    */
-  start(hostName: string): Observable<any> {
-    return of(false)
-    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/start')
+  resume(vmName: string): Observable<any> {
+    return this.sandboxService.sandboxId$
+      .pipe(
+        concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Resume.toLowerCase()))
+      )
   }
 
   /**
-   * Calls REST API to restart host
-   * @param hostName name of a host which should be restarted
+   * Calls REST API to reboot host
+   * @param vmName name of a host which should be rebooted
    */
-  restart(hostName: string): Observable<any> {
-    return of(false)
-    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/sandbox/host/' + hostName + '/restart')
+  reboot(vmName: string): Observable<any> {
+    return this.sandboxService.sandboxId$
+      .pipe(
+        concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Reboot.toLowerCase()))
+      )
   }
 
   /**
-   * Calls REST API to create running snapshot of a host
-   * @param hostName name of a host for which should be created running snapshot
+   * Calls REST API to suspend host
+   * @param vmName name of a host for which should be suspended
    */
-  createRunningSnapshot(hostName: string): Observable<any> {
-    return of(false)
-    // return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/createRunningSnapshot/' + hostName);
-  }
-
-  /**
-   * Calls REST API to revert running snapshot of a host
-   * @param hostName name of a host for which should be reverted running snapshot
-   */
-  revertRunningSnapshot(hostName: string): Observable<any> {
-    return of(false)
-    //return this.http.get(this.configService.config.scenarioRestUrl + this.configService.config.sandboxName + '/host/revertRunningSnapshot/' + hostName);
+  suspend(vmName: string): Observable<any> {
+    return this.sandboxService.sandboxId$
+      .pipe(
+        concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Suspend.toLowerCase()))
+      )
   }
 }
+

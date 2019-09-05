@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import {Node} from 'kypo2-topology-graph-model';
 import {take} from 'rxjs/operators';
-import {ContextMenuItemsEnum} from '../../model/enums/node-context-menu-items-enum';
+import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -41,7 +41,7 @@ export class NodeContextMenuComponent implements OnInit {
       .pipe(
         take(1)
       ).subscribe(result => {
-        if (result.type === ContextMenuItemsEnum.OpenTerminal) {
+        if (result.type === NodeActionEnum.OpenTerminal) {
           window.open(result.payload, '_blank');
         }
       }
