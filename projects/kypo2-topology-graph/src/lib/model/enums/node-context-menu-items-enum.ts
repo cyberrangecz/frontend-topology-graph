@@ -1,7 +1,6 @@
-export enum ContextMenuItemsEnum {
+export enum NodeActionEnum {
   OpenTerminal = 'Open terminal',
-  Start = 'Start',
-  Restart = 'Restart',
-  CreateRunningSnapshot = 'Create running snapshot',
-  RevertRunningSnapshot = 'Revert running snapshot'
+  Resume = 'Resume',
+  Reboot = 'Reboot',
+  Suspend = 'Suspend',
 }

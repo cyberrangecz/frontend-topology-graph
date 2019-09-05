@@ -1,10 +1,10 @@
-import {ContextMenuItemsEnum} from '../enums/node-context-menu-items-enum';
+import {NodeActionEnum} from '../enums/node-context-menu-items-enum';
 
 export class MenuItemResult {
-  type: ContextMenuItemsEnum;
+  type: NodeActionEnum;
   payload: any;
 
-  constructor(type: ContextMenuItemsEnum, payload: any) {
+  constructor(type: NodeActionEnum, payload: any) {
     this.type = type;
     this.payload = payload;
   }

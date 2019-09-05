@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {ContextMenuItemsEnum} from '../model/enums/node-context-menu-items-enum';
-import {HostNode, Node, RouterNode} from 'kypo2-topology-graph-model';
+import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
+import {Node} from 'kypo2-topology-graph-model';
 import {HostService} from './host.service';
-import {Connectable} from 'kypo2-topology-graph-model/lib/node/connectable';
 import {MenuItemResult} from '../model/events/menu-item-result';
 import {map} from 'rxjs/operators';
 
@@ -20,29 +19,24 @@ export class ContextMenuService {
     this._items = [
       {
         id: 1,
-        type: ContextMenuItemsEnum.OpenTerminal,
-        title: ContextMenuItemsEnum.OpenTerminal,
+        type: NodeActionEnum.OpenTerminal,
+        title: NodeActionEnum.OpenTerminal,
       },
-/*      {
+      {
         id: 2,
-        type: ContextMenuItemsEnum.Start,
-        title: ContextMenuItemsEnum.Start,
+        type: NodeActionEnum.Resume,
+        title: NodeActionEnum.Resume,
       },
       {
         id: 3,
-        type: ContextMenuItemsEnum.Restart,
-        title: ContextMenuItemsEnum.Restart,
+        type: NodeActionEnum.Reboot,
+        title: NodeActionEnum.Reboot,
       },
       {
         id: 4,
-        type: ContextMenuItemsEnum.CreateRunningSnapshot,
-        title: ContextMenuItemsEnum.CreateRunningSnapshot,
+        type: NodeActionEnum.Suspend,
+        title: NodeActionEnum.Suspend,
       },
-      {
-        id: 5,
-        type: ContextMenuItemsEnum.RevertRunningSnapshot,
-        title: ContextMenuItemsEnum.RevertRunningSnapshot,
-      },*/
 ];
   }
 
@@ -63,34 +57,10 @@ export class ContextMenuService {
    * @param type type of the context menu item
    * @param node node associated with the context menu
    */
-  handleMenuItem(type: ContextMenuItemsEnum, node: Node): Observable<MenuItemResult> {
-    switch (type) {
-      case ContextMenuItemsEnum.OpenTerminal: {
-        if (node instanceof HostNode || node instanceof RouterNode) {
-          return this.hostService.getRemoteConnectionUrl(node.name)
-            .pipe(map(payload => new MenuItemResult(type, payload)));
-        }
-        break;
-      }
-      case ContextMenuItemsEnum.Start: {
-        // this.hostService.start(node.name);
-        break;
-      }
-      case ContextMenuItemsEnum.Restart: {
-        // this.hostService.restart(node.name);
-        break;
-      }
-      case ContextMenuItemsEnum.CreateRunningSnapshot: {
-        // this.hostService.createRunningSnapshot(node.name);
-        break;
-      }
-      case ContextMenuItemsEnum.RevertRunningSnapshot: {
-        // this.hostService.revertRunningSnapshot(node.name);
-        break;
-      }
-      default: {
-        console.error('No such choice int the graph context menu');
-      }
-    }
+  handleMenuItem(type: NodeActionEnum, node: Node): Observable<MenuItemResult> {
+    return this.hostService.performAction(type, node.name)
+      .pipe(
+        map(payload => new MenuItemResult(type, payload))
+      );
   }
 }
