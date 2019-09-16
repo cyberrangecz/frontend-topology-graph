@@ -1,203 +1,77 @@
-{"sandboxes":{
-  "hosts": [
-    {
-      "name": "vm1",
-      "console_url": "https://www.google.com/"
-    },
-    {
-      "name": "vm3",
-      "console_url": "https://www.google.com/"
-    },
-    {
-      "name": "vm2",
-      "console_url": "https://www.google.com/"
-    },
-    {
-      "name": "vm4",
-      "console_url": "https://www.google.com/"
-    }
-  ],
-  "ports": [
-    {
-      "name": "Link-27_s1",
-      "ip": null,
-      "parent": "s1",
-      "mac": null
-    },
-    {
-      "name": "Link-18_s2",
-      "ip": null,
-      "parent": "s2",
-      "mac": null
-    },
-    {
-      "name": "Link-19_r1",
-      "ip": "100.100.100.4",
-      "parent": "r1",
-      "mac": "fa:16:3e:30:fc:68"
-    },
-    {
-      "name": "Link-23_r2",
-      "ip": "200.100.100.3",
-      "parent": "r2",
-      "mac": "fa:16:3e:71:85:7f"
-    },
-    {
-      "name": "Link-22_r1",
-      "ip": "10.10.20.4",
-      "parent": "r1",
-      "mac": "fa:16:3e:df:04:fe"
-    },
-    {
-      "name": "Link-22_s2",
-      "ip": null,
-      "parent": "s2",
-      "mac": null
-    },
-    {
-      "name": "Link-16_s1",
-      "ip": null,
-      "parent": "s1",
-      "mac": null
-    },
-    {
-      "name": "Link-16_vm2",
-      "ip": "10.10.10.5",
-      "parent": "vm2",
-      "mac": "fa:16:3e:f3:ce:2c"
-    },
-    {
-      "name": "Link-21_r1",
-      "ip": "10.10.10.4",
-      "parent": "r1",
-      "mac": "fa:16:3e:a2:4d:a8"
-    },
-    {
-      "name": "Link-25_r2",
-      "ip": "10.10.30.4",
-      "parent": "r2",
-      "mac": "fa:16:3e:9d:a3:b5"
-    },
-    {
-      "name": "Link-25_s3",
-      "ip": null,
-      "parent": "s3",
-      "mac": null
-    },
-    {
-      "name": "Link-21_s1",
-      "ip": null,
-      "parent": "s1",
-      "mac": null
-    },
-    {
-      "name": "Link-23_r2-network",
-      "ip": null,
-      "parent": "r2-network",
-      "mac": null
-    },
-    {
-      "name": "Link-18_vm3",
-      "ip": "10.10.20.5",
-      "parent": "vm3",
-      "mac": "fa:16:3e:28:6d:a6"
-    },
-    {
-      "name": "Link-14_s3",
-      "ip": null,
-      "parent": "s3",
-      "mac": null
-    },
-    {
-      "name": "Link-14_vm4",
-      "ip": "10.10.30.5",
-      "parent": "vm4",
-      "mac": "fa:16:3e:e8:91:47"
-    },
-    {
-      "name": "Link-27_vm1",
-      "ip": "10.10.10.3",
-      "parent": "vm1",
-      "mac": "fa:16:3e:47:74:5f"
-    },
-    {
-      "name": "Link-19_r1-network",
-      "ip": null,
-      "parent": "r1-network",
-      "mac": null
-    }
-  ],
-  "switches": [
-    {
-      "name": "r2-network",
-      "cidr": "200.100.100.0/29"
-    },
-    {
-      "name": "r1-network",
-      "cidr": "100.100.100.0/29"
-    },
-    {
-      "name": "s1",
-      "cidr": "10.10.10.0/24"
-    },
-    {
-      "name": "s2",
-      "cidr": "10.10.20.0/24"
-    },
-    {
-      "name": "s3",
-      "cidr": "10.10.30.0/24"
-    }
-  ],
-  "routers": [
-    {
-      "name": "r1",
-      "cidr": "100.100.100.0/29",
-      "console_url": "https://www.google.com/"
-    },
-    {
-      "name": "r2",
-      "cidr": "200.100.100.0/29",
-      "console_url": "https://www.google.com/"
-    }
-  ],
-  "links": [
-    {
-      "port_a": "Link-23_r2",
-      "port_b": "Link-23_r2-network"
-    },
-    {
-      "port_a": "Link-18_vm3",
-      "port_b": "Link-18_s2"
-    },
-    {
-      "port_a": "Link-21_r1",
-      "port_b": "Link-21_s1"
-    },
-    {
-      "port_a": "Link-25_r2",
-      "port_b": "Link-25_s3"
-    },
-    {
-      "port_a": "Link-19_r1",
-      "port_b": "Link-19_r1-network"
-    },
-    {
-      "port_a": "Link-22_r1",
-      "port_b": "Link-22_s2"
-    },
-    {
-      "port_a": "Link-14_vm4",
-      "port_b": "Link-14_s3"
-    },
-    {
-      "port_a": "Link-27_vm1",
-      "port_b": "Link-27_s1"
-    },
-    {
-      "port_a": "Link-16_vm2",
-      "port_b": "Link-16_s1"
-    }
-  ]
-}
+{
+  "sandboxes": {
+    "hosts": [
+      {
+        "name": "cryton-attacker",
+        "console_url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=75f2d182-5652-420a-ab94-be89050e132a"
+      },
+      {
+        "name": "cryton-slave",
+        "console_url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=bdea45c1-51be-4afd-be5f-e7669e5a386d"
+      },
+      {
+        "name": "debian-victim",
+        "console_url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=58802ee6-eddd-482e-b009-6e9a1863d32a"
+      }
+    ],
+    "ports": [
+      {
+        "name": "link-293_basic-network",
+        "ip": null,
+        "parent": "basic-network",
+        "mac": null
+      },
+      {
+        "name": "link-291_cryton-attacker",
+        "ip": "192.168.56.2",
+        "parent": "cryton-attacker",
+        "mac": "fa:16:3e:b4:d5:14"
+      },
+      {
+        "name": "link-291_basic-network",
+        "ip": null,
+        "parent": "basic-network",
+        "mac": null
+      },
+      {
+        "name": "link-292_cryton-slave",
+        "ip": "192.168.56.3",
+        "parent": "cryton-slave",
+        "mac": "fa:16:3e:0d:16:ab"
+      },
+      {
+        "name": "link-292_basic-network",
+        "ip": null,
+        "parent": "basic-network",
+        "mac": null
+      },
+      {
+        "name": "link-293_debian-victim",
+        "ip": "192.168.56.5",
+        "parent": "debian-victim",
+        "mac": "fa:16:3e:ed:3c:32"
+      }
+    ],
+    "switches": [
+      {
+        "name": "basic-network",
+        "cidr": "192.168.56.0/29"
+      }
+    ],
+    "routers": [],
+    "links": [
+      {
+        "port_a": "link-293_debian-victim",
+        "port_b": "link-293_basic-network"
+      },
+      {
+        "port_a": "link-291_cryton-attacker",
+        "port_b": "link-291_basic-network"
+      },
+      {
+        "port_a": "link-292_cryton-slave",
+        "port_b": "link-292_basic-network"
+      }
+    ]
+  }
 }

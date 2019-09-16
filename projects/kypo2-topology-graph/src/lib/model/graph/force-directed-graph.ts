@@ -454,11 +454,13 @@ export class ForceDirectedGraph {
    * @returns {number} y coordinate
    */
   private getLargestNodeYPositionInGraph() {
-    return this.nodes
-      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Cloud)
-      .reduce((prev, cur) => {
-      return (prev.y > cur.y) ? prev : cur;
-    }).y;
+    const nodes = this.nodes
+      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Switch || node.physicalRole === NodePhysicalRoleEnum.Cloud);
+    if (nodes.length > 0) {
+      return nodes.reduce((prev, cur) => (prev.y > cur.y) ? prev : cur).y;
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -466,11 +468,13 @@ export class ForceDirectedGraph {
    * @returns {number} x coordinate
    */
   private getLargestNodeXPositionInGraph() {
-    return this.nodes
-      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Cloud)
-      .reduce((prev, cur) => {
-        return (prev.x > cur.x) ? prev : cur;
-      }).x;
+    const nodes = this.nodes
+      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Switch || node.physicalRole === NodePhysicalRoleEnum.Cloud);
+    if (nodes.length > 0) {
+      return nodes.reduce((prev, cur) => (prev.x > cur.x) ? prev : cur).x;
+    } else {
+      return 0;
+    }
   }
 
   /**

@@ -44,7 +44,7 @@ export class TopologyFacade {
             this.errorService.emitError(err);
             this.loadingService.setIsLoading(false)
             }
-        ),
+        )
       );
    }
 
