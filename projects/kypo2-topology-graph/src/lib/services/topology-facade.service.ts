@@ -35,7 +35,7 @@ export class TopologyFacade {
    */
   getTopology(sandboxId: number): Observable<{nodes: Node[], links: Link[]}> {
     this.loadingService.setIsLoading(true);
-    return this.http.get<TopologyDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/topologies/`)
+    return this.http.get<TopologyDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/topology/`)
       .pipe(
         map(response => this.topologySerializer.mapTopologyFromDTO(response)),
         tap(
@@ -50,7 +50,7 @@ export class TopologyFacade {
 
    getVMConsole(sandboxId: number, vmName: string): Observable<string> {
      this.loadingService.setIsLoading(true);
-     return this.http.get<ConsoleDTO>(`${this.configService.config.sandboxRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
+     return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
       .pipe(
         map(resp => resp.url),
         tap(
@@ -64,7 +64,7 @@ export class TopologyFacade {
    }
 
    performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
-     return this.http.patch(`${this.configService.config.sandboxRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`,
+     return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`,
        { action: action});
    }
 }
