@@ -10,6 +10,7 @@ import {TopologyDTO} from '../model/DTO/topology-dto.model';
 import {Kypo2TopologyLoadingService} from './kypo2-topology-loading.service';
 import {Kypo2TopologyErrorService} from './kypo2-topology-error.service';
 import {ConsoleDTO} from '../model/DTO/console-dto.model';
+import { TopologyError } from '../model/others/topology-error.model';
 
 /**
  * Service for getting JSON data about topology of network and parsing them to model suitable for visualization
@@ -41,8 +42,9 @@ export class TopologyFacade {
         tap(
           _ => this.loadingService.setIsLoading(false),
             err => {
-            this.errorService.emitError(err);
-            this.loadingService.setIsLoading(false)
+            const errorMessage = new TopologyError(err, 'Loading topology');
+            this.errorService.emitError(errorMessage);
+            this.loadingService.setIsLoading(false);
             }
         )
       );
@@ -56,7 +58,8 @@ export class TopologyFacade {
         tap(
           _ => this.loadingService.setIsLoading(false),
           err =>  {
-            this.errorService.emitError(err);
+            const errorMessage = new TopologyError(err, 'Loading VM console');
+            this.errorService.emitError(errorMessage);
             this.loadingService.setIsLoading(false);
           }
         ),
@@ -64,7 +67,16 @@ export class TopologyFacade {
    }
 
    performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
-     return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`,
-       { action: action});
+     return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`, { action: action})
+     .pipe(
+        tap(
+          {
+            error: err =>  {
+              const errorMessage = new TopologyError(err, 'Performing VM action: ' + action);
+              this.errorService.emitError(errorMessage);
+            }
+          }
+        ),
+      );
    }
 }
