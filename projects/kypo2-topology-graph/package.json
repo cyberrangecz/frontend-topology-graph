@@ -1,6 +1,6 @@
 {
   "name": "kypo2-topology-graph",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "peerDependencies": {
     "graph-topology-model-lib": "==1.0.0",
     "@angular/common": ">=8.0.0",
