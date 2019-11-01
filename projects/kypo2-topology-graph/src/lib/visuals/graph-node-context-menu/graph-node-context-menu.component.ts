@@ -19,8 +19,10 @@ export class NodeContextMenuComponent implements OnInit {
 
   @Input('context') node: Node;
 
-  isDisplayed: boolean = false;
+  isDisplayed = false;
   items;
+  consoleButtonDisplayed = false;
+  consoleURL = null;
 
   private menuLocation: { left: number, top: number } = { left: 0, top: 0 };
 
@@ -36,13 +38,17 @@ export class NodeContextMenuComponent implements OnInit {
    * Calls appropriate service based on value which was chosen by user
    * @param type of menu item user clicked on
    */
-  onItemClick(item) {
+  onItemClick(event, item) {
+    if (item.type === NodeActionEnum.GenerateConsoleUrl) {
+      event.stopPropagation();
+      this.consoleButtonDisplayed = true;
+    } 
     this.contextMenuService.handleMenuItem(item.type, this.node)
       .pipe(
         take(1)
       ).subscribe(result => {
-        if (result.type === NodeActionEnum.OpenTerminal) {
-          window.open(result.payload, '_blank');
+        if (result.type === NodeActionEnum.GenerateConsoleUrl) {
+          this.consoleURL = result.payload;
         }
       }
   );
@@ -76,5 +82,7 @@ export class NodeContextMenuComponent implements OnInit {
 
   clickedOutside() {
     this.isDisplayed = false;
+    this.consoleButtonDisplayed = false;
+    this.consoleURL = false;
   }
 }

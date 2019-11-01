@@ -19,8 +19,8 @@ export class ContextMenuService {
     this._items = [
       {
         id: 1,
-        type: NodeActionEnum.OpenTerminal,
-        title: NodeActionEnum.OpenTerminal,
+        type: NodeActionEnum.GenerateConsoleUrl,
+        title: NodeActionEnum.GenerateConsoleUrl,
       },
       {
         id: 2,

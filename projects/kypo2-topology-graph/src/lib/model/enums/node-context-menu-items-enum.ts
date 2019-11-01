@@ -1,5 +1,5 @@
 export enum NodeActionEnum {
-  OpenTerminal = 'Open terminal',
+  GenerateConsoleUrl = 'Generate console URL',
   Resume = 'Resume',
   Reboot = 'Reboot',
   Suspend = 'Suspend',
