@@ -16,11 +16,11 @@ export class HostService {
 
   performAction(type: NodeActionEnum, vmName: string): Observable<any> {
     switch (type) {
-      case NodeActionEnum.OpenTerminal: {
+      case NodeActionEnum.GenerateConsoleUrl: {
         return this.getTerminalUrl(vmName);
       }
       case NodeActionEnum.Resume: {
-        return this.resume(vmName)
+        return this.resume(vmName);
       }
       case NodeActionEnum.Reboot: {
         return this.reboot(vmName);
@@ -38,7 +38,7 @@ export class HostService {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.getVMConsole(sandboxId, vmName))
-      )
+      );
   }
 
   /**
@@ -49,7 +49,7 @@ export class HostService {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Resume.toLowerCase()))
-      )
+      );
   }
 
   /**
@@ -60,7 +60,7 @@ export class HostService {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Reboot.toLowerCase()))
-      )
+      );
   }
 
   /**
@@ -71,7 +71,7 @@ export class HostService {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Suspend.toLowerCase()))
-      )
+      );
   }
 }
 

@@ -51,16 +51,16 @@ export class TopologyFacade {
    }
 
    getVMConsole(sandboxId: number, vmName: string): Observable<string> {
-     this.loadingService.setIsLoading(true);
+
      return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
       .pipe(
         map(resp => resp.url),
         tap(
-          _ => this.loadingService.setIsLoading(false),
-          err =>  {
-            const errorMessage = new TopologyError(err, 'Loading VM console');
-            this.errorService.emitError(errorMessage);
-            this.loadingService.setIsLoading(false);
+          {
+            error: err =>  {
+              const errorMessage = new TopologyError(err, 'Loading VM console');
+              this.errorService.emitError(errorMessage);
+            }
           }
         ),
       );

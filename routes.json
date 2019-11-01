@@ -1,3 +1,4 @@
 {
-    "/sandboxes/:id/topology": "/sandboxes"
+    "/sandboxes/:id/topology": "/sandboxes",
+    "/sandboxes/:id/vms/:name/console": "/console"
 }

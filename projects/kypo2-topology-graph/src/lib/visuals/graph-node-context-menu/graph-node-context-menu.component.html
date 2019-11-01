@@ -5,7 +5,7 @@
     <g
       *ngFor="let item of items"
       class="item"
-      (click)="onItemClick(item)">
+      (click)="onItemClick($event, item)">
       <rect class="item"
         [attr.x]="location.left + 20"
         [attr.y]="location.top + (item.id * 20)">
@@ -15,6 +15,31 @@
         [attr.y] = "location.top + (item.id * 20) + 15">
         {{ item.title }}
       </text>
+    </g>
+    <g
+      *ngIf="consoleButtonDisplayed">
+      <rect class="item"
+        [attr.x]="location.left + 170"
+        [attr.y]="location.top + (1 * 20)">
+      </rect>
+      <text
+        *ngIf="!consoleURL"
+        class="item"
+        [attr.x] = "location.left + 180"
+        [attr.y] = "location.top + (1 * 20) + 15">
+        Loading...
+      </text>
+      <a
+        *ngIf="consoleURL"  
+        [attr.href]="consoleURL"
+        target="_blank">
+        <text
+          class="item"
+          [attr.x] = "location.left + 180"
+          [attr.y] = "location.top + (1 * 20) + 15">
+          Open console
+        </text>
+      </a>
     </g>
   </g>
 </svg>
