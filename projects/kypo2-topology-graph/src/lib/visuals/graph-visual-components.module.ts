@@ -7,11 +7,15 @@ import { CommonModule } from '@angular/common';
 import {NodeVisualSemaphoreDecoratorComponent} from './graph-node-visual/graph-node-visual-decorators/node-visual-semaphore-decorator/node-visual-semaphore-decorator.component';
 import {DirectivesModule} from '../directives/directives.module';
 import {LabelShortenerPipe} from '../pipes/label-shortener.pipe';
+import { ColZoneLayerModule } from 'tca-lib';
+import { SettingsService } from 'tca-lib';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    DirectivesModule
+    DirectivesModule,
+    ColZoneLayerModule
   ],
   declarations: [
     LabelShortenerPipe,
@@ -23,7 +27,11 @@ import {LabelShortenerPipe} from '../pipes/label-shortener.pipe';
   ],
   exports: [
     GraphVisualComponent
+  ],
+  providers: [
+    SettingsService
   ]
+
 })
 
 export class GraphVisualComponentsModule {}
