@@ -1,0 +1,114 @@
+<mat-expansion-panel
+  [expanded]="true">
+
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Collision zones visibility
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-slide-toggle
+    color="primary"
+    [checked]="colSwitch"
+    (change)="toggleColSwitch()">
+    <p *ngIf="!colSwitch">Enable collision detection</p>
+    <p *ngIf="colSwitch">Disable collision detection</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="colors"
+  [disabled]="!colSwitch"
+  (change)="toggleColors()">
+  <p *ngIf="!colors">Enable debug mode</p>
+  <p *ngIf="colors">Disable debug mode</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+    color="primary"
+    [checked]="nodeToNode"
+    [disabled]="!colSwitch || !colors"
+    (change)="toggleNodeToNode()">
+    <p *ngIf="!nodeToNode">Enable node-to-node</p>
+    <p *ngIf="nodeToNode">Disable node-to-node</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="nodeToLink"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleNodeToLink()">
+  <p *ngIf="!nodeToLink">Enable node-to-link</p>
+  <p *ngIf="nodeToLink">Disable node-to-link</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="linkToNode"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleLinkToNode()">
+  <p *ngIf="!linkToNode">Enable link-to-node</p>
+  <p *ngIf="linkToNode">Disable link-to-node</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="linkToLink"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleLinkToLink()">
+  <p *ngIf="!linkToLink">Enable link-to-link</p>
+  <p *ngIf="linkToLink">Disable link-to-link</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="subnetToNode"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleSubnetToNode()">
+  <p *ngIf="!subnetToNode">Enable subnet-to-node</p>
+  <p *ngIf="subnetToNode">Disable subnet-to-node</p>
+  </mat-slide-toggle>
+
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="subnetToLink"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleSubnetToLink()">
+  <p *ngIf="!subnetToLink">Enable subnet-to-link</p>
+  <p *ngIf="subnetToLink">Disable subnet-to-link</p>
+  </mat-slide-toggle>
+  
+  <br>
+  <br>
+
+  <mat-slide-toggle
+  color="primary"
+  [checked]="linkToHost"
+  [disabled]="!colSwitch || !colors"
+  (change)="toggleLinkToHost()">
+  <p *ngIf="!linkToHost">Enable link-to-host</p>
+  <p *ngIf="linkToHost">Disable link-to-host</p>
+  </mat-slide-toggle> 
+  
+</mat-expansion-panel>

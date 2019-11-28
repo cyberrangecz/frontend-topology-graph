@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
 import {Node} from 'kypo2-topology-graph-model';
 import {HostService} from './host.service';
@@ -12,7 +12,6 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class ContextMenuService {
-
   private readonly _items;
 
   constructor(private hostService: HostService) {

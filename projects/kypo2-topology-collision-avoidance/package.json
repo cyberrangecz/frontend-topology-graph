@@ -1,0 +1,11 @@
+{
+  "name": "kypo2-topology-collision-avoidance",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "kypo2-topology-graph-model": "==1.0.0",
+    "@angular/common": ">=8.0.0",
+    "@angular/core": "^>=8.0.0",
+    "@angular/material": ">=8.0.0",
+    "angular-ts-math": ">=1.0.7"
+  }
+}

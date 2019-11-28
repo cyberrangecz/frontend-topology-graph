@@ -32,9 +32,7 @@ import {TopologyMapper} from '../services/topology-mapper.service';
 import {SandboxService} from '../services/sandbox.service';
 import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
 import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
-import { VisibilityMenuModule } from 'tca-lib';
-import { SettingsService } from 'tca-lib';
-
+import {SettingsService, VisibilityMenuModule} from 'kypo2-topology-collision-avoidance';
 
 @NgModule({
   imports: [
