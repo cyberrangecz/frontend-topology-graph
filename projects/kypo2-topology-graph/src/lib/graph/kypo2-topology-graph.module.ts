@@ -32,6 +32,9 @@ import {TopologyMapper} from '../services/topology-mapper.service';
 import {SandboxService} from '../services/sandbox.service';
 import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
 import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
+import { VisibilityMenuModule } from 'tca-lib';
+import { SettingsService } from 'tca-lib';
+
 
 @NgModule({
   imports: [
@@ -41,6 +44,7 @@ import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.servic
     GraphMaterialModule,
     GraphVisualComponentsModule,
     DirectivesModule,
+    VisibilityMenuModule
   ],
   declarations: [
     TopologyGraphSidebarComponent,
@@ -71,7 +75,8 @@ import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.servic
     DecoratorStateService,
     GraphEventService,
     GraphLockService,
-    DraggedNodeService
+    DraggedNodeService,
+    SettingsService
   ],
   exports: [
     Kypo2TopologyGraphComponent

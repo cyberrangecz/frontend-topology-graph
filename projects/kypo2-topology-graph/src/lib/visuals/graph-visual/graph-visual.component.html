@@ -5,6 +5,15 @@
   <g class="graph"
      [zoomableOf]="svg"
      [zoomableIn]="graph">
+   <!-- COLLISION ZONES -->
+   <g [lib-col-zone-layer]
+      [nodeSize]="75"
+      [draggedNode]="draggedNode"
+      [nodes]="nodes"
+      [links]="links"
+      [width]="width"
+      [height]="height">
+   </g>
     <!-- LINKS -->
     <g [linkVisual]="link"
        *ngFor="let link of links"></g>

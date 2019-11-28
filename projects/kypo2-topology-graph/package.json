@@ -9,6 +9,7 @@
     "d3": ">=5.7.0",
     "moment": ">=2.22.1",
     "@angular/http": ">=8.0.0",
-    "typescript-collections": ">=1.3.2"
+    "typescript-collections": ">=1.3.2",
+    "tca-lib": ">=0.0.3"
   }
 }

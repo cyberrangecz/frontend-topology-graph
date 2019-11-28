@@ -26,6 +26,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input('links') links: Link[];
   @Input('width') width: number;
   @Input('height') height: number;
+  @Input('draggedNode') draggedNode: Node;
 
   graph: ForceDirectedGraph;
   lockedCanvas: boolean;

@@ -5,7 +5,7 @@ import {INode} from 'kypo2-topology-graph-model';
 @Injectable()
 export class DraggedNodeService {
 
-  lastDraggedNodeName = "";
+  lastDraggedNodeName = '';
 
   private _onNodeTouchedSubject: Subject<INode> = new Subject<INode>();
   public onNodeTouched: Observable<INode> = this._onNodeTouchedSubject.asObservable();
