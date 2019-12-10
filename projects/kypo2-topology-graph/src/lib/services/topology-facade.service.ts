@@ -51,7 +51,6 @@ export class TopologyFacade {
    }
 
    getVMConsole(sandboxId: number, vmName: string): Observable<string> {
-
      return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
       .pipe(
         map(resp => resp.url),

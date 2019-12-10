@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable, ReplaySubject} from 'rxjs';
+import {BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class SandboxService {
-  private sandboxIdSubject: ReplaySubject<number> = new ReplaySubject();
+  private sandboxIdSubject: BehaviorSubject<number> = new BehaviorSubject(null);
   sandboxId$: Observable<number> = this.sandboxIdSubject.asObservable();
 
   setId(id: number) {

@@ -5,7 +5,6 @@ import {SandboxService} from './sandbox.service';
 import {concatMap, map} from 'rxjs/operators';
 import {TopologyFacade} from './topology-facade.service';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
-import {MenuItemResult} from '../model/events/menu-item-result';
 
 @Injectable()
 export class HostService {
