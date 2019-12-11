@@ -56,6 +56,10 @@ import {SettingsService, VisibilityMenuModule} from 'kypo2-topology-collision-av
   ],
   providers: [
     ConfigService,
+    TopologyFacade,
+    TopologyMapper,
+    Kypo2TopologyLoadingService,
+    Kypo2TopologyErrorService,
   ],
   exports: [
     Kypo2TopologyGraphComponent

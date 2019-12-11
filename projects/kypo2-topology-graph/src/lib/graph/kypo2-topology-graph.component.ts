@@ -44,12 +44,8 @@ import {TopologyMapper} from '../services/topology-mapper.service';
   templateUrl: './kypo2-topology-graph.component.html',
   styleUrls: ['./kypo2-topology-graph.component.css'],
   providers: [
-    TopologyFacade,
-    TopologyMapper,
     DecoratorFacade,
     SandboxService,
-    Kypo2TopologyLoadingService,
-    Kypo2TopologyErrorService,
     HostService,
     D3Service,
     D3ZoomEventService,
