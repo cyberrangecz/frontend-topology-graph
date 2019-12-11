@@ -56,25 +56,9 @@ import {SettingsService, VisibilityMenuModule} from 'kypo2-topology-collision-av
   ],
   providers: [
     ConfigService,
-    SandboxService,
-    Kypo2TopologyLoadingService,
-    Kypo2TopologyErrorService,
-    HostService,
-    D3Service,
-    D3ZoomEventService,
-    ContextMenuService,
     TopologyFacade,
     TopologyMapper,
-    DecoratorReloadTimerService,
     DecoratorFacade,
-    DecoratorEventService,
-    DecoratorFilterService,
-    DecoratorTimeService,
-    DecoratorStateService,
-    GraphEventService,
-    GraphLockService,
-    DraggedNodeService,
-    SettingsService
   ],
   exports: [
     Kypo2TopologyGraphComponent

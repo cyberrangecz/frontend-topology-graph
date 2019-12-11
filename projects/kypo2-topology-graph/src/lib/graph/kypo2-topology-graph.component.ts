@@ -23,6 +23,14 @@ import {interval, Observable} from 'rxjs';
 import {SandboxService} from '../services/sandbox.service';
 import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
 import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
+import {HostService} from '../services/host.service';
+import {ContextMenuService} from '../services/context-menu.service';
+import {DecoratorFilterService} from '../services/decorator-filter.service';
+import {DecoratorTimeService} from '../services/decorator-time.service';
+import {DecoratorStateService} from '../services/decorator-state.service';
+import {GraphEventService} from '../services/graph-event.service';
+import {GraphLockService} from '../services/graph-lock.service';
+import {SettingsService} from 'kypo2-topology-collision-avoidance';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -33,7 +41,25 @@ import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.servic
 @Component({
   selector: 'kypo2-topology-graph',
   templateUrl: './kypo2-topology-graph.component.html',
-  styleUrls: ['./kypo2-topology-graph.component.css']
+  styleUrls: ['./kypo2-topology-graph.component.css'],
+  providers: [
+    SandboxService,
+    Kypo2TopologyLoadingService,
+    Kypo2TopologyErrorService,
+    HostService,
+    D3Service,
+    D3ZoomEventService,
+    ContextMenuService,
+    DecoratorReloadTimerService,
+    DecoratorEventService,
+    DecoratorFilterService,
+    DecoratorTimeService,
+    DecoratorStateService,
+    GraphEventService,
+    GraphLockService,
+    DraggedNodeService,
+    SettingsService
+  ]
 })
 export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
 
