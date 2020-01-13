@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
-import {ConfigService} from './config.service';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {SandboxService} from './sandbox.service';
-import {concatMap, map} from 'rxjs/operators';
+import {concatMap} from 'rxjs/operators';
 import {TopologyFacade} from './topology-facade.service';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
 
+/**
+ * Layer between components and API. Handles actions on host nodes
+ */
 @Injectable()
 export class HostService {
 
@@ -13,10 +15,15 @@ export class HostService {
               private sandboxService: SandboxService) {
   }
 
+  /**
+   * Resolves type of action and calls api service to handle the action
+   * @param type type of requested action
+   * @param vmName name of virtual machine (host node)
+   */
   performAction(type: NodeActionEnum, vmName: string): Observable<any> {
     switch (type) {
       case NodeActionEnum.GenerateConsoleUrl: {
-        return this.getTerminalUrl(vmName);
+        return this.getConsoleUrl(vmName);
       }
       case NodeActionEnum.Resume: {
         return this.resume(vmName);
@@ -33,15 +40,19 @@ export class HostService {
     }
   }
 
-  getTerminalUrl(vmName: string): Observable<string> {
+  /**
+   * Returns url of console remote access of host node
+   * @param vmName virtual machine name of the host node
+   */
+  getConsoleUrl(vmName: string): Observable<string> {
     return this.sandboxService.sandboxId$
       .pipe(
-        concatMap(sandboxId => this.topologyFacade.getVMConsole(sandboxId, vmName))
+        concatMap(sandboxId => this.topologyFacade.getVMConsoleUrl(sandboxId, vmName))
       );
   }
 
   /**
-   * Calls REST API to resume host
+   * Calls API service to resume host
    * @param vmName name of a host which should be resumed
    */
   resume(vmName: string): Observable<any> {
@@ -52,7 +63,7 @@ export class HostService {
   }
 
   /**
-   * Calls REST API to reboot host
+   * Calls API service to reboot host
    * @param vmName name of a host which should be rebooted
    */
   reboot(vmName: string): Observable<any> {
@@ -63,7 +74,7 @@ export class HostService {
   }
 
   /**
-   * Calls REST API to suspend host
+   * Calls API service to suspend host
    * @param vmName name of a host for which should be suspended
    */
   suspend(vmName: string): Observable<any> {

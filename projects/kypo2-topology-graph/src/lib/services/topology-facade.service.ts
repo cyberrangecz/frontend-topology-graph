@@ -50,7 +50,12 @@ export class TopologyFacade {
       );
    }
 
-   getVMConsole(sandboxId: number, vmName: string): Observable<string> {
+  /**
+   * Sends http request to get url of virtual machine console (terminal) for remote access
+   * @param sandboxId id of sandbox in which the vm exists
+   * @param vmName name of the vm to remotely access
+   */
+   getVMConsoleUrl(sandboxId: number, vmName: string): Observable<string> {
      return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
       .pipe(
         map(resp => resp.url),
@@ -65,6 +70,12 @@ export class TopologyFacade {
       );
    }
 
+  /**
+   * Sends http request to perform an action on a virtual machine
+   * @param sandboxId id of sandbox in which the vm exists
+   * @param vmName name of the vm on which to perform the action
+   * @param action action to be performed
+   */
    performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
      return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`, { action: action})
      .pipe(

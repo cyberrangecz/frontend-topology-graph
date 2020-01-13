@@ -10,6 +10,9 @@ import {LabelShortenerPipe} from '../pipes/label-shortener.pipe';
 import {ColZoneLayerModule, SettingsService} from 'kypo2-topology-collision-avoidance';
 
 
+/**
+ * Main module of visual (svg and d3) components
+ */
 @NgModule({
   imports: [
     CommonModule,

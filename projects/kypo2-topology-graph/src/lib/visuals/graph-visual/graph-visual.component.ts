@@ -29,6 +29,10 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input('draggedNode') draggedNode: Node;
 
   graph: ForceDirectedGraph;
+
+  /**
+   * true if in locked canvas mode (fixed size) , false otherwise
+   */
   lockedCanvas: boolean;
 
   defaultWidth: number;

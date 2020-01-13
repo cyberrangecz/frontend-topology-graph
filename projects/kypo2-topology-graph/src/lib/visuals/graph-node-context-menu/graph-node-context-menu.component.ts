@@ -12,7 +12,7 @@ import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
   templateUrl: './graph-node-context-menu.component.html',
   styleUrls: ['./graph-node-context-menu.component.css'],
   host: {
-    '(document:click)': 'clickedOutside()'
+    '(document:click)': 'onClickOutside()'
   }
 })
 export class NodeContextMenuComponent implements OnInit {
@@ -42,7 +42,7 @@ export class NodeContextMenuComponent implements OnInit {
     if (item.type === NodeActionEnum.GenerateConsoleUrl) {
       event.stopPropagation();
       this.consoleButtonDisplayed = true;
-    } 
+    }
     this.contextMenuService.handleMenuItem(item.type, this.node)
       .pipe(
         take(1)
@@ -80,7 +80,10 @@ export class NodeContextMenuComponent implements OnInit {
     }
   }
 
-  clickedOutside() {
+  /**
+   * Changes internal state of the component to reset after user clicked outside the context menu
+   */
+  onClickOutside() {
     this.isDisplayed = false;
     this.consoleButtonDisplayed = false;
     this.consoleURL = false;
