@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
 import {Node} from 'kypo2-topology-graph-model';
 import {HostService} from './host.service';
@@ -7,9 +7,8 @@ import {MenuItemResult} from '../model/events/menu-item-result';
 import {map} from 'rxjs/operators';
 
 /**
- * Service used for handling mouse events after right click.
+ * Service used for handling events in context menu
  */
-
 @Injectable()
 export class ContextMenuService {
   private readonly _items;

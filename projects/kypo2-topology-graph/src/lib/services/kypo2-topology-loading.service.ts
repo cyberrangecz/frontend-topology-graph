@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
 
+/**
+ * Global loading service. Emits events from library through observable. Client app should subscribe to isLoading$ observable and
+ * display app specific loading indicator.
+ */
 @Injectable()
 export class Kypo2TopologyLoadingService {
   private isLoadingSubject: Subject<boolean> = new ReplaySubject();

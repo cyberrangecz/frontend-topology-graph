@@ -6,6 +6,7 @@ import {Dictionary} from 'typescript-collections';
 
 /**
  * Creates hierarchical layout. Creates dictionary of node ids and its calculated x,y positions
+ * @deprecated
  */
 export class HierarchicalLayoutCreator {
   private readonly DISTANCE_BETWEEN_TREE_LEVELS = 150;

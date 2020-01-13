@@ -7,6 +7,12 @@ import {SwitchDTO} from '../model/DTO/switch-dto.model';
 import {HostDTO} from '../model/DTO/host-dto.model';
 import {LinkDTO} from '../model/DTO/link-dto.model';
 
+/**
+ * Maps DTOs to internal model
+ * Creates hierarchical model inside nodes elements but returns it as flat array because hierarchical graph-visual are not supported
+ * by D3 and it would cause problems. This way we can remain hierarchical structure inside model and
+ * implement functions needed for visualization  in our own way.
+ */
 @Injectable()
 export class TopologyMapper {
 
