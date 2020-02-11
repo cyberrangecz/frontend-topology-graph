@@ -30,8 +30,6 @@ import {DecoratorTimeService} from '../services/decorator-time.service';
 import {DecoratorStateService} from '../services/decorator-state.service';
 import {GraphEventService} from '../services/graph-event.service';
 import {GraphLockService} from '../services/graph-lock.service';
-import {SettingsService} from 'kypo2-topology-collision-avoidance';
-import {TopologyMapper} from '../services/topology-mapper.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -58,7 +56,6 @@ import {TopologyMapper} from '../services/topology-mapper.service';
     GraphEventService,
     GraphLockService,
     DraggedNodeService,
-    SettingsService
   ]
 })
 export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {

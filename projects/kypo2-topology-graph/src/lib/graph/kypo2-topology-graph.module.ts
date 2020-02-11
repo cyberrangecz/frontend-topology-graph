@@ -8,31 +8,16 @@ import {TopologyGraphSidebarComponent} from './force-graph-sidebar/topology-grap
 import {DecoratorTimePickerComponent} from './force-graph-sidebar/decorator-time-picker/decorator-time-picker.component';
 import {DecoratorTimerComponent} from './force-graph-sidebar/decorator-timer/decorator-timer.component';
 import {Kypo2TopologyGraphComponent} from './kypo2-topology-graph.component';
-import {DecoratorReloadTimerService} from '../services/decorator-reload-timer.service';
-import {DecoratorFilterService} from '../services/decorator-filter.service';
-import {D3Service} from '../services/d3.service';
-import {ContextMenuService} from '../services/context-menu.service';
 import {TopologyFacade} from '../services/topology-facade.service';
-import {DecoratorFacade} from '../services/decorator-facade.service';
-import {DecoratorEventService} from '../services/decorator-event.service';
-import {DecoratorTimeService} from '../services/decorator-time.service';
-import {D3ZoomEventService} from '../services/d3-zoom-event.service';
-import {GraphEventService} from '../services/graph-event.service';
 import {GraphVisualComponentsModule} from '../visuals/graph-visual-components.module';
 import {GraphMaterialModule} from './graph-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DecoratorStateService} from '../services/decorator-state.service';
 import {DirectivesModule} from '../directives/directives.module';
-import {GraphLockService} from '../services/graph-lock.service';
 import {Kypo2TopologyGraphConfig} from '../others/kypo2TopologyGraphConfig';
 import {ConfigService} from '../services/config.service';
-import {HostService} from '../services/host.service';
-import {DraggedNodeService} from '../services/dragged-node.service';
 import {TopologyMapper} from '../services/topology-mapper.service';
-import {SandboxService} from '../services/sandbox.service';
 import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
 import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
-import {SettingsService, VisibilityMenuModule} from 'kypo2-topology-collision-avoidance';
 
 @NgModule({
   imports: [
@@ -42,7 +27,6 @@ import {SettingsService, VisibilityMenuModule} from 'kypo2-topology-collision-av
     GraphMaterialModule,
     GraphVisualComponentsModule,
     DirectivesModule,
-    VisibilityMenuModule
   ],
   declarations: [
     TopologyGraphSidebarComponent,
@@ -73,7 +57,7 @@ export class Kypo2TopologyGraphModule {
     }
   }
 
-  static forRoot(config: Kypo2TopologyGraphConfig): ModuleWithProviders {
+  static forRoot(config: Kypo2TopologyGraphConfig): ModuleWithProviders<Kypo2TopologyGraphModule> {
     return {
       ngModule: Kypo2TopologyGraphModule,
       providers: [
