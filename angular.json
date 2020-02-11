@@ -45,7 +45,8 @@
           "configurations": {
             "production": {
               "project": "projects/kypo2-topology-graph/ng-package.prod.json"
-            }
+            ,              "tsConfig": "projects/kypo2-topology-graph/tsconfig.lib.prod.json"
+}
           }
         },
         "test": {
@@ -80,6 +81,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/kypo2-topology-graph-example",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -96,6 +98,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
