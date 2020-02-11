@@ -70,46 +70,6 @@
         }
       }
     },
-    "kypo2-topology-collision-avoidance": {
-      "root": "projects/kypo2-topology-collision-avoidance",
-      "sourceRoot": "projects/kypo2-topology-collision-avoidance/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/kypo2-topology-collision-avoidance/tsconfig.lib.json",
-            "project": "projects/kypo2-topology-collision-avoidance/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/kypo2-topology-collision-avoidance/ng-package.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/kypo2-topology-collision-avoidance/src/test.ts",
-            "tsConfig": "projects/kypo2-topology-collision-avoidance/tsconfig.spec.json",
-            "karmaConfig": "projects/kypo2-topology-collision-avoidance/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/kypo2-topology-collision-avoidance/tsconfig.lib.json",
-              "projects/kypo2-topology-collision-avoidance/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "kypo2-topology-graph-example": {
       "root": "./",
       "sourceRoot": "src",
