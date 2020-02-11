@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import {NodeVisualSemaphoreDecoratorComponent} from './graph-node-visual/graph-node-visual-decorators/node-visual-semaphore-decorator/node-visual-semaphore-decorator.component';
 import {DirectivesModule} from '../directives/directives.module';
 import {LabelShortenerPipe} from '../pipes/label-shortener.pipe';
-import {ColZoneLayerModule, SettingsService} from 'kypo2-topology-collision-avoidance';
 
 
 /**
@@ -17,7 +16,6 @@ import {ColZoneLayerModule, SettingsService} from 'kypo2-topology-collision-avoi
   imports: [
     CommonModule,
     DirectivesModule,
-    ColZoneLayerModule
   ],
   declarations: [
     LabelShortenerPipe,
@@ -29,11 +27,7 @@ import {ColZoneLayerModule, SettingsService} from 'kypo2-topology-collision-avoi
   ],
   exports: [
     GraphVisualComponent
-  ],
-  providers: [
-    SettingsService
   ]
-
 })
 
 export class GraphVisualComponentsModule {}
