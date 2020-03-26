@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {SandboxService} from './sandbox.service';
 import {concatMap} from 'rxjs/operators';
-import {TopologyFacade} from './topology-facade.service';
+import {TopologyApi} from './topology-api.service';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
 
 /**
@@ -11,7 +11,7 @@ import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
 @Injectable()
 export class HostService {
 
-  constructor(private topologyFacade: TopologyFacade,
+  constructor(private topologyFacade: TopologyApi,
               private sandboxService: SandboxService) {
   }
 

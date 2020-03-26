@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Link} from 'kypo2-topology-graph-model';
 import {Node} from 'kypo2-topology-graph-model';
-import {TopologyFacade} from '../services/topology-facade.service';
+import {TopologyApi} from '../services/topology-api.service';
 import {DecoratorFacade} from '../services/decorator-facade.service';
 import {HostNode} from 'kypo2-topology-graph-model';
 import {RouterNode} from 'kypo2-topology-graph-model';
@@ -89,7 +89,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     private configService: ConfigService,
     private loadingService: Kypo2TopologyLoadingService,
     private errorService: Kypo2TopologyErrorService,
-    private topologyLoaderService: TopologyFacade,
+    private topologyLoaderService: TopologyApi,
     private decoratorLoaderService: DecoratorFacade,
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
