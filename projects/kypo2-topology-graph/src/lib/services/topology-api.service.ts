@@ -20,7 +20,7 @@ import { TopologyError } from '../model/others/topology-error.model';
  */
 
 @Injectable()
-export class TopologyFacade {
+export class TopologyApi {
 
   constructor(private http: HttpClient,
               private topologySerializer: TopologyMapper,
@@ -36,7 +36,7 @@ export class TopologyFacade {
    */
   getTopology(sandboxId: number): Observable<{nodes: Node[], links: Link[]}> {
     this.loadingService.setIsLoading(true);
-    return this.http.get<TopologyDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/topology/`)
+    return this.http.get<TopologyDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/topology`)
       .pipe(
         map(response => this.topologySerializer.mapTopologyFromDTO(response)),
         tap(
@@ -56,7 +56,7 @@ export class TopologyFacade {
    * @param vmName name of the vm to remotely access
    */
    getVMConsoleUrl(sandboxId: number, vmName: string): Observable<string> {
-     return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console/`)
+     return this.http.get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console`)
       .pipe(
         map(resp => resp.url),
         tap(
@@ -77,7 +77,7 @@ export class TopologyFacade {
    * @param action action to be performed
    */
    performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
-     return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/`, { action: action})
+     return this.http.patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}`, { action: action})
      .pipe(
         tap(
           {

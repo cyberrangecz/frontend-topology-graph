@@ -8,7 +8,7 @@ import {TopologyGraphSidebarComponent} from './force-graph-sidebar/topology-grap
 import {DecoratorTimePickerComponent} from './force-graph-sidebar/decorator-time-picker/decorator-time-picker.component';
 import {DecoratorTimerComponent} from './force-graph-sidebar/decorator-timer/decorator-timer.component';
 import {Kypo2TopologyGraphComponent} from './kypo2-topology-graph.component';
-import {TopologyFacade} from '../services/topology-facade.service';
+import {TopologyApi} from '../services/topology-api.service';
 import {GraphVisualComponentsModule} from '../visuals/graph-visual-components.module';
 import {GraphMaterialModule} from './graph-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -40,7 +40,7 @@ import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.servic
   ],
   providers: [
     ConfigService,
-    TopologyFacade,
+    TopologyApi,
     TopologyMapper,
     Kypo2TopologyLoadingService,
     Kypo2TopologyErrorService,
