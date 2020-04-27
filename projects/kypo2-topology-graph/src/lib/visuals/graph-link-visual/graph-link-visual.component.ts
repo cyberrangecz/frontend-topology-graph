@@ -8,6 +8,7 @@ import {LinkDecoratorTypeEnum} from '../../model/enums/link-decorator-type-enum'
 import {DecoratorEventMessageEnum} from '../../model/enums/decorator-event-message-enum';
 import {LinkDecoratorSpeedEnum} from '../../model/enums/link-decorator-speed-enum';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
+import {ICONS_PATH} from '../../icons-path';
 /**
  * Visual component used to display links in the graph-visual and its decorators. Binds to link mode.
  */
@@ -19,6 +20,8 @@ import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 export class GraphLinkVisualComponent implements OnInit, OnDestroy {
 
   @Input('linkVisual') link: Link;
+
+  iconsPath = ICONS_PATH;
   speedDecorator: LinkSpeedDecorator;
   mailDecorator: LinkMailDecorator;
 
