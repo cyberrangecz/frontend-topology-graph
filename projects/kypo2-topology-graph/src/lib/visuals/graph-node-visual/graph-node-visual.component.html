@@ -23,7 +23,7 @@
     <image
       *ngIf="!isSubnetHidden()"
       ngClass="{{ node.physicalRole }}"
-      [attr.xlink:href]="'./assets/images/icons/' + node.physicalRole +'.svg'"
+      [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
       [attr.x]="width / (-2) + 5"
       [attr.y]="height / (-2) + 5"
       [attr.width]="30"
@@ -33,7 +33,7 @@
     <image
       *ngIf="isSubnetHidden()"
       ngClass="{{ node.physicalRole }}"
-      [attr.xlink:href]="'./assets/images/icons/' + node.physicalRole +'.svg'"
+      [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
       [attr.x]="width / (-2) + 5"
       [attr.y]="height / (-2)"
       [attr.width]="45"
@@ -42,7 +42,7 @@
 
     <!-- LOGICAL ROLE DECORATOR ICON -->
     <image *ngIf="logicalRoleDecorator != null"
-           [attr.xlink:href]="'./assets/images/icons/' + logicalRoleDecorator.role +'.svg'"
+           [attr.xlink:href]="iconsPath + logicalRoleDecorator.role +'.svg'"
            [attr.x]="logicalRoleDecorator.x"
            [attr.y]="logicalRoleDecorator.y"
            [attr.width]="30"

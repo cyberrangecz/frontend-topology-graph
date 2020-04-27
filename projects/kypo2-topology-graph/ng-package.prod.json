@@ -4,5 +4,8 @@
   "lib": {
     "entryFile": "src/public_api.ts"
   },
+  "assets": [
+    "./src/assets/*"
+  ],
   "whitelistedNonPeerDependencies": ["kypo2-topology-graph-model", "angular-ts-math", "kypo2-topology-collision-avoidance"]
 }

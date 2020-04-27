@@ -16,7 +16,7 @@
     "e2e": "ng e2e",
     "build-library": "ng build --prod kypo2-topology-graph",
     "pack": "cd dist/kypo2-topology-graph && npm pack",
-    "generate-package": "npm install && npm run build-library && cp -r projects/kypo2-topology-graph/src/assets ./dist/kypo2-topology-graph/lib/assets && npm run pack",
+    "generate-package": "npm install && npm run build-library && npm run pack",
     "publish": "npm run generate-package && cd dist/kypo2-topology-graph && npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
   },
   "private": false,

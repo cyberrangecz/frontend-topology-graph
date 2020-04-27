@@ -15,6 +15,7 @@ import {HostNode} from 'kypo2-topology-graph-model';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {GraphEventService} from '../../services/graph-event.service';
 import {DecoratorReloadTimerService} from '../../services/decorator-reload-timer.service';
+import {ICONS_PATH} from '../../icons-path';
 
 /**
  * Visual component used for displaying nodes of the graph-visual and its decorators. Binds to node model.
@@ -31,6 +32,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   @Input('nodeVisual') node: Node;
 
+  iconsPath = ICONS_PATH;
   hasContextMenu: boolean;
   width: number;
   height: number;
