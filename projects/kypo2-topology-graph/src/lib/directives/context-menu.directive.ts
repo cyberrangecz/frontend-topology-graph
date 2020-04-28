@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import {Directive, HostListener, Input} from '@angular/core';
 import { ContextMenuService } from '../services/context-menu.service';
 import { Node } from 'kypo2-topology-graph-model';
 
@@ -8,7 +8,6 @@ import { Node } from 'kypo2-topology-graph-model';
  */
 @Directive({
   selector: '[contextMenu]',
-  host:{'(contextmenu)': 'rightClicked($event)'}
 })
 
 export class ContextMenuDirective {
@@ -23,6 +22,7 @@ export class ContextMenuDirective {
    * Notifies about context menu service about click.
    * @param {MouseEvent} event
    */
+  @HostListener('contextmenu', ['$event'])
   rightClicked(event: MouseEvent) {
     this.contextMenuService.show.next({
       position: {

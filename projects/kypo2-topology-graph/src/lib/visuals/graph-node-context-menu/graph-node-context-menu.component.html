@@ -17,29 +17,34 @@
       </text>
     </g>
     <g
-      *ngIf="consoleButtonDisplayed">
-      <rect class="item"
-        [attr.x]="location.left + 170"
-        [attr.y]="location.top + (1 * 20)">
-      </rect>
-      <text
-        *ngIf="!consoleURL"
-        class="item"
-        [attr.x] = "location.left + 180"
-        [attr.y] = "location.top + (1 * 20) + 15">
-        Loading...
-      </text>
-      <a
-        *ngIf="consoleURL"  
-        [attr.href]="consoleURL"
-        target="_blank">
+      *ngIf="consoleButtonDisplayed && consoleURL">
+      <a class="console-link"
+         [attr.href]="consoleURL"
+         target="_blank">
+        <rect class="item"
+              [attr.x]="location.left + 170"
+              [attr.y]="location.top + 20">
+        </rect>
         <text
           class="item"
           [attr.x] = "location.left + 180"
-          [attr.y] = "location.top + (1 * 20) + 15">
+          [attr.y] = "location.top + 35">
           Open console
         </text>
       </a>
     </g>
+    <g *ngIf="consoleButtonDisplayed && !consoleURL">
+      <rect class="item"
+            [attr.x]="location.left + 170"
+            [attr.y]="location.top + 20">
+      </rect>
+      <text
+        class="item"
+        [attr.x] = "location.left + 180"
+        [attr.y] = "location.top + 35">
+        Loading...
+      </text>
+    </g>
+
   </g>
 </svg>

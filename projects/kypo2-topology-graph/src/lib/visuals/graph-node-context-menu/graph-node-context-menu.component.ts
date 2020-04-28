@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import {Node} from 'kypo2-topology-graph-model';
 import {take} from 'rxjs/operators';
@@ -11,9 +11,6 @@ import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
   selector: '[context]',
   templateUrl: './graph-node-context-menu.component.html',
   styleUrls: ['./graph-node-context-menu.component.css'],
-  host: {
-    '(document:click)': 'onClickOutside()'
-  }
 })
 export class NodeContextMenuComponent implements OnInit {
 
@@ -32,6 +29,16 @@ export class NodeContextMenuComponent implements OnInit {
   ngOnInit() {
     this.contextMenuService.show.subscribe(e => this.showMenu(e.position, e.nodeName));
     this.items = this.contextMenuService.getItems();
+  }
+
+  /**
+   * Changes internal state of the component to reset after user clicked outside the context menu
+   */
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event) {
+      this.isDisplayed = false;
+      this.consoleButtonDisplayed = false;
+      this.consoleURL = false;
   }
 
   /**
@@ -77,15 +84,9 @@ export class NodeContextMenuComponent implements OnInit {
         top: position.y
       };
       this.isDisplayed = true;
+    } else {
+      this.isDisplayed = false;
     }
   }
 
-  /**
-   * Changes internal state of the component to reset after user clicked outside the context menu
-   */
-  onClickOutside() {
-    this.isDisplayed = false;
-    this.consoleButtonDisplayed = false;
-    this.consoleURL = false;
-  }
 }

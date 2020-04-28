@@ -1,3 +1,8 @@
+.console-link {
+  width: 150px;
+  height: 20px;
+}
+
 g {
   cursor: pointer;
 }
