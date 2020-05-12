@@ -49,7 +49,7 @@ export class ForceDirectedGraph {
     }
 
     // Forces for repulsion between nodes to minimize crossing
-    this.simulation.nodes(Array.from(this.nodes))
+    this.simulation.nodes(this.nodes)
       .force('charge', d3.forceManyBody()
         .strength(-5000)
         .distanceMax(150));
@@ -187,7 +187,7 @@ export class ForceDirectedGraph {
    * Graph is let to reorganize after applying forces and forces are turned off so its static when user interacts with nodes.
    */
   private selfOrganizeAndStop() {
-    for (let i = 0; i < this.nodes.length * 50; i++) {
+    for (let i = 0; i < Math.min(this.nodes.length * 50, 100); i++) {
       this.simulation.tick();
     }
     this.simulation.stop();
@@ -198,9 +198,8 @@ export class ForceDirectedGraph {
    * Difference is a lower time to organize because this way transitions and animation are smoother
    */
   private selfOrganizeSubnetAndStop() {
-    for (let i = 0; i < this.nodes.length * 3; i++) {
-      this.simulation.tick();
-    }
+    const iterations = Math.min(this.nodes.length * 3, 10);
+    this.simulation.tick(iterations);
     this.simulation.stop();
   }
 
@@ -255,35 +254,18 @@ export class ForceDirectedGraph {
    * @param {RouterNode} node which sub networking is to be added.
    */
   addSubnetwork(node: SwitchNode) {
-    // saves router node position to remain in fixed position when applying forces to its children nodes
-    const tempX = node.x;
-    const tempY = node.y;
+    // fixes position of the parent node
+    node.fx = node.x;
+    node.fy = node.y;
 
     this.addSubnetworkNodes(node);
     this.subnetNodesForce(node);
-
     const linksToAdd = this.findSubnetLinksToAdd(node);
     this.addLinks(linksToAdd);
     this.subnetLinksForce(linksToAdd);
 
-
-
-    // animation shown possibility
-/*    setTimeout(() => {
-      this.selfOrganizeSubnetAndStop();
-      this.turnOffSubnetRevealForces();
-      // previously stored position is set after forces may have changed it
-      node.x = tempX;
-      node.y = tempY;
-    }, 500);*/
-
     this.selfOrganizeSubnetAndStop();
     this.turnOffSubnetRevealForces();
-    // previously stored position is set after forces may have changed it
-    node.x = tempX;
-    node.y = tempY;
-
-
   }
 
   /**
@@ -296,15 +278,13 @@ export class ForceDirectedGraph {
     for (let i = nodes.length - 1; i >= 0; i--) {
       const children = nodes[i];
       const nonActiveIndex = this.nonActiveNodes.indexOf(children);
-        if (nonActiveIndex > -1) {
-          this.nonActiveNodes.splice(nonActiveIndex, 1);
-        }
-        // remove this if position should be resolved by only by d3 force
-        children.x = Math.max(150, Math.min(this.width - 80, this.calculateChildXPosition(parent, i)));
-        children.y =  Math.max(150, Math.min(this.height - 80, this.calculateChildYPosition(parent, i)));
-        this.nodes.push(children);
+      if (nonActiveIndex > -1) {
+        this.nonActiveNodes.splice(nonActiveIndex, 1);
       }
-
+      children.x = Math.max(150, Math.min(this.width - 80, this.calculateChildXPosition(parent, i)));
+      children.y =  Math.max(150, Math.min(this.height - 80, this.calculateChildYPosition(parent, i)));
+      this.nodes.push(children);
+      }
   }
 
   /**
@@ -483,6 +463,7 @@ export class ForceDirectedGraph {
    */
   private subnetNodesForce(parent: SwitchNode) {
   this.simulation
+    .nodes(this.nodes)
     .force('collide',
       d3.forceCollide(
       (d, i, nodes) => {
@@ -550,26 +531,6 @@ export class ForceDirectedGraph {
           }
         }))
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-      /*      .force('x', d3.forceX((d, i, nodes) => {
-                const node = nodes[i] as Node;
-              if (node instanceof RouterNode) {
-                return node.x;
-              }
-
-              const parent = this.findParent(node);
-              return parent ? parent.x : node.x;
-              }
-            ).strength(1))
-            .force('y', d3.forceY((d, i, nodes) => {
-                const node = nodes[i] as Node;
-                if (node instanceof RouterNode) {
-                  return node.y;
-                }
-
-              const parent = this.findParent(node);
-              return parent ? parent.y : node.y;
-              }
-            ).strength(1))*/
       .restart();
     this.selfOrganizeAndStop();
     this.turnOffInitialForces();
@@ -599,6 +560,4 @@ export class ForceDirectedGraph {
       .alphaTarget(0.3)
       .restart();
   }
-
-
 }
