@@ -1,13 +1,6 @@
 {
   "name": "kypo2-topology-graph",
   "version": "1.0.0",
-  "author": "Martin Hamerník <445720@mail.muni.cz>",
-  "description": "Component visualizing network topology as a graph",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology"
-  },
-  "homepage": "https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,8 +9,7 @@
     "e2e": "ng e2e",
     "build-library": "ng build --prod kypo2-topology-graph",
     "pack": "cd dist/kypo2-topology-graph && npm pack",
-    "generate-package": "npm install && npm run build-library && npm run pack",
-    "publish": "npm run generate-package && cd dist/kypo2-topology-graph && npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
+    "build-and-pack": "npm install && npm run build-library && npm run pack"
   },
   "private": false,
   "dependencies": {
