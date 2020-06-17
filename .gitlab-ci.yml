@@ -41,7 +41,7 @@ buildAngular:
   script:
     - cp $NPMRC_PULL ~/.npmrc
     - npm install
-    - ng build
+    - ng build --prod
   only:
     - triggers
     - branches
