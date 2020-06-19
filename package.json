@@ -27,7 +27,7 @@
     "core-js": "^2.6.10",
     "d3": "^5.14.2",
     "kypo2-topology-graph-model": "9.0.0",
-    "moment": "^2.24.0",
+    "moment-mini": "^2.24.0",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "typescript-collections": "^1.3.3",
