@@ -9,7 +9,7 @@
     "@angular/core": "^9.0.0",
     "@angular/material": "^9.0.0",
     "d3": ">=5.7.0",
-    "moment": ">=2.22.1",
+    "moment-mini": ">=2.22.1",
     "@angular/http": ">=9.0.0",
     "typescript-collections": ">=1.3.2",
     "kypo2-topology-graph-model": "9.0.0"

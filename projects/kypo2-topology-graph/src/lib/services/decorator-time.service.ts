@@ -3,9 +3,9 @@ import {DecoratorReloadTimerService} from './decorator-reload-timer.service';
 import {DecoratorEventService} from './decorator-event.service';
 import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
 import {Observable, Subject} from 'rxjs';
-import {DurationInputArg2, Moment} from 'moment';
+import {DurationInputArg2, Moment} from 'moment-mini';
 import {ConfigService} from './config.service';
-import * as momentNs from 'moment';
+import * as momentNs from 'moment-mini';
 
 const moment = momentNs;
 
