@@ -34,7 +34,3 @@ To use the topology component in your Angular application follow these steps:
 You will need to provide data for the components. This can be done in two ways
 * Set up backend service locally. [Guide here](https://gitlab.ics.muni.cz/kypo2/services-and-portlets/kypo2-topology).
 * Use mocked data with [JSON server](https://github.com/typicode/json-server). After installing json-server run `json-server -w db.json -r routes.json` in project dir.
-
-## Developers
-
-* Martin Hamernik (445720@mail.muni.cz)
