@@ -7,19 +7,13 @@ It is designed to communicate with REST API of [Sandbox microservice](https://gi
 
 To use the library you need to have installed:
 
-* NPM with private [KYPO Nexus repository](https://projects.ics.muni.cz/projects/kbase/knowledgebase/articles/153)
-* Angular Material v8 or higher
-* [D3.js v5](https://www.npmjs.com/package/d3) and [D3 types](https://www.npmjs.com/package/@types/d3)
-* [kypo2-topology-graph-model](https://gitlab.ics.muni.cz/kypo2/frontend-new/kypo2-angular-topology-model)
-* kypo2-topology-collision-avoidance v 1.0.0 (available in nexus repository)
-* [angular-ts-math](https://www.npmjs.com/package/angular-ts-math)
-* [moment](https://www.npmjs.com/package/moment)
+* NPM with access to [KYPO registry](https://projects.ics.muni.cz/projects/kbase/knowledgebase/articles/153)
  
 ## Usage
 
 To use the topology component in your Angular application follow these steps:
 
-1. Run `npm install kypo2-topology-graph`
+1. Run `npm install @kypo/topology-graph`
 2. Create topology config class extending **Kypo2TopologyGraphConfig** from the library. Config contains following options:
     + topologyRestUrl (url where Sandbox microservice is running)
     + decoratorsRestUrl (currently not supported by backend, leave as empty string)
