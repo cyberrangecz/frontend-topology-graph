@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { Node} from 'kypo2-topology-graph-model';
+import { Node} from '@kypo/topology-model';
 import { ForceDirectedGraph} from '../model/graph/force-directed-graph';
 import { D3Service } from '../services/d3.service';
 

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Link} from 'kypo2-topology-graph-model';
-import {Node} from 'kypo2-topology-graph-model';
+import {Link} from '@kypo/topology-model';
+import {Node} from '@kypo/topology-model';
 import {TopologyApi} from '../services/topology-api.service';
 import {DecoratorFacade} from '../services/decorator-facade.service';
-import {HostNode} from 'kypo2-topology-graph-model';
-import {RouterNode} from 'kypo2-topology-graph-model';
+import {HostNode} from '@kypo/topology-model';
+import {RouterNode} from '@kypo/topology-model';
 
 import {DecoratorEventService} from '../services/decorator-event.service';
 import {DecoratorReloadRequestEvent} from '../model/events/decorator-reload-request-event';

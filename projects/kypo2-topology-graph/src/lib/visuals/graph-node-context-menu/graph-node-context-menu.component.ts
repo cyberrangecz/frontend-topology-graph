@@ -1,6 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
-import {Node} from 'kypo2-topology-graph-model';
+import {Node} from '@kypo/topology-model';
 import {take} from 'rxjs/operators';
 import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
 

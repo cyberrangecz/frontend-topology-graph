@@ -1,5 +1,5 @@
 
-import {Node, SwitchNode} from 'kypo2-topology-graph-model';
+import {Node, SwitchNode} from '@kypo/topology-model';
 
 import {Point} from '../../others/point';
 import {Dictionary} from 'typescript-collections';
