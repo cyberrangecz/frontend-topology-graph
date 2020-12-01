@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Link } from 'kypo2-topology-graph-model';
+import { Link } from '@kypo/topology-model';
 import {HttpClient} from '@angular/common/http';
-import {Node} from 'kypo2-topology-graph-model';
+import {Node} from '@kypo/topology-model';
 import {Observable} from 'rxjs';
 import { map, tap} from 'rxjs/operators';
 import {ConfigService} from './config.service';

@@ -1,6 +1,6 @@
 import {Directive, HostListener, Input} from '@angular/core';
 import { ContextMenuService } from '../services/context-menu.service';
-import { Node } from 'kypo2-topology-graph-model';
+import { Node } from '@kypo/topology-model';
 
 
 /**

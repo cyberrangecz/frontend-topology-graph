@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Link } from 'kypo2-topology-graph-model';
+import { Link } from '@kypo/topology-model';
 import { LinkSpeedDecorator } from '../../model/decorators/link-speed-decorator';
 import {DecoratorEventService} from '../../services/decorator-event.service';
 import {LinkMailDecorator} from '../../model/decorators/link-mail-decorator';

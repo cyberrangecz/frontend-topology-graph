@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {INode} from 'kypo2-topology-graph-model';
+import {INode} from '@kypo/topology-model';
 
 @Injectable()
 export class DraggedNodeService {

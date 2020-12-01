@@ -1,14 +1,14 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import {Link, SwitchNode} from 'kypo2-topology-graph-model';
-import { Node } from 'kypo2-topology-graph-model';
+import {Link, SwitchNode} from '@kypo/topology-model';
+import { Node } from '@kypo/topology-model';
 import {GraphEventService} from '../../services/graph-event.service';
 import {GraphEventTypeEnum} from '../../model/enums/graph-event-type-enum';
 import {Subscription} from 'rxjs';
 import {GraphEvent} from '../../model/events/graph-event';
-import {RouterNode} from 'kypo2-topology-graph-model';
-import {NodePhysicalRoleEnum} from 'kypo2-topology-graph-model';
+import {RouterNode} from '@kypo/topology-model';
+import {NodePhysicalRoleEnum} from '@kypo/topology-model';
 import {DecoratorEventService} from '../../services/decorator-event.service';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {GraphLockService} from '../../services/graph-lock.service';
