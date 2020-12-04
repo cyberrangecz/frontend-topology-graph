@@ -13,7 +13,7 @@ To use the library you need to have installed:
 
 To use the topology component in your Angular application follow these steps:
 
-1. Run `npm install @kypo/topology-graph`
+1. Run `npm install @muni-kypo-crp/topology-graph`
 2. Create topology config class extending **Kypo2TopologyGraphConfig** from the library. Config contains following options:
     + topologyRestUrl (url where Sandbox microservice is running)
     + decoratorsRestUrl (currently not supported by backend, leave as empty string)

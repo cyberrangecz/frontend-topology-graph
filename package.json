@@ -1,5 +1,5 @@
 {
-  "name": "@kypo/topology-graph",
+  "name": "@muni-kypo-crp/topology-graph",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -28,7 +28,7 @@
     "@angular/platform-browser": "^10.0.1",
     "@angular/platform-browser-dynamic": "^10.0.1",
     "@angular/router": "^10.0.1",
-    "@kypo/topology-model": "~10.1.0",
+    "@muni-kypo-crp/topology-model": "~10.2.0",
     "core-js": "^2.6.10",
     "d3": "^5.14.2",
     "moment-mini": "^2.24.0",

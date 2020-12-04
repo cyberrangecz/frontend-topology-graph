@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {GraphEventTypeEnum} from '../model/enums/graph-event-type-enum';
 import {GraphEvent} from '../model/events/graph-event';
-import {SwitchNode} from '@kypo/topology-model';
+import {SwitchNode} from '@muni-kypo-crp/topology-model';
 
 
 /**

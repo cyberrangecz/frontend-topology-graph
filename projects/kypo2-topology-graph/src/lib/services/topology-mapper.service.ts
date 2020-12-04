@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HostNode, Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, NodePort, RouterNode, SwitchNode} from '@kypo/topology-model';
+import {HostNode, Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, NodePort, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
 import {TopologyDTO} from '../model/DTO/topology-dto.model';
 import {PortDTO} from '../model/DTO/port-dto.model';
 import {RouterDTO} from '../model/DTO/router-dto.model';

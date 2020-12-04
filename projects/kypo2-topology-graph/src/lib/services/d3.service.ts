@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ForceDirectedGraph} from '../model/graph/force-directed-graph';
-import {Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@kypo/topology-model';
+import {Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
 import * as d3 from 'd3';
 import {D3ZoomEventService} from './d3-zoom-event.service';
 import {GraphLockService} from './graph-lock.service';
