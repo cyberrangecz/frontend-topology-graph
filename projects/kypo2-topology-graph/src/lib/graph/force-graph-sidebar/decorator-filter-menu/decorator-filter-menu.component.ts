@@ -6,8 +6,8 @@ import {DecoratorCheckboxModel} from './decorator-checkbox-model';
 import {RouterNodeDecoratorTypeEnum} from '../../../model/enums/router-node-decorator-type-enum';
 import {HostNodeDecoratorTypeEnum} from '../../../model/enums/host-node-decorator-type-enum';
 import {LinkDecoratorTypeEnum} from '../../../model/enums/link-decorator-type-enum';
-import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 import {DecoratorStateService} from '../../../services/decorator-state.service';
+import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from '@angular/material/checkbox';
 
 /**
  * Component of decorator filter menu. Handles checking and unchecking visible decorators
@@ -21,7 +21,7 @@ import {DecoratorStateService} from '../../../services/decorator-state.service';
   templateUrl: './decorator-filter-menu.component.html',
   styleUrls: ['./decorator-filter-menu.component.css'],
   providers: [
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}
   ]
 })
 export class DecoratorFilterMenuComponent implements OnDestroy {
