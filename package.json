@@ -34,7 +34,7 @@
     "@angular/platform-browser": "^11.0.8",
     "@angular/platform-browser-dynamic": "^11.0.8",
     "@angular/router": "^11.0.8",
-    "@muni-kypo-crp/topology-model": "~11.0.0",
+    "@muni-kypo-crp/topology-model": "~11.0.1",
     "core-js": "^2.6.10",
     "d3": "^5.14.2",
     "moment-mini": "^2.24.0",
