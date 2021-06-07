@@ -5,9 +5,9 @@ import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
 import {Observable, Subject} from 'rxjs';
 import {DurationInputArg2, Moment} from 'moment-mini';
 import {ConfigService} from './config.service';
-import * as momentNs from 'moment-mini';
+import * as moment_ from 'moment-mini';
 
-const moment = momentNs;
+const moment = moment_;
 
 /**
  * Service passing the time which should be used when requesting for decorators
@@ -132,8 +132,8 @@ export class DecoratorTimeService implements OnDestroy {
     const matched = relativeTime.match('(now)([+,-])(\\d+)([s,m,h,d,M,y])$');
     if (matched && matched.length === 5) {
       const operator = matched[2];
-      const value: momentNs.DurationInputArg1 = matched[3];
-      const timeUnit: momentNs.DurationInputArg2 = matched[4] as DurationInputArg2;
+      const value: moment_.DurationInputArg1 = matched[3];
+      const timeUnit: moment_.DurationInputArg2 = matched[4] as DurationInputArg2;
 
       if (operator === '-') {
         return converted.subtract(value, timeUnit);

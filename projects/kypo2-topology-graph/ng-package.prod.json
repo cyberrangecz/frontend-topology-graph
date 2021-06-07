@@ -2,7 +2,13 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/kypo2-topology-graph",
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "@muni-kypo-crp/topology-model": "muni-kypo-crp.topology-model",
+      "typescript-collections": "typescript-collections",
+      "moment-mini": "moment",
+      "d3": "d3"
+    }
   },
   "assets": [
     "./src/assets/*"
