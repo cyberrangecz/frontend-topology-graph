@@ -76,5 +76,21 @@
   },
   "console": {
     "url":"https://compute-spice.cloud.muni.cz/spice_auto.html?token=10f40cc5-e431-495b-9640-b6548a34cbd4"
-  }
+  },
+  "vms": [
+    {
+      "id": "debian-victim",
+      "name":"debian-victim",
+      "vm_ip":"192.168.129.234",
+      "image": {
+        "os_type": "linux"
+      }
+    },
+    {
+      "id":"man",
+      "name":"man",
+      "vm_ip":"192.168.65.235"
+    }
+
+  ]
 }

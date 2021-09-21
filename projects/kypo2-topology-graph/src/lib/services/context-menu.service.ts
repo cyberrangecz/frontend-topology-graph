@@ -22,16 +22,26 @@ export class ContextMenuService {
       },
       {
         id: 2,
+        type: NodeActionEnum.CommandLineInterface,
+        title: NodeActionEnum.CommandLineInterface,
+      },
+      {
+        id: 3,
+        type: NodeActionEnum.GraphicalUserInterface,
+        title: NodeActionEnum.GraphicalUserInterface,
+      },
+      {
+        id: 4,
         type: NodeActionEnum.Resume,
         title: NodeActionEnum.Resume,
       },
       {
-        id: 3,
+        id: 5,
         type: NodeActionEnum.Reboot,
         title: NodeActionEnum.Reboot,
       },
       {
-        id: 4,
+        id: 6,
         type: NodeActionEnum.Suspend,
         title: NodeActionEnum.Suspend,
       },
@@ -56,7 +66,7 @@ export class ContextMenuService {
    * @param node node associated with the context menu
    */
   handleMenuItem(type: NodeActionEnum, node: Node): Observable<MenuItemResult> {
-    return this.hostService.performAction(type, node.name)
+    return this.hostService.performAction(type, node.name, node.nodePorts[0].ip)
       .pipe(
         map(payload => new MenuItemResult(type, payload))
       );

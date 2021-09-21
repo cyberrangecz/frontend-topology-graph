@@ -1,1 +1,2 @@
+12.0.2 Added option to open VM CLI or GUI using Apache Guacamole.
 12.0.1 Update gitlab CI

@@ -1,8 +1,9 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import { ContextMenuService } from '../../services/context-menu.service';
+import {ContextMenuService} from '../../services/context-menu.service';
 import {Node} from '@muni-kypo-crp/topology-model';
 import {take} from 'rxjs/operators';
 import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
+import {ConfigService} from "../../services/config.service";
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -23,7 +24,8 @@ export class NodeContextMenuComponent implements OnInit {
 
   private menuLocation: { left: number, top: number } = { left: 0, top: 0 };
 
-  constructor(private contextMenuService: ContextMenuService) {
+  constructor(private contextMenuService: ContextMenuService,
+              private configService: ConfigService) {
   }
 
   ngOnInit() {
@@ -56,6 +58,10 @@ export class NodeContextMenuComponent implements OnInit {
       ).subscribe(result => {
         if (result.type === NodeActionEnum.GenerateConsoleUrl) {
           this.consoleURL = result.payload;
+        } else if (result.type === NodeActionEnum.CommandLineInterface ||
+                   result.type === NodeActionEnum.GraphicalUserInterface) {
+          const clientIdentifier = window.btoa([result.payload, 'c', 'quickconnect'].join('\0'));
+          window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`,'_blank');
         }
       }
   );
