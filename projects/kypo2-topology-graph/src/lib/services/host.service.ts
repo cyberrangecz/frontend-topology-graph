@@ -4,6 +4,7 @@ import {SandboxService} from './sandbox.service';
 import {concatMap} from 'rxjs/operators';
 import {TopologyApi} from './topology-api.service';
 import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
+import {UserInterface} from "../model/enums/user-interface-enum";
 
 /**
  * Layer between components and API. Handles actions on host nodes
@@ -18,12 +19,19 @@ export class HostService {
   /**
    * Resolves type of action and calls api service to handle the action
    * @param type type of requested action
+   * @param vmIp ip address of the vm to remotely access
    * @param vmName name of virtual machine (host node)
    */
-  performAction(type: NodeActionEnum, vmName: string): Observable<any> {
+  performAction(type: NodeActionEnum, vmName: string, vmIp: string): Observable<any> {
     switch (type) {
       case NodeActionEnum.GenerateConsoleUrl: {
         return this.getConsoleUrl(vmName);
+      }
+      case NodeActionEnum.CommandLineInterface: {
+        return this.openGuacamoleRemoteConnection(vmName, vmIp, UserInterface.CLI);
+      }
+      case NodeActionEnum.GraphicalUserInterface: {
+        return this.openGuacamoleRemoteConnection(vmName, vmIp, UserInterface.GUI);
       }
       case NodeActionEnum.Resume: {
         return this.resume(vmName);
@@ -48,6 +56,19 @@ export class HostService {
     return this.sandboxService.sandboxId$
       .pipe(
         concatMap(sandboxId => this.topologyFacade.getVMConsoleUrl(sandboxId, vmName))
+      );
+  }
+
+  /**
+   * Redirect to the Guacamole web client to get remote desktop access using SSH, VNC or RDP
+   * @param vmName virtual machine name of the host node
+   * @param vmIp ip address of the vm to remotely access
+   * @param userInterface type of the user interface which should be used to open remote connection
+   */
+  openGuacamoleRemoteConnection(vmName: string, vmIp: string, userInterface: UserInterface): Observable<string> {
+    return this.sandboxService.sandboxId$
+      .pipe(
+        concatMap(sandboxId => this.topologyFacade.establishGuacamoleRemoteConnection(sandboxId, vmName, vmIp, userInterface))
       );
   }
 

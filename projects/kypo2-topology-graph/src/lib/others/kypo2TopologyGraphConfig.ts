@@ -1,7 +1,14 @@
 /**
  * Configuration of the library
  */
+import {GuacamoleConfig} from './guacamole-config';
+
 export class Kypo2TopologyGraphConfig {
+
+  /**
+   * Configuration of the Apache's Guacamole
+   */
+  guacamoleConfig: GuacamoleConfig;
 
   /**
    * URL of endpoint from where topology should be retrieved
