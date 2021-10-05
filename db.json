@@ -2,7 +2,7 @@
   "sandboxes": {
     "hosts": [
       {
-        "name": "cryton-attacker",
+        "name": "cryton-attacker-long-name",
         "console_url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=75f2d182-5652-420a-ab94-be89050e132a"
       },
       {
@@ -17,14 +17,14 @@
     "ports": [
       {
         "name": "link-293_basic-network",
-        "ip": null,
+        "ip": "255.255.255.255",
         "parent": "basic-network",
         "mac": null
       },
       {
-        "name": "link-291_cryton-attacker",
+        "name": "link-291_cryton-attacker-long-name",
         "ip": "192.168.56.2",
-        "parent": "cryton-attacker",
+        "parent": "cryton-attacker-long-name",
         "mac": "fa:16:3e:b4:d5:14"
       },
       {
@@ -65,7 +65,7 @@
         "port_b": "link-293_basic-network"
       },
       {
-        "port_a": "link-291_cryton-attacker",
+        "port_a": "link-291_cryton-attacker-long-name",
         "port_b": "link-291_basic-network"
       },
       {

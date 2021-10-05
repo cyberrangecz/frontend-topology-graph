@@ -27,7 +27,7 @@ import {ICONS_PATH} from '../../icons-path';
 })
 export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
-  readonly DEFAULT_NODE_WIDTH = 75;
+  readonly DEFAULT_NODE_WIDTH = 92;
   readonly DEFAULT_NODE_HEIGHT = 70;
 
   @Input('nodeVisual') node: Node;
