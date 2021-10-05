@@ -1,5 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ContextMenuService} from '../../services/context-menu.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 import {Node} from '@muni-kypo-crp/topology-model';
 import {take} from 'rxjs/operators';
 import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
@@ -25,7 +26,8 @@ export class NodeContextMenuComponent implements OnInit {
   private menuLocation: { left: number, top: number } = { left: 0, top: 0 };
 
   constructor(private contextMenuService: ContextMenuService,
-              private configService: ConfigService) {
+              private configService: ConfigService,
+              private clipboard: Clipboard) {
   }
 
   ngOnInit() {
@@ -51,6 +53,10 @@ export class NodeContextMenuComponent implements OnInit {
     if (item.type === NodeActionEnum.GenerateConsoleUrl) {
       event.stopPropagation();
       this.consoleButtonDisplayed = true;
+    }
+    if (item.type === NodeActionEnum.CopyHostInfo) {
+      this.clipboard.copy(this.node.toString());
+      return;
     }
     this.contextMenuService.handleMenuItem(item.type, this.node)
       .pipe(

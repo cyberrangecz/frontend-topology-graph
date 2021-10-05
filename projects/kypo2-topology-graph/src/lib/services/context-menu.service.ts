@@ -45,7 +45,12 @@ export class ContextMenuService {
         type: NodeActionEnum.Suspend,
         title: NodeActionEnum.Suspend,
       },
-];
+      {
+        id: 7,
+        type: NodeActionEnum.CopyHostInfo,
+        title: NodeActionEnum.CopyHostInfo,
+      },
+    ];
   }
 
   show: Subject<{

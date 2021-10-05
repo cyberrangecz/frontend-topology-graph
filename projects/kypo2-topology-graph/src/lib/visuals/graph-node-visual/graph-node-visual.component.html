@@ -24,7 +24,7 @@
       *ngIf="!isSubnetHidden()"
       ngClass="{{ node.physicalRole }}"
       [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
-      [attr.x]="width / (-2) + 5"
+      [attr.x]="width / (-4) + 5"
       [attr.y]="height / (-2) + 5"
       [attr.width]="30"
       [attr.height]="30">
@@ -34,7 +34,7 @@
       *ngIf="isSubnetHidden()"
       ngClass="{{ node.physicalRole }}"
       [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
-      [attr.x]="width / (-2) + 5"
+      [attr.x]="width / (-3) + 5"
       [attr.y]="height / (-2)"
       [attr.width]="45"
       [attr.height]="45">
