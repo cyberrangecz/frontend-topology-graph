@@ -4,7 +4,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import {Node} from '@muni-kypo-crp/topology-model';
 import {take} from 'rxjs/operators';
 import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
-import {ConfigService} from "../../services/config.service";
+import {ConfigService} from '../../services/config.service';
+import {HostService} from '../../services/host.service';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -27,6 +28,7 @@ export class NodeContextMenuComponent implements OnInit {
 
   constructor(private contextMenuService: ContextMenuService,
               private configService: ConfigService,
+              private hostService: HostService,
               private clipboard: Clipboard) {
   }
 
@@ -50,10 +52,6 @@ export class NodeContextMenuComponent implements OnInit {
    * @param type of menu item user clicked on
    */
   onItemClick(event, item) {
-    if (item.type === NodeActionEnum.GenerateConsoleUrl) {
-      event.stopPropagation();
-      this.consoleButtonDisplayed = true;
-    }
     if (item.type === NodeActionEnum.CopyHostInfo) {
       this.clipboard.copy(this.node.toString());
       return;
@@ -62,9 +60,7 @@ export class NodeContextMenuComponent implements OnInit {
       .pipe(
         take(1)
       ).subscribe(result => {
-        if (result.type === NodeActionEnum.GenerateConsoleUrl) {
-          this.consoleURL = result.payload;
-        } else if (result.type === NodeActionEnum.CommandLineInterface ||
+        if (result.type === NodeActionEnum.CommandLineInterface ||
                    result.type === NodeActionEnum.GraphicalUserInterface) {
           const clientIdentifier = window.btoa([result.payload, 'c', 'quickconnect'].join('\0'));
           window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`,'_blank');
@@ -96,6 +92,7 @@ export class NodeContextMenuComponent implements OnInit {
         top: position.y
       };
       this.isDisplayed = true;
+      this.hostService.getConsoleUrl(this.node.name).subscribe((url) => this.consoleURL = url);
     } else {
       this.isDisplayed = false;
     }

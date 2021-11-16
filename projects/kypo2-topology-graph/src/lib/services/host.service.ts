@@ -25,7 +25,7 @@ export class HostService {
    */
   performAction(type: NodeActionEnum, vmName: string, vmIp: string): Observable<any> {
     switch (type) {
-      case NodeActionEnum.GenerateConsoleUrl: {
+      case NodeActionEnum.OpenConsoleUrl: {
         return this.getConsoleUrl(vmName);
       }
       case NodeActionEnum.CommandLineInterface: {
