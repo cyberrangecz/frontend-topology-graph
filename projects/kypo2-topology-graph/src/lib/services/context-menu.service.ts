@@ -37,16 +37,6 @@ export class ContextMenuService {
       },
       {
         id: 5,
-        type: NodeActionEnum.Reboot,
-        title: NodeActionEnum.Reboot,
-      },
-      {
-        id: 6,
-        type: NodeActionEnum.Suspend,
-        title: NodeActionEnum.Suspend,
-      },
-      {
-        id: 7,
         type: NodeActionEnum.CopyHostInfo,
         title: NodeActionEnum.CopyHostInfo,
       },

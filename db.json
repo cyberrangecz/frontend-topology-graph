@@ -1,5 +1,10 @@
 {
   "sandboxes": {
+    "special_nodes": [
+      {
+      "name": "internet"
+      }
+    ],
     "hosts": [
       {
         "name": "cryton-attacker-long-name",
@@ -50,6 +55,18 @@
         "ip": "192.168.56.5",
         "parent": "debian-victim",
         "mac": "fa:16:3e:ed:3c:32"
+      },
+      {
+        "name": "link-294_internet",
+        "ip": " ",
+        "parent": "internet",
+        "mac": "fa:16:3e:0d:16:ab"
+      },
+      {
+        "name": "link-294_basic-network",
+        "ip": null,
+        "parent": "basic-network",
+        "mac": null
       }
     ],
     "switches": [
@@ -71,26 +88,29 @@
       {
         "port_a": "link-292_cryton-slave",
         "port_b": "link-292_basic-network"
+      },
+      {
+        "port_a": "link-294_internet",
+        "port_b": "link-294_basic-network"
       }
     ]
   },
   "console": {
-    "url":"https://compute-spice.cloud.muni.cz/spice_auto.html?token=10f40cc5-e431-495b-9640-b6548a34cbd4"
+    "url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=10f40cc5-e431-495b-9640-b6548a34cbd4"
   },
   "vms": [
     {
       "id": "debian-victim",
-      "name":"debian-victim",
-      "vm_ip":"192.168.129.234",
+      "name": "debian-victim",
+      "vm_ip": "192.168.129.234",
       "image": {
         "os_type": "linux"
       }
     },
     {
-      "id":"man",
-      "name":"man",
-      "vm_ip":"192.168.65.235"
+      "id": "man",
+      "name": "man",
+      "vm_ip": "192.168.65.235"
     }
-
   ]
 }

@@ -19,25 +19,46 @@
       [attr.height]="height">
     </rect>
 
+    <!-- COLLAPSED SUBNET NODE BORDER -->
+    <rect
+      *ngIf="isSubnetHidden()"
+      class="collapsed"
+      [attr.x]="width / (-2) - 3"
+      [attr.y]="height / (-2) - 3"
+      rx="5"
+      ry="5"
+      [attr.width]="width + 6"
+      [attr.height]="height + 6">
+    </rect>
+
     <!-- PHYSICAL ROLE IMAGE -->
     <image
-      *ngIf="!isSubnetHidden()"
+      *ngIf="node.name != 'internet'"
       ngClass="{{ node.physicalRole }}"
       [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
-      [attr.x]="width / (-4) + 5"
+      [attr.x]="width / (-4) + 6"
       [attr.y]="height / (-2) + 5"
+      [attr.width]="32"
+      [attr.height]="32">
+    </image>
+
+    <!-- NUMBER OF HOSTS IN COLLAPSED SUBNET -->
+    <text *ngIf="isSubnetHidden() && subnetSize > 0"
+          [attr.x]="-2"
+          [attr.y]="height/ (-9)"
+          [attr.style]="'text-anchor: middle'">
+      {{ subnetSize }}
+    </text>
+
+    <!-- internet -->
+    <image
+      *ngIf="node.name == 'internet'"
+      ngClass="{{ node.physicalRole }}"
+      [attr.xlink:href]="iconsPath + 'internet.svg'"
+      [attr.x]="width / (-4.5) + 5"
+      [attr.y]="height / (-2.5) + 5"
       [attr.width]="30"
       [attr.height]="30">
-    </image>
-    <!-- different position for cloud type which has bigger icon -->
-    <image
-      *ngIf="isSubnetHidden()"
-      ngClass="{{ node.physicalRole }}"
-      [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
-      [attr.x]="width / (-3) + 5"
-      [attr.y]="height / (-2)"
-      [attr.width]="45"
-      [attr.height]="45">
     </image>
 
     <!-- LOGICAL ROLE DECORATOR ICON -->
@@ -51,7 +72,8 @@
     <!-- TEXT LABELS - NAME, IPs etc. -->
     <text *ngFor="let label of labels"
       [attr.x]="label.x"
-      [attr.y]="label.y">
+      [attr.y]="label.y"
+      [attr.style]="'text-anchor: middle'">
       {{ label.text | labelShortener }}
     </text>
   </g>

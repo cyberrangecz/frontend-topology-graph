@@ -15,6 +15,12 @@
         [attr.y] = "location.top + (item.id * 20) + 15">
         {{ item.title }}
       </text>
+      <text *ngIf="item.id === 1"
+            class="item"
+            [attr.x] = "location.left + 155"
+            [attr.y] = "location.top + (item.id * 20) + 14">
+        {{ "🢒" }}
+      </text>
     </g>
     <g
       *ngIf="consoleButtonDisplayed && consoleURL">

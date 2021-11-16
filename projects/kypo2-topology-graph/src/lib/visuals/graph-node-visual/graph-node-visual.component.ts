@@ -1,17 +1,14 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Node, SwitchNode} from '@muni-kypo-crp/topology-model';
-import { RouterNode } from '@muni-kypo-crp/topology-model';
+import {HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
 import {NodeSemaphoreDecorator} from '../../model/decorators/node-semaphore-decorator';
 import {NodeStatusDecorator} from '../../model/decorators/node-status-decorator';
 import {DecoratorEventService} from '../../services/decorator-event.service';
 import {StatusEnum} from '../../model/enums/status-enum';
 import {NodeDecorator} from '../../model/decorators/node-decorator';
-import {NodePhysicalRoleEnum} from '@muni-kypo-crp/topology-model';
 import {NodeLogicalRoleDecorator} from '../../model/decorators/node-logical-role-decorator';
 import {RouterNodeDecoratorTypeEnum} from '../../model/enums/router-node-decorator-type-enum';
 import {HostNodeDecoratorTypeEnum} from '../../model/enums/host-node-decorator-type-enum';
 import {DecoratorEventMessageEnum} from '../../model/enums/decorator-event-message-enum';
-import {HostNode} from '@muni-kypo-crp/topology-model';
 import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
 import {GraphEventService} from '../../services/graph-event.service';
 import {DecoratorReloadTimerService} from '../../services/decorator-reload-timer.service';
@@ -37,6 +34,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   width: number;
   height: number;
   labels = [];
+  subnetSize: number = 0;
 
   statusDecorator: NodeStatusDecorator;
   semaphoreDecorator: NodeSemaphoreDecorator;
@@ -59,6 +57,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     this.subscribeToDecoratorEvents();
     this.width = this.calculateNodeWidth();
     this.height = this.calculateNodeHeight();
+    this.subnetSize = this.getChildrenCount();
     this.initLabels();
     this.hasContextMenu = this.node instanceof HostNode || this.node instanceof RouterNode;
   }
@@ -324,12 +323,19 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     return this.DEFAULT_NODE_HEIGHT;
   }
 
+  private getChildrenCount(): number {
+    if (this.node instanceof SwitchNode && this.node.hasExpandableSubnetwork()) {
+      return this.node.children.length;
+    }
+
+  }
+
   /**
    * Calculates labels and position of text based on node attributes.
    */
   private initLabels() {
-    // initial position - in lower left corner of node
-    let xPosition = this.width / (-2) + 5;
+    // initial position - in lower middle part of node
+    let xPosition = 0;
     let yPosition = this.height / (-2) + 50;
 
     if (this.node.nodePorts[0].ip != null) {
