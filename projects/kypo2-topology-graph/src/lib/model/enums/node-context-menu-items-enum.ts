@@ -1,5 +1,5 @@
 export enum NodeActionEnum {
-  GenerateConsoleUrl = 'Generate console URL',
+  OpenConsoleUrl = 'Open console',
   CommandLineInterface = 'Open CLI',
   GraphicalUserInterface = 'Open GUI',
   Resume = 'Resume',
