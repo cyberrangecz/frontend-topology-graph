@@ -1,15 +1,14 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {DecoratorTimeService} from '../../../../services/decorator-time.service';
-import {DecoratorStateService} from '../../../../services/decorator-state.service';
+import { DecoratorTimeService } from '../../../../services/decorator-time.service';
+import { DecoratorStateService } from '../../../../services/decorator-state.service';
 
 @Component({
   selector: 'app-absolute-time',
   templateUrl: './absolute-time.component.html',
-  styleUrls: ['./absolute-time.component.css']
+  styleUrls: ['./absolute-time.component.css'],
 })
 export class AbsoluteTimeComponent implements OnInit, OnDestroy {
-
   readonly hours = [...Array(24).keys()];
   readonly minutes = [...Array(60).keys()];
   readonly seconds = [...Array(60).keys()];
@@ -30,15 +29,16 @@ export class AbsoluteTimeComponent implements OnInit, OnDestroy {
 
   private _stateSubscription;
 
-  constructor(public snackBar: MatSnackBar,
-              private decoratorTimeService: DecoratorTimeService,
-              private decoratorStateService: DecoratorStateService) {
+  constructor(
+    public snackBar: MatSnackBar,
+    private decoratorTimeService: DecoratorTimeService,
+    private decoratorStateService: DecoratorStateService
+  ) {
     this.setInitialValues();
     this.subscribeState();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Sets current time as values for TO time selectors
@@ -74,11 +74,12 @@ export class AbsoluteTimeComponent implements OnInit, OnDestroy {
         const snackBarRef = this.snackBar.open('Decorators time was set successfully.')._dismissAfter(1500);
 
         this.decoratorTimeService.setAbsoluteTime(fromTime.valueOf(), toTime.valueOf());
-
       } else {
-        const snackBarRef = this.snackBar.open('"From" date cannot be larger than "to" date.', 'OK')._dismissAfter(4000);
+        const snackBarRef = this.snackBar
+          .open('"From" date cannot be larger than "to" date.', 'OK')
+          ._dismissAfter(4000);
       }
-      } else {
+    } else {
       const snackBarRef = this.snackBar.open('All inputs must be filled in.', 'OK')._dismissAfter(4000);
     }
   }
@@ -88,14 +89,16 @@ export class AbsoluteTimeComponent implements OnInit, OnDestroy {
    * @returns {boolean} true if all input fields are selected, false otherwise
    */
   private InputTimeIsNotNull(): boolean {
-    return this.fromDate != null
-      && this.fromTimeHours != null
-      && this.fromTimeMinutes != null
-      && this.fromTimeSeconds != null
-      && this.toDate != null
-      && this.toTimeHours != null
-      && this.toTimeMinutes != null
-      && this.toTimeSeconds != null;
+    return (
+      this.fromDate != null &&
+      this.fromTimeHours != null &&
+      this.fromTimeMinutes != null &&
+      this.fromTimeSeconds != null &&
+      this.toDate != null &&
+      this.toTimeHours != null &&
+      this.toTimeMinutes != null &&
+      this.toTimeSeconds != null
+    );
   }
 
   /**
@@ -123,7 +126,6 @@ export class AbsoluteTimeComponent implements OnInit, OnDestroy {
     this.toTimeHours = 12;
     this.toTimeMinutes = 30;
     this.toTimeSeconds = 0;
-
   }
 
   private subscribeState() {

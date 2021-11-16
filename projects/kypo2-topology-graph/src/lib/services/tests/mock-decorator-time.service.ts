@@ -1,5 +1,5 @@
-import {Observable, Subject} from 'rxjs';
-import {DecoratorTimeService} from '../decorator-time.service';
+import { Observable, Subject } from 'rxjs';
+import { DecoratorTimeService } from '../decorator-time.service';
 
 export class MockDecoratorTimeService extends DecoratorTimeService {
   private subject: Subject<boolean> = new Subject();
@@ -17,11 +17,7 @@ export class MockDecoratorTimeService extends DecoratorTimeService {
     return 'now+1s';
   }
 
-  setRelativeTime(a: string, b: string) {
+  setRelativeTime(a: string, b: string) {}
 
-  }
-
-  setAbsoluteTime(a: number, b: number) {
-
-  }
+  setAbsoluteTime(a: number, b: number) {}
 }

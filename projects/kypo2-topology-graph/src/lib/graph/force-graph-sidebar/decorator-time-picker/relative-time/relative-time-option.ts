@@ -1,6 +1,6 @@
-import {TimeAlgebraOperatorEnum} from '../../../../model/enums/time-algebra-operator-enum';
-import {TimeUnitEnum} from '../../../../model/enums/time-unit-enum';
-import {Moment} from 'moment-mini';
+import { TimeAlgebraOperatorEnum } from '../../../../model/enums/time-algebra-operator-enum';
+import { TimeUnitEnum } from '../../../../model/enums/time-unit-enum';
+import { Moment } from 'moment-mini';
 import * as moment_ from 'moment-mini';
 
 const moment = moment_;
@@ -70,7 +70,6 @@ export class RelativeTimeOption {
     }
   }
 
-
   getDisplayString(): string {
     return this.displayString;
   }
@@ -95,9 +94,9 @@ export class RelativeTimeOption {
   isBefore(timeOption: RelativeTimeOption): boolean {
     if (this.value !== undefined && timeOption.value !== undefined) {
       const now = moment();
-     const firstMoment = this.convertToMoment(now, this);
-     const secondMoment = this.convertToMoment(now, timeOption);
-     return firstMoment.isBefore(secondMoment);
+      const firstMoment = this.convertToMoment(now, this);
+      const secondMoment = this.convertToMoment(now, timeOption);
+      return firstMoment.isBefore(secondMoment);
     }
     // error
     return false;
@@ -136,7 +135,6 @@ export class RelativeTimeOption {
     // error
     return false;
   }
-
 
   /**
    * Helper method to convert the option from time algebra to moment.s time

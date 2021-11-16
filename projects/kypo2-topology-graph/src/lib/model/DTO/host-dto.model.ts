@@ -1,4 +1,4 @@
-import {ImageDTO} from "./image-dto.model";
+import { ImageDTO } from './image-dto.model';
 
 export class HostDTO {
   name: string;

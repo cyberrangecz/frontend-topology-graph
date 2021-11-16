@@ -1,15 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {ConfigService} from './config.service';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { ConfigService } from './config.service';
 
 /**
  * Service for managing time period in which decorators are reloaded.
  */
 @Injectable()
 export class DecoratorReloadTimerService {
-
-  static  MIN_VALUE = 0;
-  static  MAX_VALUE = 20;
+  static MIN_VALUE = 0;
+  static MAX_VALUE = 20;
 
   private _currentReloadPeriod: number;
   private _previousReloadPeriod: number;
@@ -63,7 +62,7 @@ export class DecoratorReloadTimerService {
    * @returns {number} Returns value if true, min or max value otherwise.
    */
   private checkBoundaries(value: number): number {
-    let result = value > DecoratorReloadTimerService.MIN_VALUE  ? value : DecoratorReloadTimerService.MIN_VALUE;
+    let result = value > DecoratorReloadTimerService.MIN_VALUE ? value : DecoratorReloadTimerService.MIN_VALUE;
     result = value < DecoratorReloadTimerService.MAX_VALUE ? result : DecoratorReloadTimerService.MAX_VALUE;
     return result;
   }

@@ -9,5 +9,5 @@ export enum GraphEventTypeEnum {
   BalloonTreeLayout,
   HierarchicalLayout,
   FitToScreen,
-  TurnOffForces
+  TurnOffForces,
 }

@@ -1,9 +1,9 @@
-import {Component, OnDestroy} from '@angular/core';
-import {DecoratorReloadTimerService} from '../../../services/decorator-reload-timer.service';
-import {DecoratorEventService} from '../../../services/decorator-event.service';
-import {DecoratorCategoryEnum} from '../../../model/enums/decorator-category-enum';
-import {DecoratorTimeService} from '../../../services/decorator-time.service';
-import {DecoratorStateService} from '../../../services/decorator-state.service';
+import { Component, OnDestroy } from '@angular/core';
+import { DecoratorReloadTimerService } from '../../../services/decorator-reload-timer.service';
+import { DecoratorEventService } from '../../../services/decorator-event.service';
+import { DecoratorCategoryEnum } from '../../../model/enums/decorator-category-enum';
+import { DecoratorTimeService } from '../../../services/decorator-time.service';
+import { DecoratorStateService } from '../../../services/decorator-state.service';
 
 /**
  * Visual component to change decorator reload times. Communicates with decorator reload timer service.
@@ -11,10 +11,9 @@ import {DecoratorStateService} from '../../../services/decorator-state.service';
 @Component({
   selector: 'app-decorator-timer',
   templateUrl: './decorator-timer.component.html',
-  styleUrls: ['./decorator-timer.component.css']
+  styleUrls: ['./decorator-timer.component.css'],
 })
 export class DecoratorTimerComponent implements OnDestroy {
-
   manualDecoratorReload: boolean;
   activeDecorators: boolean;
 
@@ -30,7 +29,8 @@ export class DecoratorTimerComponent implements OnDestroy {
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService) {
+    private decoratorStateService: DecoratorStateService
+  ) {
     this.setInitialValues();
     this.subscribeTimeChanges();
     this.subscribeState();
@@ -41,7 +41,7 @@ export class DecoratorTimerComponent implements OnDestroy {
    */
   periodChange(input) {
     const value: number = parseInt(input, 10);
-    if (!Number.isNaN(value) ) {
+    if (!Number.isNaN(value)) {
       this.decoratorReloadTimerService.setReloadPeriod(value);
       this.reloadPeriod = this.decoratorReloadTimerService.getReloadPeriod();
     }
@@ -53,12 +53,10 @@ export class DecoratorTimerComponent implements OnDestroy {
   toggleDecoratorReload() {
     this.manualDecoratorReload = !this.manualDecoratorReload;
     if (this.manualDecoratorReload) {
-
       this.reloadPeriodTemp = this.reloadPeriod;
       this.decoratorTimeService.setUseRealTime(false);
       this.reloadPeriod = this.decoratorReloadTimerService.getReloadPeriod();
     } else {
-
       this.decoratorReloadTimerService.setReloadPeriod(this.reloadPeriodTemp);
       this.decoratorTimeService.setUseRealTime(true);
       this.reloadPeriod = this.decoratorReloadTimerService.getReloadPeriod();
@@ -70,9 +68,9 @@ export class DecoratorTimerComponent implements OnDestroy {
    * Sends initial reload requests after decorators reload toggle is set to automatic
    */
   private sendReloadRequests() {
-    this.decoratorEventService.triggerDecoratorReloadRequest( DecoratorCategoryEnum.RouterDecorators, null);
-    this.decoratorEventService.triggerDecoratorReloadRequest( DecoratorCategoryEnum.HostDecorators, null);
-    this.decoratorEventService.triggerDecoratorReloadRequest( DecoratorCategoryEnum.LinkDecorators, null);
+    this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null);
+    this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null);
+    this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null);
   }
 
   /**
@@ -92,12 +90,12 @@ export class DecoratorTimerComponent implements OnDestroy {
    * Subscribes to changes of superior DecoratorTimeService to turn off refresh if manual mode is set.
    */
   private subscribeTimeChanges() {
-    this._timeSubscription = this.decoratorTimeService.onRealTimeChange.subscribe((value => {
+    this._timeSubscription = this.decoratorTimeService.onRealTimeChange.subscribe((value) => {
       this.manualDecoratorReload = !value;
       if (!this.manualDecoratorReload) {
         this.reloadPeriod = this.decoratorReloadTimerService.getReloadPeriod();
       }
-    }));
+    });
   }
 
   private subscribeState() {

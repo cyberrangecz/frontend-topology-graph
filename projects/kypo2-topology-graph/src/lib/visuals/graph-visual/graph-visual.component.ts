@@ -1,17 +1,17 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import {Link, SwitchNode} from '@muni-kypo-crp/topology-model';
+import { Link, SwitchNode } from '@muni-kypo-crp/topology-model';
 import { Node } from '@muni-kypo-crp/topology-model';
-import {GraphEventService} from '../../services/graph-event.service';
-import {GraphEventTypeEnum} from '../../model/enums/graph-event-type-enum';
-import {Subscription} from 'rxjs';
-import {GraphEvent} from '../../model/events/graph-event';
-import {RouterNode} from '@muni-kypo-crp/topology-model';
-import {NodePhysicalRoleEnum} from '@muni-kypo-crp/topology-model';
-import {DecoratorEventService} from '../../services/decorator-event.service';
-import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
-import {GraphLockService} from '../../services/graph-lock.service';
+import { GraphEventService } from '../../services/graph-event.service';
+import { GraphEventTypeEnum } from '../../model/enums/graph-event-type-enum';
+import { Subscription } from 'rxjs';
+import { GraphEvent } from '../../model/events/graph-event';
+import { RouterNode } from '@muni-kypo-crp/topology-model';
+import { NodePhysicalRoleEnum } from '@muni-kypo-crp/topology-model';
+import { DecoratorEventService } from '../../services/decorator-event.service';
+import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum';
+import { GraphLockService } from '../../services/graph-lock.service';
 
 /**
  * Visual component used to display graph-visual. Size of window is set and nodes and links are bound to the model
@@ -42,12 +42,13 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   private _graphLockSubscription: Subscription;
   private _d3ResizeSubscription: Subscription;
 
-  constructor(private d3Service: D3Service,
-              private graphEventService: GraphEventService,
-              private graphLockService: GraphLockService,
-              private decoratorEventService: DecoratorEventService,
-              private ref: ChangeDetectorRef) {
-  }
+  constructor(
+    private d3Service: D3Service,
+    private graphEventService: GraphEventService,
+    private graphLockService: GraphLockService,
+    private decoratorEventService: DecoratorEventService,
+    private ref: ChangeDetectorRef
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('width' in changes || 'height' in changes) {
@@ -67,16 +68,15 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     if (this.lockedCanvas) {
       return {
         width: this.defaultWidth,
-        height: this.defaultHeight
+        height: this.defaultHeight,
       };
     } else {
       return {
         width: this.width,
-        height: this.height
+        height: this.height,
       };
     }
   }
-
 
   /**
    * Creates graph visualization and subscribes for its ticks
@@ -97,7 +97,6 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     this.graphEventService.collapseAll();
     this.graph.initPosition();
   }
-
 
   /**
    * Resolves received graph event and calls appropriate methods of graph-visual model
@@ -144,7 +143,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Expand every subnetwork in graph
    */
   private expandAllSubnetworks() {
-    this.graph.nodes.forEach(node => {
+    this.graph.nodes.forEach((node) => {
       if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Cloud) {
         this.expandSubnetworkOfNode(node);
       }
@@ -160,7 +159,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
       node.changeSwitchPhysicalRole();
       this.graph.addSubnetwork(node);
       this.loadDecoratorsForSubnet(node);
-      node.children.forEach(d => {
+      node.children.forEach((d) => {
         if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Cloud) {
           this.expandSubnetworkOfNode(d);
         }
@@ -176,35 +175,46 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     if (node.physicalRole === NodePhysicalRoleEnum.Router) {
       const hostNames: string[] = [];
       const routerNames: string[] = [];
-      node.children.forEach(
-        child => {
-          if (child instanceof SwitchNode) {
-            routerNames.push(child.name);
-          } else {
-            hostNames.push(child.name);
-          }
-        });
+      node.children.forEach((child) => {
+        if (child instanceof SwitchNode) {
+          routerNames.push(child.name);
+        } else {
+          hostNames.push(child.name);
+        }
+      });
 
       // We call reload of decorators on all affected hosts and routers
       // and all links (we cannot select connected links from this component)
       // 100 ms timeout is to give application enough time to load new components completely before loading decorators.
       if (hostNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostNames),
-          100);
+        setTimeout(
+          () =>
+            this.decoratorEventService.triggerDecoratorReloadRequest(
+              DecoratorCategoryEnum.HostDecorators,
+              null,
+              hostNames
+            ),
+          100
+        );
       }
 
       if (routerNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerNames),
+        setTimeout(
+          () =>
+            this.decoratorEventService.triggerDecoratorReloadRequest(
+              DecoratorCategoryEnum.RouterDecorators,
+              null,
+              routerNames
+            ),
           100
         );
       }
 
       if (routerNames.length > 0 || hostNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
-          100);
+        setTimeout(
+          () => this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
+          100
+        );
       }
     }
   }
@@ -213,7 +223,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Collapses every subnetwork in a graph
    */
   private collapseAllSubnetworks() {
-    this.graph.getSwitchNodes(this.graph.nodes).forEach(node => {
+    this.graph.getSwitchNodes(this.graph.nodes).forEach((node) => {
       if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
         this.collapseSubnetworkOfNode(node);
       }
@@ -227,7 +237,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   private collapseSubnetworkOfNode(node: SwitchNode) {
     if (node.hasExpandableSubnetwork()) {
       node.changeSwitchPhysicalRole();
-      node.children.forEach(d => {
+      node.children.forEach((d) => {
         if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
           this.collapseSubnetworkOfNode(d);
         }
@@ -241,9 +251,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    */
   private subscribeGraphEvents() {
     this._graphEventSubscription = this.graphEventService.graphEvent.subscribe({
-      next: event => {
+      next: (event) => {
         this.resolveGraphEvent(event);
-      }
+      },
     });
   }
 
@@ -251,11 +261,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Subscribes to graph ticker
    */
   private subscribeGraphTicker() {
-    this.graph.ticker.subscribe(
-      () => {
-        this.ref.markForCheck();
-      }
-    );
+    this.graph.ticker.subscribe(() => {
+      this.ref.markForCheck();
+    });
   }
 
   /**
@@ -281,14 +289,14 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
    * Subscribes for resize event when a node is dragged outside the window
    */
   private subscribeD3GraphResize() {
-    this._d3ResizeSubscription = this.d3Service.resizeEvent.subscribe(((value) => {
+    this._d3ResizeSubscription = this.d3Service.resizeEvent.subscribe((value) => {
       if (this.width < value.x) {
         this.width = value.x + 500;
       }
       if (this.height < value.y) {
         this.height = value.y + 500;
       }
-    }));
+    });
   }
 
   /**

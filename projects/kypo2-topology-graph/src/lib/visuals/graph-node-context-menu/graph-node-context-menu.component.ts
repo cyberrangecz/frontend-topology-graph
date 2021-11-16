@@ -1,11 +1,11 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {ContextMenuService} from '../../services/context-menu.service';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { ContextMenuService } from '../../services/context-menu.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import {Node} from '@muni-kypo-crp/topology-model';
-import {take} from 'rxjs/operators';
-import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
-import {ConfigService} from '../../services/config.service';
-import {HostService} from '../../services/host.service';
+import { Node } from '@muni-kypo-crp/topology-model';
+import { take } from 'rxjs/operators';
+import { NodeActionEnum } from '../../model/enums/node-context-menu-items-enum';
+import { ConfigService } from '../../services/config.service';
+import { HostService } from '../../services/host.service';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -16,7 +16,6 @@ import {HostService} from '../../services/host.service';
   styleUrls: ['./graph-node-context-menu.component.css'],
 })
 export class NodeContextMenuComponent implements OnInit {
-
   @Input('context') node: Node;
 
   isDisplayed = false;
@@ -24,16 +23,17 @@ export class NodeContextMenuComponent implements OnInit {
   consoleButtonDisplayed = false;
   consoleURL = null;
 
-  private menuLocation: { left: number, top: number } = { left: 0, top: 0 };
+  private menuLocation: { left: number; top: number } = { left: 0, top: 0 };
 
-  constructor(private contextMenuService: ContextMenuService,
-              private configService: ConfigService,
-              private hostService: HostService,
-              private clipboard: Clipboard) {
-  }
+  constructor(
+    private contextMenuService: ContextMenuService,
+    private configService: ConfigService,
+    private hostService: HostService,
+    private clipboard: Clipboard
+  ) {}
 
   ngOnInit() {
-    this.contextMenuService.show.subscribe(e => this.showMenu(e.position, e.nodeName));
+    this.contextMenuService.show.subscribe((e) => this.showMenu(e.position, e.nodeName));
     this.items = this.contextMenuService.getItems();
   }
 
@@ -42,9 +42,9 @@ export class NodeContextMenuComponent implements OnInit {
    */
   @HostListener('document:click', ['$event'])
   onClickOutside(event) {
-      this.isDisplayed = false;
-      this.consoleButtonDisplayed = false;
-      this.consoleURL = false;
+    this.isDisplayed = false;
+    this.consoleButtonDisplayed = false;
+    this.consoleURL = false;
   }
 
   /**
@@ -56,17 +56,18 @@ export class NodeContextMenuComponent implements OnInit {
       this.clipboard.copy(this.node.toString());
       return;
     }
-    this.contextMenuService.handleMenuItem(item.type, this.node)
-      .pipe(
-        take(1)
-      ).subscribe(result => {
-        if (result.type === NodeActionEnum.CommandLineInterface ||
-                   result.type === NodeActionEnum.GraphicalUserInterface) {
+    this.contextMenuService
+      .handleMenuItem(item.type, this.node)
+      .pipe(take(1))
+      .subscribe((result) => {
+        if (
+          result.type === NodeActionEnum.CommandLineInterface ||
+          result.type === NodeActionEnum.GraphicalUserInterface
+        ) {
           const clientIdentifier = window.btoa([result.payload, 'c', 'quickconnect'].join('\0'));
-          window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`,'_blank');
+          window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`, '_blank');
         }
-      }
-  );
+      });
   }
 
   /**
@@ -76,7 +77,7 @@ export class NodeContextMenuComponent implements OnInit {
   get location() {
     return {
       left: this.menuLocation.left,
-      top: this.menuLocation.top
+      top: this.menuLocation.top,
     };
   }
 
@@ -89,13 +90,12 @@ export class NodeContextMenuComponent implements OnInit {
     if (this.node.name === nodeName) {
       this.menuLocation = {
         left: position.x,
-        top: position.y
+        top: position.y,
       };
       this.isDisplayed = true;
-      this.hostService.getConsoleUrl(this.node.name).subscribe((url) => this.consoleURL = url);
+      this.hostService.getConsoleUrl(this.node.name).subscribe((url) => (this.consoleURL = url));
     } else {
       this.isDisplayed = false;
     }
   }
-
 }

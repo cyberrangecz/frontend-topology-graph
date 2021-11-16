@@ -1,8 +1,7 @@
-import {Route, Routes} from '@angular/router';
-import {RouterNavLink} from './router-nav-link';
+import { Route, Routes } from '@angular/router';
+import { RouterNavLink } from './router-nav-link';
 
 export class RouterNavLinks {
-
   links: RouterNavLink[] = [];
 
   constructor(routes: Routes) {

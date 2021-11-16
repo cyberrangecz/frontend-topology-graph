@@ -1,16 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Subject, Observable} from 'rxjs';
-import {GraphEventTypeEnum} from '../model/enums/graph-event-type-enum';
-import {GraphEvent} from '../model/events/graph-event';
-import {SwitchNode} from '@muni-kypo-crp/topology-model';
-
+import { Injectable } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import { GraphEventTypeEnum } from '../model/enums/graph-event-type-enum';
+import { GraphEvent } from '../model/events/graph-event';
+import { SwitchNode } from '@muni-kypo-crp/topology-model';
 
 /**
  * Service used for communication with graph-visual model and rearrangements from other parts of application
  */
 @Injectable()
 export class GraphEventService {
-
   private _graphEventSubject: Subject<GraphEvent> = new Subject();
   graphEvent: Observable<GraphEvent> = this._graphEventSubject.asObservable();
 

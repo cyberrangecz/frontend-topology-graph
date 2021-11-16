@@ -1,13 +1,13 @@
-import {Component, Input, OnDestroy} from '@angular/core';
-import {DecoratorFilterService} from '../../../services/decorator-filter.service';
-import {DecoratorCategoryEnum} from '../../../model/enums/decorator-category-enum';
-import {CategoryCheckboxModel} from './category-checkbox-model';
-import {DecoratorCheckboxModel} from './decorator-checkbox-model';
-import {RouterNodeDecoratorTypeEnum} from '../../../model/enums/router-node-decorator-type-enum';
-import {HostNodeDecoratorTypeEnum} from '../../../model/enums/host-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../../../model/enums/link-decorator-type-enum';
-import {DecoratorStateService} from '../../../services/decorator-state.service';
-import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from '@angular/material/checkbox';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { DecoratorFilterService } from '../../../services/decorator-filter.service';
+import { DecoratorCategoryEnum } from '../../../model/enums/decorator-category-enum';
+import { CategoryCheckboxModel } from './category-checkbox-model';
+import { DecoratorCheckboxModel } from './decorator-checkbox-model';
+import { RouterNodeDecoratorTypeEnum } from '../../../model/enums/router-node-decorator-type-enum';
+import { HostNodeDecoratorTypeEnum } from '../../../model/enums/host-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../../../model/enums/link-decorator-type-enum';
+import { DecoratorStateService } from '../../../services/decorator-state.service';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions } from '@angular/material/checkbox';
 
 /**
  * Component of decorator filter menu. Handles checking and unchecking visible decorators
@@ -21,11 +21,10 @@ import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from '@angular/
   templateUrl: './decorator-filter-menu.component.html',
   styleUrls: ['./decorator-filter-menu.component.css'],
   providers: [
-    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}
-  ]
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions },
+  ],
 })
 export class DecoratorFilterMenuComponent implements OnDestroy {
-
   categoryCheckboxes: CategoryCheckboxModel[];
 
   showDecoratorsFilterMenu;
@@ -36,8 +35,10 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * Creates category checkbox objects and its subcategories based on category enums and decorator enums for each category
    * @param {DecoratorFilterService} decoratorFilterService injected filter service
    */
-  constructor(private decoratorFilterService: DecoratorFilterService,
-              private decoratorStateService: DecoratorStateService) {
+  constructor(
+    private decoratorFilterService: DecoratorFilterService,
+    private decoratorStateService: DecoratorStateService
+  ) {
     this.showDecoratorsFilterMenu = this.decoratorStateService.getActive();
     this.subscribeStateChanges();
     this.createCategoryCheckboxes();
@@ -61,16 +62,14 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * Turns off all checkboxes
    */
   private turnOffAllCheckboxes() {
-    this.categoryCheckboxes.forEach(
-      (category) => {
-        category.disabled = true;
-        this.categoryFilteringChange(category);
+    this.categoryCheckboxes.forEach((category) => {
+      category.disabled = true;
+      this.categoryFilteringChange(category);
 
-        category.decoratorCheckboxes.forEach(
-          (decoratorType) => {
-            decoratorType.disabled = true;
-            this.decoratorFilteringChange(category, decoratorType);
-          });
+      category.decoratorCheckboxes.forEach((decoratorType) => {
+        decoratorType.disabled = true;
+        this.decoratorFilteringChange(category, decoratorType);
+      });
     });
   }
 
@@ -78,17 +77,15 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * Turns on all checkboxes
    */
   private turnOnAllCheckboxes() {
-    this.categoryCheckboxes.forEach(
-      (category) => {
-        category.disabled = false;
-        this.categoryFilteringChange(category);
+    this.categoryCheckboxes.forEach((category) => {
+      category.disabled = false;
+      this.categoryFilteringChange(category);
 
-        category.decoratorCheckboxes.forEach(
-          (decoratorType) => {
-            decoratorType.disabled = false;
-            this.decoratorFilteringChange(category, decoratorType);
-          });
+      category.decoratorCheckboxes.forEach((decoratorType) => {
+        decoratorType.disabled = false;
+        this.decoratorFilteringChange(category, decoratorType);
       });
+    });
   }
 
   /**
@@ -118,7 +115,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * Toggles a category checkbox
    * @param {CategoryCheckboxModel} categoryCheckbox checkbox to toggle
    */
- private toggleCategoryCheckbox(categoryCheckbox: CategoryCheckboxModel) {
+  private toggleCategoryCheckbox(categoryCheckbox: CategoryCheckboxModel) {
     categoryCheckbox.onChange();
   }
 
@@ -151,7 +148,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * @param decoratorCheckbox changed checkbox
    */
   private decoratorFilteringChange(categoryCheckbox: CategoryCheckboxModel, decoratorCheckbox: DecoratorCheckboxModel) {
-    if (decoratorCheckbox.checked && !decoratorCheckbox.disabled && ! categoryCheckbox.disabled) {
+    if (decoratorCheckbox.checked && !decoratorCheckbox.disabled && !categoryCheckbox.disabled) {
       this.decoratorFilterService.add(categoryCheckbox.categoryType, decoratorCheckbox.decoratorType);
     } else {
       this.decoratorFilterService.remove(categoryCheckbox.categoryType, decoratorCheckbox.decoratorType);
@@ -163,10 +160,9 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    */
   private createCategoryCheckboxes() {
     this.categoryCheckboxes = [];
-    Object.values(DecoratorCategoryEnum)
-      .forEach(category =>
-        this.categoryCheckboxes.push(new CategoryCheckboxModel(category, true, []))
-      );
+    Object.values(DecoratorCategoryEnum).forEach((category) =>
+      this.categoryCheckboxes.push(new CategoryCheckboxModel(category, true, []))
+    );
   }
 
   /**
@@ -176,7 +172,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
     this.createRouterTypeCheckboxes();
     this.createHostTypeCheckboxes();
     this.createLinkTypeCheckboxes();
-    this.categoryCheckboxes.forEach(c => c.decideState());
+    this.categoryCheckboxes.forEach((c) => c.decideState());
   }
 
   /**
@@ -184,15 +180,13 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * and decides if it should be checked or unchecked based on active router decorators retrieved from filter service
    */
   private createRouterTypeCheckboxes() {
-    Object.values(RouterNodeDecoratorTypeEnum)
-      .forEach(dType =>
-        this.categoryCheckboxes
-          .find(c => c.categoryType === DecoratorCategoryEnum.RouterDecorators)
-          .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(
-            dType,
-            this.decoratorFilterService.getActiveRouterDecorators().includes(dType)))
-      );
+    Object.values(RouterNodeDecoratorTypeEnum).forEach((dType) =>
+      this.categoryCheckboxes
+        .find((c) => c.categoryType === DecoratorCategoryEnum.RouterDecorators)
+        .decoratorCheckboxes.push(
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveRouterDecorators().includes(dType))
+        )
+    );
   }
 
   /**
@@ -200,15 +194,13 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * and decides if it should be checked or unchecked based on active host decorators retrieved from filter service
    */
   private createHostTypeCheckboxes() {
-    Object.values(HostNodeDecoratorTypeEnum)
-      .forEach(dType =>
-        this.categoryCheckboxes
-          .find(c => c.categoryType === DecoratorCategoryEnum.HostDecorators)
-          .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(
-            dType,
-            this.decoratorFilterService.getActiveHostDecorators().includes(dType)))
-      );
+    Object.values(HostNodeDecoratorTypeEnum).forEach((dType) =>
+      this.categoryCheckboxes
+        .find((c) => c.categoryType === DecoratorCategoryEnum.HostDecorators)
+        .decoratorCheckboxes.push(
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveHostDecorators().includes(dType))
+        )
+    );
   }
 
   /**
@@ -216,19 +208,17 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    * and decides if it should be checked or unchecked based on active link decorators retrieved from filter service
    */
   private createLinkTypeCheckboxes() {
-    Object.values(LinkDecoratorTypeEnum)
-      .forEach(dType =>
-        this.categoryCheckboxes
-          .find(c => c.categoryType === DecoratorCategoryEnum.LinkDecorators)
-          .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(
-            dType,
-            this.decoratorFilterService.getActiveLinkDecorators().includes(dType)))
-      );
+    Object.values(LinkDecoratorTypeEnum).forEach((dType) =>
+      this.categoryCheckboxes
+        .find((c) => c.categoryType === DecoratorCategoryEnum.LinkDecorators)
+        .decoratorCheckboxes.push(
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveLinkDecorators().includes(dType))
+        )
+    );
   }
 
   private subscribeStateChanges() {
-    this._stateSubscription = this.decoratorStateService.activeObs.subscribe(value => {
+    this._stateSubscription = this.decoratorStateService.activeObs.subscribe((value) => {
       this.showDecoratorsFilterMenu = value;
       if (this.showDecoratorsFilterMenu) {
         this.turnOnAllCheckboxes();

@@ -1,7 +1,7 @@
-import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
-import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
+import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
 
 /**
  * Class containing all static methods used for converting enum to string (usually mapping from model to json posts etc.)
@@ -13,11 +13,10 @@ export class EnumToStringConverter {
    * @param decoratorType type of decorator (enum)
    * @returns {string} converted string, null if no matching type is found or type is inconsistent with category type
    */
-  static decoratorEnumToRestString(categoryDecoratorType: DecoratorCategoryEnum,
-                                   decoratorType: RouterNodeDecoratorTypeEnum
-                                 | HostNodeDecoratorTypeEnum
-                                 | LinkDecoratorTypeEnum): string {
-
+  static decoratorEnumToRestString(
+    categoryDecoratorType: DecoratorCategoryEnum,
+    decoratorType: RouterNodeDecoratorTypeEnum | HostNodeDecoratorTypeEnum | LinkDecoratorTypeEnum
+  ): string {
     if (categoryDecoratorType === null || decoratorType === null) {
       return null;
     }

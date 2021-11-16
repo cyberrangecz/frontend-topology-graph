@@ -1,8 +1,8 @@
-import {NodeDecorator} from '../decorators/node-decorator';
-import {HostNodeDecoratorTypeEnum} from '../enums/host-node-decorator-type-enum';
-import {RouterNodeDecoratorTypeEnum} from '../enums/router-node-decorator-type-enum';
-import {DecoratorEventMessageEnum} from '../enums/decorator-event-message-enum';
-import {DecoratorCategoryEnum} from '../enums/decorator-category-enum';
+import { NodeDecorator } from '../decorators/node-decorator';
+import { HostNodeDecoratorTypeEnum } from '../enums/host-node-decorator-type-enum';
+import { RouterNodeDecoratorTypeEnum } from '../enums/router-node-decorator-type-enum';
+import { DecoratorEventMessageEnum } from '../enums/decorator-event-message-enum';
+import { DecoratorCategoryEnum } from '../enums/decorator-category-enum';
 
 /**
  * Event describing change in node decorators.
@@ -17,15 +17,15 @@ export class NodeDecoratorChangeEvent {
   decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[];
   payload?: NodeDecorator[];
 
-
-  constructor(message: DecoratorEventMessageEnum,
-              category: DecoratorCategoryEnum,
-              decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
-              payload?: NodeDecorator[]) {
+  constructor(
+    message: DecoratorEventMessageEnum,
+    category: DecoratorCategoryEnum,
+    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
+    payload?: NodeDecorator[]
+  ) {
     this.message = message;
     this.category = category;
     this.decoratorTypes = decoratorTypes;
     this.payload = payload;
   }
 }
-

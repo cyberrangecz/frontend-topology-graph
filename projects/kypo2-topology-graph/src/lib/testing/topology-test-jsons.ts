@@ -12,7 +12,7 @@ export const simpleTopology = {
         name: 'pc',
         physical_role: 'desktop',
         router: false,
-      }
+      },
     ],
     links: [
       {
@@ -26,7 +26,7 @@ export const simpleTopology = {
         source_interface_id: 4,
         target_interface_id: 3,
         between_routers: false,
-      }
+      },
     ],
     interfaces: [
       {
@@ -42,7 +42,7 @@ export const simpleTopology = {
         ipv6_address: 'e80::1ff:fe23:4567:890b',
       },
     ],
-  }
+  },
 };
 
 export const emptyTopology = {
@@ -50,7 +50,7 @@ export const emptyTopology = {
     nodes: [],
     links: [],
     interfaces: [],
-  }
+  },
 };
 
 export const multipleInterfaces = {
@@ -67,7 +67,7 @@ export const multipleInterfaces = {
         name: 'pc',
         physical_role: 'desktop',
         router: false,
-      }
+      },
     ],
     links: [
       {
@@ -81,7 +81,7 @@ export const multipleInterfaces = {
         source_interface_id: 4,
         target_interface_id: 3,
         between_routers: false,
-      }
+      },
     ],
     interfaces: [
       {
@@ -109,5 +109,5 @@ export const multipleInterfaces = {
         ipv6_address: 'e80::1ff:fe23:4567:891b',
       },
     ],
-  }
+  },
 };

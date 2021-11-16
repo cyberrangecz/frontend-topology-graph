@@ -4,5 +4,5 @@
 export enum NodeSemaphoreDecoratorStatusEnum {
   Red = 'red',
   Orange = 'orange',
-  Green = 'green'
+  Green = 'green',
 }

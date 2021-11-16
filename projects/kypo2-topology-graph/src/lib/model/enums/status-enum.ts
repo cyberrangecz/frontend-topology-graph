@@ -4,5 +4,5 @@
 export enum StatusEnum {
   Unknown = 'unknown',
   Online = 'online',
-  Offline = 'offline'
+  Offline = 'offline',
 }

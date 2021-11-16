@@ -5,5 +5,5 @@ export enum TimeUnitEnum {
   Days = 'd',
   Weeks = 'w',
   Months = 'M',
-  Years = 'y'
+  Years = 'y',
 }

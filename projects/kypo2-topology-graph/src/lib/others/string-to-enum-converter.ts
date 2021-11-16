@@ -1,12 +1,11 @@
-import {NodeSemaphoreDecoratorStatusEnum} from '../model/enums/node-semaphore-decorator-status-enum';
-import {NodeLogicalRoleEnum} from '../model/enums/node-logical-role-enum';
-import {StatusEnum} from '../model/enums/status-enum';
+import { NodeSemaphoreDecoratorStatusEnum } from '../model/enums/node-semaphore-decorator-status-enum';
+import { NodeLogicalRoleEnum } from '../model/enums/node-logical-role-enum';
+import { StatusEnum } from '../model/enums/status-enum';
 
 /**
  * Class containing all static methods used for converting strings to enum (usually mapping from json to model)
  */
 export class StringToEnumConverter {
-
   /**
    * Converts status string retrieved from json to status enum used in decorator model
    * @param {string} input status string

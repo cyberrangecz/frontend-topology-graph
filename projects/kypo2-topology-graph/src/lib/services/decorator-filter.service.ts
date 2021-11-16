@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
-import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {DecoratorEventService} from './decorator-event.service';
+import { Injectable } from '@angular/core';
+import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
+import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { DecoratorEventService } from './decorator-event.service';
 
 /**
  * Service for filtering out decorator types visible in application.
  * By default all possible decorator types are visible.
  */
 @Injectable()
-export class DecoratorFilterService  {
+export class DecoratorFilterService {
   private _routerDecorators: RouterNodeDecoratorTypeEnum[];
   private _hostDecorators: HostNodeDecoratorTypeEnum[];
   private _linkDecorators: LinkDecoratorTypeEnum[];
@@ -143,8 +143,7 @@ export class DecoratorFilterService  {
    * @param {RouterNodeDecoratorTypeEnum} toRemove router decorator type which should be removed from visible decorators
    */
   private removeRouterDecorator(toRemove: RouterNodeDecoratorTypeEnum) {
-    this._routerDecorators = this._routerDecorators
-      .filter(d => d !== toRemove);
+    this._routerDecorators = this._routerDecorators.filter((d) => d !== toRemove);
     this.decoratorEventService.triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.RouterDecorators, [toRemove]);
   }
 
@@ -153,9 +152,10 @@ export class DecoratorFilterService  {
    */
   private removeAllRouterDecorators() {
     this._routerDecorators = [];
-    this.decoratorEventService
-      .triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.RouterDecorators, Object.values(RouterNodeDecoratorTypeEnum));
-
+    this.decoratorEventService.triggerNodeDecoratorsRemoved(
+      DecoratorCategoryEnum.RouterDecorators,
+      Object.values(RouterNodeDecoratorTypeEnum)
+    );
   }
 
   /**
@@ -174,8 +174,7 @@ export class DecoratorFilterService  {
    */
   private addAllRouterDecorators() {
     this._routerDecorators = Object.values(RouterNodeDecoratorTypeEnum);
-    this._routerDecorators.forEach(
-      decType => {
+    this._routerDecorators.forEach((decType) => {
       this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, decType);
     });
   }
@@ -185,10 +184,8 @@ export class DecoratorFilterService  {
    * @param {HostNodeDecoratorTypeEnum} toRemove host node decorator type which should be removed from visible decorators
    */
   private removeHostDecorator(toRemove: HostNodeDecoratorTypeEnum) {
-    this._hostDecorators = this._hostDecorators
-      .filter(d => d !== toRemove);
+    this._hostDecorators = this._hostDecorators.filter((d) => d !== toRemove);
     this.decoratorEventService.triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.HostDecorators, [toRemove]);
-
   }
 
   /**
@@ -196,7 +193,10 @@ export class DecoratorFilterService  {
    */
   private removeAllHostDecorators() {
     this._hostDecorators = [];
-    this.decoratorEventService.triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.HostDecorators, Object.values(HostNodeDecoratorTypeEnum));
+    this.decoratorEventService.triggerNodeDecoratorsRemoved(
+      DecoratorCategoryEnum.HostDecorators,
+      Object.values(HostNodeDecoratorTypeEnum)
+    );
   }
 
   /**
@@ -207,7 +207,6 @@ export class DecoratorFilterService  {
     if (toAdd !== null && !this._hostDecorators.includes(toAdd)) {
       this._hostDecorators.push(toAdd);
       this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, toAdd);
-
     }
   }
 
@@ -216,10 +215,9 @@ export class DecoratorFilterService  {
    */
   private addAllHostDecorators() {
     this._hostDecorators = Object.values(HostNodeDecoratorTypeEnum);
-    this._hostDecorators.forEach(
-      decType => {
-        this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, decType);
-      });
+    this._hostDecorators.forEach((decType) => {
+      this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, decType);
+    });
   }
 
   /**
@@ -227,10 +225,8 @@ export class DecoratorFilterService  {
    * @param {LinkDecoratorTypeEnum} toRemove link decorator type which should be removed from visible decorators
    */
   private removeLinkDecorator(toRemove: LinkDecoratorTypeEnum) {
-    this._linkDecorators = this._linkDecorators
-      .filter(d => d !== toRemove);
-    this.decoratorEventService.triggerLinkDecoratorsRemoved(DecoratorCategoryEnum.LinkDecorators,  [toRemove]);
-
+    this._linkDecorators = this._linkDecorators.filter((d) => d !== toRemove);
+    this.decoratorEventService.triggerLinkDecoratorsRemoved(DecoratorCategoryEnum.LinkDecorators, [toRemove]);
   }
 
   /**
@@ -238,7 +234,10 @@ export class DecoratorFilterService  {
    */
   private removeAllLinkDecorators() {
     this._linkDecorators = [];
-    this.decoratorEventService.triggerLinkDecoratorsRemoved(DecoratorCategoryEnum.LinkDecorators, Object.values(LinkDecoratorTypeEnum));
+    this.decoratorEventService.triggerLinkDecoratorsRemoved(
+      DecoratorCategoryEnum.LinkDecorators,
+      Object.values(LinkDecoratorTypeEnum)
+    );
   }
 
   /**
@@ -249,7 +248,6 @@ export class DecoratorFilterService  {
     if (toAdd !== null && !this._linkDecorators.includes(toAdd)) {
       this._linkDecorators.push(toAdd);
       this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, toAdd);
-
     }
   }
 
@@ -258,10 +256,8 @@ export class DecoratorFilterService  {
    */
   private addAllLinkDecorators() {
     this._linkDecorators = Object.values(LinkDecoratorTypeEnum);
-    this._linkDecorators.forEach(
-      decType => {
-        this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, decType);
-      }
-    );
+    this._linkDecorators.forEach((decType) => {
+      this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, decType);
+    });
   }
 }

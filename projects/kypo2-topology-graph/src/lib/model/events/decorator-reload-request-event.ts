@@ -1,7 +1,7 @@
-import {DecoratorCategoryEnum} from '../enums/decorator-category-enum';
-import {HostNodeDecoratorTypeEnum} from '../enums/host-node-decorator-type-enum';
-import {RouterNodeDecoratorTypeEnum} from '../enums/router-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../enums/link-decorator-type-enum';
+import { DecoratorCategoryEnum } from '../enums/decorator-category-enum';
+import { HostNodeDecoratorTypeEnum } from '../enums/host-node-decorator-type-enum';
+import { RouterNodeDecoratorTypeEnum } from '../enums/router-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../enums/link-decorator-type-enum';
 
 /**
  * Event used in decorator event service. Used when lower (in hierarchy) component requests reload of decorators.
@@ -12,10 +12,11 @@ export class DecoratorReloadRequestEvent {
   decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum;
   names: string[];
 
-
-  constructor(decoratorCategory: DecoratorCategoryEnum,
-              decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-              names: string[] = null) {
+  constructor(
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
+    names: string[] = null
+  ) {
     this.names = names;
     this.decoratorCategory = decoratorCategory;
     this.decoratorType = decoratorType;

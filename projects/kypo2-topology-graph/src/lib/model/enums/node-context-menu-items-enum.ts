@@ -5,5 +5,5 @@ export enum NodeActionEnum {
   Resume = 'Resume',
   Reboot = 'Reboot',
   Suspend = 'Suspend',
-  CopyHostInfo = "Copy info to clipboard"
+  CopyHostInfo = 'Copy info to clipboard',
 }

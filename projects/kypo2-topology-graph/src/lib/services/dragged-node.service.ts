@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {INode} from '@muni-kypo-crp/topology-model';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { INode } from '@muni-kypo-crp/topology-model';
 
 @Injectable()
 export class DraggedNodeService {
-
   lastDraggedNodeName = '';
 
   private _onNodeTouchedSubject: Subject<INode> = new Subject<INode>();
@@ -15,7 +14,6 @@ export class DraggedNodeService {
 
   private _onNodeDragEndedSubject: Subject<INode> = new Subject<INode>();
   public onNodeDragEnded: Observable<INode> = this._onNodeDragEndedSubject.asObservable();
-
 
   /**
    * Emits event when node is touched (clicked, double-clicked or being hold). Before it is dragged.

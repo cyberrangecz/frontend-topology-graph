@@ -3,5 +3,5 @@
  */
 export enum LinkDecoratorTypeEnum {
   LinkSpeedDecorator = 'Speed decorator',
-  LinkMailDecorator = 'Mail decorator'
+  LinkMailDecorator = 'Mail decorator',
 }

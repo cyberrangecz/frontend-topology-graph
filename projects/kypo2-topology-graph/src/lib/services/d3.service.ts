@@ -1,32 +1,31 @@
-import {Injectable} from '@angular/core';
-import {ForceDirectedGraph} from '../model/graph/force-directed-graph';
-import {Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
+import { Injectable } from '@angular/core';
+import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
+import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
 import * as d3 from 'd3';
-import {D3ZoomEventService} from './d3-zoom-event.service';
-import {GraphLockService} from './graph-lock.service';
-import {Observable, Subject} from 'rxjs';
-import {DraggedNodeService} from './dragged-node.service';
+import { D3ZoomEventService } from './d3-zoom-event.service';
+import { GraphLockService } from './graph-lock.service';
+import { Observable, Subject } from 'rxjs';
+import { DraggedNodeService } from './dragged-node.service';
 
 /**
  * Service used for interaction between D3 library events and visual components through directives.
  */
 @Injectable()
 export class D3Service {
-
   private zoomSvg;
   private zoomContainer;
   private zoom;
 
   private currentScale;
 
-  private _resizeEventSubject: Subject<{x: number, y: number}> = new Subject<{x: number, y: number}>();
-  resizeEvent: Observable<{x: number, y: number}> = this._resizeEventSubject.asObservable();
+  private _resizeEventSubject: Subject<{ x: number; y: number }> = new Subject<{ x: number; y: number }>();
+  resizeEvent: Observable<{ x: number; y: number }> = this._resizeEventSubject.asObservable();
 
-  constructor(private d3ZoomEventService: D3ZoomEventService,
-              private draggedNodeService: DraggedNodeService,
-              private graphLockService: GraphLockService) {
-
-  }
+  constructor(
+    private d3ZoomEventService: D3ZoomEventService,
+    private draggedNodeService: DraggedNodeService,
+    private graphLockService: GraphLockService
+  ) {}
 
   /**
    * Resets selected svg to default position and zoom
@@ -40,7 +39,6 @@ export class D3Service {
     this.currentScale += 0.1;
     this.zoomContainer.attr('transform', 'scale(' + this.currentScale + ')');
     this.d3ZoomEventService.triggerZoomChange(this.currentScale);
-
   }
 
   zoomOut() {
@@ -60,7 +58,8 @@ export class D3Service {
     this.zoomSvg = d3.select(svgElement);
     this.currentScale = 1;
     // sets custom anon function to d3.zoom call
-    this.zoom = d3.zoom()
+    this.zoom = d3
+      .zoom()
       .on('zoom', () => {
         if (!this.graphLockService.getLocked()) {
           const transform = d3.event.transform;
@@ -84,15 +83,11 @@ export class D3Service {
       });
 
     // prevents zooming on double click which is already assigned to revealing subnetworks
-    this.zoomSvg.call(this.zoom)
-      .on('scroll', null)
-      .on('dblclick.zoom', null);
+    this.zoomSvg.call(this.zoom).on('scroll', null).on('dblclick.zoom', null);
 
     // prevents panning
     const defaultMouseDownListener = this.zoomSvg.on('mousedown.zoom');
     this.zoomSvg.on('mousedown.zoom', null);
-
-
   }
 
   /**
@@ -140,17 +135,18 @@ export class D3Service {
 
       // node is dragged, its position is recalculated here
       function dragged() {
-          dragService.emitNodeDragStartedEvent(node);
+        dragService.emitNodeDragStartedEvent(node);
         if (lockService.getLocked()) {
           // prevents dragging outside the window
           node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x));
-          node.fy =  Math.max(50, Math.min(graph.getGraphHeight() - 50, d3.event.y));
+          node.fy = Math.max(50, Math.min(graph.getGraphHeight() - 50, d3.event.y));
 
           // detects if parent node is on the border of window and stops dragging of subnet
-          const onBorder = node.fx <= 50
-            || node.fx >= graph.getGraphWidth() - 50
-            || node.fy <= 50
-            || node.fy >= graph.getGraphHeight() - 50;
+          const onBorder =
+            node.fx <= 50 ||
+            node.fx >= graph.getGraphWidth() - 50 ||
+            node.fy <= 50 ||
+            node.fy >= graph.getGraphHeight() - 50;
           // calculation made also on children nodes to maintain distances inside subnetwork
           if (!onBorder && node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
             draggedSubnetwork(node);
@@ -159,14 +155,15 @@ export class D3Service {
           node.fx = d3.event.x;
           node.fy = d3.event.y;
 
-          const outside = node.fx <= 50
-            || node.fx >= graph.getGraphWidth() - 50
-            || node.fy <= 50
-            || node.fy >= graph.getGraphHeight() - 100;
+          const outside =
+            node.fx <= 50 ||
+            node.fx >= graph.getGraphWidth() - 50 ||
+            node.fy <= 50 ||
+            node.fy >= graph.getGraphHeight() - 100;
 
           // event to resize the window in unlocked mode
           if (outside) {
-            resizeEventSubject.next({x: node.fx, y: node.fy});
+            resizeEventSubject.next({ x: node.fx, y: node.fy });
           }
           if (node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
             draggedSubnetwork(node);
@@ -176,12 +173,11 @@ export class D3Service {
         //  recursive function to recalculate position of all nodes in parent subnetwork
         function draggedSubnetwork(router) {
           // TODO decide whether this is expected behaviour?
-          const draggedNodes = router.children
-            .filter(node => !(node instanceof RouterNode)
-              && !(node.physicalRole === NodePhysicalRoleEnum.Router));
+          const draggedNodes = router.children.filter(
+            (node) => !(node instanceof RouterNode) && !(node.physicalRole === NodePhysicalRoleEnum.Router)
+          );
 
           for (const child of draggedNodes) {
-
             if (lockService.getLocked()) {
               // prevents dragging outside the window
               child.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x + (child.x - node.x)));
@@ -190,8 +186,8 @@ export class D3Service {
               child.fx = d3.event.x + (child.x - node.x);
               child.fy = d3.event.y + (child.y - node.y);
             }
-              if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
-                draggedSubnetwork(child);
+            if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
+              draggedSubnetwork(child);
             }
           }
         }
@@ -199,7 +195,7 @@ export class D3Service {
 
       // dragging is stopped by user
       function ended() {
-          dragService.emitNodeDragEndedEvent();
+        dragService.emitNodeDragEndedEvent();
 
         if (!d3.event.active) {
           graph.simulation.alphaTarget(0).restart();
@@ -237,7 +233,7 @@ export class D3Service {
    * @param {{width; height}} options width and height of svg
    * @returns {ForceDirectedGraph} created object of D3 graph-visual
    */
-  createForceDirectedGraph(nodes: Node[], links: Link[], options: { width, height }) {
-     return new ForceDirectedGraph(nodes, links, options);
+  createForceDirectedGraph(nodes: Node[], links: Link[], options: { width; height }) {
+    return new ForceDirectedGraph(nodes, links, options);
   }
 }

@@ -1,31 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import {GraphEventService} from '../../../services/graph-event.service';
-import {GraphLayoutsEnum} from '../../../model/enums/graph-layouts-enum';
-import {GraphLockService} from '../../../services/graph-lock.service';
+import { GraphEventService } from '../../../services/graph-event.service';
+import { GraphLayoutsEnum } from '../../../model/enums/graph-layouts-enum';
+import { GraphLockService } from '../../../services/graph-lock.service';
 
 @Component({
   selector: 'app-layout-tab',
   templateUrl: './layout-tab.component.html',
-  styleUrls: ['./layout-tab.component.css']
+  styleUrls: ['./layout-tab.component.css'],
 })
 export class LayoutTabComponent implements OnInit {
-
   layouts: GraphLayoutsEnum[];
   activeLayout;
 
   layoutDisabled = true;
   lockedGraph = true;
 
-  constructor(private graphEventService: GraphEventService,
-              private graphLockService: GraphLockService) {
+  constructor(private graphEventService: GraphEventService, private graphLockService: GraphLockService) {
     this.layouts = Object.values(GraphLayoutsEnum);
   }
 
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-/*  /!**
+  /*  /!**
    * Turns on/off layouts
    *!/
   toggleLayouts() {
@@ -60,7 +56,7 @@ export class LayoutTabComponent implements OnInit {
   /**
    * disables layout
    */
-/*  private disableLayouts() {
+  /*  private disableLayouts() {
     this.activeLayout = null;
     this.graphEventService.turnOffForces();
   }

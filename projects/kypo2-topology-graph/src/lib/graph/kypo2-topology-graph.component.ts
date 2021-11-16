@@ -1,35 +1,35 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Link} from '@muni-kypo-crp/topology-model';
-import {Node} from '@muni-kypo-crp/topology-model';
-import {TopologyApi} from '../services/topology-api.service';
-import {DecoratorFacade} from '../services/decorator-facade.service';
-import {HostNode} from '@muni-kypo-crp/topology-model';
-import {RouterNode} from '@muni-kypo-crp/topology-model';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Link } from '@muni-kypo-crp/topology-model';
+import { Node } from '@muni-kypo-crp/topology-model';
+import { TopologyApi } from '../services/topology-api.service';
+import { DecoratorFacade } from '../services/decorator-facade.service';
+import { HostNode } from '@muni-kypo-crp/topology-model';
+import { RouterNode } from '@muni-kypo-crp/topology-model';
 
-import {DecoratorEventService} from '../services/decorator-event.service';
-import {DecoratorReloadRequestEvent} from '../model/events/decorator-reload-request-event';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
-import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {DecoratorReloadTimerService} from '../services/decorator-reload-timer.service';
+import { DecoratorEventService } from '../services/decorator-event.service';
+import { DecoratorReloadRequestEvent } from '../model/events/decorator-reload-request-event';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
+import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
+import { DecoratorReloadTimerService } from '../services/decorator-reload-timer.service';
 
-import {D3Service} from '../services/d3.service';
-import {D3ZoomEventService} from '../services/d3-zoom-event.service';
+import { D3Service } from '../services/d3.service';
+import { D3ZoomEventService } from '../services/d3-zoom-event.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {ConfigService} from '../services/config.service';
-import {DraggedNodeService} from '../services/dragged-node.service';
-import {interval, Observable} from 'rxjs';
-import {SandboxService} from '../services/sandbox.service';
-import {Kypo2TopologyLoadingService} from '../services/kypo2-topology-loading.service';
-import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.service';
-import {HostService} from '../services/host.service';
-import {ContextMenuService} from '../services/context-menu.service';
-import {DecoratorFilterService} from '../services/decorator-filter.service';
-import {DecoratorTimeService} from '../services/decorator-time.service';
-import {DecoratorStateService} from '../services/decorator-state.service';
-import {GraphEventService} from '../services/graph-event.service';
-import {GraphLockService} from '../services/graph-lock.service';
+import { ConfigService } from '../services/config.service';
+import { DraggedNodeService } from '../services/dragged-node.service';
+import { interval, Observable } from 'rxjs';
+import { SandboxService } from '../services/sandbox.service';
+import { Kypo2TopologyLoadingService } from '../services/kypo2-topology-loading.service';
+import { Kypo2TopologyErrorService } from '../services/kypo2-topology-error.service';
+import { HostService } from '../services/host.service';
+import { ContextMenuService } from '../services/context-menu.service';
+import { DecoratorFilterService } from '../services/decorator-filter.service';
+import { DecoratorTimeService } from '../services/decorator-time.service';
+import { DecoratorStateService } from '../services/decorator-state.service';
+import { GraphEventService } from '../services/graph-event.service';
+import { GraphLockService } from '../services/graph-lock.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -56,10 +56,9 @@ import {GraphLockService} from '../services/graph-lock.service';
     GraphEventService,
     GraphLockService,
     DraggedNodeService,
-  ]
+  ],
 })
 export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
-
   @Input() width: number;
   @Input() height: number;
   @Input() sandboxId: number;
@@ -98,9 +97,8 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     private graphEventService: GraphEventService,
     private sandboxService: SandboxService,
     private d3Service: D3Service,
-    private draggedNodeService: DraggedNodeService) {
-  }
-
+    private draggedNodeService: DraggedNodeService
+  ) {}
 
   /**
    * Loads first topology and decorators and subscribes for periodical refresh of decorators and decorator reload requests.
@@ -145,19 +143,18 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    */
   loadTopology() {
     this.dataLoaded = false;
-    this.topologyLoaderService.getTopology(this.sandboxId)
-      .subscribe(
-        data => {
-          this.nodes = data.nodes;
-          this.links = data.links;
-          this.allNodesLength = data.nodes.length;
-          this.dataLoaded = true;
-          this.onTopologyLoaded.emit(true);
-        },
-        err => {
-          this.isError = true;
-        }
-      );
+    this.topologyLoaderService.getTopology(this.sandboxId).subscribe(
+      (data) => {
+        this.nodes = data.nodes;
+        this.links = data.links;
+        this.allNodesLength = data.nodes.length;
+        this.dataLoaded = true;
+        this.onTopologyLoaded.emit(true);
+      },
+      (err) => {
+        this.isError = true;
+      }
+    );
   }
 
   /**
@@ -173,7 +170,11 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * Calls service to load decorators with node and link ids
    */
   loadAllDecorators() {
-    this.decoratorLoaderService.loadAllDecorators(this.getHostNodeNames(), this.getRouterNodeNames(), this.getLinkNames());
+    this.decoratorLoaderService.loadAllDecorators(
+      this.getHostNodeNames(),
+      this.getRouterNodeNames(),
+      this.getLinkNames()
+    );
   }
 
   /**
@@ -182,7 +183,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
   reloadAllDecorators() {
     this.loadAllDecorators();
   }
-
 
   resetZoom() {
     this.showZoomResetButton = false;
@@ -229,7 +229,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * If null all active decorator types are reloaded
    */
   private processDecoratorRouterReload(names: string[], decoratorType: RouterNodeDecoratorTypeEnum) {
-    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+    if ((names === null || names.length <= 0) && decoratorType == null) {
       this.decoratorLoaderService.loadRouterNodeDecorators(this.getRouterNodeNames());
     } else if (names === null || names.length <= 0) {
       this.decoratorLoaderService.loadRouterDecoratorsOfType(this.getRouterNodeNames(), decoratorType);
@@ -247,7 +247,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * If null all active decorator types are reloaded
    */
   private processDecoratorHostReload(names: string[], decoratorType: HostNodeDecoratorTypeEnum) {
-    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+    if ((names === null || names.length <= 0) && decoratorType == null) {
       this.decoratorLoaderService.loadHostNodeDecorators(this.getHostNodeNames());
     } else if (names === null || names.length <= 0) {
       this.decoratorLoaderService.loadHostDecoratorsOfType(this.getHostNodeNames(), decoratorType);
@@ -265,7 +265,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * If null all active decorator types are reloaded
    */
   private processDecoratorLinkReload(names: string[], decoratorType: LinkDecoratorTypeEnum) {
-    if ((names === null || names.length <= 0) && (decoratorType == null)) {
+    if ((names === null || names.length <= 0) && decoratorType == null) {
       this.decoratorLoaderService.loadLinkDecorators(this.getLinkNames());
     } else if (names === null || names.length <= 0) {
       this.decoratorLoaderService.loadLinkDecoratorsOfType(this.getLinkNames(), decoratorType);
@@ -284,9 +284,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
-    return this.nodes
-      .filter(node => node instanceof HostNode)
-      .map(({name}) => name);
+    return this.nodes.filter((node) => node instanceof HostNode).map(({ name }) => name);
   }
 
   /**
@@ -297,10 +295,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
-    return this.nodes
-      .filter(node => node instanceof RouterNode)
-      .map(({name}) => name);
-
+    return this.nodes.filter((node) => node instanceof RouterNode).map(({ name }) => name);
   }
 
   /**
@@ -311,8 +306,7 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     if (this.nodes === null || this.nodes === undefined || this.nodes.length === 0) {
       return [];
     }
-    return this.links.map(({id}) => id.toString());
-
+    return this.links.map(({ id }) => id.toString());
   }
 
   /**
@@ -320,12 +314,11 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    */
   private subscribeDecoratorsPeriodicalReload() {
     if (this.configService.config.defaultDecoratorRefreshPeriodInSeconds > 0) {
-      this._decoratorPeriodicalReloadSubscription = interval(this.configService.config.defaultDecoratorRefreshPeriodInSeconds * 1000)
-        .subscribe(
-          () => {
-            this.reloadAllDecorators();
-          }
-        );
+      this._decoratorPeriodicalReloadSubscription = interval(
+        this.configService.config.defaultDecoratorRefreshPeriodInSeconds * 1000
+      ).subscribe(() => {
+        this.reloadAllDecorators();
+      });
     }
   }
 
@@ -333,76 +326,65 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    * Subscribes to decorator period timer
    */
   private subscribeDecoratorTimer() {
-    this._decoratorTimerSubscription = this.decoratorReloadTimerService.onReloadPeriodChange
-      .subscribe(reloadPeriod => {
+    this._decoratorTimerSubscription = this.decoratorReloadTimerService.onReloadPeriodChange.subscribe(
+      (reloadPeriod) => {
         if (reloadPeriod > 0) {
           if (this._decoratorPeriodicalReloadSubscription) {
             this._decoratorPeriodicalReloadSubscription.unsubscribe();
           }
 
-          this._decoratorPeriodicalReloadSubscription = interval(reloadPeriod * 1000)
-            .subscribe(
-              () => {
-                this.reloadAllDecorators();
-              }
-            );
+          this._decoratorPeriodicalReloadSubscription = interval(reloadPeriod * 1000).subscribe(() => {
+            this.reloadAllDecorators();
+          });
         } else {
           if (this._decoratorPeriodicalReloadSubscription) {
             this._decoratorPeriodicalReloadSubscription.unsubscribe();
           }
         }
-      });
+      }
+    );
   }
   /**
    * Subscribes to error in decorator loader
    */
   private subscribeDecoratorError() {
-    this._decoratorLoadErrorSubscription = this.decoratorLoaderService.decoratorLoaderError.subscribe(
-      (value) => {
-        const snackRef = this.snackBar.open('Decorators failed to load: ' + value, 'Try again');
-        snackRef._dismissAfter(5000);
-        snackRef.onAction().subscribe(() => this.reloadAllDecorators());
-        }
-    );
+    this._decoratorLoadErrorSubscription = this.decoratorLoaderService.decoratorLoaderError.subscribe((value) => {
+      const snackRef = this.snackBar.open('Decorators failed to load: ' + value, 'Try again');
+      snackRef._dismissAfter(5000);
+      snackRef.onAction().subscribe(() => this.reloadAllDecorators());
+    });
   }
 
   /**
    * Subscribes to decorator reload events
    */
   private subscribeDecoratorReloadEvent() {
-    this._decoratorReloadSubscription = this.decoratorEventService.onDecoratorReloadRequest
-      .subscribe(
-        (reloadEvent) => {
-          this.processDecoratorReloadRequest(reloadEvent);
-        });
+    this._decoratorReloadSubscription = this.decoratorEventService.onDecoratorReloadRequest.subscribe((reloadEvent) => {
+      this.processDecoratorReloadRequest(reloadEvent);
+    });
   }
 
   /**
    * Subscribes to zoom change events
    */
   private subscribeZoomChangeEvent() {
-    this._zoomResetSubscription = this.d3ZoomEventService.onZoomChange.subscribe(
-      (value) => {
-        if (value !== 1) {
-          this.showZoomResetButton = true;
-        }
+    this._zoomResetSubscription = this.d3ZoomEventService.onZoomChange.subscribe((value) => {
+      if (value !== 1) {
+        this.showZoomResetButton = true;
       }
-    );
+    });
   }
 
   private subscribeDragNodeEvents() {
-    this._nodeTouchedSubscription = this.draggedNodeService.onNodeTouched
-      .subscribe(node => {
-        // TODO
-      });
-    this._nodeDraggedSubscription = this.draggedNodeService.onNodeDragStarted
-      .subscribe(node => {
-        this.draggedNode = node;
-      });
-    this._nodeDragEndedSubscription = this.draggedNodeService.onNodeDragEnded
-      .subscribe(node => {
-        this.draggedNode = null;
-      })
+    this._nodeTouchedSubscription = this.draggedNodeService.onNodeTouched.subscribe((node) => {
+      // TODO
+    });
+    this._nodeDraggedSubscription = this.draggedNodeService.onNodeDragStarted.subscribe((node) => {
+      this.draggedNode = node;
+    });
+    this._nodeDragEndedSubscription = this.draggedNodeService.onNodeDragEnded.subscribe((node) => {
+      this.draggedNode = null;
+    });
   }
 
   private subscribeLoading() {
@@ -438,6 +420,4 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
       this._nodeDragEndedSubscription.unsubscribe();
     }
   }
-
-
 }

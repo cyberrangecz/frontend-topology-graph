@@ -1,5 +1,5 @@
-import {NodeLogicalRoleEnum} from '../enums/node-logical-role-enum';
-import {NodeHostDecorator} from './node-host-decorator';
+import { NodeLogicalRoleEnum } from '../enums/node-logical-role-enum';
+import { NodeHostDecorator } from './node-host-decorator';
 
 /**
  * Decorator of logical role of node. Can be ATTACKER, VICTIM or BOT

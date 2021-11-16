@@ -1,8 +1,7 @@
-import {DecoratorReloadTimerService} from '../decorator-reload-timer.service';
-import {Observable, Subject} from 'rxjs';
+import { DecoratorReloadTimerService } from '../decorator-reload-timer.service';
+import { Observable, Subject } from 'rxjs';
 
 export class MockDecoratorReloadTimerService extends DecoratorReloadTimerService {
-
   private subject: Subject<number> = new Subject();
   onReloadPeriodChange: Observable<number> = this.subject.asObservable();
 
@@ -16,5 +15,4 @@ export class MockDecoratorReloadTimerService extends DecoratorReloadTimerService
   getReloadPeriod(): number {
     return 1;
   }
-
 }
