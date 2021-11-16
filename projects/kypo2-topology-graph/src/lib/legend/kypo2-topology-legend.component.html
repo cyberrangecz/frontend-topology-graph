@@ -1,0 +1,15 @@
+<mat-card
+  [style.width.px]="width"
+  [style.height.px]="height"
+  class="topology-legend">
+  <span class="title"
+        [style.margin]="titleMargin">
+    Node types:
+  </span>
+  <div class="node-group"
+       *ngFor="let a of nodeNames"
+       [style.margin]="iconsMargin">
+    <img [attr.src]="iconsPath + a.icon +'.svg'" class="node-icon"/>
+    <span>{{a.name}}</span>
+  </div>
+</mat-card>

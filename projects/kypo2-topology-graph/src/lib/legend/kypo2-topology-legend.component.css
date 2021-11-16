@@ -1,0 +1,30 @@
+.topology-legend {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+.topology-legend .title {
+  float: left;
+}
+
+.topology-legend span {
+  font-size: 10px;
+  line-height: normal;
+}
+
+.topology-legend .title span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.topology-legend .node-group {
+  float: left;
+  display: grid;
+  text-align: center;
+}
+
+.topology-legend .node-icon {
+  margin: auto;
+  width: 25px;
+  height: 25px;
+}

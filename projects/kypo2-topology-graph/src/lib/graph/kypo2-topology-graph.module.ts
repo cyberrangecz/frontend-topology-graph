@@ -46,7 +46,7 @@ import {Kypo2TopologyErrorService} from '../services/kypo2-topology-error.servic
     Kypo2TopologyErrorService,
   ],
   exports: [
-    Kypo2TopologyGraphComponent
+    Kypo2TopologyGraphComponent,
   ]
 })
 export class Kypo2TopologyGraphModule {

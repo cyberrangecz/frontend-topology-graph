@@ -18,6 +18,7 @@ export class HostService {
 
   /**
    * Resolves type of action and calls api service to handle the action
+   * The "Reboot" and "Suspend" actions are not available in the context menu - consider their full removal?
    * @param type type of requested action
    * @param vmIp ip address of the vm to remotely access
    * @param vmName name of virtual machine (host node)

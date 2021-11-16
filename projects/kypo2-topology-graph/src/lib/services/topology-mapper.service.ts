@@ -1,11 +1,22 @@
 import {Injectable} from '@angular/core';
-import {HostNode, Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, NodePort, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
+import {
+  HostNode,
+  Link,
+  LinkTypeEnum,
+  Node,
+  NodePhysicalRoleEnum,
+  NodePort,
+  RouterNode,
+  SpecialNode,
+  SwitchNode
+} from '@muni-kypo-crp/topology-model';
 import {TopologyDTO} from '../model/DTO/topology-dto.model';
 import {PortDTO} from '../model/DTO/port-dto.model';
 import {RouterDTO} from '../model/DTO/router-dto.model';
 import {SwitchDTO} from '../model/DTO/switch-dto.model';
 import {HostDTO} from '../model/DTO/host-dto.model';
 import {LinkDTO} from '../model/DTO/link-dto.model';
+import {SpecialNodeDTO} from "../model/DTO/special-node-dto.model";
 
 /**
  * Maps DTOs to internal model
@@ -41,6 +52,11 @@ export class TopologyMapper {
 
     topologyDTO.routers.forEach(routerDTO =>
       result.push(this.mapRouterFromDTO(routerDTO)));
+
+     if (topologyDTO.special_nodes) {
+       topologyDTO.special_nodes.forEach(specialNodeDTO =>
+         result.push(this.mapSpecialNodeFromDTO(specialNodeDTO)));
+     }
     return result;
   }
 
@@ -111,6 +127,15 @@ export class TopologyMapper {
     const result = new HostNode();
     result.name = hostDTO.name;
     result.physicalRole = NodePhysicalRoleEnum.Desktop;
+    return result;
+  }
+
+  private mapSpecialNodeFromDTO(specialNodeDTO: SpecialNodeDTO): SpecialNode {
+    const result = new SpecialNode();
+    result.name = specialNodeDTO.name;
+    if (result.name === NodePhysicalRoleEnum.Internet) {
+      result.physicalRole = NodePhysicalRoleEnum.Internet;
+    }
     return result;
   }
 
