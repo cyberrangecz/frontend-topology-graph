@@ -1,4 +1,4 @@
 export enum DecoratorEventMessageEnum {
   DecoratorsLoaded,
-  DecoratorsDeleted
+  DecoratorsDeleted,
 }

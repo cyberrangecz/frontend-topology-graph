@@ -1,4 +1,4 @@
-import {defer} from 'rxjs';
+import { defer } from 'rxjs';
 import {} from 'jasmine';
 
 export function asyncData<T>(data: T) {
@@ -7,6 +7,9 @@ export function asyncData<T>(data: T) {
 
 export function testAsync(runAsync) {
   return (done) => {
-    runAsync().then(done, e => { fail(e); done(); });
+    runAsync().then(done, (e) => {
+      fail(e);
+      done();
+    });
   };
 }

@@ -1,7 +1,6 @@
-import {GraphEventTypeEnum} from '../enums/graph-event-type-enum';
+import { GraphEventTypeEnum } from '../enums/graph-event-type-enum';
 
 export class GraphEvent {
-
   message: GraphEventTypeEnum;
   payload?: any;
 

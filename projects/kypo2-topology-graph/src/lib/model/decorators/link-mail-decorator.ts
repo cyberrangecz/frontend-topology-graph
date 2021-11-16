@@ -1,7 +1,6 @@
-import {LinkDecorator} from './link-decorator';
+import { LinkDecorator } from './link-decorator';
 
 export class LinkMailDecorator extends LinkDecorator {
-
   amount: number;
 
   constructor(linkName: string, amount: number) {

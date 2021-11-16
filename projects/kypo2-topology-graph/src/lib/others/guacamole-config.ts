@@ -2,7 +2,7 @@ export class GuacamoleConfig {
   /**
    * URL of the Apache's Guacamole
    */
-  url: string
+  url: string;
   /**
    * Name of the user which is used to login to the Apache's Guacamole
    */

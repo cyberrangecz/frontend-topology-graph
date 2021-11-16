@@ -1,24 +1,23 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Link } from '@muni-kypo-crp/topology-model';
 import { LinkSpeedDecorator } from '../../model/decorators/link-speed-decorator';
-import {DecoratorEventService} from '../../services/decorator-event.service';
-import {LinkMailDecorator} from '../../model/decorators/link-mail-decorator';
-import {LinkDecorator} from '../../model/decorators/link-decorator';
-import {LinkDecoratorTypeEnum} from '../../model/enums/link-decorator-type-enum';
-import {DecoratorEventMessageEnum} from '../../model/enums/decorator-event-message-enum';
-import {LinkDecoratorSpeedEnum} from '../../model/enums/link-decorator-speed-enum';
-import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
-import {ICONS_PATH} from '../../icons-path';
+import { DecoratorEventService } from '../../services/decorator-event.service';
+import { LinkMailDecorator } from '../../model/decorators/link-mail-decorator';
+import { LinkDecorator } from '../../model/decorators/link-decorator';
+import { LinkDecoratorTypeEnum } from '../../model/enums/link-decorator-type-enum';
+import { DecoratorEventMessageEnum } from '../../model/enums/decorator-event-message-enum';
+import { LinkDecoratorSpeedEnum } from '../../model/enums/link-decorator-speed-enum';
+import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum';
+import { ICONS_PATH } from '../../icons-path';
 /**
  * Visual component used to display links in the graph-visual and its decorators. Binds to link mode.
  */
 @Component({
   selector: '[linkVisual]',
   templateUrl: './graph-link-visual.component.html',
-  styleUrls: ['./graph-link-visual.component.css']
+  styleUrls: ['./graph-link-visual.component.css'],
 })
 export class GraphLinkVisualComponent implements OnInit, OnDestroy {
-
   @Input('linkVisual') link: Link;
 
   iconsPath = ICONS_PATH;
@@ -34,9 +33,7 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * Subscribes to decorator event service
    * @param {DecoratorEventService} decoratorEventService
    */
-  constructor(private decoratorEventService: DecoratorEventService) {
-  }
-
+  constructor(private decoratorEventService: DecoratorEventService) {}
 
   ngOnInit() {
     this.subscribeDecoratorChange();
@@ -63,23 +60,21 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * Subscribes to decorator change event
    */
   private subscribeDecoratorChange() {
-    this._decoratorEventSubscription = this.decoratorEventService.onLinkDecoratorsChange
-      .subscribe({
-          next: event => {
-            if (event.message === DecoratorEventMessageEnum.DecoratorsLoaded) {
-              this.onDecoratorChange(event.decoratorCategory, event.decoratorTypes, event.payload);
-            } else if (event.message === DecoratorEventMessageEnum.DecoratorsDeleted) {
-              this.onDecoratorRemove(event.decoratorTypes);
-            }
-          }
+    this._decoratorEventSubscription = this.decoratorEventService.onLinkDecoratorsChange.subscribe({
+      next: (event) => {
+        if (event.message === DecoratorEventMessageEnum.DecoratorsLoaded) {
+          this.onDecoratorChange(event.decoratorCategory, event.decoratorTypes, event.payload);
+        } else if (event.message === DecoratorEventMessageEnum.DecoratorsDeleted) {
+          this.onDecoratorRemove(event.decoratorTypes);
         }
-      );
+      },
+    });
   }
 
   /**
    * Sets class of speed decorator line to distinguish two way stream of data visually
    */
-/*  private setSpeedDecoratorWayClass() {
+  /*  private setSpeedDecoratorWayClass() {
     if (this.link.source.id > this.link.target.id) {
       this.way = 'up';
     } else {
@@ -90,16 +85,18 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
   /**
    * Refreshes all decorators if change was triggered by DecoratorEventService
    */
-  private onDecoratorChange(category: DecoratorCategoryEnum, decoratorTypes: LinkDecoratorTypeEnum[], linkDecorators: LinkDecorator[]) {
+  private onDecoratorChange(
+    category: DecoratorCategoryEnum,
+    decoratorTypes: LinkDecoratorTypeEnum[],
+    linkDecorators: LinkDecorator[]
+  ) {
     // extract decorators for this link
-    const decorators = linkDecorators.filter(d => d.linkName === this.link.id.toString());
+    const decorators = linkDecorators.filter((d) => d.linkName === this.link.id.toString());
 
     if (category === DecoratorCategoryEnum.LinkDecorators) {
       this.addActiveDecorators(decorators);
       this.removeNonActiveDecorators(decoratorTypes, decorators);
     }
-
-
   }
 
   /**
@@ -128,12 +125,16 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * @param {LinkDecorator[]} activeDecorators decorators present in latest received event (which decorators should not be removed)
    */
   private removeNonActiveDecorators(decoratorTypes: LinkDecoratorTypeEnum[], activeDecorators: LinkDecorator[]) {
-    if (decoratorTypes.includes(LinkDecoratorTypeEnum.LinkSpeedDecorator)
-      && !activeDecorators.find(dec => dec instanceof LinkSpeedDecorator)) {
+    if (
+      decoratorTypes.includes(LinkDecoratorTypeEnum.LinkSpeedDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof LinkSpeedDecorator)
+    ) {
       this.speedDecorator = null;
     }
-    if (decoratorTypes.includes(LinkDecoratorTypeEnum.LinkSpeedDecorator)
-      && !activeDecorators.find(dec => dec instanceof LinkMailDecorator)) {
+    if (
+      decoratorTypes.includes(LinkDecoratorTypeEnum.LinkSpeedDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof LinkMailDecorator)
+    ) {
       this.mailDecorator = null;
     }
   }
@@ -143,7 +144,7 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * @param {LinkDecoratorTypeEnum[]} decoratorTypes list of decorator types to be removes
    */
   private onDecoratorRemove(decoratorTypes: LinkDecoratorTypeEnum[]) {
-    decoratorTypes.forEach(decoratorType => {
+    decoratorTypes.forEach((decoratorType) => {
       switch (decoratorType) {
         case LinkDecoratorTypeEnum.LinkMailDecorator: {
           this.mailDecorator = null;
@@ -165,7 +166,7 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * @returns {LinkDecoratorSpeedEnum} enum which matches the speed
    */
   private resolveLinkSpeed(speed: number): LinkDecoratorSpeedEnum {
-    if (speed > 0 && speed <= 10000 ) {
+    if (speed > 0 && speed <= 10000) {
       return LinkDecoratorSpeedEnum.Slow;
     } else if (speed > 10000 && speed <= 100000) {
       return LinkDecoratorSpeedEnum.Medium;
@@ -180,7 +181,7 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
    * @returns {LinkDecoratorSpeedEnum} enum which matches the speed
    */
   private resolveMailSpeed(amount: number): LinkDecoratorSpeedEnum {
-    if (amount > 0 && amount <= 10000 ) {
+    if (amount > 0 && amount <= 10000) {
       return LinkDecoratorSpeedEnum.Slow;
     } else if (amount > 10000 && amount <= 100000) {
       return LinkDecoratorSpeedEnum.Medium;
@@ -188,7 +189,6 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
       return LinkDecoratorSpeedEnum.Fast;
     }
   }
-
 
   ngOnDestroy(): void {
     if (this._decoratorEventSubscription) {

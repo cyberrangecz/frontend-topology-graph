@@ -1,18 +1,18 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
-import {NodeSemaphoreDecorator} from '../../model/decorators/node-semaphore-decorator';
-import {NodeStatusDecorator} from '../../model/decorators/node-status-decorator';
-import {DecoratorEventService} from '../../services/decorator-event.service';
-import {StatusEnum} from '../../model/enums/status-enum';
-import {NodeDecorator} from '../../model/decorators/node-decorator';
-import {NodeLogicalRoleDecorator} from '../../model/decorators/node-logical-role-decorator';
-import {RouterNodeDecoratorTypeEnum} from '../../model/enums/router-node-decorator-type-enum';
-import {HostNodeDecoratorTypeEnum} from '../../model/enums/host-node-decorator-type-enum';
-import {DecoratorEventMessageEnum} from '../../model/enums/decorator-event-message-enum';
-import {DecoratorCategoryEnum} from '../../model/enums/decorator-category-enum';
-import {GraphEventService} from '../../services/graph-event.service';
-import {DecoratorReloadTimerService} from '../../services/decorator-reload-timer.service';
-import {ICONS_PATH} from '../../icons-path';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
+import { NodeSemaphoreDecorator } from '../../model/decorators/node-semaphore-decorator';
+import { NodeStatusDecorator } from '../../model/decorators/node-status-decorator';
+import { DecoratorEventService } from '../../services/decorator-event.service';
+import { StatusEnum } from '../../model/enums/status-enum';
+import { NodeDecorator } from '../../model/decorators/node-decorator';
+import { NodeLogicalRoleDecorator } from '../../model/decorators/node-logical-role-decorator';
+import { RouterNodeDecoratorTypeEnum } from '../../model/enums/router-node-decorator-type-enum';
+import { HostNodeDecoratorTypeEnum } from '../../model/enums/host-node-decorator-type-enum';
+import { DecoratorEventMessageEnum } from '../../model/enums/decorator-event-message-enum';
+import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum';
+import { GraphEventService } from '../../services/graph-event.service';
+import { DecoratorReloadTimerService } from '../../services/decorator-reload-timer.service';
+import { ICONS_PATH } from '../../icons-path';
 
 /**
  * Visual component used for displaying nodes of the graph-visual and its decorators. Binds to node model.
@@ -20,10 +20,9 @@ import {ICONS_PATH} from '../../icons-path';
 @Component({
   selector: '[nodeVisual]',
   templateUrl: './graph-node-visual.component.html',
-  styleUrls: ['./graph-node-visual.component.css']
+  styleUrls: ['./graph-node-visual.component.css'],
 })
 export class GraphNodeVisualComponent implements OnDestroy, OnInit {
-
   readonly DEFAULT_NODE_WIDTH = 92;
   readonly DEFAULT_NODE_HEIGHT = 70;
 
@@ -42,11 +41,11 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   private _decoratorEventSubscription;
 
-  constructor(private decoratorEventService: DecoratorEventService,
-              private graphEventService: GraphEventService,
-              private decoratorReloadTimerService: DecoratorReloadTimerService) {
-  }
-
+  constructor(
+    private decoratorEventService: DecoratorEventService,
+    private graphEventService: GraphEventService,
+    private decoratorReloadTimerService: DecoratorReloadTimerService
+  ) {}
 
   /**
    * Sets width and height of node based on amount of node's attributes to be shown and calculates text labels and its position
@@ -81,14 +80,13 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
       node.changeSwitchPhysicalRole();
       if (node.physicalRole === NodePhysicalRoleEnum.Cloud) {
         if (node.children != null && node.children.length > 0) {
-          node.children.forEach(d => {
+          node.children.forEach((d) => {
             if (d instanceof SwitchNode && d.physicalRole === NodePhysicalRoleEnum.Switch) {
               this.changeSubnetworkState(d);
             }
           });
         }
         this.graphEventService.hideSubnet(node);
-
       } else if (node.physicalRole === NodePhysicalRoleEnum.Switch) {
         this.graphEventService.revealSubnet(node);
       }
@@ -99,17 +97,15 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Subscribes to DecoratorEvents
    */
   private subscribeToDecoratorEvents() {
-    this._decoratorEventSubscription = this.decoratorEventService.onNodeDecoratorsChange
-      .subscribe({
-          next: (event) => {
-            if (event.message === DecoratorEventMessageEnum.DecoratorsLoaded) {
-              this.onDecoratorChange(event.category, event.decoratorTypes, event.payload);
-            } else if (event.message === DecoratorEventMessageEnum.DecoratorsDeleted) {
-              this.onDecoratorRemoved(event.decoratorTypes, event.category);
-            }
-          }
+    this._decoratorEventSubscription = this.decoratorEventService.onNodeDecoratorsChange.subscribe({
+      next: (event) => {
+        if (event.message === DecoratorEventMessageEnum.DecoratorsLoaded) {
+          this.onDecoratorChange(event.category, event.decoratorTypes, event.payload);
+        } else if (event.message === DecoratorEventMessageEnum.DecoratorsDeleted) {
+          this.onDecoratorRemoved(event.decoratorTypes, event.category);
         }
-      );
+      },
+    });
   }
 
   /**
@@ -120,35 +116,46 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     if (node.physicalRole === NodePhysicalRoleEnum.Router) {
       const hostNames: string[] = [];
       const routerNames: string[] = [];
-      node.children.forEach(
-        child => {
-          if (child instanceof RouterNode) {
-            routerNames.push(child.name);
-          } else {
-            hostNames.push(child.name);
-          }
-        });
+      node.children.forEach((child) => {
+        if (child instanceof RouterNode) {
+          routerNames.push(child.name);
+        } else {
+          hostNames.push(child.name);
+        }
+      });
 
       // We call reload of decorators on all affected hosts and routers
       // and all links (we cannot select connected links from this component)
       // 100 ms timeout is to give application enough time to load new components completely before loading decorators.
       if (hostNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.HostDecorators, null, hostNames),
-          100);
+        setTimeout(
+          () =>
+            this.decoratorEventService.triggerDecoratorReloadRequest(
+              DecoratorCategoryEnum.HostDecorators,
+              null,
+              hostNames
+            ),
+          100
+        );
       }
 
       if (routerNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.RouterDecorators, null, routerNames),
+        setTimeout(
+          () =>
+            this.decoratorEventService.triggerDecoratorReloadRequest(
+              DecoratorCategoryEnum.RouterDecorators,
+              null,
+              routerNames
+            ),
           100
         );
       }
 
       if (routerNames.length > 0 || hostNames.length > 0) {
-        setTimeout(() =>
-            this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
-          100);
+        setTimeout(
+          () => this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
+          100
+        );
       }
     }
   }
@@ -156,22 +163,21 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   /**
    * Refreshes all decorators if change was triggered by DecoratorEventService
    */
-  private onDecoratorChange(category: DecoratorCategoryEnum,
-                            decoratorTypes: RouterNodeDecoratorTypeEnum[] | HostNodeDecoratorTypeEnum[],
-                            nodeDecorators: NodeDecorator[]) {
-
+  private onDecoratorChange(
+    category: DecoratorCategoryEnum,
+    decoratorTypes: RouterNodeDecoratorTypeEnum[] | HostNodeDecoratorTypeEnum[],
+    nodeDecorators: NodeDecorator[]
+  ) {
     // extract decorators for this node
-    const decorators = nodeDecorators.filter(d => d.nodeName === this.node.name);
+    const decorators = nodeDecorators.filter((d) => d.nodeName === this.node.name);
 
     if (category === DecoratorCategoryEnum.RouterDecorators && this.node instanceof RouterNode) {
       this.addActiveRouterDecorators(decorators);
       this.removeNonActiveRouterDecorators(decoratorTypes as RouterNodeDecoratorTypeEnum[], decorators);
-
     } else if (category === DecoratorCategoryEnum.HostDecorators && this.node instanceof HostNode) {
       this.addActiveHostDecorators(decorators);
       this.removeNonActiveHostDecorators(decoratorTypes as HostNodeDecoratorTypeEnum[], decorators);
     }
-
   }
 
   /**
@@ -183,7 +189,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
       if (decorator instanceof NodeStatusDecorator) {
         this.statusDecorator = decorator;
       }
-      if (decorator instanceof  NodeSemaphoreDecorator) {
+      if (decorator instanceof NodeSemaphoreDecorator) {
         this.semaphoreDecorator = decorator;
         this.calculateSemaphoreDecoratorPosition(this.semaphoreDecorator);
       }
@@ -211,27 +217,42 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * latest received event (which decorator types should not be removed)
    * @param {NodeDecorator[]} activeDecorators decorator objects present in latest received event (which decorators should not be removed)
    */
-  private removeNonActiveHostDecorators(activeDecoratorTypes: HostNodeDecoratorTypeEnum[], activeDecorators: NodeDecorator[]) {
-    if (activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeStatusDecorator)
-      && !activeDecorators.find(dec => dec instanceof NodeStatusDecorator)) {
-      this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
+  private removeNonActiveHostDecorators(
+    activeDecoratorTypes: HostNodeDecoratorTypeEnum[],
+    activeDecorators: NodeDecorator[]
+  ) {
+    if (
+      activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeStatusDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof NodeStatusDecorator)
+    ) {
+      this.statusDecorator = new NodeStatusDecorator('', StatusEnum.Unknown);
     }
 
-    if (activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator)
-      && !activeDecorators.find(dec => dec instanceof NodeSemaphoreDecorator)) {
+    if (
+      activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof NodeSemaphoreDecorator)
+    ) {
       this.semaphoreDecorator = null;
     }
 
-    if (activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator)
-      && !activeDecorators.find(dec => dec instanceof NodeLogicalRoleDecorator)) {
+    if (
+      activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof NodeLogicalRoleDecorator)
+    ) {
       this.logicalRoleDecorator = null;
     }
   }
 
-  private removeNonActiveRouterDecorators(activeDecoratorTypes: RouterNodeDecoratorTypeEnum[], activeDecorators: NodeDecorator[]) {
-    if (activeDecoratorTypes.includes(RouterNodeDecoratorTypeEnum.LogicalRoleDecorator)
-      && !activeDecorators.find(dec => dec instanceof NodeLogicalRoleDecorator)) {
-      this.logicalRoleDecorator = null;}
+  private removeNonActiveRouterDecorators(
+    activeDecoratorTypes: RouterNodeDecoratorTypeEnum[],
+    activeDecorators: NodeDecorator[]
+  ) {
+    if (
+      activeDecoratorTypes.includes(RouterNodeDecoratorTypeEnum.LogicalRoleDecorator) &&
+      !activeDecorators.find((dec) => dec instanceof NodeLogicalRoleDecorator)
+    ) {
+      this.logicalRoleDecorator = null;
+    }
   }
 
   /**
@@ -242,16 +263,17 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   private onDecoratorRemoved(decoratorTypes, decoratorCategory) {
     if (decoratorTypes != null && decoratorTypes.length > 0) {
       const first = decoratorTypes[0];
-      if (Object.values(RouterNodeDecoratorTypeEnum).includes(first)
-          && decoratorCategory === DecoratorCategoryEnum.RouterDecorators
-          && this.node instanceof RouterNode) {
-
+      if (
+        Object.values(RouterNodeDecoratorTypeEnum).includes(first) &&
+        decoratorCategory === DecoratorCategoryEnum.RouterDecorators &&
+        this.node instanceof RouterNode
+      ) {
         this.removeRouterDecorators(decoratorTypes as RouterNodeDecoratorTypeEnum[]);
-
-      } else if (Object.values(HostNodeDecoratorTypeEnum).includes(first)
-          && decoratorCategory === DecoratorCategoryEnum.HostDecorators
-          && this.node instanceof HostNode) {
-
+      } else if (
+        Object.values(HostNodeDecoratorTypeEnum).includes(first) &&
+        decoratorCategory === DecoratorCategoryEnum.HostDecorators &&
+        this.node instanceof HostNode
+      ) {
         this.removeHostDecorators(decoratorTypes as HostNodeDecoratorTypeEnum[]);
       }
     }
@@ -262,7 +284,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @param {RouterNodeDecoratorTypeEnum[]} decoratorTypes array of decorator types to be removed
    */
   private removeRouterDecorators(decoratorTypes: RouterNodeDecoratorTypeEnum[]) {
-    decoratorTypes.forEach(decoratorType => {
+    decoratorTypes.forEach((decoratorType) => {
       switch (decoratorType) {
         case RouterNodeDecoratorTypeEnum.LogicalRoleDecorator: {
           this.logicalRoleDecorator = null;
@@ -279,7 +301,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * @param {HostNodeDecoratorTypeEnum[]} decoratorTypes array of decorator types to be removed
    */
   private removeHostDecorators(decoratorTypes: HostNodeDecoratorTypeEnum[]) {
-    decoratorTypes.forEach(decoratorType => {
+    decoratorTypes.forEach((decoratorType) => {
       switch (decoratorType) {
         case HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator: {
           this.semaphoreDecorator = null;
@@ -290,7 +312,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
           break;
         }
         case HostNodeDecoratorTypeEnum.NodeStatusDecorator: {
-          this.statusDecorator = new NodeStatusDecorator("", StatusEnum.Unknown);
+          this.statusDecorator = new NodeStatusDecorator('', StatusEnum.Unknown);
           break;
         }
         default:
@@ -311,7 +333,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Method for calculating width of node based on length of strings to be shown
    * @returns {number} calculated width of node
    */
-  private calculateNodeWidth(): number  {
+  private calculateNodeWidth(): number {
     return this.DEFAULT_NODE_WIDTH;
   }
 
@@ -327,7 +349,6 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     if (this.node instanceof SwitchNode && this.node.hasExpandableSubnetwork()) {
       return this.node.children.length;
     }
-
   }
 
   /**
@@ -336,24 +357,22 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   private initLabels() {
     // initial position - in lower middle part of node
     let xPosition = 0;
-    let yPosition = this.height / (-2) + 50;
+    let yPosition = this.height / -2 + 50;
 
     if (this.node.nodePorts[0].ip != null) {
-      this.labels.push(
-        {
-          x: xPosition,
-          y: yPosition,
-          text: this.node.nodePorts[0].ip
-        });
+      this.labels.push({
+        x: xPosition,
+        y: yPosition,
+        text: this.node.nodePorts[0].ip,
+      });
       yPosition += 12;
     }
     if (this.node.name != null) {
-      this.labels.push(
-        {
-          x: xPosition,
-          y: yPosition,
-          text: this.node.name
-        });
+      this.labels.push({
+        x: xPosition,
+        y: yPosition,
+        text: this.node.name,
+      });
     }
   }
 
@@ -367,8 +386,8 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   }
 
   private calculateLogicalRolePosition(decorator: NodeLogicalRoleDecorator) {
-    decorator.x = this.width / (2) - 35;
-    decorator.y = this.height / (-2) + 5;
+    decorator.x = this.width / 2 - 35;
+    decorator.y = this.height / -2 + 5;
   }
 
   ngOnDestroy(): void {

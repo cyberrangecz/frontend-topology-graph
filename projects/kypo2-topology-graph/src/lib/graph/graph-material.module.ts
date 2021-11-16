@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -46,9 +46,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
-
-
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatMenuModule,
@@ -71,8 +69,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+  ],
 })
-
 export class GraphMaterialModule {}

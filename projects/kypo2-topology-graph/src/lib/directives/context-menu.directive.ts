@@ -1,7 +1,6 @@
-import {Directive, HostListener, Input} from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import { ContextMenuService } from '../services/context-menu.service';
 import { Node } from '@muni-kypo-crp/topology-model';
-
 
 /**
  * Directive for marking objects with context menu
@@ -9,13 +8,9 @@ import { Node } from '@muni-kypo-crp/topology-model';
 @Directive({
   selector: '[contextMenu]',
 })
-
 export class ContextMenuDirective {
-
   @Input('contextMenu') node: Node;
-  constructor(private contextMenuService: ContextMenuService) {
-
-  }
+  constructor(private contextMenuService: ContextMenuService) {}
 
   /**
    * Reacts on right click - shows context menu and closes other if it was already open
@@ -27,7 +22,7 @@ export class ContextMenuDirective {
     this.contextMenuService.show.next({
       position: {
         x: this.node.x,
-        y: this.node.y
+        y: this.node.y,
       },
       nodeName: this.node.name,
     });

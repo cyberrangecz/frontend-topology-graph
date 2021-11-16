@@ -1,7 +1,7 @@
-import {EventEmitter} from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
-import {HierarchicalLayoutCreator} from './layout-creators/hierarchical-layout-creator';
-import {Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} from '@muni-kypo-crp/topology-model';
+import { HierarchicalLayoutCreator } from './layout-creators/hierarchical-layout-creator';
+import { Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
 
 /**
  * Model of force directed graph-visual. Used for displaying graph-visual visualization and user interaction with it.
@@ -12,7 +12,6 @@ import {Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode} 
  * This way, multi-layered hierarchies are supported.
  */
 export class ForceDirectedGraph {
-
   public ticker: EventEmitter<d3.Simulation<Node, Link>> = new EventEmitter();
   public simulation: d3.Simulation<any, any>;
 
@@ -27,7 +26,7 @@ export class ForceDirectedGraph {
 
   private locked = true;
 
-  constructor(nodes, links, options: { width, height }) {
+  constructor(nodes, links, options: { width; height }) {
     this.nodes = nodes;
     this.links = links;
 
@@ -37,7 +36,6 @@ export class ForceDirectedGraph {
     this.width = options.width;
     this.height = options.height;
     this.initSimulation();
-
   }
 
   /**
@@ -49,11 +47,7 @@ export class ForceDirectedGraph {
     }
 
     // Forces for repulsion between nodes to minimize crossing
-    this.simulation.nodes(this.nodes)
-      .force('charge', d3.forceManyBody()
-        .strength(-5000)
-        .distanceMax(150));
-
+    this.simulation.nodes(this.nodes).force('charge', d3.forceManyBody().strength(-5000).distanceMax(150));
   }
 
   /**
@@ -65,25 +59,27 @@ export class ForceDirectedGraph {
     }
 
     // This sets different default length of links and strength of this force for router nodes and host nodes
-    this.simulation
-      .force('links',
-        d3.forceLink(Array.from(this.links))
-          .id( d => d['id'])
-          .distance(d => {
-            if (d.type === LinkTypeEnum.InternetworkingOverlay) {
-              return 400;
-            } else {
-              return 150;
-            }
-          })
-          .strength( d => {
-            if (d.type === LinkTypeEnum.InternetworkingOverlay) {
-              return 0.5;
-            } else {
-              return 0.7;
-            }
-          }));
-    }
+    this.simulation.force(
+      'links',
+      d3
+        .forceLink(Array.from(this.links))
+        .id((d) => d['id'])
+        .distance((d) => {
+          if (d.type === LinkTypeEnum.InternetworkingOverlay) {
+            return 400;
+          } else {
+            return 150;
+          }
+        })
+        .strength((d) => {
+          if (d.type === LinkTypeEnum.InternetworkingOverlay) {
+            return 0.5;
+          } else {
+            return 0.7;
+          }
+        })
+    );
+  }
 
   /**
    * Initializes simulation with forces and other parameters. Prepares it for user interaction.
@@ -109,7 +105,6 @@ export class ForceDirectedGraph {
     return this.height;
   }
 
-
   /**
    * Applies forces to center graph and updates width and weight in components that are using it
    * @param options window width and height
@@ -117,7 +112,7 @@ export class ForceDirectedGraph {
   onResize(options) {
     this.width = options.width;
     this.height = options.height;
-    this.simulation.force('center', d3.forceCenter(this.width / 2 , this.height / 2));
+    this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
 
     if (this.locked) {
       this.setOnTickLocked();
@@ -139,23 +134,21 @@ export class ForceDirectedGraph {
     const width = this.width;
     const height = this.height;
 
-    this.simulation.on('tick',
-      function() {
-        // prevents revealing nodes outside of the graph window
-        nodes.forEach(d => {
-          d.x = Math.max(50, Math.min(width - 50, d.x));
-          d.y = Math.max(50, Math.min(height - 50, d.y));
-        });
-      ticker.emit(this);
+    this.simulation.on('tick', function () {
+      // prevents revealing nodes outside of the graph window
+      nodes.forEach((d) => {
+        d.x = Math.max(50, Math.min(width - 50, d.x));
+        d.y = Math.max(50, Math.min(height - 50, d.y));
       });
+      ticker.emit(this);
+    });
   }
 
   private setOnTickUnlocked() {
     const ticker = this.ticker;
-    this.simulation.on('tick',
-      function() {
-        ticker.emit(this);
-      });
+    this.simulation.on('tick', function () {
+      ticker.emit(this);
+    });
   }
 
   /**
@@ -218,36 +211,20 @@ export class ForceDirectedGraph {
    * Turning forces off after reorganization of graph-visual.
    */
   private turnOffInitialForces() {
-    this.simulation
-      .force('links', null)
-      .force('collide', null)
-      .force('center', null)
-      .force('charge', null)
-      .restart();
+    this.simulation.force('links', null).force('collide', null).force('center', null).force('charge', null).restart();
   }
 
-
   private turnOffSubnetRevealForces() {
-    this.simulation
-      .force('links', null)
-      .force('collide', null)
-      .restart();
+    this.simulation.force('links', null).force('collide', null).restart();
   }
 
   private turnOffHierarchicalLayoutForces() {
-    this.simulation
-      .force('x', null)
-      .force('y', null)
-      .force('collide', null)
-      .restart();
+    this.simulation.force('x', null).force('y', null).force('collide', null).restart();
   }
 
   private turnOffResizeForces() {
-    this.simulation
-      .force('center', null)
-      .restart();
+    this.simulation.force('center', null).restart();
   }
-
 
   /**
    * Adding subnetwork of router node to graph-visual (called by Node itself when changing state)
@@ -274,7 +251,7 @@ export class ForceDirectedGraph {
    * @param {parent} parent node of subnetwork
    */
   private addSubnetworkNodes(parent: SwitchNode) {
-    const nodes = parent.children.filter(node => !(node instanceof RouterNode));
+    const nodes = parent.children.filter((node) => !(node instanceof RouterNode));
     for (let i = nodes.length - 1; i >= 0; i--) {
       const children = nodes[i];
       const nonActiveIndex = this.nonActiveNodes.indexOf(children);
@@ -282,9 +259,9 @@ export class ForceDirectedGraph {
         this.nonActiveNodes.splice(nonActiveIndex, 1);
       }
       children.x = Math.max(150, Math.min(this.width - 80, this.calculateChildXPosition(parent, i)));
-      children.y =  Math.max(150, Math.min(this.height - 80, this.calculateChildYPosition(parent, i)));
+      children.y = Math.max(150, Math.min(this.height - 80, this.calculateChildYPosition(parent, i)));
       this.nodes.push(children);
-      }
+    }
   }
 
   /**
@@ -307,10 +284,8 @@ export class ForceDirectedGraph {
    * @param {SwitchNode} node which sub network is to be removed.
    */
   removeSubnetwork(node: SwitchNode) {
-    this.removeLinks(this.findSubnetLinksToRemove(node.children
-      .filter(node => !(node instanceof RouterNode))));
-    this.removeSubnetworkNodes(node.children
-      .filter(node => !(node instanceof RouterNode)));
+    this.removeLinks(this.findSubnetLinksToRemove(node.children.filter((node) => !(node instanceof RouterNode))));
+    this.removeSubnetworkNodes(node.children.filter((node) => !(node instanceof RouterNode)));
   }
 
   /**
@@ -320,12 +295,12 @@ export class ForceDirectedGraph {
   private removeSubnetworkNodes(nodes: Node[]) {
     this.simulation.stop();
     for (let i = nodes.length - 1; i >= 0; i--) {
-        const activeIndex = this.nodes.indexOf(nodes[i]);
-        if (activeIndex > - 1) {
-          this.nodes.splice(activeIndex, 1);
-        }
-        this.nonActiveNodes.push(nodes[i]);
+      const activeIndex = this.nodes.indexOf(nodes[i]);
+      if (activeIndex > -1) {
+        this.nodes.splice(activeIndex, 1);
       }
+      this.nonActiveNodes.push(nodes[i]);
+    }
   }
 
   /**
@@ -336,13 +311,12 @@ export class ForceDirectedGraph {
     this.simulation.stop();
     for (let i = links.length - 1; i >= 0; i--) {
       const activeIndex = this.links.indexOf(links[i]);
-      if (activeIndex > - 1) {
+      if (activeIndex > -1) {
         this.links.splice(activeIndex, 1);
       }
       this.nonActiveLinks.push(links[i]);
     }
   }
-
 
   /**
    * Helper method to find all links connected to nodes which are going to be removed
@@ -351,12 +325,11 @@ export class ForceDirectedGraph {
    */
   private findSubnetLinksToRemove(nodes: Node[]): Link[] {
     const result = [];
-    this.links.forEach(
-      (l) => {
-        if (nodes.includes(l.source) || nodes.includes(l.target)) {
-          result.push(l);
-        }
-      });
+    this.links.forEach((l) => {
+      if (nodes.includes(l.source) || nodes.includes(l.target)) {
+        result.push(l);
+      }
+    });
     return result;
   }
 
@@ -366,15 +339,13 @@ export class ForceDirectedGraph {
    * @returns {Link[]} set of links which were selected to be added back to the graph-visual
    */
   private findSubnetLinksToAdd(parent: SwitchNode): Link[] {
-    const nodes = parent.children.filter(node => !(node instanceof RouterNode));
+    const nodes = parent.children.filter((node) => !(node instanceof RouterNode));
     const result: Link[] = [];
-    this.nonActiveLinks.forEach(
-      (l) => {
-        if ((nodes.includes(l.source) && parent === l.target)
-          || nodes.includes(l.target) && parent === l.source) {
-          result.push(l);
-        }
-      });
+    this.nonActiveLinks.forEach((l) => {
+      if ((nodes.includes(l.source) && parent === l.target) || (nodes.includes(l.target) && parent === l.source)) {
+        result.push(l);
+      }
+    });
 
     return result;
   }
@@ -388,19 +359,19 @@ export class ForceDirectedGraph {
    */
   private calculateChildXPosition(parent: SwitchNode, i: number): number {
     // if parent is in the right side of graph-visual
-    if (parent.x >= (this.width / 2)) {
+    if (parent.x >= this.width / 2) {
       // if there are any nodes on right side of my parent
       if (parent.x < this.getLargestNodeXPositionInGraph() - 75) {
-        return parent.x - (50 * ++i);
+        return parent.x - 50 * ++i;
       }
-      return parent.x + (50 * ++i);
+      return parent.x + 50 * ++i;
       // if parent is in the left side of graph-visual
     } else {
       // if parent is the most-right located node
       if (parent.x >= this.getLargestNodeXPositionInGraph() - 75) {
-        return parent.x + (50 * ++i);
+        return parent.x + 50 * ++i;
       }
-      return parent.x - (50 * ++i);
+      return parent.x - 50 * ++i;
     }
   }
 
@@ -413,19 +384,19 @@ export class ForceDirectedGraph {
    */
   private calculateChildYPosition(parent: SwitchNode, i: number): number {
     // if parent is in the lower part of graph-visual
-    if (parent.y >= (this.height / 2)) {
+    if (parent.y >= this.height / 2) {
       // if there are any nodes below my parent
       if (parent.y < this.getLargestNodeYPositionInGraph() - 75) {
-        return parent.y - (50);
+        return parent.y - 50;
       }
-      return parent.y + (50);
+      return parent.y + 50;
       // if parent is in the upper part of graph-visual
     } else {
       // if parent is the lowest node
       if (parent.y >= this.getLargestNodeYPositionInGraph() - 75) {
-        return parent.y + (50);
+        return parent.y + 50;
       }
-      return parent.y - (50);
+      return parent.y - 50;
     }
   }
 
@@ -434,10 +405,14 @@ export class ForceDirectedGraph {
    * @returns {number} y coordinate
    */
   private getLargestNodeYPositionInGraph() {
-    const nodes = this.nodes
-      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Switch || node.physicalRole === NodePhysicalRoleEnum.Cloud);
+    const nodes = this.nodes.filter(
+      (node) =>
+        node.physicalRole === NodePhysicalRoleEnum.Router ||
+        node.physicalRole === NodePhysicalRoleEnum.Switch ||
+        node.physicalRole === NodePhysicalRoleEnum.Cloud
+    );
     if (nodes.length > 0) {
-      return nodes.reduce((prev, cur) => (prev.y > cur.y) ? prev : cur).y;
+      return nodes.reduce((prev, cur) => (prev.y > cur.y ? prev : cur)).y;
     } else {
       return 0;
     }
@@ -448,10 +423,14 @@ export class ForceDirectedGraph {
    * @returns {number} x coordinate
    */
   private getLargestNodeXPositionInGraph() {
-    const nodes = this.nodes
-      .filter(node => node.physicalRole === NodePhysicalRoleEnum.Router || node.physicalRole === NodePhysicalRoleEnum.Switch || node.physicalRole === NodePhysicalRoleEnum.Cloud);
+    const nodes = this.nodes.filter(
+      (node) =>
+        node.physicalRole === NodePhysicalRoleEnum.Router ||
+        node.physicalRole === NodePhysicalRoleEnum.Switch ||
+        node.physicalRole === NodePhysicalRoleEnum.Cloud
+    );
     if (nodes.length > 0) {
-      return nodes.reduce((prev, cur) => (prev.x > cur.x) ? prev : cur).x;
+      return nodes.reduce((prev, cur) => (prev.x > cur.x ? prev : cur)).x;
     } else {
       return 0;
     }
@@ -462,20 +441,23 @@ export class ForceDirectedGraph {
    * @param {SwitchNode} parent router node which subnet is revealed
    */
   private subnetNodesForce(parent: SwitchNode) {
-  this.simulation
-    .nodes(this.nodes)
-    .force('collide',
-      d3.forceCollide(
-      (d, i, nodes) => {
-        const node = nodes[i] as Node;
-        if (parent.children.indexOf(node) === -1) {
-          return 0;
-        } else {
-          return 50;
-        }
-    }).strength(1))
-    .alphaTarget(0.3)
-    .restart();
+    this.simulation
+      .nodes(this.nodes)
+      .force(
+        'collide',
+        d3
+          .forceCollide((d, i, nodes) => {
+            const node = nodes[i] as Node;
+            if (parent.children.indexOf(node) === -1) {
+              return 0;
+            } else {
+              return 50;
+            }
+          })
+          .strength(1)
+      )
+      .alphaTarget(0.3)
+      .restart();
   }
 
   /**
@@ -485,78 +467,93 @@ export class ForceDirectedGraph {
    */
   private subnetLinksForce(links: Link[]) {
     this.simulation
-      .force('links',
-        d3.forceLink(Array.from(this.links))
-          .id( d => d['id'])
+      .force(
+        'links',
+        d3
+          .forceLink(Array.from(this.links))
+          .id((d) => d['id'])
           .distance(150)
-          .strength( d => {
+          .strength((d) => {
             if (links.indexOf(d) === -1) {
               return 0;
             } else {
               return 1;
             }
-          }))
+          })
+      )
       .alphaTarget(0.3)
       .restart();
   }
 
-   getSwitchNodes(nodes: Node[]): SwitchNode[] {
-    return nodes.filter(node => node instanceof SwitchNode
-        && node.physicalRole === NodePhysicalRoleEnum.Switch) as SwitchNode[];
+  getSwitchNodes(nodes: Node[]): SwitchNode[] {
+    return nodes.filter(
+      (node) => node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch
+    ) as SwitchNode[];
   }
 
   /* -----------------------LAYOUTS----------------------- */
 
-  fitToScreen() {
-
-  }
+  fitToScreen() {}
 
   balloonTreeLayout() {
     this.simulation
       .force('charge', d3.forceManyBody().strength(-5000))
-      .force('links', d3.forceLink(Array.from(this.links))
-        .id( d => d['id'])
-        .distance(d => {
-          if (d.type === LinkTypeEnum.InternetworkingOverlay) {
-            return 400;
-          } else {
-            return 150;
-          }
-        })
-        .strength( d => {
-          if (d.type === LinkTypeEnum.InternetworkingOverlay) {
-            return 1;
-          } else {
-            return 1;
-          }
-        }))
+      .force(
+        'links',
+        d3
+          .forceLink(Array.from(this.links))
+          .id((d) => d['id'])
+          .distance((d) => {
+            if (d.type === LinkTypeEnum.InternetworkingOverlay) {
+              return 400;
+            } else {
+              return 150;
+            }
+          })
+          .strength((d) => {
+            if (d.type === LinkTypeEnum.InternetworkingOverlay) {
+              return 1;
+            } else {
+              return 1;
+            }
+          })
+      )
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .restart();
     this.selfOrganizeAndStop();
     this.turnOffInitialForces();
   }
 
-
   /**
    * Reshuffles graph to hierarchical topology. Uses custom forces with pre-calculated x and y positions for each node.
    */
   hierarchicalLayout() {
-    const nodePositions = new HierarchicalLayoutCreator(this.width, this.height)
-      .getPositionsForNodes(this.nodes.concat(this.nonActiveNodes));
+    const nodePositions = new HierarchicalLayoutCreator(this.width, this.height).getPositionsForNodes(
+      this.nodes.concat(this.nonActiveNodes)
+    );
 
     this.simulation
       .force('collide', d3.forceCollide().radius(50).strength(0.6))
-      .force('y', d3.forceY((d, i, nodes) => {
-        const node = nodes[i] as Node;
-        const nodePosition = nodePositions.getValue(node.name);
-        return nodePosition ? nodePosition.y : 0;
-        }
-      ).strength(1))
-      .force('x', d3.forceX((d, i, nodes) => {
-        const node = nodes[i] as Node;
-        const nodePosition = nodePositions.getValue(node.name);
-        return nodePosition ? nodePosition.x : 0;
-      }).strength(1))
+      .force(
+        'y',
+        d3
+          .forceY((d, i, nodes) => {
+            const node = nodes[i] as Node;
+            const nodePosition = nodePositions.getValue(node.name);
+            return nodePosition ? nodePosition.y : 0;
+          })
+          .strength(1)
+      )
+      .force(
+        'x',
+        d3
+          .forceX((d, i, nodes) => {
+            const node = nodes[i] as Node;
+            const nodePosition = nodePositions.getValue(node.name);
+            return nodePosition ? nodePosition.x : 0;
+          })
+          .strength(1)
+      )
       .alphaTarget(0.3)
       .restart();
   }

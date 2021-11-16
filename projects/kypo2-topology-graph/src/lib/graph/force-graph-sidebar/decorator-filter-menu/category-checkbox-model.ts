@@ -1,5 +1,5 @@
-import {DecoratorCheckboxModel} from './decorator-checkbox-model';
-import {DecoratorCategoryEnum} from '../../../model/enums/decorator-category-enum';
+import { DecoratorCheckboxModel } from './decorator-checkbox-model';
+import { DecoratorCategoryEnum } from '../../../model/enums/decorator-category-enum';
 
 /**
  * Model of category checkbox with children decorator checkboxes.
@@ -9,7 +9,6 @@ export class CategoryCheckboxModel {
   checked: boolean;
   disabled: boolean;
   decoratorCheckboxes: DecoratorCheckboxModel[];
-
 
   constructor(categoryType: DecoratorCategoryEnum, checked: boolean, decoratorCheckboxes: DecoratorCheckboxModel[]) {
     this.categoryType = categoryType;
@@ -23,14 +22,13 @@ export class CategoryCheckboxModel {
    */
   onChange() {
     this.checked = !this.checked;
-    this.decoratorCheckboxes
-      .forEach(checkbox => checkbox.checked = this.checked);
+    this.decoratorCheckboxes.forEach((checkbox) => (checkbox.checked = this.checked));
   }
 
   /**
    * Decides if its state corresponds with children states
    */
   decideState() {
-    this.checked = this.decoratorCheckboxes.every(sub => sub.checked);
+    this.checked = this.decoratorCheckboxes.every((sub) => sub.checked);
   }
 }

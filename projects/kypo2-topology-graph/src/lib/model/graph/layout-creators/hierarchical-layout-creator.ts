@@ -1,8 +1,7 @@
+import { Node, SwitchNode } from '@muni-kypo-crp/topology-model';
 
-import {Node, SwitchNode} from '@muni-kypo-crp/topology-model';
-
-import {Point} from '../../others/point';
-import {Dictionary} from 'typescript-collections';
+import { Point } from '../../others/point';
+import { Dictionary } from 'typescript-collections';
 
 /**
  * Creates hierarchical layout. Creates dictionary of node ids and its calculated x,y positions
@@ -18,7 +17,6 @@ export class HierarchicalLayoutCreator {
   private height: number;
 
   private layers: Dictionary<string, number>;
-
 
   constructor(width: number, height) {
     this.nodes = [];
@@ -41,7 +39,7 @@ export class HierarchicalLayoutCreator {
    * @param {Node[]} nodes to which positions should be calculated
    * @returns {Dictionary<string, Point>} calculated dictionary of node names and positions
    */
-  getPositionsForNodes(nodes: Node[]): Dictionary<string, Point>  {
+  getPositionsForNodes(nodes: Node[]): Dictionary<string, Point> {
     this.nodes = nodes;
     this.initializePositions();
     this.calculateNodeLayers();
@@ -53,7 +51,7 @@ export class HierarchicalLayoutCreator {
    * Initializes dictionary with default ids and positions
    */
   private initializePositions() {
-    this.nodes.forEach(node => this.nodePositions.setValue(node.name, new Point(-1, -1)));
+    this.nodes.forEach((node) => this.nodePositions.setValue(node.name, new Point(-1, -1)));
   }
 
   /**
@@ -71,7 +69,6 @@ export class HierarchicalLayoutCreator {
     const nodesWithoutParents = this.findNodesWithoutParents();
     this.calculateXPositionForTopLayer(nodesWithoutParents);
     this.calculateXPositionForSubnets(nodesWithoutParents);
-
   }
 
   /**
@@ -79,12 +76,13 @@ export class HierarchicalLayoutCreator {
    * @param {Node[]} topLayerNodes top layer nodes (nodes without parents)
    */
   private calculateXPositionForSubnets(topLayerNodes: Node[]) {
-    topLayerNodes.forEach(node => {
-      if (node instanceof SwitchNode
-        && node.children !== null
-        && node.children.length > 0
-        && this.nodes.includes(node.children[0])) {
-
+    topLayerNodes.forEach((node) => {
+      if (
+        node instanceof SwitchNode &&
+        node.children !== null &&
+        node.children.length > 0 &&
+        this.nodes.includes(node.children[0])
+      ) {
         const nodeXPosition = this.nodePositions.getValue(node.name).x;
         this.calculateXPositionsForSubnetsRecursively(node.children, nodeXPosition);
       }
@@ -104,12 +102,13 @@ export class HierarchicalLayoutCreator {
 
     this.calculateXPositionsForNodes(nodes, middleNodeId, distanceCoefficient);
 
-    nodes.forEach(node => {
-      if (node instanceof SwitchNode
-        && node.children !== null
-        && node.children.length > 0
-        && this.nodes.includes(node.children[0])) {
-
+    nodes.forEach((node) => {
+      if (
+        node instanceof SwitchNode &&
+        node.children !== null &&
+        node.children.length > 0 &&
+        this.nodes.includes(node.children[0])
+      ) {
         const nodeXPosition = this.nodePositions.getValue(node.name).x;
         this.calculateXPositionsForSubnetsRecursively(node.children, nodeXPosition);
       }
@@ -144,9 +143,9 @@ export class HierarchicalLayoutCreator {
       const middleXPosition = this.nodePositions.getValue(middleNodeName).x;
 
       if (node.name.localeCompare(middleNodeName)) {
-        this.setXPosition(node.name, (middleXPosition + (distanceCoefficient * (++rightNodesCount))));
+        this.setXPosition(node.name, middleXPosition + distanceCoefficient * ++rightNodesCount);
       } else {
-        this.setXPosition(node.name, (middleXPosition - (distanceCoefficient * (++leftNodesCount))));
+        this.setXPosition(node.name, middleXPosition - distanceCoefficient * ++leftNodesCount);
       }
     });
   }
@@ -157,11 +156,15 @@ export class HierarchicalLayoutCreator {
    * @param {number} distanceCoefficient distance by which should be middle position shifted if it is needed
    * @param {number} nodeCountInTopLayer number of nodes in top layer
    */
-  private setXPositionForMiddleNodeInTopLayer(nodeName: string, distanceCoefficient: number, nodeCountInTopLayer: number) {
+  private setXPositionForMiddleNodeInTopLayer(
+    nodeName: string,
+    distanceCoefficient: number,
+    nodeCountInTopLayer: number
+  ) {
     if (nodeCountInTopLayer % 2 === 0) {
-      this.setXPosition(nodeName, ((this.width / 2) + (distanceCoefficient / 2)));
+      this.setXPosition(nodeName, this.width / 2 + distanceCoefficient / 2);
     } else {
-      this.setXPosition(nodeName, (this.width / 2));
+      this.setXPosition(nodeName, this.width / 2);
     }
   }
 
@@ -172,11 +175,16 @@ export class HierarchicalLayoutCreator {
    * @param {number} nodeCount number of nodes in current layer (only for the current subnet, not total count)
    * @param {number} parentXPosition calculated X position of parent of this subnet
    */
-  private setXPositionForMiddleNodeInSubnet(nodeName: string, distanceCoefficient, nodeCount: number, parentXPosition: number) {
+  private setXPositionForMiddleNodeInSubnet(
+    nodeName: string,
+    distanceCoefficient,
+    nodeCount: number,
+    parentXPosition: number
+  ) {
     if (nodeCount % 2 === 0) {
-      this.setXPosition(nodeName, (parentXPosition + (distanceCoefficient / 2)));
+      this.setXPosition(nodeName, parentXPosition + distanceCoefficient / 2);
     } else {
-      this.setXPosition(nodeName, parentXPosition );
+      this.setXPosition(nodeName, parentXPosition);
     }
   }
 
@@ -186,7 +194,7 @@ export class HierarchicalLayoutCreator {
    * @returns {number} id of found middle node
    */
   private getMiddleNodeName(nodes: Node[]): string {
-    return nodes[Math.floor((nodes.length / 2))].name;
+    return nodes[Math.floor(nodes.length / 2)].name;
   }
 
   /**
@@ -195,7 +203,7 @@ export class HierarchicalLayoutCreator {
    * @returns {number} calculated coefficient
    */
   private calculateTopLayerDistanceCoefficient(nodeCountInTopLayer: number): number {
-    return(this.width / nodeCountInTopLayer);
+    return this.width / nodeCountInTopLayer;
   }
 
   /**
@@ -206,60 +214,58 @@ export class HierarchicalLayoutCreator {
     return 100;
   }
 
-
   /**
    * Calculates y position for each node in a graph for hierarchical layout.
    * First calculates how many levels are in the 'tree' then assigns y positions based on that information
    * @returns {Dictionary<string, number>} dictionary of node names as a keys and its y position as a value
    */
- private calculateYPositions() {
-   this.nodes.forEach(d => {
-     this.setYPosition(d.name, this.layers.getValue(d.name) * this.DISTANCE_BETWEEN_TREE_LEVELS);
-   });
- }
+  private calculateYPositions() {
+    this.nodes.forEach((d) => {
+      this.setYPosition(d.name, this.layers.getValue(d.name) * this.DISTANCE_BETWEEN_TREE_LEVELS);
+    });
+  }
 
   /**
    * Sets Y position to id in dict
    * @param {string} nodeName name of node
    * @param {number} value y value of node
    */
- private setYPosition(nodeName: string, value: number) {
-   this.nodePositions.getValue(nodeName).y = value;
- }
+  private setYPosition(nodeName: string, value: number) {
+    this.nodePositions.getValue(nodeName).y = value;
+  }
 
   /**
    * Sets X position to id in dict
    * @param {string} nodeName name of node
    * @param {number} value x value of node
    */
- private setXPosition(nodeName: string, value: number) {
-   this.nodePositions.getValue(nodeName).x = value;
- }
+  private setXPosition(nodeName: string, value: number) {
+    this.nodePositions.getValue(nodeName).x = value;
+  }
 
   /**
    * Finds if node has set correct (not default) x position in dict
    * @param {nodeName} nodeName name of node
    * @returns {boolean} true if correct x position is found, false otherwise
    */
- private hasXPosition(nodeName: string): boolean {
-   return this.nodePositions.getValue(nodeName).x >= 0;
- }
+  private hasXPosition(nodeName: string): boolean {
+    return this.nodePositions.getValue(nodeName).x >= 0;
+  }
 
   /**
    * Finds if node has set correct (not default) y position in dict
    * @param {string} nodeName of node
    * @returns {boolean} true if correct y position is found, false otherwise
    */
- private hasYPosition(nodeName: string) {
-   return this.nodePositions.getValue(nodeName).y >= 0;
-
- }
+  private hasYPosition(nodeName: string) {
+    return this.nodePositions.getValue(nodeName).y >= 0;
+  }
 
   /**
    * Calculates layer (depth) of each node in a graph
    */
   private calculateNodeLayers() {
-    this.nodes.forEach(node => {
+    this.nodes.forEach((node) => {
       if (!this.layers.getValue(node.name)) {
         this.calculateNodeLayersRecursively(node, 1);
       }
@@ -274,7 +280,7 @@ export class HierarchicalLayoutCreator {
   private calculateNodeLayersRecursively(node: Node, currLevel: number) {
     this.layers.setValue(node.name, currLevel);
     if (node instanceof SwitchNode) {
-      node.children.forEach(child => this.calculateNodeLayersRecursively(child, (currLevel + 1)));
+      node.children.forEach((child) => this.calculateNodeLayersRecursively(child, currLevel + 1));
     }
   }
 
@@ -297,6 +303,6 @@ export class HierarchicalLayoutCreator {
    * @returns {Node[]} array of nodes without parent
    */
   private findNodesWithoutParents(): Node[] {
-    return this.nodes.filter(d => !this.findParent(d));
+    return this.nodes.filter((d) => !this.findParent(d));
   }
 }

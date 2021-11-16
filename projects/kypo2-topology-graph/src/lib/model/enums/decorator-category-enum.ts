@@ -4,5 +4,5 @@
 export enum DecoratorCategoryEnum {
   RouterDecorators = 'Router decorators',
   HostDecorators = 'Host decorators',
-  LinkDecorators = 'Link decorators'
+  LinkDecorators = 'Link decorators',
 }

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { Node} from '@muni-kypo-crp/topology-model';
-import { ForceDirectedGraph} from '../model/graph/force-directed-graph';
+import { Node } from '@muni-kypo-crp/topology-model';
+import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
 import { D3Service } from '../services/d3.service';
 
 /**
@@ -8,7 +8,7 @@ import { D3Service } from '../services/d3.service';
  */
 
 @Directive({
-  selector: '[draggableNode]'
+  selector: '[draggableNode]',
 })
 export class DraggableDirective {
   @Input('draggableNode') node: Node;

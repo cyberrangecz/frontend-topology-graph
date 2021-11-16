@@ -1,10 +1,9 @@
 /**
  * Configuration of the library
  */
-import {GuacamoleConfig} from './guacamole-config';
+import { GuacamoleConfig } from './guacamole-config';
 
 export class Kypo2TopologyGraphConfig {
-
   /**
    * Configuration of the Apache's Guacamole
    */
@@ -34,5 +33,4 @@ export class Kypo2TopologyGraphConfig {
    * True if decorators should be user, false otherwise
    */
   useDecorators: boolean;
-
 }

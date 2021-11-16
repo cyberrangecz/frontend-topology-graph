@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {NodeActionEnum} from '../model/enums/node-context-menu-items-enum';
-import {Node} from '@muni-kypo-crp/topology-model';
-import {HostService} from './host.service';
-import {MenuItemResult} from '../model/events/menu-item-result';
-import {map} from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
+import { Node } from '@muni-kypo-crp/topology-model';
+import { HostService } from './host.service';
+import { MenuItemResult } from '../model/events/menu-item-result';
+import { map } from 'rxjs/operators';
 
 /**
  * Service used for handling events in context menu
@@ -45,10 +45,10 @@ export class ContextMenuService {
 
   show: Subject<{
     position: {
-      x: number,
-      y: number
-    },
-    nodeName: string
+      x: number;
+      y: number;
+    };
+    nodeName: string;
   }> = new Subject();
 
   getItems() {
@@ -61,9 +61,8 @@ export class ContextMenuService {
    * @param node node associated with the context menu
    */
   handleMenuItem(type: NodeActionEnum, node: Node): Observable<MenuItemResult> {
-    return this.hostService.performAction(type, node.name, node.nodePorts[0].ip)
-      .pipe(
-        map(payload => new MenuItemResult(type, payload))
-      );
+    return this.hostService
+      .performAction(type, node.name, node.nodePorts[0].ip)
+      .pipe(map((payload) => new MenuItemResult(type, payload)));
   }
 }

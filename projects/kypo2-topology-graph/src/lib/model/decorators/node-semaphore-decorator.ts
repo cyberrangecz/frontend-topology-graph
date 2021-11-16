@@ -1,5 +1,5 @@
-import {NodeSemaphoreDecoratorStatusEnum} from '../enums/node-semaphore-decorator-status-enum';
-import {NodeHostDecorator} from './node-host-decorator';
+import { NodeSemaphoreDecoratorStatusEnum } from '../enums/node-semaphore-decorator-status-enum';
+import { NodeHostDecorator } from './node-host-decorator';
 
 /**
  * Node semaphore decorator. Can be RED, ORANGE, GREEN

@@ -1,10 +1,10 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {DecoratorReloadTimerService} from './decorator-reload-timer.service';
-import {DecoratorEventService} from './decorator-event.service';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {Observable, Subject} from 'rxjs';
-import {DurationInputArg2, Moment} from 'moment-mini';
-import {ConfigService} from './config.service';
+import { Injectable, OnDestroy } from '@angular/core';
+import { DecoratorReloadTimerService } from './decorator-reload-timer.service';
+import { DecoratorEventService } from './decorator-event.service';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { Observable, Subject } from 'rxjs';
+import { DurationInputArg2, Moment } from 'moment-mini';
+import { ConfigService } from './config.service';
 import * as moment_ from 'moment-mini';
 
 const moment = moment_;
@@ -14,7 +14,6 @@ const moment = moment_;
  */
 @Injectable()
 export class DecoratorTimeService implements OnDestroy {
-
   private _useRealTime = true;
 
   private _from: string | number;
@@ -23,17 +22,15 @@ export class DecoratorTimeService implements OnDestroy {
   private _onRealTimeChangeSubject: Subject<boolean> = new Subject();
   onRealTimeChange: Observable<boolean> = this._onRealTimeChangeSubject.asObservable();
 
-
   private _decoratorReloadSubscription;
 
   constructor(
     private configService: ConfigService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
-    private decoratorEventService: DecoratorEventService) {
-
+    private decoratorEventService: DecoratorEventService
+  ) {
     this.subscribeDecoratorReload();
     this.setInitialValues();
-
   }
 
   /**
@@ -102,26 +99,24 @@ export class DecoratorTimeService implements OnDestroy {
   }
 
   private validateAbsoluteTime(from: number, to: number) {
-    return from !== null
-    && from !== undefined
-    && to !== null
-    && to !== undefined
-    && from <= to;
+    return from !== null && from !== undefined && to !== null && to !== undefined && from <= to;
   }
 
   private validateRelativeTime(from: string, to: string) {
-    return from !== null
-    && from !== undefined
-    && to !== null
-    && to !== undefined
-    && this.isValidConvertedRelativeTime(from, to);
+    return (
+      from !== null &&
+      from !== undefined &&
+      to !== null &&
+      to !== undefined &&
+      this.isValidConvertedRelativeTime(from, to)
+    );
   }
 
   private isValidConvertedRelativeTime(from: string, to: string): boolean {
     const now = moment();
     const firstMoment = this.convertToMoment(now, from);
     const secondMoment = this.convertToMoment(now, to);
-    if (!firstMoment || ! secondMoment) {
+    if (!firstMoment || !secondMoment) {
       return false;
     }
     return firstMoment.isBefore(secondMoment) || firstMoment.isSame(secondMoment);
@@ -154,11 +149,10 @@ export class DecoratorTimeService implements OnDestroy {
   }
 
   private subscribeDecoratorReload() {
-    this._decoratorReloadSubscription = this.decoratorReloadTimerService.onReloadPeriodChange.subscribe(
-      (value) => {
-          this._useRealTime = value > 0;
-          this._onRealTimeChangeSubject.next(this._useRealTime);
-      });
+    this._decoratorReloadSubscription = this.decoratorReloadTimerService.onReloadPeriodChange.subscribe((value) => {
+      this._useRealTime = value > 0;
+      this._onRealTimeChangeSubject.next(this._useRealTime);
+    });
   }
 
   private setInitialValues() {

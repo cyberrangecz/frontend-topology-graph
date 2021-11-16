@@ -1,3 +1,3 @@
 export class GuacamoleIdentifierDTO {
-  identifier: string
+  identifier: string;
 }

@@ -8,6 +8,7 @@
     "lint": "ng lint && npm run prettier-check",
     "e2e": "ng e2e",
     "prettier-check": "prettier --check \"projects/**/*.ts\"",
+    "prettier-fix": "prettier --write \"./projects/**/*.ts\"",
     "ci-test": "ng test --browsers ChromeHeadless --watch=false",
     "build-library": "ng build kypo2-topology-graph --configuration production",
     "build-example-app": "ng build kypo2-topology-graph-example --configuration production",
@@ -70,6 +71,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "ng-packagr": "^12.0.3",
     "protractor": "~7.0.0",
+    "prettier": "2.0.4",
     "ts-node": "~5.0.1",
     "typescript": "4.2.4"
   }

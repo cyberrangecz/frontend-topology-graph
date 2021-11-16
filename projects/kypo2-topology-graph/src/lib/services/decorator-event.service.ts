@@ -1,23 +1,22 @@
-import {Injectable} from '@angular/core';
-import {LinkDecorator} from '../model/decorators/link-decorator';
-import {NodeDecorator} from '../model/decorators/node-decorator';
-import {LinkDecoratorChangeEvent} from '../model/events/link-decorator-change-event';
-import {NodeDecoratorChangeEvent} from '../model/events/node-decorator-change-event';
+import { Injectable } from '@angular/core';
+import { LinkDecorator } from '../model/decorators/link-decorator';
+import { NodeDecorator } from '../model/decorators/node-decorator';
+import { LinkDecoratorChangeEvent } from '../model/events/link-decorator-change-event';
+import { NodeDecoratorChangeEvent } from '../model/events/node-decorator-change-event';
 
-import {Subject, Observable} from 'rxjs';
-import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
-import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {DecoratorEventMessageEnum} from '../model/enums/decorator-event-message-enum';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {DecoratorReloadRequestEvent} from '../model/events/decorator-reload-request-event';
+import { Subject, Observable } from 'rxjs';
+import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
+import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
+import { DecoratorEventMessageEnum } from '../model/enums/decorator-event-message-enum';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { DecoratorReloadRequestEvent } from '../model/events/decorator-reload-request-event';
 
 /**
  * Service used to send events to visual components of the graph-visual to notify them and pass newly loaded decorators
  */
 @Injectable()
 export class DecoratorEventService {
-  
   private onNodeDecoratorsChangeSubject: Subject<NodeDecoratorChangeEvent> = new Subject();
   onNodeDecoratorsChange: Observable<NodeDecoratorChangeEvent> = this.onNodeDecoratorsChangeSubject.asObservable();
 
@@ -25,8 +24,9 @@ export class DecoratorEventService {
   onLinkDecoratorsChange: Observable<LinkDecoratorChangeEvent> = this.onLinkDecoratorsChangeSubject.asObservable();
 
   private onDecoratorReloadRequestSubject: Subject<DecoratorReloadRequestEvent> = new Subject();
-  onDecoratorReloadRequest: Observable<DecoratorReloadRequestEvent> = this.onDecoratorReloadRequestSubject.asObservable();
-
+  onDecoratorReloadRequest: Observable<
+    DecoratorReloadRequestEvent
+  > = this.onDecoratorReloadRequestSubject.asObservable();
 
   /**
    * Creates event with newly loaded link decorators.
@@ -34,16 +34,20 @@ export class DecoratorEventService {
    * @param {LinkDecoratorTypeEnum[]} decoratorTypes array of loaded decorator types
    * @param {LinkDecorator[]} linkDecorators array of loaded link decorator objects
    */
-  public triggerLinkDecoratorsLoaded(decoratorCategory: DecoratorCategoryEnum,
-                                     decoratorTypes: LinkDecoratorTypeEnum[],
-                                     linkDecorators: LinkDecorator[]) {
+  public triggerLinkDecoratorsLoaded(
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorTypes: LinkDecoratorTypeEnum[],
+    linkDecorators: LinkDecorator[]
+  ) {
     this.onLinkDecoratorsChangeSubject.next(
-      new LinkDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsLoaded,
+      new LinkDecoratorChangeEvent(
+        DecoratorEventMessageEnum.DecoratorsLoaded,
         decoratorCategory,
         decoratorTypes,
-        linkDecorators));
+        linkDecorators
+      )
+    );
   }
-
 
   /**
    * Creates event with newly loaded node decorators.
@@ -51,14 +55,19 @@ export class DecoratorEventService {
    * @param {HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]} decoratorTypes decoratorTypes array of loaded decorator types
    * @param {NodeDecorator[]} nodeDecorators linkDecorators array of loaded node decorator objects
    */
-  public triggerNodeDecoratorsLoaded(decoratorCategory: DecoratorCategoryEnum,
-                                     decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
-                                     nodeDecorators: NodeDecorator[]) {
+  public triggerNodeDecoratorsLoaded(
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
+    nodeDecorators: NodeDecorator[]
+  ) {
     this.onNodeDecoratorsChangeSubject.next(
-      new NodeDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsLoaded,
+      new NodeDecoratorChangeEvent(
+        DecoratorEventMessageEnum.DecoratorsLoaded,
         decoratorCategory,
         decoratorTypes,
-        nodeDecorators));
+        nodeDecorators
+      )
+    );
   }
 
   /**
@@ -67,13 +76,13 @@ export class DecoratorEventService {
    * @param decoratorCategory decorator category which types should be removed
    * @param {HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]} decoratorTypes array of decorator types to remove
    */
-  public triggerNodeDecoratorsRemoved(decoratorCategory: DecoratorCategoryEnum ,
-                                      decoratorTypes:  HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]) {
+  public triggerNodeDecoratorsRemoved(
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]
+  ) {
     this.onNodeDecoratorsChangeSubject.next(
-      new NodeDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted,
-        decoratorCategory,
-        decoratorTypes));
-
+      new NodeDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes)
+    );
   }
 
   /**
@@ -81,12 +90,13 @@ export class DecoratorEventService {
    * Sends event with link decorator types which should be removed
    * @param {LinkDecoratorTypeEnum[]} decoratorTypes array of decorator types to remove
    */
-  public triggerLinkDecoratorsRemoved(decoratorCategory: DecoratorCategoryEnum,
-                                      decoratorTypes:  LinkDecoratorTypeEnum[]) {
+  public triggerLinkDecoratorsRemoved(
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorTypes: LinkDecoratorTypeEnum[]
+  ) {
     this.onLinkDecoratorsChangeSubject.next(
-      new LinkDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted,
-        decoratorCategory,
-        decoratorTypes));
+      new LinkDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes)
+    );
   }
 
   /**
@@ -103,12 +113,11 @@ export class DecoratorEventService {
    * @param {string[]} names array of names of topology elements whose decorators should be reloaded.
    * Can be omitted - null is passed  as default value- applies to all elements
    */
-  public triggerDecoratorReloadRequest(categoryType: DecoratorCategoryEnum,
-                                       decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-                                       names: string[] = null) {
-
+  public triggerDecoratorReloadRequest(
+    categoryType: DecoratorCategoryEnum,
+    decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
+    names: string[] = null
+  ) {
     this.onDecoratorReloadRequestSubject.next(new DecoratorReloadRequestEvent(categoryType, decoratorType, names));
   }
 }
-
-

@@ -1,34 +1,32 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, forkJoin, Subject} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {LinkDecorator} from '../model/decorators/link-decorator';
-import {NodeDecorator} from '../model/decorators/node-decorator';
-import {NodeSemaphoreDecorator} from '../model/decorators/node-semaphore-decorator';
-import {NodeStatusDecorator} from '../model/decorators/node-status-decorator';
-import {NodeLogicalRoleDecorator} from '../model/decorators/node-logical-role-decorator';
-import {HostNodeDecoratorTypeEnum} from '../model/enums/host-node-decorator-type-enum';
-import {RouterNodeDecoratorTypeEnum} from '../model/enums/router-node-decorator-type-enum';
-import {LinkDecoratorTypeEnum} from '../model/enums/link-decorator-type-enum';
-import {DecoratorEventService} from './decorator-event.service';
-import {DecoratorFilterService} from './decorator-filter.service';
-import {DecoratorCategoryEnum} from '../model/enums/decorator-category-enum';
-import {LinkSpeedDecorator} from '../model/decorators/link-speed-decorator';
-import {LinkMailDecorator} from '../model/decorators/link-mail-decorator';
-import {StringToEnumConverter} from '../others/string-to-enum-converter';
-import {EnumToStringConverter} from '../others/enum-to-string-converter';
-import {DecoratorHttpPostBody} from '../model/others/decorator-http-post-body';
-import {DecoratorTimeService} from './decorator-time.service';
-import {DecoratorStateService} from './decorator-state.service';
-import {map} from 'rxjs/operators';
-import {ConfigService} from './config.service';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, forkJoin, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { LinkDecorator } from '../model/decorators/link-decorator';
+import { NodeDecorator } from '../model/decorators/node-decorator';
+import { NodeSemaphoreDecorator } from '../model/decorators/node-semaphore-decorator';
+import { NodeStatusDecorator } from '../model/decorators/node-status-decorator';
+import { NodeLogicalRoleDecorator } from '../model/decorators/node-logical-role-decorator';
+import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
+import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
+import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
+import { DecoratorEventService } from './decorator-event.service';
+import { DecoratorFilterService } from './decorator-filter.service';
+import { DecoratorCategoryEnum } from '../model/enums/decorator-category-enum';
+import { LinkSpeedDecorator } from '../model/decorators/link-speed-decorator';
+import { LinkMailDecorator } from '../model/decorators/link-mail-decorator';
+import { StringToEnumConverter } from '../others/string-to-enum-converter';
+import { EnumToStringConverter } from '../others/enum-to-string-converter';
+import { DecoratorHttpPostBody } from '../model/others/decorator-http-post-body';
+import { DecoratorTimeService } from './decorator-time.service';
+import { DecoratorStateService } from './decorator-state.service';
+import { map } from 'rxjs/operators';
+import { ConfigService } from './config.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
+    'Content-Type': 'application/json',
+  }),
 };
-
 
 /**
  * Service is used for loading decorators from server, creating objects based on received data and passing the decorators to application.
@@ -36,17 +34,17 @@ const httpOptions = {
  */
 @Injectable()
 export class DecoratorFacade {
-
   private _decoratorLoaderErrorSubject: Subject<string> = new Subject();
   decoratorLoaderError: Observable<string> = this._decoratorLoaderErrorSubject.asObservable();
 
-  constructor(private http: HttpClient,
-              private configService: ConfigService,
-              private decoratorEventService: DecoratorEventService,
-              private decoratorsFilterService: DecoratorFilterService,
-              private decoratorTimeService: DecoratorTimeService,
-              private decoratorStateService: DecoratorStateService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService,
+    private decoratorEventService: DecoratorEventService,
+    private decoratorsFilterService: DecoratorFilterService,
+    private decoratorTimeService: DecoratorTimeService,
+    private decoratorStateService: DecoratorStateService
+  ) {}
 
   /**Loads decorators for router, host nodes and links
    * Receives names of nodes and links whose decorators should be retrieved.
@@ -69,7 +67,8 @@ export class DecoratorFacade {
     if (routerNodeNames != null && routerNodeNames.length > 0) {
       this.passRouterNodeDecoratorsToGraph(
         this.retrieveRouterNodeDecorators(routerNodeNames, routerNodeDecoratorTypes),
-        routerNodeDecoratorTypes);
+        routerNodeDecoratorTypes
+      );
     }
   }
 
@@ -81,7 +80,9 @@ export class DecoratorFacade {
     const hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[] = this.decoratorsFilterService.getActiveHostDecorators();
     if (hostNodeNames != null && hostNodeNames.length > 0) {
       this.passHostNodeDecoratorsToGraph(
-        this.retrieveHostNodeDecorators(hostNodeNames, hostNodeDecoratorTypes), hostNodeDecoratorTypes);
+        this.retrieveHostNodeDecorators(hostNodeNames, hostNodeDecoratorTypes),
+        hostNodeDecoratorTypes
+      );
     }
   }
 
@@ -103,8 +104,10 @@ export class DecoratorFacade {
    */
   loadRouterDecoratorsOfType(routerNodeNames: string[], decoratorType: RouterNodeDecoratorTypeEnum) {
     if (routerNodeNames != null && routerNodeNames.length > 0) {
-      this.passRouterNodeDecoratorsToGraph(this.retrieveRouterNodeDecorators(routerNodeNames, [decoratorType]), [decoratorType]);
-      }
+      this.passRouterNodeDecoratorsToGraph(this.retrieveRouterNodeDecorators(routerNodeNames, [decoratorType]), [
+        decoratorType,
+      ]);
+    }
   }
 
   /**
@@ -114,7 +117,9 @@ export class DecoratorFacade {
    */
   loadHostDecoratorsOfType(hostNodeNames: string[], decoratorType: HostNodeDecoratorTypeEnum) {
     if (hostNodeNames != null && hostNodeNames.length > 0) {
-      this.passHostNodeDecoratorsToGraph(this.retrieveHostNodeDecorators(hostNodeNames, [decoratorType]), [decoratorType]);
+      this.passHostNodeDecoratorsToGraph(this.retrieveHostNodeDecorators(hostNodeNames, [decoratorType]), [
+        decoratorType,
+      ]);
     }
   }
 
@@ -135,8 +140,10 @@ export class DecoratorFacade {
    * @param {HostNodeDecoratorTypeEnum[]} hostNodeDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<NodeDecorator[]>[]} list of observables returned from requests
    */
-  private retrieveHostNodeDecorators(hostNodeNames: string[],
-                                     hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
+  private retrieveHostNodeDecorators(
+    hostNodeNames: string[],
+    hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]
+  ): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
@@ -149,26 +156,27 @@ export class DecoratorFacade {
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.HostDecorators, hostNodeDecoratorType),
         hostNodeNames,
         from,
-        to);
+        to
+      );
 
       // send post request and parse it with appropriate method
       switch (hostNodeDecoratorType) {
-        case HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator : {
-/*          observablesToReturn.push(
+        case HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator: {
+          /*          observablesToReturn.push(
             this.http.post(url, requestBody, httpOptions)
               .map(response => this.parseNodeLogicalRoleDecorators(response))
           );*/
           break;
         }
-        case HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator : {
-/*          observablesToReturn.push(
+        case HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator: {
+          /*          observablesToReturn.push(
             this.http.post(url, requestBody, httpOptions)
               .map(response => this.parseNodeSemaphoreDecorators(response))
           );*/
           break;
         }
-        case HostNodeDecoratorTypeEnum.NodeStatusDecorator : {
-/*          observablesToReturn.push(
+        case HostNodeDecoratorTypeEnum.NodeStatusDecorator: {
+          /*          observablesToReturn.push(
             this.http.post(url, requestBody, httpOptions)
               .map(response => this.parseNodeStatusDecorators(response))
           );*/
@@ -185,25 +193,29 @@ export class DecoratorFacade {
    * @param {RouterNodeDecoratorTypeEnum[]} routerNodeDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<NodeDecorator[]>[] list of observables returned from requests
    */
-  private retrieveRouterNodeDecorators(routerNodeNames: string[],
-                                       routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]): Observable<NodeDecorator[]>[] {
-
+  private retrieveRouterNodeDecorators(
+    routerNodeNames: string[],
+    routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]
+  ): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
     for (const routerNodeDecoratorType of routerNodeDecoratorTypes) {
-
       const requestBody = new DecoratorHttpPostBody(
-        EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.RouterDecorators, routerNodeDecoratorType),
+        EnumToStringConverter.decoratorEnumToRestString(
+          DecoratorCategoryEnum.RouterDecorators,
+          routerNodeDecoratorType
+        ),
         routerNodeNames,
         from,
-        to);
+        to
+      );
 
       switch (routerNodeDecoratorType) {
         case RouterNodeDecoratorTypeEnum.LogicalRoleDecorator: {
-/*          observablesToReturn.push(
+          /*          observablesToReturn.push(
               this.http.post(url, requestBody, httpOptions)
                 .map(response => this.parseNodeLogicalRoleDecorators(response))
             );*/
@@ -223,38 +235,40 @@ export class DecoratorFacade {
    * @param {LinkDecoratorTypeEnum[]} linkDecoratorTypes types of decorators which should be retrieved
    * @returns {Observable<LinkDecorator[]>[]} list of observables returned from requests
    */
-  private retrieveLinkDecorators(linkNames: string[], linkDecoratorTypes: LinkDecoratorTypeEnum[]): Observable<LinkDecorator[]>[] {
-
+  private retrieveLinkDecorators(
+    linkNames: string[],
+    linkDecoratorTypes: LinkDecoratorTypeEnum[]
+  ): Observable<LinkDecorator[]>[] {
     const observablesToReturn: Observable<LinkDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/links/decorators';
     const from = this.decoratorTimeService.getFromTime();
     const to = this.decoratorTimeService.getToTime();
 
     for (const linkDecoratorType of linkDecoratorTypes) {
-
       const requestBody = new DecoratorHttpPostBody(
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.LinkDecorators, linkDecoratorType),
         linkNames,
         from,
-        to);
+        to
+      );
 
       switch (linkDecoratorType) {
-        case LinkDecoratorTypeEnum.LinkSpeedDecorator : {
+        case LinkDecoratorTypeEnum.LinkSpeedDecorator: {
           observablesToReturn.push(
-            this.http.post(url, requestBody, httpOptions)
-              .pipe(map(
-                response => this.parseLinkSpeedDecorators(response)
-              )));
+            this.http
+              .post(url, requestBody, httpOptions)
+              .pipe(map((response) => this.parseLinkSpeedDecorators(response)))
+          );
           break;
         }
-        case LinkDecoratorTypeEnum.LinkMailDecorator : {
-/*          observablesToReturn.push(
+        case LinkDecoratorTypeEnum.LinkMailDecorator: {
+          /*          observablesToReturn.push(
             this.http.post(url, requestBody, httpOptions)
               .map(response => this.parseLinkMailDecorators(response))
           );*/
           break;
         }
-        default : {
+        default: {
           break;
         }
       }
@@ -270,7 +284,9 @@ export class DecoratorFacade {
   private parseNodeStatusDecorators(json): NodeDecorator[] {
     const nodeDecorators: NodeDecorator[] = [];
     for (const decorator of json.nodes_decorators) {
-      nodeDecorators.push(new NodeStatusDecorator(decorator.node_id, StringToEnumConverter.statusStringToEnum(decorator.value)));
+      nodeDecorators.push(
+        new NodeStatusDecorator(decorator.node_id, StringToEnumConverter.statusStringToEnum(decorator.value))
+      );
     }
     return nodeDecorators;
   }
@@ -283,7 +299,12 @@ export class DecoratorFacade {
   private parseNodeSemaphoreDecorators(json): NodeDecorator[] {
     const nodeDecorators: NodeDecorator[] = [];
     for (const decorator of json.nodes_decorators) {
-      nodeDecorators.push(new NodeSemaphoreDecorator(decorator.node_id, StringToEnumConverter.statusSemaphoreStringToEnum(decorator.value)));
+      nodeDecorators.push(
+        new NodeSemaphoreDecorator(
+          decorator.node_id,
+          StringToEnumConverter.statusSemaphoreStringToEnum(decorator.value)
+        )
+      );
     }
     return nodeDecorators;
   }
@@ -297,8 +318,12 @@ export class DecoratorFacade {
     const nodeDecorators: NodeDecorator[] = [];
     for (const decorator of json.nodes_decorators) {
       if (decorator.value) {
-        nodeDecorators.push(new NodeLogicalRoleDecorator(decorator.node_id,
-          StringToEnumConverter.logicalRoleStringToEnum(decorator.value)));
+        nodeDecorators.push(
+          new NodeLogicalRoleDecorator(
+            decorator.node_id,
+            StringToEnumConverter.logicalRoleStringToEnum(decorator.value)
+          )
+        );
       }
     }
     return nodeDecorators;
@@ -337,29 +362,37 @@ export class DecoratorFacade {
    * @param {Observable<NodeDecorator[]>[]} nodeObservables array of all observables of node decorators from server requests
    * @param {RouterNodeDecoratorTypeEnum[]} decoratorTypes array of reloaded decorator types
    */
-  private passRouterNodeDecoratorsToGraph(nodeObservables: Observable<NodeDecorator[]>[], decoratorTypes: RouterNodeDecoratorTypeEnum[]) {
+  private passRouterNodeDecoratorsToGraph(
+    nodeObservables: Observable<NodeDecorator[]>[],
+    decoratorTypes: RouterNodeDecoratorTypeEnum[]
+  ) {
     const nodeDecorators: NodeDecorator[] = [];
 
     // testData
-/*    nodeDecorators.push(new NodeLogicalRoleDecorator(11, NodeLogicalRoleEnum.Victim));*/
+    /*    nodeDecorators.push(new NodeLogicalRoleDecorator(11, NodeLogicalRoleEnum.Victim));*/
 
     // forkJoin processes multiple observables and flattens the result to node and link arrays.
     // When flattening is completed event is triggered
-    forkJoin(nodeObservables)
-      .subscribe(
-        responses => responses
-          .forEach(decorators => {
-            decorators.forEach(dec => nodeDecorators.push(dec));
-          }),
-        err => {
-          this.triggerDecoratorLoadError();
-          this.decoratorStateService.setActive(false);
-          this.decoratorEventService
-            .triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.RouterDecorators, this.decoratorsFilterService.getActiveRouterDecorators());
-        },
-            () => this.decoratorEventService.
-            triggerNodeDecoratorsLoaded(DecoratorCategoryEnum.RouterDecorators, decoratorTypes, nodeDecorators)
+    forkJoin(nodeObservables).subscribe(
+      (responses) =>
+        responses.forEach((decorators) => {
+          decorators.forEach((dec) => nodeDecorators.push(dec));
+        }),
+      (err) => {
+        this.triggerDecoratorLoadError();
+        this.decoratorStateService.setActive(false);
+        this.decoratorEventService.triggerNodeDecoratorsRemoved(
+          DecoratorCategoryEnum.RouterDecorators,
+          this.decoratorsFilterService.getActiveRouterDecorators()
         );
+      },
+      () =>
+        this.decoratorEventService.triggerNodeDecoratorsLoaded(
+          DecoratorCategoryEnum.RouterDecorators,
+          decoratorTypes,
+          nodeDecorators
+        )
+    );
   }
 
   /**
@@ -367,30 +400,39 @@ export class DecoratorFacade {
    * @param {Observable<NodeDecorator[]>[]} nodeObservables array of all observables of node decorators from server requests
    * @param {HostNodeDecoratorTypeEnum[]} decoratorTypes array of reloaded decorator types
    */
-  private passHostNodeDecoratorsToGraph(nodeObservables: Observable<NodeDecorator[]>[], decoratorTypes: HostNodeDecoratorTypeEnum[]) {
+  private passHostNodeDecoratorsToGraph(
+    nodeObservables: Observable<NodeDecorator[]>[],
+    decoratorTypes: HostNodeDecoratorTypeEnum[]
+  ) {
     const nodeDecorators: NodeDecorator[] = [];
 
     // testData
-/*        nodeDecorators.push(new NodeLogicalRoleDecorator(4, NodeLogicalRoleEnum.Attacker));
+    /*        nodeDecorators.push(new NodeLogicalRoleDecorator(4, NodeLogicalRoleEnum.Attacker));
         nodeDecorators.push(new NodeSemaphoreDecorator(4, NodeSemaphoreDecoratorStatusEnum.Orange));
         nodeDecorators.push(new NodeStatusDecorator(4, StatusEnum.Online));*/
 
     // forkJoin processes multiple observables and flattens the result to node and link arrays.
     // When flattening is completed event is triggered
-    forkJoin(nodeObservables)
-      .subscribe(
-        responses => responses
-          .forEach(decorators => {
-            decorators.forEach(dec => nodeDecorators.push(dec));
-          }),
-        err => {
-          this.triggerDecoratorLoadError();
-          this.decoratorStateService.setActive(false);
-          this.decoratorEventService
-            .triggerNodeDecoratorsRemoved(DecoratorCategoryEnum.HostDecorators, this.decoratorsFilterService.getActiveHostDecorators());
-        },
-        () => this.decoratorEventService.triggerNodeDecoratorsLoaded(DecoratorCategoryEnum.HostDecorators, decoratorTypes, nodeDecorators)
-      );
+    forkJoin(nodeObservables).subscribe(
+      (responses) =>
+        responses.forEach((decorators) => {
+          decorators.forEach((dec) => nodeDecorators.push(dec));
+        }),
+      (err) => {
+        this.triggerDecoratorLoadError();
+        this.decoratorStateService.setActive(false);
+        this.decoratorEventService.triggerNodeDecoratorsRemoved(
+          DecoratorCategoryEnum.HostDecorators,
+          this.decoratorsFilterService.getActiveHostDecorators()
+        );
+      },
+      () =>
+        this.decoratorEventService.triggerNodeDecoratorsLoaded(
+          DecoratorCategoryEnum.HostDecorators,
+          decoratorTypes,
+          nodeDecorators
+        )
+    );
   }
 
   /**
@@ -398,28 +440,34 @@ export class DecoratorFacade {
    * @param {Observable<LinkDecorator[]>[]} linkObservables array of all observable of link decorators from server requests
    * @param {LinkDecoratorTypeEnum[]} decoratorTypes array of reloaded decorator types
    */
-  private passLinkDecoratorsToGraph(linkObservables: Observable<LinkDecorator[]>[], decoratorTypes: LinkDecoratorTypeEnum[]) {
+  private passLinkDecoratorsToGraph(
+    linkObservables: Observable<LinkDecorator[]>[],
+    decoratorTypes: LinkDecoratorTypeEnum[]
+  ) {
     const linkDecorators: LinkDecorator[] = [];
 
     // testData
-/*    linkDecorators.push(new LinkMailDecorator(25, 100));
+    /*    linkDecorators.push(new LinkMailDecorator(25, 100));
     linkDecorators.push(new LinkMailDecorator(24, 1000000));*/
 
-    forkJoin(linkObservables)
-      .subscribe(
-        responses => responses
-          .forEach(decorators => decorators
-            .forEach(dec => linkDecorators.push(dec))),
-        err => {
-          this.triggerDecoratorLoadError();
-          this.decoratorStateService.setActive(false);
-          this.decoratorEventService
-            .triggerLinkDecoratorsRemoved(DecoratorCategoryEnum.LinkDecorators, this.decoratorsFilterService.getActiveLinkDecorators());
-        },
-        () => {
-          this.decoratorEventService.triggerLinkDecoratorsLoaded(DecoratorCategoryEnum.LinkDecorators, decoratorTypes, linkDecorators);
-        }
-      );
+    forkJoin(linkObservables).subscribe(
+      (responses) => responses.forEach((decorators) => decorators.forEach((dec) => linkDecorators.push(dec))),
+      (err) => {
+        this.triggerDecoratorLoadError();
+        this.decoratorStateService.setActive(false);
+        this.decoratorEventService.triggerLinkDecoratorsRemoved(
+          DecoratorCategoryEnum.LinkDecorators,
+          this.decoratorsFilterService.getActiveLinkDecorators()
+        );
+      },
+      () => {
+        this.decoratorEventService.triggerLinkDecoratorsLoaded(
+          DecoratorCategoryEnum.LinkDecorators,
+          decoratorTypes,
+          linkDecorators
+        );
+      }
+    );
   }
   /**
    * Triggers node decorator load error event
@@ -427,7 +475,4 @@ export class DecoratorFacade {
   private triggerDecoratorLoadError() {
     this._decoratorLoaderErrorSubject.next('Could not retrieve decorator data from server');
   }
-
-
-
 }

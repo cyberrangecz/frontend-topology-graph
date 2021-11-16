@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfigService} from '../../services/config.service';
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
 /**
  * Component of navigational bar
  */
@@ -9,13 +9,11 @@ import {ConfigService} from '../../services/config.service';
   styleUrls: ['./topology-graph-sidebar.component.css'],
 })
 export class TopologyGraphSidebarComponent implements OnInit {
-
   displayDecorators: boolean;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
 
   ngOnInit() {
     this.displayDecorators = this.configService.config.useDecorators;
   }
-
 }

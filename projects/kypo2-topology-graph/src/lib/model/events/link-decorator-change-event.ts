@@ -1,7 +1,7 @@
-import {LinkDecorator} from '../decorators/link-decorator';
-import {LinkDecoratorTypeEnum} from '../enums/link-decorator-type-enum';
-import {DecoratorEventMessageEnum} from '../enums/decorator-event-message-enum';
-import {DecoratorCategoryEnum} from '../enums/decorator-category-enum';
+import { LinkDecorator } from '../decorators/link-decorator';
+import { LinkDecoratorTypeEnum } from '../enums/link-decorator-type-enum';
+import { DecoratorEventMessageEnum } from '../enums/decorator-event-message-enum';
+import { DecoratorCategoryEnum } from '../enums/decorator-category-enum';
 
 /**
  * Event describing change in node decorators.
@@ -16,11 +16,12 @@ export class LinkDecoratorChangeEvent {
   decoratorTypes: LinkDecoratorTypeEnum[];
   payload?: LinkDecorator[];
 
-
-  constructor(message: DecoratorEventMessageEnum,
-              decoratorCategory: DecoratorCategoryEnum,
-              decoratorType: LinkDecoratorTypeEnum[],
-              payload?: LinkDecorator[]) {
+  constructor(
+    message: DecoratorEventMessageEnum,
+    decoratorCategory: DecoratorCategoryEnum,
+    decoratorType: LinkDecoratorTypeEnum[],
+    payload?: LinkDecorator[]
+  ) {
     this.message = message;
     this.decoratorCategory = decoratorCategory;
     this.decoratorTypes = decoratorType;

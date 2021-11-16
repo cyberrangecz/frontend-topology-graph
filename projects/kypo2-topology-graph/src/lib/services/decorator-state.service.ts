@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Subject, Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable()
-export class  DecoratorStateService {
+export class DecoratorStateService {
   private active: boolean;
   private activeSubject: Subject<boolean> = new Subject<boolean>();
   activeObs: Observable<boolean> = this.activeSubject.asObservable();
@@ -19,11 +19,9 @@ export class  DecoratorStateService {
   setActive(value: boolean) {
     this.active = value;
     this.activeSubject.next(this.active);
-
   }
 
   getActive(): boolean {
     return this.active;
   }
-
 }

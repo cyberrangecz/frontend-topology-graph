@@ -1,15 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DecoratorTimeService} from '../../../services/decorator-time.service';
-import {DecoratorReloadTimerService} from '../../../services/decorator-reload-timer.service';
-import {DecoratorStateService} from '../../../services/decorator-state.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DecoratorTimeService } from '../../../services/decorator-time.service';
+import { DecoratorReloadTimerService } from '../../../services/decorator-reload-timer.service';
+import { DecoratorStateService } from '../../../services/decorator-state.service';
 
 @Component({
   selector: 'app-decorator-time-picker',
   templateUrl: './decorator-time-picker.component.html',
-  styleUrls: ['./decorator-time-picker.component.css']
+  styleUrls: ['./decorator-time-picker.component.css'],
 })
 export class DecoratorTimePickerComponent implements OnInit, OnDestroy {
-
   useRealTime: boolean;
   activeDecorators: boolean;
 
@@ -19,15 +18,15 @@ export class DecoratorTimePickerComponent implements OnInit, OnDestroy {
   constructor(
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService) {
+    private decoratorStateService: DecoratorStateService
+  ) {
     this.useRealTime = this.decoratorTimeService.getUseRealTime();
     this.activeDecorators = this.decoratorStateService.getActive();
     this.subscribeTime();
     this.subscribeState();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Toggles between manual date pick and real-time mode
