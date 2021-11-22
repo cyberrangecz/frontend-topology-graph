@@ -355,6 +355,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    * Calculates labels and position of text based on node attributes.
    */
   private initLabels() {
+
     // initial position - in lower middle part of node
     let xPosition = 0;
     let yPosition = this.height / -2 + 50;

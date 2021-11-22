@@ -119,6 +119,8 @@ export class TopologyMapper {
   private mapHostFromDTO(hostDTO: HostDTO): HostNode {
     const result = new HostNode();
     result.name = hostDTO.name;
+    result.osType = hostDTO.os_type;
+    result.guiAccess = hostDTO.gui_access;
     result.physicalRole = NodePhysicalRoleEnum.Desktop;
     return result;
   }

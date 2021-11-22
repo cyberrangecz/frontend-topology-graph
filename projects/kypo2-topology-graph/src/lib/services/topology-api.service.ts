@@ -94,29 +94,23 @@ export class TopologyApi {
   /**
    * Sends http request to authenticate user in guacamole and create Guacamole quick connection to the remote host
    * @param sandboxId id of sandbox in which the vm exists
-   * @param vmName name of the vm to remotely access
    * @param vmIp ip address of the vm to remotely access
+   * @param vmOsType vm's OS type of the host node
    * @param userInterface type of the user interface which should be used to open remote connection
    */
   establishGuacamoleRemoteConnection(
     sandboxId: number,
-    vmName: string,
     vmIp: string,
+    vmOsType: string,
     userInterface: UserInterface
   ): Observable<string> {
-    return zip(this.getGuacamoleToken(), this.getVmInfo(sandboxId, vmName), this.getManIp(sandboxId)).pipe(
+    return zip(this.getGuacamoleToken(), this.getManIp(sandboxId)).pipe(
       switchMap((resp) => {
         if (window.localStorage.getItem(this.GUAC_AUTH) !== null) {
           window.localStorage.removeItem(this.GUAC_AUTH);
         }
         window.localStorage.setItem(this.GUAC_AUTH, JSON.stringify(resp[0]));
-        return this.createGuacamoleQuickConnection(
-          resp[0].authToken,
-          vmIp,
-          resp[1].image.os_type,
-          resp[2].ip,
-          userInterface
-        );
+        return this.createGuacamoleQuickConnection(resp[0].authToken, vmIp, vmOsType, resp[1].ip, userInterface);
       }),
       tap({
         error: (err) => {
@@ -179,7 +173,7 @@ export class TopologyApi {
         break;
       case UserInterface.GUI:
         if (vmOsType === 'linux') {
-          body.set('uri', `vnc://${vmIp}:5901/?guacd-hostname=${manIp}&guacd-port=4822`);
+          body.set('uri', `vnc://${vmIp}:5900/?guacd-hostname=${manIp}&guacd-port=4822`);
         } else {
           body.set('uri', `rdp://${vmIp}:3389/?guacd-hostname=${manIp}&guacd-port=4822`);
         }
