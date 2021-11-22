@@ -1,11 +1,11 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { Node } from '@muni-kypo-crp/topology-model';
-import { take } from 'rxjs/operators';
-import { NodeActionEnum } from '../../model/enums/node-context-menu-items-enum';
-import { ConfigService } from '../../services/config.service';
-import { HostService } from '../../services/host.service';
+import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
+import {take} from 'rxjs/operators';
+import {NodeActionEnum} from '../../model/enums/node-context-menu-items-enum';
+import {ConfigService} from '../../services/config.service';
+import {HostService} from '../../services/host.service';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -16,7 +16,7 @@ import { HostService } from '../../services/host.service';
   styleUrls: ['./graph-node-context-menu.component.css'],
 })
 export class NodeContextMenuComponent implements OnInit {
-  @Input('context') node: Node;
+  @Input('context') node: HostNode | RouterNode;
 
   isDisplayed = false;
   items;
@@ -34,7 +34,14 @@ export class NodeContextMenuComponent implements OnInit {
 
   ngOnInit() {
     this.contextMenuService.show.subscribe((e) => this.showMenu(e.position, e.nodeName));
-    this.items = this.contextMenuService.getItems();
+    this.items = this.contextMenuService.getItems().filter((item) => {
+      if (item.type === NodeActionEnum.CommandLineInterface) {
+        return this.node.osType === 'linux';
+      } else if (item.type === NodeActionEnum.GraphicalUserInterface) {
+        return this.node.guiAccess;
+      }
+      return true;
+    });
   }
 
   /**
@@ -56,13 +63,13 @@ export class NodeContextMenuComponent implements OnInit {
       this.clipboard.copy(this.node.toString());
       return;
     }
+
     this.contextMenuService
       .handleMenuItem(item.type, this.node)
       .pipe(take(1))
-      .subscribe((result) => {
-        if (
-          result.type === NodeActionEnum.CommandLineInterface ||
-          result.type === NodeActionEnum.GraphicalUserInterface
+      .subscribe(result => {
+        if (result.type === NodeActionEnum.CommandLineInterface ||
+            result.type === NodeActionEnum.GraphicalUserInterface
         ) {
           const clientIdentifier = window.btoa([result.payload, 'c', 'quickconnect'].join('\0'));
           window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`, '_blank');

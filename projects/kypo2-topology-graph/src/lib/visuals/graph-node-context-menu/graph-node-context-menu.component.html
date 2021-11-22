@@ -3,16 +3,16 @@
     *ngIf="isDisplayed"
     class="items">
     <g
-      *ngFor="let item of items"
+      *ngFor="let item of items; index as i"
       class="item"
       (click)="onItemClick($event, item)">
       <rect class="item"
         [attr.x]="location.left + 20"
-        [attr.y]="location.top + (item.id * 20)">
+        [attr.y]="location.top + ((i+1) * 20)">
       </rect>
       <text class="item"
         [attr.x] = "location.left + 30"
-        [attr.y] = "location.top + (item.id * 20) + 15">
+        [attr.y] = "location.top + ((i+1) * 20) + 15">
         {{ item.title }}
       </text>
     </g>

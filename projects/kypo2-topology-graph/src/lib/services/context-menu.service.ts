@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
-import { Node } from '@muni-kypo-crp/topology-model';
+import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
 import { HostService } from './host.service';
 import { MenuItemResult } from '../model/events/menu-item-result';
 import { map } from 'rxjs/operators';
@@ -60,9 +60,7 @@ export class ContextMenuService {
    * @param type type of the context menu item
    * @param node node associated with the context menu
    */
-  handleMenuItem(type: NodeActionEnum, node: Node): Observable<MenuItemResult> {
-    return this.hostService
-      .performAction(type, node.name, node.nodePorts[0].ip)
-      .pipe(map((payload) => new MenuItemResult(type, payload)));
+  handleMenuItem(type: NodeActionEnum, node: HostNode | RouterNode): Observable<MenuItemResult> {
+    return this.hostService.performAction(type, node).pipe(map((payload) => new MenuItemResult(type, payload)));
   }
 }

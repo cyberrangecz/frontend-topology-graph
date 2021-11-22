@@ -5,6 +5,7 @@ import { concatMap } from 'rxjs/operators';
 import { TopologyApi } from './topology-api.service';
 import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
 import { UserInterface } from '../model/enums/user-interface-enum';
+import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
 import { ConsoleUrl } from '../model/others/console-url';
 
 /**
@@ -18,28 +19,27 @@ export class HostService {
    * Resolves type of action and calls api service to handle the action
    * The "Reboot" and "Suspend" actions are not available in the context menu - consider their full removal?
    * @param type type of requested action
-   * @param vmIp ip address of the vm to remotely access
-   * @param vmName name of virtual machine (host node)
+   * @param node host node
    */
-  performAction(type: NodeActionEnum, vmName: string, vmIp: string): Observable<any> {
+  performAction(type: NodeActionEnum, node: HostNode | RouterNode): Observable<any> {
     switch (type) {
       case NodeActionEnum.OpenConsoleUrl: {
-        return this.getConsoleUrl(vmName);
+        return this.getConsoleUrl(node.name);
       }
       case NodeActionEnum.CommandLineInterface: {
-        return this.openGuacamoleRemoteConnection(vmName, vmIp, UserInterface.CLI);
+        return this.openGuacamoleRemoteConnection(node.nodePorts[0].ip, node.osType, UserInterface.CLI);
       }
       case NodeActionEnum.GraphicalUserInterface: {
-        return this.openGuacamoleRemoteConnection(vmName, vmIp, UserInterface.GUI);
+        return this.openGuacamoleRemoteConnection(node.nodePorts[0].ip, node.osType, UserInterface.GUI);
       }
       case NodeActionEnum.Resume: {
-        return this.resume(vmName);
+        return this.resume(node.name);
       }
       case NodeActionEnum.Reboot: {
-        return this.reboot(vmName);
+        return this.reboot(node.name);
       }
       case NodeActionEnum.Suspend: {
-        return this.suspend(vmName);
+        return this.suspend(node.name);
       }
       default: {
         console.error('No such choice int the graph context menu');
@@ -68,14 +68,14 @@ export class HostService {
 
   /**
    * Redirect to the Guacamole web client to get remote desktop access using SSH, VNC or RDP
-   * @param vmName virtual machine name of the host node
    * @param vmIp ip address of the vm to remotely access
+   * @param vmOsType vm's OS type of the host node
    * @param userInterface type of the user interface which should be used to open remote connection
    */
-  openGuacamoleRemoteConnection(vmName: string, vmIp: string, userInterface: UserInterface): Observable<string> {
+  openGuacamoleRemoteConnection(vmIp: string, vmOsType: string, userInterface: UserInterface): Observable<string> {
     return this.sandboxService.sandboxId$.pipe(
       concatMap((sandboxId) =>
-        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxId, vmName, vmIp, userInterface)
+        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxId, vmIp, vmOsType, userInterface)
       )
     );
   }
