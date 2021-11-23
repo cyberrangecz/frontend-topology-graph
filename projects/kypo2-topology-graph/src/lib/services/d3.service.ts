@@ -58,11 +58,10 @@ export class D3Service {
     this.zoomSvg = d3.select(svgElement);
     this.currentScale = 1;
     // sets custom anon function to d3.zoom call
-    this.zoom = d3
-      .zoom()
-      .on('zoom', () => {
+    this.zoom = d3.zoom()
+      .on('zoom', (event) => {
         if (!this.graphLockService.getLocked()) {
-          const transform = d3.event.transform;
+          const transform = event.transform;
           this.zoomContainer.attr('transform', 'scale(' + transform.k + ')');
 
           // triggers event to notify subscribers about zooming
@@ -78,8 +77,8 @@ export class D3Service {
         }
       })
       .scaleExtent([0.1, 5])
-      .filter(() => {
-        return d3.event.shiftKey;
+      .filter((event) => {
+        return event.shiftKey;
       });
 
     // prevents zooming on double click which is already assigned to revealing subnetworks
@@ -103,11 +102,11 @@ export class D3Service {
     const resizeEventSubject = this._resizeEventSubject;
     const dragService = this.draggedNodeService;
     // drag started by user
-    function started() {
+    function started(event) {
       dragService.emitNodeTouchedEvent(node);
       // since d3 v4.13.0 default propagation to parent needs to be stopped
-      d3.event.sourceEvent.stopPropagation();
-      if (!d3.event.active) {
+      event.sourceEvent.stopPropagation();
+      if (!event.active) {
         graph.simulation.alphaTarget(0.3).restart();
       }
 
@@ -119,7 +118,7 @@ export class D3Service {
         dragStartedSubnetwork(node);
       }
 
-      d3.event.on('drag', dragged).on('end', ended);
+      event.on('drag', dragged).on('end', ended);
 
       // recursive function to start dragging on all nodes in parent subnetwork
       function dragStartedSubnetwork(router) {
@@ -134,12 +133,12 @@ export class D3Service {
       }
 
       // node is dragged, its position is recalculated here
-      function dragged() {
-        dragService.emitNodeDragStartedEvent(node);
+      function dragged(event) {
+          dragService.emitNodeDragStartedEvent(node);
         if (lockService.getLocked()) {
           // prevents dragging outside the window
-          node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x));
-          node.fy = Math.max(50, Math.min(graph.getGraphHeight() - 50, d3.event.y));
+          node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, event.x));
+          node.fy =  Math.max(50, Math.min(graph.getGraphHeight() - 50, event.y));
 
           // detects if parent node is on the border of window and stops dragging of subnet
           const onBorder =
@@ -152,8 +151,8 @@ export class D3Service {
             draggedSubnetwork(node);
           }
         } else {
-          node.fx = d3.event.x;
-          node.fy = d3.event.y;
+          node.fx = event.x;
+          node.fy = event.y;
 
           const outside =
             node.fx <= 50 ||
@@ -180,11 +179,11 @@ export class D3Service {
           for (const child of draggedNodes) {
             if (lockService.getLocked()) {
               // prevents dragging outside the window
-              child.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, d3.event.x + (child.x - node.x)));
-              child.fy = Math.max(50, Math.min(graph.getGraphHeight() - 50, d3.event.y + (child.y - node.y)));
+              child.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, event.x + (child.x - node.x)));
+              child.fy = Math.max(50, Math.min(graph.getGraphHeight() - 50, event.y + (child.y - node.y)));
             } else {
-              child.fx = d3.event.x + (child.x - node.x);
-              child.fy = d3.event.y + (child.y - node.y);
+              child.fx = event.x + (child.x - node.x);
+              child.fy = event.y + (child.y - node.y);
             }
             if (child instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch) {
               draggedSubnetwork(child);
@@ -194,10 +193,10 @@ export class D3Service {
       }
 
       // dragging is stopped by user
-      function ended() {
-        dragService.emitNodeDragEndedEvent();
+      function ended(event) {
+          dragService.emitNodeDragEndedEvent();
 
-        if (!d3.event.active) {
+        if (!event.active) {
           graph.simulation.alphaTarget(0).restart();
         }
         node.fx = null;
