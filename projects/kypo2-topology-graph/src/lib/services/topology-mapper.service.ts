@@ -104,6 +104,8 @@ export class TopologyMapper {
     const result = new RouterNode();
     result.cidr = routerDTO.cidr;
     result.name = routerDTO.name;
+    result.osType = routerDTO.os_type;
+    result.guiAccess = routerDTO.gui_access;
     result.physicalRole = NodePhysicalRoleEnum.Router;
     return result;
   }
