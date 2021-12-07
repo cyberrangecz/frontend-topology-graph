@@ -66,7 +66,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
 
   nodes: Node[];
   links: Link[];
-  allNodesLength: number;
 
   draggedNode: Node;
   isLoading$: Observable<boolean>;
@@ -109,7 +108,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
     if (this.configService.config.useDecorators && this.decoratorReloadTimerService.getReloadPeriod() > 0) {
       setTimeout(() => this.loadAllDecorators(), 100);
     }
-    setTimeout(() => this.expandSmallTopology(), 100);
 
     if (this.configService.config.useDecorators) {
       this.subscribeDecoratorsPeriodicalReload();
@@ -147,7 +145,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
       (data) => {
         this.nodes = data.nodes;
         this.links = data.links;
-        this.allNodesLength = data.nodes.length;
         this.dataLoaded = true;
         this.onTopologyLoaded.emit(true);
       },
@@ -155,15 +152,6 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
         this.isError = true;
       }
     );
-  }
-
-  /**
-   * When the topology has 10 nodes max, it is initially expanded
-   */
-  expandSmallTopology() {
-    if (this.allNodesLength <= 10) {
-      this.graphEventService.expandAll();
-    }
   }
 
   /**
