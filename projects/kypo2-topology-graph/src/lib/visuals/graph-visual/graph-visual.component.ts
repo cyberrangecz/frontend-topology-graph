@@ -93,8 +93,10 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     this.subscribeD3GraphResize();
     this.subscribeGraphTicker();
 
-    // collapse all subnets on start
-    this.graphEventService.collapseAll();
+    // collapse all subnets on start only if they are larger than 12
+    if (this.graph.nodes.length > 12) {
+      this.graphEventService.collapseAll();
+    }
     this.graph.initPosition();
   }
 
