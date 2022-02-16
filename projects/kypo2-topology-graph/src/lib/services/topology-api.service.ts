@@ -37,26 +37,34 @@ export class TopologyApi {
     private configService: ConfigService
   ) {}
 
+  getTopologyBySandboxInstanceId(sandboxInstanceId: number): Observable<{ nodes: Node[]; links: Link[] }> {
+    const url = `${this.configService.config.topologyRestUrl}sandboxes/${sandboxInstanceId}/topology`;
+    return this.getTopology(url);
+  }
+
+  getTopologyBySandboxDefinitionId(sandboxDefinitionsId: number): Observable<{ nodes: Node[]; links: Link[] }> {
+    const url = `${this.configService.config.topologyRestUrl}definitions/${sandboxDefinitionsId}/topology`;
+    return this.getTopology(url);
+  }
+
   /**
    * Sends HTTP request and parses data for topology model
    * @returns {Observable<{nodes: Node[], links: Link[]}>} Observable of topology model
    * Caller needs to subscribe for it.
    */
-  getTopology(sandboxId: number): Observable<{ nodes: Node[]; links: Link[] }> {
+  getTopology(url: string): Observable<{ nodes: Node[]; links: Link[] }> {
     this.loadingService.setIsLoading(true);
-    return this.http
-      .get<TopologyDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/topology`)
-      .pipe(
-        map((response) => this.topologySerializer.mapTopologyFromDTO(response)),
-        tap(
-          (_) => this.loadingService.setIsLoading(false),
-          (err) => {
-            const errorMessage = new TopologyError(err, 'Loading topology');
-            this.errorService.emitError(errorMessage);
-            this.loadingService.setIsLoading(false);
-          }
-        )
-      );
+    return this.http.get<TopologyDTO>(url).pipe(
+      map((response) => this.topologySerializer.mapTopologyFromDTO(response)),
+      tap(
+        (_) => this.loadingService.setIsLoading(false),
+        (err) => {
+          const errorMessage = new TopologyError(err, 'Loading topology');
+          this.errorService.emitError(errorMessage);
+          this.loadingService.setIsLoading(false);
+        }
+      )
+    );
   }
 
   /**

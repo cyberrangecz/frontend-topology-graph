@@ -1,0 +1,24 @@
+<h1>This is sample app for testing and development of Graph Topology Component</h1>
+<p>If you want to use the component in your own application, please follow instructions in README.MD file</p>
+
+<!-- EXAMPLE LEGEND VERTICAL LEFT -->
+<kypo2-topology-app-legend [width]="65"
+                           [height]="500"
+                           [style.float]="'left'"
+                           [legendAttachment]="'vertical'"
+></kypo2-topology-app-legend>
+
+
+<kypo2-topology-graph [width]="800"
+                      [height]="500"
+                      [sandboxId]="78"
+                      (onTopologyLoaded)="topologyLoadingFinished($event)">
+</kypo2-topology-graph>
+
+<!-- EXAMPLE LEGEND HORIZONTAL BOTTOM -->
+<!--
+<kypo2-topology-app-legend [width]="800"
+                           [height]="65"
+                           [legendAttachment]="'horizontal'"
+></kypo2-topology-app-legend>
+-->

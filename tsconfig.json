@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./projects/kypo2-topology-graph",
     "downlevelIteration": true,
     "module": "esnext",
     "outDir": "./dist/out-tsc",
@@ -26,5 +26,9 @@
         "dist/graph-topology/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

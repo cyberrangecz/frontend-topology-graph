@@ -9,7 +9,9 @@
     <g [linkVisual]="link"
        *ngFor="let link of links"></g>
     <!-- NODES -->
-    <g [nodeVisual]="node"
+    <g nodeVisual
+       [node]="node"
+       [cloudSandboxInstance]="cloudSandboxInstance"
        *ngFor="let node of nodes"
        [draggableNode]="node"
        [draggableInGraph]="graph">

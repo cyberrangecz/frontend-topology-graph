@@ -61,7 +61,8 @@ import { GraphLockService } from '../services/graph-lock.service';
 export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
   @Input() width: number;
   @Input() height: number;
-  @Input() sandboxId: number;
+  @Input() sandboxInstanceId: number;
+  @Input() sandboxDefinitionId: number;
   @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
 
   nodes: Node[];
@@ -120,8 +121,11 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('sandboxId' in changes) {
-      this.sandboxService.setId(this.sandboxId);
+    if ('sandboxInstanceId' in changes) {
+      this.sandboxService.setSandboxInstanceId(this.sandboxInstanceId);
+    }
+    if ('sandboxDefinitionId' in changes) {
+      this.sandboxService.setSandboxDefinitionId(this.sandboxDefinitionId);
     }
   }
 
@@ -141,7 +145,13 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
    */
   loadTopology() {
     this.dataLoaded = false;
-    this.topologyLoaderService.getTopology(this.sandboxId).subscribe(
+    let topologyRequest;
+    if (this.sandboxInstanceId) {
+      topologyRequest = this.topologyLoaderService.getTopologyBySandboxInstanceId(this.sandboxInstanceId);
+    } else if (this.sandboxDefinitionId) {
+      topologyRequest = this.topologyLoaderService.getTopologyBySandboxDefinitionId(this.sandboxDefinitionId);
+    }
+    topologyRequest.subscribe(
       (data) => {
         this.nodes = data.nodes;
         this.links = data.links;
@@ -377,6 +387,10 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
 
   private subscribeLoading() {
     this.isLoading$ = this.loadingService.isLoading$;
+  }
+
+  isCloudSandboxInstance(): boolean {
+    return this.sandboxInstanceId !== undefined && this.sandboxInstanceId !== null;
   }
 
   /**

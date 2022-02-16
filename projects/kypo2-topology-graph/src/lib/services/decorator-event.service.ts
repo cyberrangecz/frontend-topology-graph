@@ -24,9 +24,8 @@ export class DecoratorEventService {
   onLinkDecoratorsChange: Observable<LinkDecoratorChangeEvent> = this.onLinkDecoratorsChangeSubject.asObservable();
 
   private onDecoratorReloadRequestSubject: Subject<DecoratorReloadRequestEvent> = new Subject();
-  onDecoratorReloadRequest: Observable<
-    DecoratorReloadRequestEvent
-  > = this.onDecoratorReloadRequestSubject.asObservable();
+  onDecoratorReloadRequest: Observable<DecoratorReloadRequestEvent> =
+    this.onDecoratorReloadRequestSubject.asObservable();
 
   /**
    * Creates event with newly loaded link decorators.

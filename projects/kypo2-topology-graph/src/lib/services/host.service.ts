@@ -60,8 +60,8 @@ export class HostService {
         return of(vmConsole.url);
       }
     } else {
-      return this.sandboxService.sandboxId$.pipe(
-        concatMap((sandboxId) => this.topologyFacade.getVMConsoleUrl(sandboxId, vmName))
+      return this.sandboxService.sandboxInstanceId$.pipe(
+        concatMap((sandboxInstanceId) => this.topologyFacade.getVMConsoleUrl(sandboxInstanceId, vmName))
       );
     }
   }
@@ -73,9 +73,9 @@ export class HostService {
    * @param userInterface type of the user interface which should be used to open remote connection
    */
   openGuacamoleRemoteConnection(vmIp: string, vmOsType: string, userInterface: UserInterface): Observable<string> {
-    return this.sandboxService.sandboxId$.pipe(
-      concatMap((sandboxId) =>
-        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxId, vmIp, vmOsType, userInterface)
+    return this.sandboxService.sandboxInstanceId$.pipe(
+      concatMap((sandboxInstanceId) =>
+        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxInstanceId, vmIp, vmOsType, userInterface)
       )
     );
   }
@@ -85,9 +85,9 @@ export class HostService {
    * @param vmName name of a host which should be resumed
    */
   resume(vmName: string): Observable<any> {
-    return this.sandboxService.sandboxId$.pipe(
-      concatMap((sandboxId) =>
-        this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Resume.toLowerCase())
+    return this.sandboxService.sandboxInstanceId$.pipe(
+      concatMap((sandboxInstanceId) =>
+        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Resume.toLowerCase())
       )
     );
   }
@@ -97,9 +97,9 @@ export class HostService {
    * @param vmName name of a host which should be rebooted
    */
   reboot(vmName: string): Observable<any> {
-    return this.sandboxService.sandboxId$.pipe(
-      concatMap((sandboxId) =>
-        this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Reboot.toLowerCase())
+    return this.sandboxService.sandboxInstanceId$.pipe(
+      concatMap((sandboxInstanceId) =>
+        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Reboot.toLowerCase())
       )
     );
   }
@@ -109,9 +109,9 @@ export class HostService {
    * @param vmName name of a host for which should be suspended
    */
   suspend(vmName: string): Observable<any> {
-    return this.sandboxService.sandboxId$.pipe(
-      concatMap((sandboxId) =>
-        this.topologyFacade.performVMAction(sandboxId, vmName, NodeActionEnum.Suspend.toLowerCase())
+    return this.sandboxService.sandboxInstanceId$.pipe(
+      concatMap((sandboxInstanceId) =>
+        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Suspend.toLowerCase())
       )
     );
   }
