@@ -63,7 +63,8 @@ export class DecoratorFacade {
    * @param {string[]} routerNodeNames names of router nodes whose decorators should be retrieved
    */
   loadRouterNodeDecorators(routerNodeNames: string[]) {
-    const routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[] = this.decoratorsFilterService.getActiveRouterDecorators();
+    const routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[] =
+      this.decoratorsFilterService.getActiveRouterDecorators();
     if (routerNodeNames != null && routerNodeNames.length > 0) {
       this.passRouterNodeDecoratorsToGraph(
         this.retrieveRouterNodeDecorators(routerNodeNames, routerNodeDecoratorTypes),

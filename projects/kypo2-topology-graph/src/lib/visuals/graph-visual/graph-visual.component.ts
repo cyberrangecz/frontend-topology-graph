@@ -27,6 +27,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input('width') width: number;
   @Input('height') height: number;
   @Input('draggedNode') draggedNode: Node;
+  @Input() cloudSandboxInstance: boolean;
 
   graph: ForceDirectedGraph;
 

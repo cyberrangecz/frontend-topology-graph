@@ -58,7 +58,8 @@ export class D3Service {
     this.zoomSvg = d3.select(svgElement);
     this.currentScale = 1;
     // sets custom anon function to d3.zoom call
-    this.zoom = d3.zoom()
+    this.zoom = d3
+      .zoom()
       .on('zoom', (event) => {
         if (!this.graphLockService.getLocked()) {
           const transform = event.transform;
@@ -134,11 +135,11 @@ export class D3Service {
 
       // node is dragged, its position is recalculated here
       function dragged(event) {
-          dragService.emitNodeDragStartedEvent(node);
+        dragService.emitNodeDragStartedEvent(node);
         if (lockService.getLocked()) {
           // prevents dragging outside the window
           node.fx = Math.max(50, Math.min(graph.getGraphWidth() - 50, event.x));
-          node.fy =  Math.max(50, Math.min(graph.getGraphHeight() - 50, event.y));
+          node.fy = Math.max(50, Math.min(graph.getGraphHeight() - 50, event.y));
 
           // detects if parent node is on the border of window and stops dragging of subnet
           const onBorder =
@@ -194,7 +195,7 @@ export class D3Service {
 
       // dragging is stopped by user
       function ended(event) {
-          dragService.emitNodeDragEndedEvent();
+        dragService.emitNodeDragEndedEvent();
 
         if (!event.active) {
           graph.simulation.alphaTarget(0).restart();

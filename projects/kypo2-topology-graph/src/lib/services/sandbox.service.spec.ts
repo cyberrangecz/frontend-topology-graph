@@ -17,14 +17,14 @@ describe('SandboxService', () => {
   });
 
   it('should emit nex sandbox id', (done) => {
-    service.sandboxId$.pipe(skip(1), take(1)).subscribe(
+    service.sandboxInstanceId$.pipe(skip(1), take(1)).subscribe(
       (id) => {
         expect(id).toEqual(10);
         done();
       },
       (_) => fail()
     );
-    service.setId(10);
+    service.setSandboxInstanceId(10);
     expect(service).toBeTruthy();
   });
 });

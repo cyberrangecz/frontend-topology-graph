@@ -4,7 +4,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["projects/kypo2-topology-graph/tsconfig.*?.json"],
+        "project": ["projects/{{PROJECT_DIR}}/tsconfig.*?.json"],
         "createDefaultProgram": true
       },
       "rules": {

@@ -5,6 +5,11 @@ import { AppComponent } from './app.component';
 import {Kypo2TopologyGraphModule, Kypo2TopologyLegendModule} from '../../projects/kypo2-topology-graph/src/public_api';
 import {CustomTopologyConfig} from './graph-topology-config';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {environment} from "../environments/environment";
+import {SentinelAuthModule} from "@sentinel/auth";
+import {RouterModule} from "@angular/router";
+import {SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard} from "@sentinel/auth/guards";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -12,11 +17,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     HttpClientModule,
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    Kypo2TopologyGraphModule.forRoot(CustomTopologyConfig),
-    Kypo2TopologyLegendModule
+    SentinelAuthModule.forRoot(environment.authConfig),
+    RouterModule
   ],
+  providers: [SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
