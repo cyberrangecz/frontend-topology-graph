@@ -1,6 +1,6 @@
 {
   "name": "@muni-kypo-crp/topology-graph",
-  "version": "12.1.3",
+  "version": "13.0.0",
   "dependencies": {
     "tslib": "^2.0.0"
   },
