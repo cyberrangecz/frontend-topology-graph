@@ -17,13 +17,13 @@ export class ContextMenuService {
     this._items = [
       {
         id: 1,
-        type: NodeActionEnum.OpenConsoleUrl,
-        title: NodeActionEnum.OpenConsoleUrl,
+        type: NodeActionEnum.CommandLineInterface,
+        title: NodeActionEnum.CommandLineInterface,
       },
       {
         id: 2,
-        type: NodeActionEnum.CommandLineInterface,
-        title: NodeActionEnum.CommandLineInterface,
+        type: NodeActionEnum.OpenConsoleUrl,
+        title: NodeActionEnum.OpenConsoleUrl,
       },
       {
         id: 3,
@@ -32,11 +32,6 @@ export class ContextMenuService {
       },
       {
         id: 4,
-        type: NodeActionEnum.Resume,
-        title: NodeActionEnum.Resume,
-      },
-      {
-        id: 5,
         type: NodeActionEnum.CopyHostInfo,
         title: NodeActionEnum.CopyHostInfo,
       },

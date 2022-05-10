@@ -1,6 +1,6 @@
 export enum NodeActionEnum {
-  OpenConsoleUrl = 'Open console',
-  CommandLineInterface = 'Open CLI',
+  CommandLineInterface = 'Open console',
+  OpenConsoleUrl = 'Open console (deprecated)',
   GraphicalUserInterface = 'Open GUI',
   Resume = 'Resume',
   Reboot = 'Reboot',
