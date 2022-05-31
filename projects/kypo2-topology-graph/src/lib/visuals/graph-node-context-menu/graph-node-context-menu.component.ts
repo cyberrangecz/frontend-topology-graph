@@ -66,6 +66,8 @@ export class NodeContextMenuComponent implements OnInit {
    * @param type of menu item user clicked on
    */
   onItemClick(event, item) {
+    console.log('TYPE ', item.type);
+    console.log('WORK ', item.type);
     if (item.type === NodeActionEnum.CopyHostInfo) {
       this.clipboard.copy(this.node.toString());
       return;
@@ -81,6 +83,8 @@ export class NodeContextMenuComponent implements OnInit {
         ) {
           const clientIdentifier = window.btoa([result.payload, 'c', 'quickconnect'].join('\0'));
           window.open(`${this.configService.config.guacamoleConfig.url}#/client/${clientIdentifier}`, '_blank');
+        } else if (result.type === NodeActionEnum.OpenConsoleUrl) {
+          window.open(result.payload, '_blank');
         }
       });
   }

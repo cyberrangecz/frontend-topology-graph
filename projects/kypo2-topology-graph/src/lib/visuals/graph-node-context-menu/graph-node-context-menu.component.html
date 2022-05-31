@@ -16,23 +16,5 @@
         {{ item.title }}
       </text>
     </g>
-    <g
-      *ngIf="consoleURL">
-      <a class="console-link"
-         [attr.href]="consoleURL"
-         target="_blank">
-        <rect class="item"
-              [attr.x]="location.left + 20"
-              [attr.y]="location.top + 20">
-        </rect>
-        <text
-          class="item"
-          [attr.x] = "location.left + 30"
-          [attr.y] = "location.top + 35">
-          Open console
-        </text>
-      </a>
-    </g>
-
   </g>
 </svg>
