@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { NodeActionEnum } from '../../model/enums/node-context-menu-items-enum';
 import { ConfigService } from '../../services/config.service';
 import { HostService } from '../../services/host.service';
+import { Dimensions } from 'src/lib/model/others/dimensions';
 
 /**
  * Visual component for displaying context meu of node after right click
@@ -18,6 +19,10 @@ import { HostService } from '../../services/host.service';
 export class NodeContextMenuComponent implements OnInit {
   @Input() node: HostNode | RouterNode;
   @Input() cloudSandboxInstance: boolean;
+  @Input() graphSize: Dimensions;
+
+  readonly MENU_ROW_WIDTH = 160;
+  readonly MENU_ROW_HEIGHT = 20;
 
   isDisplayed = false;
   items;
@@ -66,8 +71,6 @@ export class NodeContextMenuComponent implements OnInit {
    * @param type of menu item user clicked on
    */
   onItemClick(event, item) {
-    console.log('TYPE ', item.type);
-    console.log('WORK ', item.type);
     if (item.type === NodeActionEnum.CopyHostInfo) {
       this.clipboard.copy(this.node.toString());
       return;
@@ -108,8 +111,14 @@ export class NodeContextMenuComponent implements OnInit {
   showMenu(position, nodeName) {
     if (this.node.name === nodeName) {
       this.menuLocation = {
-        left: position.x,
-        top: position.y,
+        left:
+          position.x + this.MENU_ROW_WIDTH > this.graphSize.width
+            ? this.graphSize.width - this.MENU_ROW_WIDTH
+            : position.x,
+        top:
+          position.y + this.MENU_ROW_HEIGHT * this.items.length > this.graphSize.height
+            ? this.graphSize.height - this.MENU_ROW_HEIGHT * this.items.length
+            : position.y,
       };
       this.isDisplayed = true;
       if (this.cloudSandboxInstance) {

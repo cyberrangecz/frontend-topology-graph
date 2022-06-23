@@ -6,7 +6,6 @@ export class MockDecoratorReloadTimerService extends DecoratorReloadTimerService
   onReloadPeriodChange: Observable<number> = this.subject.asObservable();
 
   turnOffAutomaticReload() {
-    console.log(0);
     this.subject.next(0);
   }
   turnOnAutomaticReload() {

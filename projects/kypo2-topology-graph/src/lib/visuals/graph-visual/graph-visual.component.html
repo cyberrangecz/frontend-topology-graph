@@ -11,6 +11,7 @@
     <!-- NODES -->
     <g nodeVisual
        [node]="node"
+       [graphSize]="{width, height}"
        [cloudSandboxInstance]="cloudSandboxInstance"
        *ngFor="let node of nodes"
        [draggableNode]="node"
