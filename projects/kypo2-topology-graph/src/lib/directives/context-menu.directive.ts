@@ -21,8 +21,8 @@ export class ContextMenuDirective {
   rightClicked(event: MouseEvent) {
     this.contextMenuService.show.next({
       position: {
-        x: this.node.x,
-        y: this.node.y,
+        x: event.offsetX,
+        y: event.offsetY,
       },
       nodeName: this.node.name,
     });

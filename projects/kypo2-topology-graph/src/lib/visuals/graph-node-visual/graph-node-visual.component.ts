@@ -13,6 +13,7 @@ import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum
 import { GraphEventService } from '../../services/graph-event.service';
 import { DecoratorReloadTimerService } from '../../services/decorator-reload-timer.service';
 import { ICONS_PATH } from '../../icons-path';
+import { Dimensions } from 'src/lib/model/others/dimensions';
 
 /**
  * Visual component used for displaying nodes of the graph-visual and its decorators. Binds to node model.
@@ -28,6 +29,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   @Input() node: Node;
   @Input() cloudSandboxInstance: boolean;
+  @Input() graphSize: Dimensions;
 
   iconsPath = ICONS_PATH;
   hasContextMenu: boolean;
