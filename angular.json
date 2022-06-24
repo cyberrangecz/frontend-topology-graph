@@ -145,6 +145,5 @@
         }
       }
     }
-  },
-  "defaultProject": "kypo2-topology-graph-example"
+  }
 }
