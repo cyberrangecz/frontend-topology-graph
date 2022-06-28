@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { NodeActionEnum } from '../../model/enums/node-context-menu-items-enum';
 import { ConfigService } from '../../services/config.service';
 import { HostService } from '../../services/host.service';
-import { Dimensions } from 'src/lib/model/others/dimensions';
+import { Dimensions } from '../../model/others/dimensions';
 
 /**
  * Visual component for displaying context meu of node after right click

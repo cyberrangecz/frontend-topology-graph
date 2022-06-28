@@ -13,7 +13,7 @@ import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum
 import { GraphEventService } from '../../services/graph-event.service';
 import { DecoratorReloadTimerService } from '../../services/decorator-reload-timer.service';
 import { ICONS_PATH } from '../../icons-path';
-import { Dimensions } from 'src/lib/model/others/dimensions';
+import { Dimensions } from '../../model/others/dimensions';
 
 /**
  * Visual component used for displaying nodes of the graph-visual and its decorators. Binds to node model.
