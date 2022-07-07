@@ -6,7 +6,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
  * display app specific loading indicator.
  */
 @Injectable()
-export class Kypo2TopologyLoadingService {
+export class KypoTopologyLoadingService {
   private isLoadingSubject: Subject<boolean> = new ReplaySubject();
   isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 

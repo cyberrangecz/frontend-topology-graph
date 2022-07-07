@@ -2,19 +2,19 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { TopologyApi } from './services/topology-api.service';
 import { TopologyMapper } from './services/topology-mapper.service';
-import { Kypo2TopologyLoadingService } from './services/kypo2-topology-loading.service';
-import { Kypo2TopologyErrorService } from './services/kypo2-topology-error.service';
+import { KypoTopologyLoadingService } from './services/kypo-topology-loading.service';
+import { KypoTopologyErrorService } from './services/kypo-topology-error.service';
 import { ConfigService } from './services/config.service';
-import { Kypo2TopologyGraphConfig } from './others/kypo2TopologyGraphConfig';
+import { KypoTopologyGraphConfig } from './others/kypoTopologyGraphConfig';
 
 @NgModule({
   imports: [CommonModule],
   providers: [
     TopologyApi,
     TopologyMapper,
-    Kypo2TopologyLoadingService,
-    Kypo2TopologyErrorService,
-    Kypo2TopologyGraphConfig,
+    KypoTopologyLoadingService,
+    KypoTopologyErrorService,
+    KypoTopologyGraphConfig,
     ConfigService,
   ],
 })
@@ -25,10 +25,10 @@ export class TopologyApiModule {
     }
   }
 
-  static forRoot(config: Kypo2TopologyGraphConfig): ModuleWithProviders<TopologyApiModule> {
+  static forRoot(config: KypoTopologyGraphConfig): ModuleWithProviders<TopologyApiModule> {
     return {
       ngModule: TopologyApiModule,
-      providers: [{ provide: Kypo2TopologyGraphConfig, useValue: config }],
+      providers: [{ provide: KypoTopologyGraphConfig, useValue: config }],
     };
   }
 }

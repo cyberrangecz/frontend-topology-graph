@@ -3,45 +3,45 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "kypo2-topology-graph": {
-      "root": "projects/kypo2-topology-graph",
-      "sourceRoot": "projects/kypo2-topology-graph/src",
+    "kypo-topology-graph": {
+      "root": "projects/kypo-topology-graph",
+      "sourceRoot": "projects/kypo-topology-graph/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/kypo2-topology-graph/tsconfig.lib.json",
-            "project": "projects/kypo2-topology-graph/ng-package.json"
+            "tsConfig": "projects/kypo-topology-graph/tsconfig.lib.json",
+            "project": "projects/kypo-topology-graph/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/kypo2-topology-graph/ng-package.prod.json",
-              "tsConfig": "projects/kypo2-topology-graph/tsconfig.lib.prod.json"
+              "project": "projects/kypo-topology-graph/ng-package.prod.json",
+              "tsConfig": "projects/kypo-topology-graph/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/kypo2-topology-graph/src/test.ts",
-            "tsConfig": "projects/kypo2-topology-graph/tsconfig.spec.json",
-            "karmaConfig": "projects/kypo2-topology-graph/karma.conf.js"
+            "main": "projects/kypo-topology-graph/src/test.ts",
+            "tsConfig": "projects/kypo-topology-graph/tsconfig.spec.json",
+            "karmaConfig": "projects/kypo-topology-graph/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/kypo2-topology-graph/**/*.ts",
-              "projects/kypo2-topology-graph/**/*.component.html"
+              "projects/kypo-topology-graph/**/*.ts",
+              "projects/kypo-topology-graph/**/*.component.html"
             ]
           }
         }
       }
     },
-    "kypo2-topology-graph-example": {
+    "kypo-topology-graph-example": {
       "root": "./",
       "sourceRoot": "src",
       "projectType": "application",
@@ -55,7 +55,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kypo2-topology-graph-example",
+            "outputPath": "dist/kypo-topology-graph-example",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -103,18 +103,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kypo2-topology-graph-example:build"
+            "browserTarget": "kypo-topology-graph-example:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kypo2-topology-graph-example:build:production"
+              "browserTarget": "kypo-topology-graph-example:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kypo2-topology-graph-example:build"
+            "browserTarget": "kypo-topology-graph-example:build"
           }
         },
         "test": {

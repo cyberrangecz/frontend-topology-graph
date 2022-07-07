@@ -7,17 +7,17 @@ import { LayoutTabComponent } from './force-graph-sidebar/layout-tab/layout-tab.
 import { TopologyGraphSidebarComponent } from './force-graph-sidebar/topology-graph-sidebar.component';
 import { DecoratorTimePickerComponent } from './force-graph-sidebar/decorator-time-picker/decorator-time-picker.component';
 import { DecoratorTimerComponent } from './force-graph-sidebar/decorator-timer/decorator-timer.component';
-import { Kypo2TopologyGraphComponent } from './kypo2-topology-graph.component';
+import { KypoTopologyGraphComponent } from './kypo-topology-graph.component';
 import { TopologyApi } from '../services/topology-api.service';
 import { GraphVisualComponentsModule } from '../visuals/graph-visual-components.module';
 import { GraphMaterialModule } from './graph-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
-import { Kypo2TopologyGraphConfig } from '../others/kypo2TopologyGraphConfig';
+import { KypoTopologyGraphConfig } from '../others/kypoTopologyGraphConfig';
 import { ConfigService } from '../services/config.service';
 import { TopologyMapper } from '../services/topology-mapper.service';
-import { Kypo2TopologyLoadingService } from '../services/kypo2-topology-loading.service';
-import { Kypo2TopologyErrorService } from '../services/kypo2-topology-error.service';
+import { KypoTopologyLoadingService } from '../services/kypo-topology-loading.service';
+import { KypoTopologyErrorService } from '../services/kypo-topology-error.service';
 
 @NgModule({
   imports: [
@@ -31,27 +31,27 @@ import { Kypo2TopologyErrorService } from '../services/kypo2-topology-error.serv
   declarations: [
     TopologyGraphSidebarComponent,
     DecoratorFilterMenuComponent,
-    Kypo2TopologyGraphComponent,
+    KypoTopologyGraphComponent,
     DecoratorTimerComponent,
     LayoutTabComponent,
     DecoratorTimePickerComponent,
     AbsoluteTimeComponent,
     RelativeTimeComponent,
   ],
-  providers: [ConfigService, TopologyApi, TopologyMapper, Kypo2TopologyLoadingService, Kypo2TopologyErrorService],
-  exports: [Kypo2TopologyGraphComponent],
+  providers: [ConfigService, TopologyApi, TopologyMapper, KypoTopologyLoadingService, KypoTopologyErrorService],
+  exports: [KypoTopologyGraphComponent],
 })
-export class Kypo2TopologyGraphModule {
-  constructor(@Optional() @SkipSelf() parentModule: Kypo2TopologyGraphModule) {
+export class KypoTopologyGraphModule {
+  constructor(@Optional() @SkipSelf() parentModule: KypoTopologyGraphModule) {
     if (parentModule) {
       throw new Error('TopologyGraphModule is already loaded. Import it in the main module only');
     }
   }
 
-  static forRoot(config: Kypo2TopologyGraphConfig): ModuleWithProviders<Kypo2TopologyGraphModule> {
+  static forRoot(config: KypoTopologyGraphConfig): ModuleWithProviders<KypoTopologyGraphModule> {
     return {
-      ngModule: Kypo2TopologyGraphModule,
-      providers: [{ provide: Kypo2TopologyGraphConfig, useValue: config }],
+      ngModule: KypoTopologyGraphModule,
+      providers: [{ provide: KypoTopologyGraphConfig, useValue: config }],
     };
   }
 }

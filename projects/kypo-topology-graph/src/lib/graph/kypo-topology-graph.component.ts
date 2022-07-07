@@ -21,8 +21,8 @@ import { ConfigService } from '../services/config.service';
 import { DraggedNodeService } from '../services/dragged-node.service';
 import { interval, Observable } from 'rxjs';
 import { SandboxService } from '../services/sandbox.service';
-import { Kypo2TopologyLoadingService } from '../services/kypo2-topology-loading.service';
-import { Kypo2TopologyErrorService } from '../services/kypo2-topology-error.service';
+import { KypoTopologyLoadingService } from '../services/kypo-topology-loading.service';
+import { KypoTopologyErrorService } from '../services/kypo-topology-error.service';
 import { HostService } from '../services/host.service';
 import { ContextMenuService } from '../services/context-menu.service';
 import { DecoratorFilterService } from '../services/decorator-filter.service';
@@ -38,9 +38,9 @@ import { GraphLockService } from '../services/graph-lock.service';
  * its safe to construct graph-visual.
  */
 @Component({
-  selector: 'kypo2-topology-graph',
-  templateUrl: './kypo2-topology-graph.component.html',
-  styleUrls: ['./kypo2-topology-graph.component.css'],
+  selector: 'kypo-topology-graph',
+  templateUrl: './kypo-topology-graph.component.html',
+  styleUrls: ['./kypo-topology-graph.component.css'],
   providers: [
     DecoratorFacade,
     SandboxService,
@@ -58,7 +58,7 @@ import { GraphLockService } from '../services/graph-lock.service';
     DraggedNodeService,
   ],
 })
-export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
+export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
   @Input() width: number;
   @Input() height: number;
   @Input() sandboxInstanceId: number;
@@ -87,8 +87,8 @@ export class Kypo2TopologyGraphComponent implements OnInit, OnChanges, OnDestroy
   constructor(
     public snackBar: MatSnackBar,
     private configService: ConfigService,
-    private loadingService: Kypo2TopologyLoadingService,
-    private errorService: Kypo2TopologyErrorService,
+    private loadingService: KypoTopologyLoadingService,
+    private errorService: KypoTopologyErrorService,
     private topologyLoaderService: TopologyApi,
     private decoratorLoaderService: DecoratorFacade,
     private decoratorEventService: DecoratorEventService,

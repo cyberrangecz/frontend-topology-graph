@@ -7,7 +7,7 @@ import { TopologyError } from '../model/others/topology-error.model';
  * display or log errors.
  */
 @Injectable()
-export class Kypo2TopologyErrorService {
+export class KypoTopologyErrorService {
   private errorSubject: Subject<any> = new Subject<any>();
   error$ = this.errorSubject.asObservable();
 

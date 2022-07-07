@@ -6,8 +6,8 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { TopologyMapper } from './topology-mapper.service';
 import { TopologyDTO } from '../model/DTO/topology-dto.model';
-import { Kypo2TopologyLoadingService } from './kypo2-topology-loading.service';
-import { Kypo2TopologyErrorService } from './kypo2-topology-error.service';
+import { KypoTopologyLoadingService } from './kypo-topology-loading.service';
+import { KypoTopologyErrorService } from './kypo-topology-error.service';
 import { ConsoleDTO } from '../model/DTO/console-dto.model';
 import { TopologyError } from '../model/others/topology-error.model';
 import { GuacamoleTokenDTO } from '../model/DTO/guacamole-token-dto.model';
@@ -32,8 +32,8 @@ export class TopologyApi {
   constructor(
     private http: HttpClient,
     private topologySerializer: TopologyMapper,
-    private loadingService: Kypo2TopologyLoadingService,
-    private errorService: Kypo2TopologyErrorService,
+    private loadingService: KypoTopologyLoadingService,
+    private errorService: KypoTopologyErrorService,
     private configService: ConfigService
   ) {}
 

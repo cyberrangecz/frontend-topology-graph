@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Kypo2TopologyGraphConfig } from '../others/kypo2TopologyGraphConfig';
+import { KypoTopologyGraphConfig } from '../others/kypoTopologyGraphConfig';
 
 /**
  * Global service for storing and accessing configuration of the topology
  */
 @Injectable()
 export class ConfigService {
-  config: Kypo2TopologyGraphConfig;
+  config: KypoTopologyGraphConfig;
 
-  constructor(configurationFile: Kypo2TopologyGraphConfig) {
+  constructor(configurationFile: KypoTopologyGraphConfig) {
     this.config = configurationFile;
   }
 }

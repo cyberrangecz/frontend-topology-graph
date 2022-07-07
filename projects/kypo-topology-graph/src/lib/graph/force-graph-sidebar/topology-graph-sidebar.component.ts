@@ -4,7 +4,7 @@ import { ConfigService } from '../../services/config.service';
  * Component of navigational bar
  */
 @Component({
-  selector: 'kypo2-topology-graph-sidebar',
+  selector: 'kypo-topology-graph-sidebar',
   templateUrl: './topology-graph-sidebar.component.html',
   styleUrls: ['./topology-graph-sidebar.component.css'],
 })
