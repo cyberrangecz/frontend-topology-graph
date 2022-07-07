@@ -3,7 +3,7 @@
  */
 import { GuacamoleConfig } from './guacamole-config';
 
-export class Kypo2TopologyGraphConfig {
+export class KypoTopologyGraphConfig {
   /**
    * Configuration of the Apache's Guacamole
    */

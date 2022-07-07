@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ICONS_PATH } from '../icons-path';
 
 @Component({
-  selector: 'kypo2-topology-app-legend',
-  templateUrl: './kypo2-topology-legend.component.html',
-  styleUrls: ['./kypo2-topology-legend.component.css'],
+  selector: 'kypo-topology-app-legend',
+  templateUrl: './kypo-topology-legend.component.html',
+  styleUrls: ['./kypo-topology-legend.component.css'],
 })
-export class Kypo2TopologyLegendComponent implements OnInit {
+export class KypoTopologyLegendComponent implements OnInit {
   @Input() width: number;
   @Input() height: number;
   @Input() legendAttachment: string = 'horizontal';
