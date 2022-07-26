@@ -17,18 +17,18 @@ export class ContextMenuService {
     this._items = [
       {
         id: 1,
+        type: NodeActionEnum.GraphicalUserInterface,
+        title: NodeActionEnum.GraphicalUserInterface,
+      },
+      {
+        id: 2,
         type: NodeActionEnum.CommandLineInterface,
         title: NodeActionEnum.CommandLineInterface,
       },
       {
-        id: 2,
+        id: 3,
         type: NodeActionEnum.OpenConsoleUrl,
         title: NodeActionEnum.OpenConsoleUrl,
-      },
-      {
-        id: 3,
-        type: NodeActionEnum.GraphicalUserInterface,
-        title: NodeActionEnum.GraphicalUserInterface,
       },
       {
         id: 4,
