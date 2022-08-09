@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
 import { NodeSemaphoreDecorator } from '../../model/decorators/node-semaphore-decorator';
 import { NodeStatusDecorator } from '../../model/decorators/node-status-decorator';
@@ -24,12 +24,15 @@ import { Dimensions } from '../../model/others/dimensions';
   styleUrls: ['./graph-node-visual.component.css'],
 })
 export class GraphNodeVisualComponent implements OnDestroy, OnInit {
-  readonly DEFAULT_NODE_WIDTH = 92;
-  readonly DEFAULT_NODE_HEIGHT = 70;
+  private readonly DEFAULT_NODE_WIDTH = 92;
+  private readonly DEFAULT_NODE_HEIGHT = 70;
 
   @Input() node: Node;
   @Input() cloudSandboxInstance: boolean;
   @Input() graphSize: Dimensions;
+  @Input() isConsoleReady: boolean;
+  @Output() polling: EventEmitter<boolean> = new EventEmitter();
+  @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
 
   iconsPath = ICONS_PATH;
   hasContextMenu: boolean;
@@ -72,6 +75,14 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
       this.changeSubnetworkState(this.node);
       this.loadDecoratorsForSubnet(this.node);
     }
+  }
+
+  onPollingStateChange(event: boolean): void {
+    this.polling.emit(event);
+  }
+
+  onLoadConsoles(event: string): void {
+    this.loadConsoles.emit(event);
   }
 
   /**

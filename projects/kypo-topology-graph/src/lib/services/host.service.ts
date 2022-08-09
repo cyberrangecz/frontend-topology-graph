@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SandboxService } from './sandbox.service';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { TopologyApi } from './topology-api.service';
 import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
 import { UserInterface } from '../model/enums/user-interface-enum';
 import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
-import { ConsoleUrl } from '../model/others/console-url';
 
 /**
  * Layer between components and API. Handles actions on host nodes
@@ -52,18 +51,13 @@ export class HostService {
    * @param vmName virtual machine name of the host node
    */
   getConsoleUrl(vmName: string): Observable<string> {
-    const consoles = window.localStorage.getItem('vm-consoles');
-    if (consoles) {
-      const data = JSON.parse(consoles) as ConsoleUrl[];
-      const vmConsole = data.find((console) => console.name === vmName);
-      if (vmConsole) {
-        return of(vmConsole.url);
-      }
-    } else {
-      return this.sandboxService.sandboxInstanceId$.pipe(
-        concatMap((sandboxInstanceId) => this.topologyFacade.getVMConsoleUrl(sandboxInstanceId, vmName))
-      );
-    }
+    return this.topologyFacade.consoles$.pipe(
+      map((consoles) => {
+        if (consoles.length > 0) {
+          return consoles.find((console) => console.name == vmName)?.url;
+        }
+      })
+    );
   }
 
   /**

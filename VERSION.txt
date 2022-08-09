@@ -1,3 +1,4 @@
+14.1.0 Disabled spice consoles option when it is not ready. Changed strategy for obtaining spice consoles.
 14.0.2 Rename from kypo2 to kypo.
 14.0.1 Fix imports.
 14.0.0 Update to Angular 14 and fix for topology menu being rendered outside the topology.
