@@ -45,11 +45,14 @@
     <!-- GRAPH -->
     <graph *ngIf="dataLoaded"
            [cloudSandboxInstance]="isCloudSandboxInstance()"
+           [isConsoleReady]="isConsoleReady$ | async"
            [draggedNode]="draggedNode"
            [nodes]="nodes"
            [links]="links"
            [width]="width - 40"
-           [height]="height - 20">
+           [height]="height - 20"
+           (polling)="onPollingStateChange($event)"
+           (loadConsoles)="onLoadConsoles($event)">
     </graph>
 
     <button

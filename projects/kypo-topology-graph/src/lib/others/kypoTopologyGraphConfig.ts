@@ -33,4 +33,14 @@ export class KypoTopologyGraphConfig {
    * True if decorators should be user, false otherwise
    */
   useDecorators: boolean;
+
+  /**
+   * Polling period for every periodically send request
+   */
+  pollingPeriod: number;
+
+  /**
+   * Max retry attempt for every periodically send request
+   */
+  retryAttempts: number;
 }

@@ -15,7 +15,10 @@
        [cloudSandboxInstance]="cloudSandboxInstance"
        *ngFor="let node of nodes"
        [draggableNode]="node"
-       [draggableInGraph]="graph">
+       [draggableInGraph]="graph"
+       [isConsoleReady]="isConsoleReady"
+       (polling)="onPollingStateChange($event)"
+       (loadConsoles)="onLoadConsoles($event)">
     </g>
   </g>
 </svg>

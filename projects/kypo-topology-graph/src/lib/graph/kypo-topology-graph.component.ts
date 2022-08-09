@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Link } from '@muni-kypo-crp/topology-model';
 import { Node } from '@muni-kypo-crp/topology-model';
 import { TopologyApi } from '../services/topology-api.service';
@@ -19,7 +29,7 @@ import { D3ZoomEventService } from '../services/d3-zoom-event.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigService } from '../services/config.service';
 import { DraggedNodeService } from '../services/dragged-node.service';
-import { interval, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, interval, Observable, takeWhile } from 'rxjs';
 import { SandboxService } from '../services/sandbox.service';
 import { KypoTopologyLoadingService } from '../services/kypo-topology-loading.service';
 import { KypoTopologyErrorService } from '../services/kypo-topology-error.service';
@@ -30,6 +40,9 @@ import { DecoratorTimeService } from '../services/decorator-time.service';
 import { DecoratorStateService } from '../services/decorator-state.service';
 import { GraphEventService } from '../services/graph-event.service';
 import { GraphLockService } from '../services/graph-lock.service';
+import { catchError, map, take } from 'rxjs/operators';
+import { ConsoleUrl } from '../model/others/console-url';
+import { ResourcePollingService } from '../services/resource-polling.service';
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -56,20 +69,26 @@ import { GraphLockService } from '../services/graph-lock.service';
     GraphEventService,
     GraphLockService,
     DraggedNodeService,
+    ResourcePollingService,
   ],
 })
-export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy {
+export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() width: number;
   @Input() height: number;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
 
+  private pollingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  polling$: Observable<boolean> = this.pollingSubject$.asObservable();
+
   nodes: Node[];
   links: Link[];
 
   draggedNode: Node;
   isLoading$: Observable<boolean>;
+  consoles$: Observable<ConsoleUrl[]>;
+  isConsoleReady$: Observable<boolean>;
   dataLoaded: boolean;
   showZoomResetButton = false;
   sidebarOpen = false;
@@ -96,8 +115,10 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy 
     private d3ZoomEventService: D3ZoomEventService,
     private graphEventService: GraphEventService,
     private sandboxService: SandboxService,
+    private topologyApiService: TopologyApi,
     private d3Service: D3Service,
-    private draggedNodeService: DraggedNodeService
+    private draggedNodeService: DraggedNodeService,
+    private resourcePollingService: ResourcePollingService
   ) {}
 
   /**
@@ -127,6 +148,39 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy 
     if ('sandboxDefinitionId' in changes) {
       this.sandboxService.setSandboxDefinitionId(this.sandboxDefinitionId);
     }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.sandboxInstanceId) {
+      this.topologyApiService.getVMConsolesUrl(this.sandboxInstanceId).pipe(take(1)).subscribe();
+      this.consoles$ = this.topologyApiService.consoles$;
+    }
+  }
+
+  onPollingStateChange(event: boolean): void {
+    this.pollingSubject$.next(event);
+  }
+
+  onLoadConsoles(event: string): void {
+    this.fetchConsoles();
+    this.isConsoleReady$ = this.consoles$.pipe(
+      map((consoles) => {
+        if (consoles.length > 0) {
+          return consoles.find((console) => console.name == event) !== undefined;
+        }
+      })
+    );
+  }
+
+  fetchConsoles(): void {
+    const observable$: Observable<ConsoleUrl[]> = this.topologyApiService.getVMConsolesUrl(this.sandboxInstanceId);
+    this.resourcePollingService
+      .startPolling(observable$, this.configService.config.pollingPeriod, this.configService.config.retryAttempts, true)
+      .pipe(
+        takeWhile(() => this.pollingSubject$.getValue()),
+        catchError(() => EMPTY)
+      )
+      .subscribe();
   }
 
   /**

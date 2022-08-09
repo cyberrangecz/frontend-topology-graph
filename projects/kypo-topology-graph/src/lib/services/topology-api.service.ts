@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Link, Node } from '@muni-kypo-crp/topology-model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, zip } from 'rxjs';
+import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { TopologyMapper } from './topology-mapper.service';
@@ -28,6 +28,9 @@ import { ConsoleUrl } from '../model/others/console-url';
 @Injectable()
 export class TopologyApi {
   private readonly GUAC_AUTH = 'GUAC_AUTH';
+
+  private consolesSubject$: BehaviorSubject<ConsoleUrl[]> = new BehaviorSubject([]);
+  consoles$: Observable<ConsoleUrl[]> = this.consolesSubject$.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -94,7 +97,10 @@ export class TopologyApi {
     return this.http.get(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/consoles`).pipe(
       map((resp) => ConsoleUrlMapper.fromJSON(resp)),
       tap({
-        error: (err) => this.errorService.emitError(new TopologyError(err, 'Loading URLs for VM consoles')),
+        next: (val) => this.consolesSubject$.next(val),
+        error: (err) => {
+          this.errorService.emitError(new TopologyError(err, 'Loading URLs for VM consoles'));
+        },
       })
     );
   }

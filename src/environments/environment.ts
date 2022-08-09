@@ -37,6 +37,7 @@ export const environment = {
           scope: 'openid email profile',
           logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',
           postLogoutRedirectUri: HOME_URL,
+          silentRefreshRedirectUri: 'https://172.19.0.22/silent-refresh.html',
           clearHashAfterLogin: true,
         },
       },

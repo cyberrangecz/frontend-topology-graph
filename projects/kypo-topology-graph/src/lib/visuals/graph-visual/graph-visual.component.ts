@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
 import { Link, SwitchNode } from '@muni-kypo-crp/topology-model';
@@ -28,6 +38,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input('height') height: number;
   @Input('draggedNode') draggedNode: Node;
   @Input() cloudSandboxInstance: boolean;
+  @Input() isConsoleReady: boolean;
+  @Output() polling: EventEmitter<boolean> = new EventEmitter();
+  @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
 
   graph: ForceDirectedGraph;
 
@@ -99,6 +112,14 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
       this.graphEventService.collapseAll();
     }
     this.graph.initPosition();
+  }
+
+  onPollingStateChange(event: boolean): void {
+    this.polling.emit(event);
+  }
+
+  onLoadConsoles(event: string): void {
+    this.loadConsoles.emit(event);
   }
 
   /**

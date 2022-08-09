@@ -84,5 +84,12 @@
      [semaphore-decorator]="semaphoreDecorator">
   </g>
 
-  <g *ngIf="hasContextMenu" context [node]="node" [cloudSandboxInstance]="cloudSandboxInstance" [graphSize]="graphSize"></g>
+  <g *ngIf="hasContextMenu" context
+     [node]="node"
+     [cloudSandboxInstance]="cloudSandboxInstance"
+     [graphSize]="graphSize"
+     [isConsoleReady]="isConsoleReady"
+     (polling)="onPollingStateChange($event)"
+     (loadConsoles)="onLoadConsoles($event)">
+  </g>
 </svg>

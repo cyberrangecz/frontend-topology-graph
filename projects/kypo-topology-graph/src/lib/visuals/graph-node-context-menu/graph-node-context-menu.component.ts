@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
@@ -16,18 +16,20 @@ import { Dimensions } from '../../model/others/dimensions';
   templateUrl: './graph-node-context-menu.component.html',
   styleUrls: ['./graph-node-context-menu.component.css'],
 })
-export class NodeContextMenuComponent implements OnInit {
+export class NodeContextMenuComponent implements OnInit, OnChanges {
+  readonly MENU_ROW_HEIGHT = 20;
+  MENU_ROW_WIDTH = 160;
+
   @Input() node: HostNode | RouterNode;
   @Input() cloudSandboxInstance: boolean;
   @Input() graphSize: Dimensions;
-
-  readonly MENU_ROW_WIDTH = 160;
-  readonly MENU_ROW_HEIGHT = 20;
+  @Input() isConsoleReady: boolean;
+  @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
+  @Output() polling: EventEmitter<boolean> = new EventEmitter();
 
   isDisplayed = false;
   items;
   consoleButtonDisplayed = false;
-  consoleURL = null;
 
   private menuLocation: { left: number; top: number } = { left: 0, top: 0 };
 
@@ -56,14 +58,22 @@ export class NodeContextMenuComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if ('isConsoleReady' in changes) {
+      this.MENU_ROW_WIDTH = this.isConsoleReady ? 160 : 200;
+    }
+  }
+
   /**
    * Changes internal state of the component to reset after user clicked outside the context menu
    */
   @HostListener('document:click', ['$event'])
   onClickOutside(event) {
+    if (this.isDisplayed) {
+      this.polling.emit(false);
+    }
     this.isDisplayed = false;
     this.consoleButtonDisplayed = false;
-    this.consoleURL = false;
   }
 
   /**
@@ -73,6 +83,9 @@ export class NodeContextMenuComponent implements OnInit {
   onItemClick(event, item) {
     if (item.type === NodeActionEnum.CopyHostInfo) {
       this.clipboard.copy(this.node.toString());
+      return;
+    }
+    if (item.type === NodeActionEnum.OpenConsoleUrl && !this.isConsoleReady) {
       return;
     }
 
@@ -122,7 +135,7 @@ export class NodeContextMenuComponent implements OnInit {
       };
       this.isDisplayed = true;
       if (this.cloudSandboxInstance) {
-        this.hostService.getConsoleUrl(this.node.name).subscribe((url) => (this.consoleURL = url));
+        this.loadConsoles.emit(this.node.name);
       }
     } else {
       this.isDisplayed = false;
