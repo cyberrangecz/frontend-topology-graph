@@ -68,8 +68,8 @@ export class HostService {
    */
   openGuacamoleRemoteConnection(vmIp: string, vmOsType: string, userInterface: UserInterface): Observable<string> {
     return this.sandboxService.sandboxInstanceId$.pipe(
-      concatMap((sandboxInstanceId) =>
-        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxInstanceId, vmIp, vmOsType, userInterface)
+      concatMap((sandboxUuid) =>
+        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxUuid, vmIp, vmOsType, userInterface)
       )
     );
   }
@@ -80,8 +80,8 @@ export class HostService {
    */
   resume(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
-      concatMap((sandboxInstanceId) =>
-        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Resume.toLowerCase())
+      concatMap((sandboxUuid) =>
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Resume.toLowerCase())
       )
     );
   }
@@ -92,8 +92,8 @@ export class HostService {
    */
   reboot(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
-      concatMap((sandboxInstanceId) =>
-        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Reboot.toLowerCase())
+      concatMap((sandboxUuid) =>
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Reboot.toLowerCase())
       )
     );
   }
@@ -104,8 +104,8 @@ export class HostService {
    */
   suspend(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
-      concatMap((sandboxInstanceId) =>
-        this.topologyFacade.performVMAction(sandboxInstanceId, vmName, NodeActionEnum.Suspend.toLowerCase())
+      concatMap((sandboxUuid) =>
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Suspend.toLowerCase())
       )
     );
   }

@@ -21,7 +21,7 @@ To use the topology component in your Angular application follow these steps:
     + useRealTime (currently not supported by backend, always set to false)
     + useDecorators (currently not supported by backend, always set to false)
 3. Import **kypoTopologyGraphModule** from **kypo-topology-graph** and add it to imports in your module with `kypoTopologyGraphModule.forRoot(new CustomTopologyConfig())`.
-4. Use `<kypo-topology-graph>` directive in your code and set its size by binding to `[width]` and `[height]` attributes. Pass sandbox id to component by binding to `[sandboxId]` attribute. If you wish to be notified when data of tology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
+4. Use `<kypo-topology-graph>` directive in your code and set its size by binding to `[width]` and `[height]` attributes. Pass sandbox id to component by binding to `[sandboxUuid]` attribute. If you wish to be notified when data of tology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
 5. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
 6. Subscribe to observables of `kypoTopologyLoadingService` and `kypoTopologyErrorService` to display loading and error messages emitted from the component in a standard way of your app
 
