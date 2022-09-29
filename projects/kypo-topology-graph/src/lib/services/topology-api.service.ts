@@ -40,8 +40,8 @@ export class TopologyApi {
     private configService: ConfigService
   ) {}
 
-  getTopologyBySandboxInstanceId(sandboxInstanceId: number): Observable<{ nodes: Node[]; links: Link[] }> {
-    const url = `${this.configService.config.topologyRestUrl}sandboxes/${sandboxInstanceId}/topology`;
+  getTopologyBySandboxInstanceId(sandboxUuid: string): Observable<{ nodes: Node[]; links: Link[] }> {
+    const url = `${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/topology`;
     return this.getTopology(url);
   }
 
@@ -72,12 +72,12 @@ export class TopologyApi {
 
   /**
    * Sends http request to get url of virtual machine console (terminal) for remote access
-   * @param sandboxId id of sandbox in which the vm exists
+   * @param sandboxUuid id of sandbox in which the vm exists
    * @param vmName name of the vm to remotely access
    */
-  getVMConsoleUrl(sandboxId: number, vmName: string): Observable<string> {
+  getVMConsoleUrl(sandboxUuid: string, vmName: string): Observable<string> {
     return this.http
-      .get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}/console`)
+      .get<ConsoleDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/vms/${vmName}/console`)
       .pipe(
         map((resp) => resp.url),
         tap({
@@ -91,10 +91,10 @@ export class TopologyApi {
 
   /**
    * Retrieves urls for spice consoles for all hosts and routers in a topology.
-   * @param sandboxId id of sandbox in which hosts and routers exist
+   * @param sandboxUuid id of sandbox in which hosts and routers exist
    */
-  getVMConsolesUrl(sandboxId: number): Observable<ConsoleUrl[]> {
-    return this.http.get(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/consoles`).pipe(
+  getVMConsolesUrl(sandboxUuid: string): Observable<ConsoleUrl[]> {
+    return this.http.get(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/consoles`).pipe(
       map((resp) => ConsoleUrlMapper.fromJSON(resp)),
       tap({
         next: (val) => this.consolesSubject$.next(val),
@@ -107,18 +107,18 @@ export class TopologyApi {
 
   /**
    * Sends http request to authenticate user in guacamole and create Guacamole quick connection to the remote host
-   * @param sandboxId id of sandbox in which the vm exists
+   * @param sandboxUuid id of sandbox in which the vm exists
    * @param vmIp ip address of the vm to remotely access
    * @param vmOsType vm's OS type of the host node
    * @param userInterface type of the user interface which should be used to open remote connection
    */
   establishGuacamoleRemoteConnection(
-    sandboxId: number,
+    sandboxUuid: string,
     vmIp: string,
     vmOsType: string,
     userInterface: UserInterface
   ): Observable<string> {
-    return zip(this.getGuacamoleToken(), this.getManIp(sandboxId)).pipe(
+    return zip(this.getGuacamoleToken(), this.getManIp(sandboxUuid)).pipe(
       switchMap((resp) => {
         if (window.localStorage.getItem(this.GUAC_AUTH) !== null) {
           window.localStorage.removeItem(this.GUAC_AUTH);
@@ -148,9 +148,9 @@ export class TopologyApi {
     );
   }
 
-  private getVmInfo(sandboxId: number, vmName: string): Observable<HostDTO> {
+  private getVmInfo(sandboxUuid: string, vmName: string): Observable<HostDTO> {
     return this.http
-      .get<HostDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}`)
+      .get<HostDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/vms/${vmName}`)
       .pipe(
         tap({
           error: (err) => {
@@ -161,9 +161,9 @@ export class TopologyApi {
       );
   }
 
-  private getManIp(sandboxId: number): Observable<ManDTO> {
+  private getManIp(sandboxUuid: string): Observable<ManDTO> {
     return this.http
-      .get<ManDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/man-out-port-ip`)
+      .get<ManDTO>(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/man-out-port-ip`)
       .pipe(
         tap({
           error: (err) => {
@@ -227,13 +227,13 @@ export class TopologyApi {
 
   /**
    * Sends http request to perform an action on a virtual machine
-   * @param sandboxId id of sandbox in which the vm exists
+   * @param sandboxUuid id of sandbox in which the vm exists
    * @param vmName name of the vm on which to perform the action
    * @param action action to be performed
    */
-  performVMAction(sandboxId: number, vmName: string, action: string): Observable<any> {
+  performVMAction(sandboxUuid: string, vmName: string, action: string): Observable<any> {
     return this.http
-      .patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxId}/vms/${vmName}`, { action: action })
+      .patch(`${this.configService.config.topologyRestUrl}sandboxes/${sandboxUuid}/vms/${vmName}`, { action: action })
       .pipe(
         tap({
           error: (err) => {

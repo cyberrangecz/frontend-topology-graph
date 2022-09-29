@@ -6,14 +6,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
  */
 @Injectable()
 export class SandboxService {
-  private sandboxInstanceIdSubject: BehaviorSubject<number> = new BehaviorSubject(null);
-  sandboxInstanceId$: Observable<number> = this.sandboxInstanceIdSubject.asObservable();
+  private sandboxInstanceIdSubject: BehaviorSubject<string> = new BehaviorSubject(null);
+  sandboxInstanceId$: Observable<string> = this.sandboxInstanceIdSubject.asObservable();
 
   private sandboxDefinitionIdSubject: BehaviorSubject<number> = new BehaviorSubject(null);
   sandboxDefinitionId$: Observable<number> = this.sandboxDefinitionIdSubject.asObservable();
 
-  setSandboxInstanceId(id: number) {
-    this.sandboxInstanceIdSubject.next(id);
+  setSandboxInstanceId(sandboxUuid: string) {
+    this.sandboxInstanceIdSubject.next(sandboxUuid);
   }
 
   setSandboxDefinitionId(id: number) {

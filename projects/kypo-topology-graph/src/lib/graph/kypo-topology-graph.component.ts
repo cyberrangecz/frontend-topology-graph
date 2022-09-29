@@ -75,7 +75,7 @@ import { ResourcePollingService } from '../services/resource-polling.service';
 export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() width: number;
   @Input() height: number;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxUuid: string;
   @Input() sandboxDefinitionId: number;
   @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
 
@@ -143,7 +143,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('sandboxInstanceId' in changes) {
-      this.sandboxService.setSandboxInstanceId(this.sandboxInstanceId);
+      this.sandboxService.setSandboxInstanceId(this.sandboxUuid);
     }
     if ('sandboxDefinitionId' in changes) {
       this.sandboxService.setSandboxDefinitionId(this.sandboxDefinitionId);
@@ -151,8 +151,8 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   }
 
   ngAfterViewInit(): void {
-    if (this.sandboxInstanceId) {
-      this.topologyApiService.getVMConsolesUrl(this.sandboxInstanceId).pipe(take(1)).subscribe();
+    if (this.sandboxUuid) {
+      this.topologyApiService.getVMConsolesUrl(this.sandboxUuid).pipe(take(1)).subscribe();
       this.consoles$ = this.topologyApiService.consoles$;
     }
   }
@@ -173,7 +173,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   }
 
   fetchConsoles(): void {
-    const observable$: Observable<ConsoleUrl[]> = this.topologyApiService.getVMConsolesUrl(this.sandboxInstanceId);
+    const observable$: Observable<ConsoleUrl[]> = this.topologyApiService.getVMConsolesUrl(this.sandboxUuid);
     this.resourcePollingService
       .startPolling(observable$, this.configService.config.pollingPeriod, this.configService.config.retryAttempts, true)
       .pipe(
@@ -200,8 +200,8 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   loadTopology() {
     this.dataLoaded = false;
     let topologyRequest;
-    if (this.sandboxInstanceId) {
-      topologyRequest = this.topologyLoaderService.getTopologyBySandboxInstanceId(this.sandboxInstanceId);
+    if (this.sandboxUuid) {
+      topologyRequest = this.topologyLoaderService.getTopologyBySandboxInstanceId(this.sandboxUuid);
     } else if (this.sandboxDefinitionId) {
       topologyRequest = this.topologyLoaderService.getTopologyBySandboxDefinitionId(this.sandboxDefinitionId);
     }
@@ -444,7 +444,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   }
 
   isCloudSandboxInstance(): boolean {
-    return this.sandboxInstanceId !== undefined && this.sandboxInstanceId !== null;
+    return this.sandboxUuid !== undefined && this.sandboxUuid !== null;
   }
 
   /**
