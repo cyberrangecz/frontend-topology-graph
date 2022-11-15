@@ -142,7 +142,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('sandboxInstanceId' in changes) {
+    if ('sandboxUuid' in changes) {
       this.sandboxService.setSandboxInstanceId(this.sandboxUuid);
     }
     if ('sandboxDefinitionId' in changes) {
