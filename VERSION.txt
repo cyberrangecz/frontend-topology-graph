@@ -1,3 +1,4 @@
+14.3.0 Fix uuid for guacamole access.
 14.2.0 Replace sandbox id with uuid.
 14.1.0 Disabled spice consoles option when it is not ready. Changed strategy for obtaining spice consoles.
 14.0.2 Rename from kypo2 to kypo.
