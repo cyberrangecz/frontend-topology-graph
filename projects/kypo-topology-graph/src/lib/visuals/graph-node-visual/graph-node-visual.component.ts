@@ -361,7 +361,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   private getChildrenCount(): number {
     if (this.node instanceof SwitchNode && this.node.hasExpandableSubnetwork()) {
-      return this.node.children.length;
+      return this.node.children.filter((node) => node instanceof HostNode).length;
     }
   }
 
