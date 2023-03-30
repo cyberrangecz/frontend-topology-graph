@@ -61,6 +61,18 @@
       [attr.height]="30">
     </image>
 
+    <!-- Docker container -->
+    <image
+      *ngIf="hasContainers"
+      ngClass="container"
+      [attr.xlink:href]="iconsPath + 'docker.svg'"
+      [attr.x]="4"
+      [attr.style]="'filter: drop-shadow(0px 0px 1px white);'"
+      [attr.y]="-height / 4"
+      [attr.width]="20"
+      [attr.height]="20">
+    </image>
+
     <!-- LOGICAL ROLE DECORATOR ICON -->
     <image *ngIf="logicalRoleDecorator != null"
            [attr.xlink:href]="iconsPath + logicalRoleDecorator.role +'.svg'"

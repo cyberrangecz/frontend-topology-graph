@@ -26,4 +26,5 @@ To use the topology component in your Angular application follow these steps:
 6. Subscribe to observables of `kypoTopologyLoadingService` and `kypoTopologyErrorService` to display loading and error messages emitted from the component in a standard way of your app
 
 You will need to provide data for the components. This can be done in two ways
-* Use mocked data with [JSON server](https://github.com/typicode/json-server). After installing json-server run `json-server -w db.json -r routes.json` in dir `utils/json-server`.
+* Use mocked data with [JSON server](https://github.com/typicode/json-server). After installing json-server run `json-server -w utils/json-server/db.json -r utils/json-server/routes.json`.
+* Run the app in local environment and ssl `ng serve --ssl`

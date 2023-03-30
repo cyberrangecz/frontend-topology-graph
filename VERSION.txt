@@ -1,3 +1,4 @@
+14.3.2 Update topology appearance with new docker container nodes, add legend
 14.3.1 Fix collapsed subnet size number.
 14.3.0 Fix uuid for guacamole access.
 14.2.0 Replace sandbox id with uuid.
