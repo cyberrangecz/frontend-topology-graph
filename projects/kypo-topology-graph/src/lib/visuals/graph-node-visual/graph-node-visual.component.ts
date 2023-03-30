@@ -39,7 +39,8 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   width: number;
   height: number;
   labels = [];
-  subnetSize: number = 0;
+  subnetSize = 0;
+  hasContainers = false;
 
   statusDecorator: NodeStatusDecorator;
   semaphoreDecorator: NodeSemaphoreDecorator;
@@ -64,6 +65,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
     this.height = this.calculateNodeHeight();
     this.subnetSize = this.getChildrenCount();
     this.initLabels();
+    this.initContainers();
     this.hasContextMenu = this.node instanceof HostNode || this.node instanceof RouterNode;
   }
 
@@ -388,6 +390,10 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
         text: this.node.name,
       });
     }
+  }
+
+  private initContainers() {
+    this.hasContainers = this.node instanceof HostNode && this.node.containers ? true : false;
   }
 
   /**

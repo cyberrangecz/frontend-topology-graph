@@ -52,6 +52,7 @@ export class TopologyMapper {
     if (topologyDTO.special_nodes) {
       topologyDTO.special_nodes.forEach((specialNodeDTO) => result.push(this.mapSpecialNodeFromDTO(specialNodeDTO)));
     }
+
     return result;
   }
 
@@ -123,6 +124,7 @@ export class TopologyMapper {
     result.name = hostDTO.name;
     result.osType = hostDTO.os_type;
     result.guiAccess = hostDTO.gui_access;
+    result.containers = hostDTO.containers;
     result.physicalRole = NodePhysicalRoleEnum.Desktop;
     return result;
   }

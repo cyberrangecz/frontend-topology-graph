@@ -21,6 +21,7 @@ export class KypoTopologyLegendComponent implements OnInit {
     { icon: 'switch', name: 'Switch' },
     { icon: 'cloud', name: 'Hidden subnet' },
     { icon: 'internet', name: 'Internet' },
+    { icon: 'docker', name: 'Docker container' },
   ];
 
   constructor() {}

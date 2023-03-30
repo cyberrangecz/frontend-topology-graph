@@ -1,7 +1,7 @@
-import {RouterModule, Routes} from "@angular/router";
-import {SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard} from "@sentinel/auth/guards";
-import {SentinelAuthProviderListComponent} from "@sentinel/auth/components";
-import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from '@angular/router';
+import {SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard} from '@sentinel/auth/guards';
+import {SentinelAuthProviderListComponent} from '@sentinel/auth/components';
+import {NgModule} from '@angular/core';
 
 const routes: Routes = [
   {
