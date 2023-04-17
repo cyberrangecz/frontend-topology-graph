@@ -18,6 +18,7 @@ import { ConfigService } from '../services/config.service';
 import { TopologyMapper } from '../services/topology-mapper.service';
 import { KypoTopologyLoadingService } from '../services/kypo-topology-loading.service';
 import { KypoTopologyErrorService } from '../services/kypo-topology-error.service';
+import { KypoTopologyLegendModule } from '../legend/kypo-topology-legend.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { KypoTopologyErrorService } from '../services/kypo-topology-error.servic
     GraphMaterialModule,
     GraphVisualComponentsModule,
     DirectivesModule,
+    KypoTopologyLegendModule,
   ],
   declarations: [
     TopologyGraphSidebarComponent,

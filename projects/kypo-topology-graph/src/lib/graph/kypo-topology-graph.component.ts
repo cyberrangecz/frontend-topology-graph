@@ -84,6 +84,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
 
   nodes: Node[];
   links: Link[];
+  showLegendContainers = false;
 
   draggedNode: Node;
   isLoading$: Observable<boolean>;
@@ -170,6 +171,10 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
         }
       })
     );
+  }
+
+  onShowContainers(event: boolean): void {
+    setTimeout(() => (this.showLegendContainers = event), 100);
   }
 
   fetchConsoles(): void {

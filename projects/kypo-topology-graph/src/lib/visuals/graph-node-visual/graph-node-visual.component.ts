@@ -33,6 +33,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   @Input() isConsoleReady: boolean;
   @Output() polling: EventEmitter<boolean> = new EventEmitter();
   @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
+  @Output() showContainers: EventEmitter<boolean> = new EventEmitter();
 
   iconsPath = ICONS_PATH;
   hasContextMenu: boolean;
@@ -393,7 +394,12 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   }
 
   private initContainers() {
-    this.hasContainers = this.node instanceof HostNode && this.node.containers ? true : false;
+    this.hasContainers = this.node instanceof HostNode && this.node.containers.length > 0 ? true : false;
+
+    //if at least one node has visible containers, we want to emit the info for the legend
+    if (this.hasContainers) {
+      this.showContainers.emit(true);
+    }
   }
 
   /**

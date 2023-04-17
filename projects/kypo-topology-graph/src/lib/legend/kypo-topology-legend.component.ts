@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ICONS_PATH } from '../icons-path';
 
 @Component({
@@ -6,10 +6,11 @@ import { ICONS_PATH } from '../icons-path';
   templateUrl: './kypo-topology-legend.component.html',
   styleUrls: ['./kypo-topology-legend.component.css'],
 })
-export class KypoTopologyLegendComponent implements OnInit {
+export class KypoTopologyLegendComponent implements OnInit, OnChanges {
   @Input() width: number;
   @Input() height: number;
   @Input() legendAttachment: string = 'horizontal';
+  @Input() showContainers = false;
 
   iconsPath = ICONS_PATH;
   iconsMargin: string;
@@ -21,13 +22,14 @@ export class KypoTopologyLegendComponent implements OnInit {
     { icon: 'switch', name: 'Switch' },
     { icon: 'cloud', name: 'Hidden subnet' },
     { icon: 'internet', name: 'Internet' },
-    { icon: 'docker', name: 'Docker container' },
   ];
-
-  constructor() {}
 
   ngOnInit(): void {
     this.setIconsFloating();
+  }
+
+  ngOnChanges() {
+    this.addContainersIcon();
   }
 
   setIconsFloating(): void {
@@ -37,6 +39,12 @@ export class KypoTopologyLegendComponent implements OnInit {
     } else {
       this.iconsMargin = '0 15px 0 0';
       this.titleMargin = '0 10px 0 0';
+    }
+  }
+
+  addContainersIcon() {
+    if (this.showContainers) {
+      this.nodeNames.push({ icon: 'docker', name: 'Docker container' });
     }
   }
 }
