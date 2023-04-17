@@ -1,4 +1,4 @@
-<kypo-topology-app-legend [width]="65"
+<kypo-topology-app-legend [width]="legendWidth"
                           [height]="500"
                           [style.float]="'left'"
                           [legendAttachment]="'vertical'"
@@ -6,7 +6,7 @@
 ></kypo-topology-app-legend>
 
 <mat-drawer-container
-  [style.width.px]="width"
+  [style.width.px]="width - legendWidth"
   [style.height.px]="height"
   class="sidenav-container" autosize>
   <mat-drawer #drawer class="left-sidenav" mode="side"  position="end">
@@ -56,7 +56,7 @@
            [draggedNode]="draggedNode"
            [nodes]="nodes"
            [links]="links"
-           [width]="width - 40"
+           [width]="width - legendWidth - 40"
            [height]="height - 20"
            (polling)="onPollingStateChange($event)"
            (loadConsoles)="onLoadConsoles($event)"

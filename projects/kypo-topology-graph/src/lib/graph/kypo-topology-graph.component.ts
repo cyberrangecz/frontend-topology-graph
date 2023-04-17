@@ -85,6 +85,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   nodes: Node[];
   links: Link[];
   showLegendContainers = false;
+  legendWidth = 65;
 
   draggedNode: Node;
   isLoading$: Observable<boolean>;
