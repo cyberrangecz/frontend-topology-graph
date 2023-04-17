@@ -41,6 +41,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isConsoleReady: boolean;
   @Output() polling: EventEmitter<boolean> = new EventEmitter();
   @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
+  @Output() showContainers: EventEmitter<boolean> = new EventEmitter();
 
   graph: ForceDirectedGraph;
 
@@ -122,6 +123,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     this.loadConsoles.emit(event);
   }
 
+  onShowContainers(event: boolean): void {
+    this.showContainers.emit(event);
+  }
   /**
    * Resolves received graph event and calls appropriate methods of graph-visual model
    * @param {GraphEventTypeEnum} event received event from service

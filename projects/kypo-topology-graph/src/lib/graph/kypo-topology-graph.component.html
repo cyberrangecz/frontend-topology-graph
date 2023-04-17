@@ -1,3 +1,10 @@
+<kypo-topology-app-legend [width]="65"
+                          [height]="500"
+                          [style.float]="'left'"
+                          [legendAttachment]="'vertical'"
+                          [showContainers]="showLegendContainers"
+></kypo-topology-app-legend>
+
 <mat-drawer-container
   [style.width.px]="width"
   [style.height.px]="height"
@@ -52,7 +59,8 @@
            [width]="width - 40"
            [height]="height - 20"
            (polling)="onPollingStateChange($event)"
-           (loadConsoles)="onLoadConsoles($event)">
+           (loadConsoles)="onLoadConsoles($event)"
+           (showContainers)="onShowContainers($event)">
     </graph>
 
     <button
@@ -65,3 +73,11 @@
     </button>
   </div>
 </mat-drawer-container>
+
+<!-- EXAMPLE LEGEND HORIZONTAL BOTTOM -->
+<!--
+<kypo-topology-app-legend [width]="800"
+                           [height]="65"
+                           [legendAttachment]="'horizontal'"
+></kypo-topology-app-legend>
+-->

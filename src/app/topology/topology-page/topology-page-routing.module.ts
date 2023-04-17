@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {TopologyPageComponent} from "./topology-page.component";
+import {RouterModule, Routes} from '@angular/router';
+import {TopologyPageComponent} from './topology-page.component';
 
 const routes: Routes = [
   {
