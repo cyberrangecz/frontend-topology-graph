@@ -5,6 +5,7 @@
 
 .topology-legend .title {
   float: left;
+  cursor: default;
 }
 
 .topology-legend span {
@@ -21,6 +22,7 @@
   float: left;
   display: grid;
   text-align: center;
+  cursor: default;
 }
 
 .topology-legend .node-icon {

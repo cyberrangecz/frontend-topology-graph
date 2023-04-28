@@ -1,3 +1,4 @@
+14.3.4 Update topology legend display and cursor settings
 14.3.3 Fix docker display rule, enhance the legend display
 14.3.2 Update topology appearance with new docker container nodes, add legend
 14.3.1 Fix collapsed subnet size number.
