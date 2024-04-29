@@ -1,38 +1,32 @@
+const BASE_URL = 'https://172.19.0.22';
 const HOME_URL = 'https://localhost:4200';
 
 export const environment = {
   production: true,
-  // OIDC SETTINGS
-  // Url of the Identity Provider
-  issuer: 'https://oidc.muni.cz/oidc/',
-  // URL of the SPA to redirect the user after silent refresh
   silentRefreshRedirectUri: HOME_URL,
-  // URL of the SPA to redirect the user to after login
-  redirectUri: HOME_URL,
-  // set the scope for the permissions the client should request
-  scope: 'openid profile email',
   sessionChecksEnabled: false,
-
   authConfig: {
     guardMainPageRedirect: 'visualizations',
     guardLoginPageRedirect: 'login',
-    interceptorAllowedUrls: ['https://172.19.0.22'],
+    interceptorAllowedUrls: [BASE_URL,'https://localhost'],
     authorizationStrategyConfig: {
-      authorizationUrl: 'https://172.19.0.22/kypo-rest-user-and-group/api/v1/users/info',
+      authorizationUrl: BASE_URL + '/kypo-rest-user-and-group/api/v1/users/info',
     },
     providers: [
       {
-        label: 'Login with MUNI',
+        label: 'Login with local issuer',
         textColor: 'white',
         backgroundColor: '#002776',
         oidcConfig: {
-          issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
-          clientId: 'bxPXhdWNeqhWssxbSGiRjQbnQqmqxDdiTTDJ',
+          requireHttps: true,
+          issuer: BASE_URL + '/keycloak/realms/KYPO',
+          clientId: 'KYPO-client',
           redirectUri: HOME_URL,
-          scope: 'openid email profile',
-          logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',
-          postLogoutRedirectUri: HOME_URL,
-          clearHashAfterLogin: true,
+          scope: 'openid email profile offline_access',
+          logoutUrl: BASE_URL + '/keycloak/realms/KYPO/protocol/openid-connect/logout',
+          silentRefreshRedirectUri: BASE_URL + '/silent-refresh.html',
+          postLogoutRedirectUri: HOME_URL + '/logout-confirmed',
+          clearHashAfterLogin: true
         },
       },
     ],
