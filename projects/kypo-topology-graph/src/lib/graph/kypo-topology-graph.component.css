@@ -22,6 +22,25 @@ button {
   flex-direction: row-reverse;
 }
 
+
+.topology-view {
+  width: max-content;
+  height: max-content;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.topology-view__topology-content {
+  display: flex;
+  height: 100%;
+}
+
+.topology-content__graph{
+  overflow: hidden;
+}
+
 /*button.zoom-reset {
   position:fixed;
   top:50px;
@@ -45,19 +64,4 @@ button.zoom-out {
   margin: 10px;
 }*/
 
-.sidenav-container {
-  height: 100%;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
-.sidenav-content {
-  display: flex;
-  height: 100%;
-}
-
-.sidenav {
-  padding: 20px;
-}
