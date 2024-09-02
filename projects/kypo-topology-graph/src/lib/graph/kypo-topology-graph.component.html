@@ -1,19 +1,16 @@
-<kypo-topology-app-legend [width]="legendWidth"
-                          [height]="500"
-                          [style.float]="'left'"
-                          [legendAttachment]="'vertical'"
-                          [showContainers]="showLegendContainers"
-></kypo-topology-app-legend>
-
 <mat-drawer-container
-  [style.width.px]="width - legendWidth"
   [style.height.px]="height"
-  class="sidenav-container" autosize>
-  <mat-drawer #drawer class="left-sidenav" mode="side"  position="end">
+  class="topology-view" autosize>
+  <kypo-topology-app-legend [width]="legendWidth"
+                            [height]="Math.max(height, 340)"
+                            [style.float]="'left'"
+                            [legendAttachment]="'vertical'"
+                            [showContainers]="showLegendContainers"
+  ></kypo-topology-app-legend>
+  <mat-drawer #drawer class="left-sidenav" mode="over"  position="end" >
     <kypo-topology-graph-sidebar></kypo-topology-graph-sidebar>
   </mat-drawer>
-  <div
-    class="sidenav-content">
+  <div class="topology-view__topology-content">
 
     <div class="error-message" *ngIf="isError">
       <h3 >Topology data was not loaded properly.</h3>
@@ -50,14 +47,14 @@
     </button>
 
     <!-- GRAPH -->
-    <graph *ngIf="dataLoaded"
+    <graph class="topology-content__graph" *ngIf="dataLoaded"
            [cloudSandboxInstance]="isCloudSandboxInstance()"
            [isConsoleReady]="isConsoleReady$ | async"
            [draggedNode]="draggedNode"
            [nodes]="nodes"
            [links]="links"
-           [width]="width - legendWidth - 40"
-           [height]="height - 20"
+           [width]="width - legendWidth - sandwichMenuWidth"
+           [height]="height"
            (polling)="onPollingStateChange($event)"
            (loadConsoles)="onLoadConsoles($event)"
            (showContainers)="onShowContainers($event)">

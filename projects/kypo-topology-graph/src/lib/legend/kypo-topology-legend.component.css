@@ -6,6 +6,8 @@
 .topology-legend .title {
   float: left;
   cursor: default;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .topology-legend span {
