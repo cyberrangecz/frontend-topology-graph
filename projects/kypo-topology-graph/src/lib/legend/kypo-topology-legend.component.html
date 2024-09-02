@@ -9,7 +9,7 @@
   <div class="node-group"
        *ngFor="let a of nodeNames"
        [style.margin]="iconsMargin">
-    <img [attr.src]="iconsPath + a.icon +'.svg'" class="node-icon"/>
+    <img [alt]="a.name" [attr.src]="iconsPath + a.icon +'.svg'" class="node-icon"/>
     <span>{{a.name}}</span>
   </div>
 </mat-card>
