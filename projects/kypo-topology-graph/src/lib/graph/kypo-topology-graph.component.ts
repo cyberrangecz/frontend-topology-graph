@@ -79,19 +79,22 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   @Input() sandboxDefinitionId: number;
   @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
 
+  protected readonly Math = Math;
+  protected readonly legendWidth = 65;
+  protected readonly sandwichMenuWidth = 48;
+
   private pollingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   polling$: Observable<boolean> = this.pollingSubject$.asObservable();
 
   nodes: Node[];
   links: Link[];
-  showLegendContainers = false;
-  legendWidth = 65;
-
   draggedNode: Node;
   isLoading$: Observable<boolean>;
   consoles$: Observable<ConsoleUrl[]>;
   isConsoleReady$: Observable<boolean>;
   dataLoaded: boolean;
+
+  showLegendContainers = false;
   showZoomResetButton = false;
   sidebarOpen = false;
   isError = false;

@@ -14,7 +14,6 @@ export class KypoTopologyLegendComponent implements OnInit, OnChanges {
 
   iconsPath = ICONS_PATH;
   iconsMargin: string;
-  titleMargin: string;
 
   nodeNames = [
     { icon: 'desktop', name: 'Host' },
@@ -35,10 +34,8 @@ export class KypoTopologyLegendComponent implements OnInit, OnChanges {
   setIconsFloating(): void {
     if (this.legendAttachment === 'vertical') {
       this.iconsMargin = '10px 0 0 0';
-      this.titleMargin = '0';
     } else {
       this.iconsMargin = '0 15px 0 0';
-      this.titleMargin = '0 10px 0 0';
     }
   }
 
