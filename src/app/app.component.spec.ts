@@ -1,5 +1,5 @@
 import {AppComponent} from './app.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ChangeDetectorRef} from '@angular/core';
 
 describe('AppComponent', () => {
@@ -7,7 +7,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let cd: ChangeDetectorRef;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent]
     }).compileComponents();
