@@ -88,7 +88,7 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
   private onDecoratorChange(
     category: DecoratorCategoryEnum,
     decoratorTypes: LinkDecoratorTypeEnum[],
-    linkDecorators: LinkDecorator[]
+    linkDecorators: LinkDecorator[],
   ) {
     // extract decorators for this link
     const decorators = linkDecorators.filter((d) => d.linkName === this.link.id.toString());

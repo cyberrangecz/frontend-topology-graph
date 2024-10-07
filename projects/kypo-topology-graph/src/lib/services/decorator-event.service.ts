@@ -36,15 +36,15 @@ export class DecoratorEventService {
   public triggerLinkDecoratorsLoaded(
     decoratorCategory: DecoratorCategoryEnum,
     decoratorTypes: LinkDecoratorTypeEnum[],
-    linkDecorators: LinkDecorator[]
+    linkDecorators: LinkDecorator[],
   ) {
     this.onLinkDecoratorsChangeSubject.next(
       new LinkDecoratorChangeEvent(
         DecoratorEventMessageEnum.DecoratorsLoaded,
         decoratorCategory,
         decoratorTypes,
-        linkDecorators
-      )
+        linkDecorators,
+      ),
     );
   }
 
@@ -58,15 +58,15 @@ export class DecoratorEventService {
   public triggerNodeDecoratorsLoaded(
     decoratorCategory: DecoratorCategoryEnum,
     decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
-    nodeDecorators: NodeDecorator[]
+    nodeDecorators: NodeDecorator[],
   ) {
     this.onNodeDecoratorsChangeSubject.next(
       new NodeDecoratorChangeEvent(
         DecoratorEventMessageEnum.DecoratorsLoaded,
         decoratorCategory,
         decoratorTypes,
-        nodeDecorators
-      )
+        nodeDecorators,
+      ),
     );
   }
 
@@ -78,10 +78,10 @@ export class DecoratorEventService {
    */
   public triggerNodeDecoratorsRemoved(
     decoratorCategory: DecoratorCategoryEnum,
-    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]
+    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
   ) {
     this.onNodeDecoratorsChangeSubject.next(
-      new NodeDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes)
+      new NodeDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes),
     );
   }
 
@@ -92,10 +92,10 @@ export class DecoratorEventService {
    */
   public triggerLinkDecoratorsRemoved(
     decoratorCategory: DecoratorCategoryEnum,
-    decoratorTypes: LinkDecoratorTypeEnum[]
+    decoratorTypes: LinkDecoratorTypeEnum[],
   ) {
     this.onLinkDecoratorsChangeSubject.next(
-      new LinkDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes)
+      new LinkDecoratorChangeEvent(DecoratorEventMessageEnum.DecoratorsDeleted, decoratorCategory, decoratorTypes),
     );
   }
 
@@ -116,7 +116,7 @@ export class DecoratorEventService {
   public triggerDecoratorReloadRequest(
     categoryType: DecoratorCategoryEnum,
     decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-    names: string[] = null
+    names: string[] = null,
   ) {
     this.onDecoratorReloadRequestSubject.next(new DecoratorReloadRequestEvent(categoryType, decoratorType, names));
   }

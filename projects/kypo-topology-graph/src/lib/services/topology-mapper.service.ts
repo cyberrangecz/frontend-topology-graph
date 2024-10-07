@@ -78,7 +78,7 @@ export class TopologyMapper {
   private findChildrenOfNode(switchNode: SwitchNode, links: Link[]): Node[] {
     const children: Node[] = [];
     const nodeLinks = links.filter(
-      (link) => link.source.name === switchNode.name || link.target.name === switchNode.name
+      (link) => link.source.name === switchNode.name || link.target.name === switchNode.name,
     );
 
     nodeLinks.forEach((link) => {

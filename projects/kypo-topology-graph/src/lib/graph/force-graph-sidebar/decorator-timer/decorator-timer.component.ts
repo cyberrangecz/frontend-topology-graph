@@ -29,7 +29,7 @@ export class DecoratorTimerComponent implements OnDestroy {
     private decoratorEventService: DecoratorEventService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.setInitialValues();
     this.subscribeTimeChanges();

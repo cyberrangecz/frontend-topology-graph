@@ -27,7 +27,7 @@ export class DecoratorTimeService implements OnDestroy {
   constructor(
     private configService: ConfigService,
     private decoratorReloadTimerService: DecoratorReloadTimerService,
-    private decoratorEventService: DecoratorEventService
+    private decoratorEventService: DecoratorEventService,
   ) {
     this.subscribeDecoratorReload();
     this.setInitialValues();

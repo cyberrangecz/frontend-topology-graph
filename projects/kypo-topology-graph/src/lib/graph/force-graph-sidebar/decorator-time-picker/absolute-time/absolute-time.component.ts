@@ -32,7 +32,7 @@ export class AbsoluteTimeComponent implements OnDestroy {
   constructor(
     public snackBar: MatSnackBar,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.setInitialValues();
     this.subscribeState();

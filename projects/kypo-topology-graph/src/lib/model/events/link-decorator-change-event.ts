@@ -20,7 +20,7 @@ export class LinkDecoratorChangeEvent {
     message: DecoratorEventMessageEnum,
     decoratorCategory: DecoratorCategoryEnum,
     decoratorType: LinkDecoratorTypeEnum[],
-    payload?: LinkDecorator[]
+    payload?: LinkDecorator[],
   ) {
     this.message = message;
     this.decoratorCategory = decoratorCategory;

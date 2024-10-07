@@ -123,7 +123,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
     private topologyApiService: TopologyApi,
     private d3Service: D3Service,
     private draggedNodeService: DraggedNodeService,
-    private resourcePollingService: ResourcePollingService
+    private resourcePollingService: ResourcePollingService,
   ) {}
 
   /**
@@ -173,7 +173,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
         if (consoles.length > 0) {
           return consoles.find((console) => console.name == event) !== undefined;
         }
-      })
+      }),
     );
   }
 
@@ -187,7 +187,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
       .startPolling(observable$, this.configService.config.pollingPeriod, this.configService.config.retryAttempts, true)
       .pipe(
         takeWhile(() => this.pollingSubject$.getValue()),
-        catchError(() => EMPTY)
+        catchError(() => EMPTY),
       )
       .subscribe();
   }
@@ -223,7 +223,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
       },
       (err) => {
         this.isError = true;
-      }
+      },
     );
   }
 
@@ -234,7 +234,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
     this.decoratorLoaderService.loadAllDecorators(
       this.getHostNodeNames(),
       this.getRouterNodeNames(),
-      this.getLinkNames()
+      this.getLinkNames(),
     );
   }
 
@@ -376,7 +376,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   private subscribeDecoratorsPeriodicalReload() {
     if (this.configService.config.defaultDecoratorRefreshPeriodInSeconds > 0) {
       this._decoratorPeriodicalReloadSubscription = interval(
-        this.configService.config.defaultDecoratorRefreshPeriodInSeconds * 1000
+        this.configService.config.defaultDecoratorRefreshPeriodInSeconds * 1000,
       ).subscribe(() => {
         this.reloadAllDecorators();
       });
@@ -402,7 +402,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
             this._decoratorPeriodicalReloadSubscription.unsubscribe();
           }
         }
-      }
+      },
     );
   }
   /**

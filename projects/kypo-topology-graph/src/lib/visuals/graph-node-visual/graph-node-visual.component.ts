@@ -52,7 +52,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   constructor(
     private decoratorEventService: DecoratorEventService,
     private graphEventService: GraphEventService,
-    private decoratorReloadTimerService: DecoratorReloadTimerService
+    private decoratorReloadTimerService: DecoratorReloadTimerService,
   ) {}
 
   /**
@@ -150,9 +150,9 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.HostDecorators,
               null,
-              hostNames
+              hostNames,
             ),
-          100
+          100,
         );
       }
 
@@ -162,16 +162,16 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.RouterDecorators,
               null,
-              routerNames
+              routerNames,
             ),
-          100
+          100,
         );
       }
 
       if (routerNames.length > 0 || hostNames.length > 0) {
         setTimeout(
           () => this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
-          100
+          100,
         );
       }
     }
@@ -183,7 +183,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
   private onDecoratorChange(
     category: DecoratorCategoryEnum,
     decoratorTypes: RouterNodeDecoratorTypeEnum[] | HostNodeDecoratorTypeEnum[],
-    nodeDecorators: NodeDecorator[]
+    nodeDecorators: NodeDecorator[],
   ) {
     // extract decorators for this node
     const decorators = nodeDecorators.filter((d) => d.nodeName === this.node.name);
@@ -236,7 +236,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    */
   private removeNonActiveHostDecorators(
     activeDecoratorTypes: HostNodeDecoratorTypeEnum[],
-    activeDecorators: NodeDecorator[]
+    activeDecorators: NodeDecorator[],
   ) {
     if (
       activeDecoratorTypes.includes(HostNodeDecoratorTypeEnum.NodeStatusDecorator) &&
@@ -262,7 +262,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
 
   private removeNonActiveRouterDecorators(
     activeDecoratorTypes: RouterNodeDecoratorTypeEnum[],
-    activeDecorators: NodeDecorator[]
+    activeDecorators: NodeDecorator[],
   ) {
     if (
       activeDecoratorTypes.includes(RouterNodeDecoratorTypeEnum.LogicalRoleDecorator) &&

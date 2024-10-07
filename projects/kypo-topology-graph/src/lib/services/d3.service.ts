@@ -24,7 +24,7 @@ export class D3Service {
   constructor(
     private d3ZoomEventService: D3ZoomEventService,
     private draggedNodeService: DraggedNodeService,
-    private graphLockService: GraphLockService
+    private graphLockService: GraphLockService,
   ) {}
 
   /**
@@ -174,7 +174,7 @@ export class D3Service {
         function draggedSubnetwork(router) {
           // TODO decide whether this is expected behaviour?
           const draggedNodes = router.children.filter(
-            (node) => !(node instanceof RouterNode) && !(node.physicalRole === NodePhysicalRoleEnum.Router)
+            (node) => !(node instanceof RouterNode) && !(node.physicalRole === NodePhysicalRoleEnum.Router),
           );
 
           for (const child of draggedNodes) {

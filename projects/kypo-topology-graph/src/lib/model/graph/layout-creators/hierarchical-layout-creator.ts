@@ -159,7 +159,7 @@ export class HierarchicalLayoutCreator {
   private setXPositionForMiddleNodeInTopLayer(
     nodeName: string,
     distanceCoefficient: number,
-    nodeCountInTopLayer: number
+    nodeCountInTopLayer: number,
   ) {
     if (nodeCountInTopLayer % 2 === 0) {
       this.setXPosition(nodeName, this.width / 2 + distanceCoefficient / 2);
@@ -179,7 +179,7 @@ export class HierarchicalLayoutCreator {
     nodeName: string,
     distanceCoefficient,
     nodeCount: number,
-    parentXPosition: number
+    parentXPosition: number,
   ) {
     if (nodeCount % 2 === 0) {
       this.setXPosition(nodeName, parentXPosition + distanceCoefficient / 2);

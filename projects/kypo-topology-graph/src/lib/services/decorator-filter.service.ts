@@ -154,7 +154,7 @@ export class DecoratorFilterService {
     this._routerDecorators = [];
     this.decoratorEventService.triggerNodeDecoratorsRemoved(
       DecoratorCategoryEnum.RouterDecorators,
-      Object.values(RouterNodeDecoratorTypeEnum)
+      Object.values(RouterNodeDecoratorTypeEnum),
     );
   }
 
@@ -195,7 +195,7 @@ export class DecoratorFilterService {
     this._hostDecorators = [];
     this.decoratorEventService.triggerNodeDecoratorsRemoved(
       DecoratorCategoryEnum.HostDecorators,
-      Object.values(HostNodeDecoratorTypeEnum)
+      Object.values(HostNodeDecoratorTypeEnum),
     );
   }
 
@@ -236,7 +236,7 @@ export class DecoratorFilterService {
     this._linkDecorators = [];
     this.decoratorEventService.triggerLinkDecoratorsRemoved(
       DecoratorCategoryEnum.LinkDecorators,
-      Object.values(LinkDecoratorTypeEnum)
+      Object.values(LinkDecoratorTypeEnum),
     );
   }
 

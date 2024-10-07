@@ -37,7 +37,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
    */
   constructor(
     private decoratorFilterService: DecoratorFilterService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.showDecoratorsFilterMenu = this.decoratorStateService.getActive();
     this.subscribeStateChanges();
@@ -161,7 +161,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
   private createCategoryCheckboxes() {
     this.categoryCheckboxes = [];
     Object.values(DecoratorCategoryEnum).forEach((category) =>
-      this.categoryCheckboxes.push(new CategoryCheckboxModel(category, true, []))
+      this.categoryCheckboxes.push(new CategoryCheckboxModel(category, true, [])),
     );
   }
 
@@ -184,8 +184,8 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
       this.categoryCheckboxes
         .find((c) => c.categoryType === DecoratorCategoryEnum.RouterDecorators)
         .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveRouterDecorators().includes(dType))
-        )
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveRouterDecorators().includes(dType)),
+        ),
     );
   }
 
@@ -198,8 +198,8 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
       this.categoryCheckboxes
         .find((c) => c.categoryType === DecoratorCategoryEnum.HostDecorators)
         .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveHostDecorators().includes(dType))
-        )
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveHostDecorators().includes(dType)),
+        ),
     );
   }
 
@@ -212,8 +212,8 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
       this.categoryCheckboxes
         .find((c) => c.categoryType === DecoratorCategoryEnum.LinkDecorators)
         .decoratorCheckboxes.push(
-          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveLinkDecorators().includes(dType))
-        )
+          new DecoratorCheckboxModel(dType, this.decoratorFilterService.getActiveLinkDecorators().includes(dType)),
+        ),
     );
   }
 

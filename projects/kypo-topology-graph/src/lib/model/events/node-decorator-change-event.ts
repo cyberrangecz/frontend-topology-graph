@@ -21,7 +21,7 @@ export class NodeDecoratorChangeEvent {
     message: DecoratorEventMessageEnum,
     category: DecoratorCategoryEnum,
     decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
-    payload?: NodeDecorator[]
+    payload?: NodeDecorator[],
   ) {
     this.message = message;
     this.category = category;

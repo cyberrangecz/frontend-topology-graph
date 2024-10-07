@@ -33,7 +33,7 @@ export class RelativeTimeComponent implements OnDestroy {
   constructor(
     private snackBar: MatSnackBar,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.setInitialValues();
     this.subscribeState();
@@ -74,7 +74,7 @@ export class RelativeTimeComponent implements OnDestroy {
       if (this.isValidTime()) {
         this.decoratorTimeService.setRelativeTime(
           this.getEquation(this.fromAmount, this.fromOption),
-          this.getEquation(this.toAmount, this.toOption)
+          this.getEquation(this.toAmount, this.toOption),
         );
 
         const snackBarRef = this.snackBar.open('Decorator time was set succesfully')._dismissAfter(1500);

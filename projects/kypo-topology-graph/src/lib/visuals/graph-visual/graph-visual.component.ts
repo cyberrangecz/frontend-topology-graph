@@ -62,7 +62,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     private graphEventService: GraphEventService,
     private graphLockService: GraphLockService,
     private decoratorEventService: DecoratorEventService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -220,9 +220,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.HostDecorators,
               null,
-              hostNames
+              hostNames,
             ),
-          100
+          100,
         );
       }
 
@@ -232,16 +232,16 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.RouterDecorators,
               null,
-              routerNames
+              routerNames,
             ),
-          100
+          100,
         );
       }
 
       if (routerNames.length > 0 || hostNames.length > 0) {
         setTimeout(
           () => this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
-          100
+          100,
         );
       }
     }

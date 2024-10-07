@@ -12,7 +12,10 @@ import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
  */
 @Injectable()
 export class HostService {
-  constructor(private topologyFacade: TopologyApi, private sandboxService: SandboxService) {}
+  constructor(
+    private topologyFacade: TopologyApi,
+    private sandboxService: SandboxService,
+  ) {}
 
   /**
    * Resolves type of action and calls api service to handle the action
@@ -56,7 +59,7 @@ export class HostService {
         if (consoles.length > 0) {
           return consoles.find((console) => console.name == vmName)?.url;
         }
-      })
+      }),
     );
   }
 
@@ -69,8 +72,8 @@ export class HostService {
   openGuacamoleRemoteConnection(vmIp: string, vmOsType: string, userInterface: UserInterface): Observable<string> {
     return this.sandboxService.sandboxInstanceId$.pipe(
       concatMap((sandboxUuid) =>
-        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxUuid, vmIp, vmOsType, userInterface)
-      )
+        this.topologyFacade.establishGuacamoleRemoteConnection(sandboxUuid, vmIp, vmOsType, userInterface),
+      ),
     );
   }
 
@@ -81,8 +84,8 @@ export class HostService {
   resume(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
       concatMap((sandboxUuid) =>
-        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Resume.toLowerCase())
-      )
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Resume.toLowerCase()),
+      ),
     );
   }
 
@@ -93,8 +96,8 @@ export class HostService {
   reboot(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
       concatMap((sandboxUuid) =>
-        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Reboot.toLowerCase())
-      )
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Reboot.toLowerCase()),
+      ),
     );
   }
 
@@ -105,8 +108,8 @@ export class HostService {
   suspend(vmName: string): Observable<any> {
     return this.sandboxService.sandboxInstanceId$.pipe(
       concatMap((sandboxUuid) =>
-        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Suspend.toLowerCase())
-      )
+        this.topologyFacade.performVMAction(sandboxUuid, vmName, NodeActionEnum.Suspend.toLowerCase()),
+      ),
     );
   }
 }

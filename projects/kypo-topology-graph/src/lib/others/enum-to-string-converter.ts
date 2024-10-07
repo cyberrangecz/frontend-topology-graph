@@ -15,7 +15,7 @@ export class EnumToStringConverter {
    */
   static decoratorEnumToRestString(
     categoryDecoratorType: DecoratorCategoryEnum,
-    decoratorType: RouterNodeDecoratorTypeEnum | HostNodeDecoratorTypeEnum | LinkDecoratorTypeEnum
+    decoratorType: RouterNodeDecoratorTypeEnum | HostNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
   ): string {
     if (categoryDecoratorType === null || decoratorType === null) {
       return null;

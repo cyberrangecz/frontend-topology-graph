@@ -15,7 +15,10 @@ export class LayoutTabComponent {
   layoutDisabled = true;
   lockedGraph = true;
 
-  constructor(private graphEventService: GraphEventService, private graphLockService: GraphLockService) {
+  constructor(
+    private graphEventService: GraphEventService,
+    private graphLockService: GraphLockService,
+  ) {
     this.layouts = Object.values(GraphLayoutsEnum);
   }
 

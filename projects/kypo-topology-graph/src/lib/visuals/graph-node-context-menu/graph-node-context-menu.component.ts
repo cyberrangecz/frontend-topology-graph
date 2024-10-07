@@ -37,7 +37,7 @@ export class NodeContextMenuComponent implements OnInit, OnChanges {
     private contextMenuService: ContextMenuService,
     private configService: ConfigService,
     private hostService: HostService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
   ) {}
 
   ngOnInit() {

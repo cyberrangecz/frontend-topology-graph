@@ -18,7 +18,7 @@ export class DecoratorTimePickerComponent implements OnDestroy {
   constructor(
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.useRealTime = this.decoratorTimeService.getUseRealTime();
     this.activeDecorators = this.decoratorStateService.getActive();
