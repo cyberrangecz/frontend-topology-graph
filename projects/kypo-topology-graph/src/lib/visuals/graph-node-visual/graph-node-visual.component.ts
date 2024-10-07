@@ -373,7 +373,7 @@ export class GraphNodeVisualComponent implements OnDestroy, OnInit {
    */
   private initLabels() {
     // initial position - in lower middle part of node
-    let xPosition = 0;
+    const xPosition = 0;
     let yPosition = this.height / -2 + 50;
 
     if (this.node.nodePorts[0].ip != null) {

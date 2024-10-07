@@ -77,7 +77,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
   @Input() height: number;
   @Input() sandboxUuid: string;
   @Input() sandboxDefinitionId: number;
-  @Output() onTopologyLoaded: EventEmitter<boolean> = new EventEmitter();
+  @Output() topologyLoadEmitter: EventEmitter<boolean> = new EventEmitter();
 
   protected readonly Math = Math;
   protected readonly legendWidth = 65;
@@ -219,7 +219,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
         this.nodes = data.nodes;
         this.links = data.links;
         this.dataLoaded = true;
-        this.onTopologyLoaded.emit(true);
+        this.topologyLoadEmitter.emit(true);
       },
       (err) => {
         this.isError = true;

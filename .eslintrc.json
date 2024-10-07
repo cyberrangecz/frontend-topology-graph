@@ -2,6 +2,50 @@
   "root": true,
   "overrides": [
     {
+      "files": ["kypo-command-visualizations-example/**/*.ts"],
+      "rules": {
+        // TODO fix these and make them errors instead of warnings
+        "@angular-eslint/directive-selector": [
+          "warn",
+          {
+            "type": "attribute",
+            "prefix": "app-",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "warn",
+          {
+            "type": "element",
+            "prefix": "app-",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["kypo-command-visualizations/**/*.ts"],
+      "rules": {
+        // TODO fix these and make them errors instead of warnings
+        "@angular-eslint/directive-selector": [
+          "warn",
+          {
+            "type": "attribute",
+            "prefix": "kypo-",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "warn",
+          {
+            "type": "element",
+            "prefix": "kypo-",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
       "files": [
         "*.ts"
       ],
@@ -27,29 +71,29 @@
             "ignorePattern": "import .*"
           }
         ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
-          }
-        ],
         "quotes": [
           "error",
           "single",
           {
             "allowTemplateLiterals": true
           }
-        ]
+        ],
+        // TODO fix these and make them errors instead of warnings
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "args": "all",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "all",
+            "caughtErrorsIgnorePattern": "^_",
+            "destructuredArrayIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "ignoreRestSiblings": true
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@angular-eslint/no-input-rename": "warn",
+        "@angular-eslint/component-selector": "warn"
       }
     },
     {

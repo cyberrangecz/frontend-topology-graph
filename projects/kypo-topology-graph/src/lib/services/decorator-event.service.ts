@@ -50,7 +50,8 @@ export class DecoratorEventService {
 
   /**
    * Creates event with newly loaded node decorators.
-   * @param {DecoratorCategoryEnum} decoratorCategory decoratorCategory category of parts of a graph affected by the change (router node or host nodes in this case)
+   * @param {DecoratorCategoryEnum} decoratorCategory decoratorCategory category of parts of a graph affected
+   * by the change (router node or host nodes in this case)
    * @param {HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]} decoratorTypes decoratorTypes array of loaded decorator types
    * @param {NodeDecorator[]} nodeDecorators linkDecorators array of loaded node decorator objects
    */

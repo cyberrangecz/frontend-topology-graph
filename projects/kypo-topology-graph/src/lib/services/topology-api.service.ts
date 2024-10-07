@@ -128,7 +128,7 @@ export class TopologyApi {
       }),
       tap({
         error: (err) => {
-          const errorMessage = new TopologyError(err, "Authenticate Apache's Guacamole user.");
+          const errorMessage = new TopologyError(err, 'Authenticate Apache\'s Guacamole user.');
           this.errorService.emitError(errorMessage);
         },
       })

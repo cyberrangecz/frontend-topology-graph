@@ -32,11 +32,11 @@ import { GraphLockService } from '../../services/graph-lock.service';
   styleUrls: ['./graph-visual.component.css'],
 })
 export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
-  @Input('nodes') nodes: Node[];
-  @Input('links') links: Link[];
-  @Input('width') width: number;
-  @Input('height') height: number;
-  @Input('draggedNode') draggedNode: Node;
+  @Input() nodes: Node[];
+  @Input() links: Link[];
+  @Input() width: number;
+  @Input() height: number;
+  @Input() draggedNode: Node;
   @Input() cloudSandboxInstance: boolean;
   @Input() isConsoleReady: boolean;
   @Output() polling: EventEmitter<boolean> = new EventEmitter();

@@ -11,11 +11,11 @@ import { DecoratorStateService } from '../../../../services/decorator-state.serv
   templateUrl: './relative-time.component.html',
   styleUrls: ['./relative-time.component.css'],
 })
-export class RelativeTimeComponent implements OnInit, OnDestroy {
+export class RelativeTimeComponent implements OnDestroy {
   readonly MIN = 0;
   readonly MAX = 100;
 
-  @Input('manualDateEnabled') manualDateEnabled;
+  @Input() manualDateEnabled;
 
   fromOptions: RelativeTimeOption[] = [];
   toOptions: RelativeTimeOption[] = [];
@@ -38,8 +38,6 @@ export class RelativeTimeComponent implements OnInit, OnDestroy {
     this.setInitialValues();
     this.subscribeState();
   }
-
-  ngOnInit() {}
 
   /**
    * Creates select options and sets initial values to inputs

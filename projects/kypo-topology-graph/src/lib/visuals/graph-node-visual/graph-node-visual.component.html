@@ -33,7 +33,7 @@
 
     <!-- PHYSICAL ROLE IMAGE -->
     <image
-      *ngIf="node.name != 'internet'"
+      *ngIf="node.name !== 'internet'"
       ngClass="{{ node.physicalRole }}"
       [attr.xlink:href]="iconsPath + node.physicalRole +'.svg'"
       [attr.x]="width / (-4) + 6"
@@ -52,7 +52,7 @@
 
     <!-- internet -->
     <image
-      *ngIf="node.name == 'internet'"
+      *ngIf="node.name === 'internet'"
       ngClass="{{ node.physicalRole }}"
       [attr.xlink:href]="iconsPath + 'internet.svg'"
       [attr.x]="width / (-4.5) + 5"

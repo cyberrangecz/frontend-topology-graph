@@ -8,12 +8,12 @@ import { DecoratorStateService } from '../../../../services/decorator-state.serv
   templateUrl: './absolute-time.component.html',
   styleUrls: ['./absolute-time.component.css'],
 })
-export class AbsoluteTimeComponent implements OnInit, OnDestroy {
+export class AbsoluteTimeComponent implements OnDestroy {
   readonly hours = [...Array(24).keys()];
   readonly minutes = [...Array(60).keys()];
   readonly seconds = [...Array(60).keys()];
 
-  @Input('manualDateEnabled') manualDateEnabled;
+  @Input() manualDateEnabled;
 
   decoratorsActive: boolean;
 
@@ -37,8 +37,6 @@ export class AbsoluteTimeComponent implements OnInit, OnDestroy {
     this.setInitialValues();
     this.subscribeState();
   }
-
-  ngOnInit() {}
 
   /**
    * Sets current time as values for TO time selectors
