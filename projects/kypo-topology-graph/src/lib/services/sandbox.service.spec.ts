@@ -22,7 +22,7 @@ describe('SandboxService', () => {
         expect(id).toEqual('10');
         done();
       },
-      (_) => fail()
+      (_) => fail(),
     );
     service.setSandboxInstanceId('10');
     expect(service).toBeTruthy();

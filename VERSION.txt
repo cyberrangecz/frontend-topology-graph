@@ -1,3 +1,4 @@
+18.0.0 Update to Angular 18
 16.0.2 Improve the appearance of the topology and the legend, fix scaling issues.
 16.0.1 Update sentinel auth version.
 16.0.0 Update to Angular 16.

@@ -43,7 +43,7 @@ export class DecoratorFacade {
     private decoratorEventService: DecoratorEventService,
     private decoratorsFilterService: DecoratorFilterService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {}
 
   /**Loads decorators for router, host nodes and links
@@ -68,7 +68,7 @@ export class DecoratorFacade {
     if (routerNodeNames != null && routerNodeNames.length > 0) {
       this.passRouterNodeDecoratorsToGraph(
         this.retrieveRouterNodeDecorators(routerNodeNames, routerNodeDecoratorTypes),
-        routerNodeDecoratorTypes
+        routerNodeDecoratorTypes,
       );
     }
   }
@@ -82,7 +82,7 @@ export class DecoratorFacade {
     if (hostNodeNames != null && hostNodeNames.length > 0) {
       this.passHostNodeDecoratorsToGraph(
         this.retrieveHostNodeDecorators(hostNodeNames, hostNodeDecoratorTypes),
-        hostNodeDecoratorTypes
+        hostNodeDecoratorTypes,
       );
     }
   }
@@ -143,7 +143,7 @@ export class DecoratorFacade {
    */
   private retrieveHostNodeDecorators(
     hostNodeNames: string[],
-    hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[]
+    hostNodeDecoratorTypes: HostNodeDecoratorTypeEnum[],
   ): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
@@ -157,7 +157,7 @@ export class DecoratorFacade {
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.HostDecorators, hostNodeDecoratorType),
         hostNodeNames,
         from,
-        to
+        to,
       );
 
       // send post request and parse it with appropriate method
@@ -196,7 +196,7 @@ export class DecoratorFacade {
    */
   private retrieveRouterNodeDecorators(
     routerNodeNames: string[],
-    routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[]
+    routerNodeDecoratorTypes: RouterNodeDecoratorTypeEnum[],
   ): Observable<NodeDecorator[]>[] {
     const observablesToReturn: Observable<NodeDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/nodes/decorators';
@@ -207,11 +207,11 @@ export class DecoratorFacade {
       const requestBody = new DecoratorHttpPostBody(
         EnumToStringConverter.decoratorEnumToRestString(
           DecoratorCategoryEnum.RouterDecorators,
-          routerNodeDecoratorType
+          routerNodeDecoratorType,
         ),
         routerNodeNames,
         from,
-        to
+        to,
       );
 
       switch (routerNodeDecoratorType) {
@@ -238,7 +238,7 @@ export class DecoratorFacade {
    */
   private retrieveLinkDecorators(
     linkNames: string[],
-    linkDecoratorTypes: LinkDecoratorTypeEnum[]
+    linkDecoratorTypes: LinkDecoratorTypeEnum[],
   ): Observable<LinkDecorator[]>[] {
     const observablesToReturn: Observable<LinkDecorator[]>[] = [];
     const url = this.configService.config.decoratorsRestUrl + '/links/decorators';
@@ -250,7 +250,7 @@ export class DecoratorFacade {
         EnumToStringConverter.decoratorEnumToRestString(DecoratorCategoryEnum.LinkDecorators, linkDecoratorType),
         linkNames,
         from,
-        to
+        to,
       );
 
       switch (linkDecoratorType) {
@@ -258,7 +258,7 @@ export class DecoratorFacade {
           observablesToReturn.push(
             this.http
               .post(url, requestBody, httpOptions)
-              .pipe(map((response) => this.parseLinkSpeedDecorators(response)))
+              .pipe(map((response) => this.parseLinkSpeedDecorators(response))),
           );
           break;
         }
@@ -286,7 +286,7 @@ export class DecoratorFacade {
     const nodeDecorators: NodeDecorator[] = [];
     for (const decorator of json.nodes_decorators) {
       nodeDecorators.push(
-        new NodeStatusDecorator(decorator.node_id, StringToEnumConverter.statusStringToEnum(decorator.value))
+        new NodeStatusDecorator(decorator.node_id, StringToEnumConverter.statusStringToEnum(decorator.value)),
       );
     }
     return nodeDecorators;
@@ -303,8 +303,8 @@ export class DecoratorFacade {
       nodeDecorators.push(
         new NodeSemaphoreDecorator(
           decorator.node_id,
-          StringToEnumConverter.statusSemaphoreStringToEnum(decorator.value)
-        )
+          StringToEnumConverter.statusSemaphoreStringToEnum(decorator.value),
+        ),
       );
     }
     return nodeDecorators;
@@ -322,8 +322,8 @@ export class DecoratorFacade {
         nodeDecorators.push(
           new NodeLogicalRoleDecorator(
             decorator.node_id,
-            StringToEnumConverter.logicalRoleStringToEnum(decorator.value)
-          )
+            StringToEnumConverter.logicalRoleStringToEnum(decorator.value),
+          ),
         );
       }
     }
@@ -365,7 +365,7 @@ export class DecoratorFacade {
    */
   private passRouterNodeDecoratorsToGraph(
     nodeObservables: Observable<NodeDecorator[]>[],
-    decoratorTypes: RouterNodeDecoratorTypeEnum[]
+    decoratorTypes: RouterNodeDecoratorTypeEnum[],
   ) {
     const nodeDecorators: NodeDecorator[] = [];
 
@@ -384,15 +384,15 @@ export class DecoratorFacade {
         this.decoratorStateService.setActive(false);
         this.decoratorEventService.triggerNodeDecoratorsRemoved(
           DecoratorCategoryEnum.RouterDecorators,
-          this.decoratorsFilterService.getActiveRouterDecorators()
+          this.decoratorsFilterService.getActiveRouterDecorators(),
         );
       },
       () =>
         this.decoratorEventService.triggerNodeDecoratorsLoaded(
           DecoratorCategoryEnum.RouterDecorators,
           decoratorTypes,
-          nodeDecorators
-        )
+          nodeDecorators,
+        ),
     );
   }
 
@@ -403,7 +403,7 @@ export class DecoratorFacade {
    */
   private passHostNodeDecoratorsToGraph(
     nodeObservables: Observable<NodeDecorator[]>[],
-    decoratorTypes: HostNodeDecoratorTypeEnum[]
+    decoratorTypes: HostNodeDecoratorTypeEnum[],
   ) {
     const nodeDecorators: NodeDecorator[] = [];
 
@@ -424,15 +424,15 @@ export class DecoratorFacade {
         this.decoratorStateService.setActive(false);
         this.decoratorEventService.triggerNodeDecoratorsRemoved(
           DecoratorCategoryEnum.HostDecorators,
-          this.decoratorsFilterService.getActiveHostDecorators()
+          this.decoratorsFilterService.getActiveHostDecorators(),
         );
       },
       () =>
         this.decoratorEventService.triggerNodeDecoratorsLoaded(
           DecoratorCategoryEnum.HostDecorators,
           decoratorTypes,
-          nodeDecorators
-        )
+          nodeDecorators,
+        ),
     );
   }
 
@@ -443,7 +443,7 @@ export class DecoratorFacade {
    */
   private passLinkDecoratorsToGraph(
     linkObservables: Observable<LinkDecorator[]>[],
-    decoratorTypes: LinkDecoratorTypeEnum[]
+    decoratorTypes: LinkDecoratorTypeEnum[],
   ) {
     const linkDecorators: LinkDecorator[] = [];
 
@@ -458,16 +458,16 @@ export class DecoratorFacade {
         this.decoratorStateService.setActive(false);
         this.decoratorEventService.triggerLinkDecoratorsRemoved(
           DecoratorCategoryEnum.LinkDecorators,
-          this.decoratorsFilterService.getActiveLinkDecorators()
+          this.decoratorsFilterService.getActiveLinkDecorators(),
         );
       },
       () => {
         this.decoratorEventService.triggerLinkDecoratorsLoaded(
           DecoratorCategoryEnum.LinkDecorators,
           decoratorTypes,
-          linkDecorators
+          linkDecorators,
         );
-      }
+      },
     );
   }
   /**

@@ -8,7 +8,7 @@ import { DecoratorStateService } from '../../../services/decorator-state.service
   templateUrl: './decorator-time-picker.component.html',
   styleUrls: ['./decorator-time-picker.component.css'],
 })
-export class DecoratorTimePickerComponent implements OnInit, OnDestroy {
+export class DecoratorTimePickerComponent implements OnDestroy {
   useRealTime: boolean;
   activeDecorators: boolean;
 
@@ -18,15 +18,13 @@ export class DecoratorTimePickerComponent implements OnInit, OnDestroy {
   constructor(
     private decoratorReloadTimerService: DecoratorReloadTimerService,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.useRealTime = this.decoratorTimeService.getUseRealTime();
     this.activeDecorators = this.decoratorStateService.getActive();
     this.subscribeTime();
     this.subscribeState();
   }
-
-  ngOnInit() {}
 
   /**
    * Toggles between manual date pick and real-time mode

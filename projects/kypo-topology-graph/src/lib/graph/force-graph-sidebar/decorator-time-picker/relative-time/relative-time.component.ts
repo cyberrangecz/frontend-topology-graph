@@ -11,11 +11,11 @@ import { DecoratorStateService } from '../../../../services/decorator-state.serv
   templateUrl: './relative-time.component.html',
   styleUrls: ['./relative-time.component.css'],
 })
-export class RelativeTimeComponent implements OnInit, OnDestroy {
+export class RelativeTimeComponent implements OnDestroy {
   readonly MIN = 0;
   readonly MAX = 100;
 
-  @Input('manualDateEnabled') manualDateEnabled;
+  @Input() manualDateEnabled;
 
   fromOptions: RelativeTimeOption[] = [];
   toOptions: RelativeTimeOption[] = [];
@@ -33,13 +33,11 @@ export class RelativeTimeComponent implements OnInit, OnDestroy {
   constructor(
     private snackBar: MatSnackBar,
     private decoratorTimeService: DecoratorTimeService,
-    private decoratorStateService: DecoratorStateService
+    private decoratorStateService: DecoratorStateService,
   ) {
     this.setInitialValues();
     this.subscribeState();
   }
-
-  ngOnInit() {}
 
   /**
    * Creates select options and sets initial values to inputs
@@ -76,7 +74,7 @@ export class RelativeTimeComponent implements OnInit, OnDestroy {
       if (this.isValidTime()) {
         this.decoratorTimeService.setRelativeTime(
           this.getEquation(this.fromAmount, this.fromOption),
-          this.getEquation(this.toAmount, this.toOption)
+          this.getEquation(this.toAmount, this.toOption),
         );
 
         const snackBarRef = this.snackBar.open('Decorator time was set succesfully')._dismissAfter(1500);

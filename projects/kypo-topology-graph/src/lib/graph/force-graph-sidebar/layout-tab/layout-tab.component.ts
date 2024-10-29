@@ -8,18 +8,19 @@ import { GraphLockService } from '../../../services/graph-lock.service';
   templateUrl: './layout-tab.component.html',
   styleUrls: ['./layout-tab.component.css'],
 })
-export class LayoutTabComponent implements OnInit {
+export class LayoutTabComponent {
   layouts: GraphLayoutsEnum[];
   activeLayout;
 
   layoutDisabled = true;
   lockedGraph = true;
 
-  constructor(private graphEventService: GraphEventService, private graphLockService: GraphLockService) {
+  constructor(
+    private graphEventService: GraphEventService,
+    private graphLockService: GraphLockService,
+  ) {
     this.layouts = Object.values(GraphLayoutsEnum);
   }
-
-  ngOnInit() {}
 
   /*  /!**
    * Turns on/off layouts

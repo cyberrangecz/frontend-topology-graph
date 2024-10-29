@@ -12,7 +12,7 @@ export class DecoratorCheckboxModel {
 
   constructor(
     decoratorType: RouterNodeDecoratorTypeEnum | HostNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-    checked: boolean
+    checked: boolean,
   ) {
     this.decoratorType = decoratorType;
     this.checked = checked;

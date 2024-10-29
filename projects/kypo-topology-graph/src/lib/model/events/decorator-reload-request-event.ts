@@ -15,7 +15,7 @@ export class DecoratorReloadRequestEvent {
   constructor(
     decoratorCategory: DecoratorCategoryEnum,
     decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-    names: string[] = null
+    names: string[] = null,
   ) {
     this.names = names;
     this.decoratorCategory = decoratorCategory;

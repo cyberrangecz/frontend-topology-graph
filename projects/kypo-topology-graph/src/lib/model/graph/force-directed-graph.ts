@@ -77,7 +77,7 @@ export class ForceDirectedGraph {
           } else {
             return 0.7;
           }
-        })
+        }),
     );
   }
 
@@ -409,7 +409,7 @@ export class ForceDirectedGraph {
       (node) =>
         node.physicalRole === NodePhysicalRoleEnum.Router ||
         node.physicalRole === NodePhysicalRoleEnum.Switch ||
-        node.physicalRole === NodePhysicalRoleEnum.Cloud
+        node.physicalRole === NodePhysicalRoleEnum.Cloud,
     );
     if (nodes.length > 0) {
       return nodes.reduce((prev, cur) => (prev.y > cur.y ? prev : cur)).y;
@@ -427,7 +427,7 @@ export class ForceDirectedGraph {
       (node) =>
         node.physicalRole === NodePhysicalRoleEnum.Router ||
         node.physicalRole === NodePhysicalRoleEnum.Switch ||
-        node.physicalRole === NodePhysicalRoleEnum.Cloud
+        node.physicalRole === NodePhysicalRoleEnum.Cloud,
     );
     if (nodes.length > 0) {
       return nodes.reduce((prev, cur) => (prev.x > cur.x ? prev : cur)).x;
@@ -454,7 +454,7 @@ export class ForceDirectedGraph {
               return 50;
             }
           })
-          .strength(1)
+          .strength(1),
       )
       .alphaTarget(0.3)
       .restart();
@@ -479,7 +479,7 @@ export class ForceDirectedGraph {
             } else {
               return 1;
             }
-          })
+          }),
       )
       .alphaTarget(0.3)
       .restart();
@@ -487,7 +487,7 @@ export class ForceDirectedGraph {
 
   getSwitchNodes(nodes: Node[]): SwitchNode[] {
     return nodes.filter(
-      (node) => node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch
+      (node) => node instanceof SwitchNode && node.physicalRole === NodePhysicalRoleEnum.Switch,
     ) as SwitchNode[];
   }
 
@@ -516,7 +516,7 @@ export class ForceDirectedGraph {
             } else {
               return 1;
             }
-          })
+          }),
       )
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .restart();
@@ -529,7 +529,7 @@ export class ForceDirectedGraph {
    */
   hierarchicalLayout() {
     const nodePositions = new HierarchicalLayoutCreator(this.width, this.height).getPositionsForNodes(
-      this.nodes.concat(this.nonActiveNodes)
+      this.nodes.concat(this.nonActiveNodes),
     );
 
     this.simulation
@@ -542,7 +542,7 @@ export class ForceDirectedGraph {
             const nodePosition = nodePositions.getValue(node.name);
             return nodePosition ? nodePosition.y : 0;
           })
-          .strength(1)
+          .strength(1),
       )
       .force(
         'x',
@@ -552,7 +552,7 @@ export class ForceDirectedGraph {
             const nodePosition = nodePositions.getValue(node.name);
             return nodePosition ? nodePosition.x : 0;
           })
-          .strength(1)
+          .strength(1),
       )
       .alphaTarget(0.3)
       .restart();

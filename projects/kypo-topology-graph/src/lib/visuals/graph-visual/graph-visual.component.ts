@@ -32,11 +32,11 @@ import { GraphLockService } from '../../services/graph-lock.service';
   styleUrls: ['./graph-visual.component.css'],
 })
 export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
-  @Input('nodes') nodes: Node[];
-  @Input('links') links: Link[];
-  @Input('width') width: number;
-  @Input('height') height: number;
-  @Input('draggedNode') draggedNode: Node;
+  @Input() nodes: Node[];
+  @Input() links: Link[];
+  @Input() width: number;
+  @Input() height: number;
+  @Input() draggedNode: Node;
   @Input() cloudSandboxInstance: boolean;
   @Input() isConsoleReady: boolean;
   @Output() polling: EventEmitter<boolean> = new EventEmitter();
@@ -62,7 +62,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     private graphEventService: GraphEventService,
     private graphLockService: GraphLockService,
     private decoratorEventService: DecoratorEventService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -220,9 +220,9 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.HostDecorators,
               null,
-              hostNames
+              hostNames,
             ),
-          100
+          100,
         );
       }
 
@@ -232,16 +232,16 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
             this.decoratorEventService.triggerDecoratorReloadRequest(
               DecoratorCategoryEnum.RouterDecorators,
               null,
-              routerNames
+              routerNames,
             ),
-          100
+          100,
         );
       }
 
       if (routerNames.length > 0 || hostNames.length > 0) {
         setTimeout(
           () => this.decoratorEventService.triggerDecoratorReloadRequest(DecoratorCategoryEnum.LinkDecorators, null),
-          100
+          100,
         );
       }
     }

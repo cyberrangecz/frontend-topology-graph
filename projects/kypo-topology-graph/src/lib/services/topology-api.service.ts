@@ -37,7 +37,7 @@ export class TopologyApi {
     private topologySerializer: TopologyMapper,
     private loadingService: KypoTopologyLoadingService,
     private errorService: KypoTopologyErrorService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
 
   getTopologyBySandboxInstanceId(sandboxUuid: string): Observable<{ nodes: Node[]; links: Link[] }> {
@@ -65,8 +65,8 @@ export class TopologyApi {
           const errorMessage = new TopologyError(err, 'Loading topology');
           this.errorService.emitError(errorMessage);
           this.loadingService.setIsLoading(false);
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -85,7 +85,7 @@ export class TopologyApi {
             const errorMessage = new TopologyError(err, 'Loading VM console');
             this.errorService.emitError(errorMessage);
           },
-        })
+        }),
       );
   }
 
@@ -101,7 +101,7 @@ export class TopologyApi {
         error: (err) => {
           this.errorService.emitError(new TopologyError(err, 'Loading URLs for VM consoles'));
         },
-      })
+      }),
     );
   }
 
@@ -116,7 +116,7 @@ export class TopologyApi {
     sandboxUuid: string,
     vmIp: string,
     vmOsType: string,
-    userInterface: UserInterface
+    userInterface: UserInterface,
   ): Observable<string> {
     return zip(this.getGuacamoleToken(), this.getManIp(sandboxUuid)).pipe(
       switchMap((resp) => {
@@ -131,7 +131,7 @@ export class TopologyApi {
           const errorMessage = new TopologyError(err, "Authenticate Apache's Guacamole user.");
           this.errorService.emitError(errorMessage);
         },
-      })
+      }),
     );
   }
 
@@ -144,7 +144,7 @@ export class TopologyApi {
       body.toString(),
       {
         headers: new HttpHeaders({ 'Content-Type': ' application/x-www-form-urlencoded' }),
-      }
+      },
     );
   }
 
@@ -157,7 +157,7 @@ export class TopologyApi {
             const errorMessage = new TopologyError(err, 'Get VMs info.');
             this.errorService.emitError(errorMessage);
           },
-        })
+        }),
       );
   }
 
@@ -170,7 +170,7 @@ export class TopologyApi {
             const errorMessage = new TopologyError(err, 'Get VMs info.');
             this.errorService.emitError(errorMessage);
           },
-        })
+        }),
       );
   }
 
@@ -178,7 +178,7 @@ export class TopologyApi {
     vmIp: string,
     vmOsType: string,
     manIp: string,
-    userInterface: UserInterface
+    userInterface: UserInterface,
   ): Observable<URLSearchParams> {
     const body = new URLSearchParams();
     switch (userInterface) {
@@ -200,7 +200,7 @@ export class TopologyApi {
     vmIp: string,
     vmOsType: string,
     manIp: string,
-    userInterface: UserInterface
+    userInterface: UserInterface,
   ) {
     return this.getQuickConnectURI(vmIp, vmOsType, manIp, userInterface).pipe(
       switchMap((urlSearchParams) => {
@@ -212,7 +212,7 @@ export class TopologyApi {
             {
               headers: new HttpHeaders({ 'Content-Type': ' application/x-www-form-urlencoded' }),
               params: new HttpParams().set('token', token),
-            }
+            },
           )
           .pipe(map((resp) => resp.identifier));
       }),
@@ -221,7 +221,7 @@ export class TopologyApi {
           const errorMessage = new TopologyError(err, 'Creating Guacamole quick connection.');
           this.errorService.emitError(errorMessage);
         },
-      })
+      }),
     );
   }
 
@@ -240,7 +240,7 @@ export class TopologyApi {
             const errorMessage = new TopologyError(err, 'Performing VM action: ' + action);
             this.errorService.emitError(errorMessage);
           },
-        })
+        }),
       );
   }
 }
