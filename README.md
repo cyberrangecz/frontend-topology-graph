@@ -8,12 +8,12 @@ It is designed to communicate with REST API of [Sandbox microservice](https://gi
 To use the library you need to have installed:
 
 * NPM with access to [KYPO registry](https://projects.ics.muni.cz/projects/kbase/knowledgebase/articles/153)
- 
+
 ## Usage
 
 To use the topology component in your Angular application follow these steps:
 
-1. Run `npm install @muni-kypo-crp/topology-graph`
+1. Run `npm install @cyberrangecz-platform/topology-graph`
 2. Create topology config class extending **kypoTopologyGraphConfig** from the library. Config contains following options:
     + topologyRestUrl (url where Sandbox microservice is running)
     + decoratorsRestUrl (currently not supported by backend, leave as empty string)
@@ -26,5 +26,6 @@ To use the topology component in your Angular application follow these steps:
 6. Subscribe to observables of `kypoTopologyLoadingService` and `kypoTopologyErrorService` to display loading and error messages emitted from the component in a standard way of your app
 
 You will need to provide data for the components. This can be done in two ways
+
 * Use mocked data with [JSON server](https://github.com/typicode/json-server). After installing json-server run `npm run api`.
 * Run the app in local environment and ssl `ng serve --ssl`

@@ -1,5 +1,4 @@
 import { defer } from 'rxjs';
-import {} from 'jasmine';
 
 export function asyncData<T>(data: T) {
   return defer(() => Promise.resolve(data));

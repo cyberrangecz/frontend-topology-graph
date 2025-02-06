@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DecoratorTimeService } from '../../../services/decorator-time.service';
 import { DecoratorReloadTimerService } from '../../../services/decorator-reload-timer.service';
 import { DecoratorStateService } from '../../../services/decorator-state.service';

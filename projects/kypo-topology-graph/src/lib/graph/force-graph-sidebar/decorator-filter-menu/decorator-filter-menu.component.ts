@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DecoratorFilterService } from '../../../services/decorator-filter.service';
 import { DecoratorCategoryEnum } from '../../../model/enums/decorator-category-enum';
 import { CategoryCheckboxModel } from './category-checkbox-model';
@@ -31,6 +31,7 @@ export class DecoratorFilterMenuComponent implements OnDestroy {
   indeterminate = false;
 
   private _stateSubscription;
+
   /**
    * Creates category checkbox objects and its subcategories based on category enums and decorator enums for each category
    * @param {DecoratorFilterService} decoratorFilterService injected filter service

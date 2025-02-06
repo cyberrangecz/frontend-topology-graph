@@ -5,7 +5,7 @@ import { concatMap, map } from 'rxjs/operators';
 import { TopologyApi } from './topology-api.service';
 import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
 import { UserInterface } from '../model/enums/user-interface-enum';
-import { HostNode, RouterNode } from '@muni-kypo-crp/topology-model';
+import { HostNode, RouterNode } from '@cyberrangecz-platform/topology-model';
 
 /**
  * Layer between components and API. Handles actions on host nodes

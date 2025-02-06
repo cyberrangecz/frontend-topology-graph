@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Link, Node } from '@muni-kypo-crp/topology-model';
+import { Link, Node } from '@cyberrangecz-platform/topology-model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -128,7 +128,7 @@ export class TopologyApi {
       }),
       tap({
         error: (err) => {
-          const errorMessage = new TopologyError(err, "Authenticate Apache's Guacamole user.");
+          const errorMessage = new TopologyError(err, 'Authenticate Apache`s Guacamole user.');
           this.errorService.emitError(errorMessage);
         },
       }),

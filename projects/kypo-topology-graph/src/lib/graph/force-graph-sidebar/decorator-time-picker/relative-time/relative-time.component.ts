@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { RelativeTimeOption } from './relative-time-option';
 import { TimeAlgebraOperatorEnum } from '../../../../model/enums/time-algebra-operator-enum';
 import { TimeUnitEnum } from '../../../../model/enums/time-unit-enum';
@@ -115,6 +115,7 @@ export class RelativeTimeComponent implements OnDestroy {
       this.toAmount <= this.MAX
     );
   }
+
   /**
    * Checks whether the selected time is valid to use. (FROM must not be after TO)
    * @returns {boolean} true is time is valid, false otherwise

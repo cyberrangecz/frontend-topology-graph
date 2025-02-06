@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Link } from '@muni-kypo-crp/topology-model';
+import { Link } from '@cyberrangecz-platform/topology-model';
 import { LinkSpeedDecorator } from '../../model/decorators/link-speed-decorator';
 import { DecoratorEventService } from '../../services/decorator-event.service';
 import { LinkMailDecorator } from '../../model/decorators/link-mail-decorator';
@@ -9,6 +9,7 @@ import { DecoratorEventMessageEnum } from '../../model/enums/decorator-event-mes
 import { LinkDecoratorSpeedEnum } from '../../model/enums/link-decorator-speed-enum';
 import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum';
 import { ICONS_PATH } from '../../icons-path';
+
 /**
  * Visual component used to display links in the graph-visual and its decorators. Binds to link mode.
  */
@@ -74,13 +75,14 @@ export class GraphLinkVisualComponent implements OnInit, OnDestroy {
   /**
    * Sets class of speed decorator line to distinguish two way stream of data visually
    */
+
   /*  private setSpeedDecoratorWayClass() {
-    if (this.link.source.id > this.link.target.id) {
-      this.way = 'up';
-    } else {
-      this.way = 'down';
-    }
-  }*/
+      if (this.link.source.id > this.link.target.id) {
+        this.way = 'up';
+      } else {
+        this.way = 'down';
+      }
+    }*/
 
   /**
    * Refreshes all decorators if change was triggered by DecoratorEventService

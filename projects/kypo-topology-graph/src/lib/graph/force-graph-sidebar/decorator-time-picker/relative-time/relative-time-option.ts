@@ -1,7 +1,7 @@
 import { TimeAlgebraOperatorEnum } from '../../../../model/enums/time-algebra-operator-enum';
 import { TimeUnitEnum } from '../../../../model/enums/time-unit-enum';
-import { Moment } from 'moment-mini';
 import * as moment_ from 'moment-mini';
+import { Moment } from 'moment-mini';
 
 const moment = moment_;
 

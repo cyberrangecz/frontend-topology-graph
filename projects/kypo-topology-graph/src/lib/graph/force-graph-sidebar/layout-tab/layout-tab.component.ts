@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GraphEventService } from '../../../services/graph-event.service';
 import { GraphLayoutsEnum } from '../../../model/enums/graph-layouts-enum';
 import { GraphLockService } from '../../../services/graph-lock.service';
@@ -23,16 +23,16 @@ export class LayoutTabComponent {
   }
 
   /*  /!**
-   * Turns on/off layouts
-   *!/
-  toggleLayouts() {
-    this.layoutDisabled = !this.layoutDisabled;
-    if (this.layoutDisabled) {
-      this.disableLayouts();
-    } else {
-      this.setActiveLayout(this.activeLayout);
-    }
-  }*/
+     * Turns on/off layouts
+     *!/
+    toggleLayouts() {
+      this.layoutDisabled = !this.layoutDisabled;
+      if (this.layoutDisabled) {
+        this.disableLayouts();
+      } else {
+        this.setActiveLayout(this.activeLayout);
+      }
+    }*/
 
   /**
    * Locks and unlocks the graph canvas size
@@ -57,26 +57,27 @@ export class LayoutTabComponent {
   /**
    * disables layout
    */
-  /*  private disableLayouts() {
-    this.activeLayout = null;
-    this.graphEventService.turnOffForces();
-  }
 
-  /!**
-   * Sets current active layout
-   * @param activeLayout a layout which should be set as active
-   *!/
-  setActiveLayout(activeLayout) {
-    this.graphEventService.turnOffForces();
-    switch (activeLayout) {
-      case GraphLayoutsEnum.Hierarchical: {
-        this.graphEventService.hierarchicalLayout();
-        break;
-      }
-      default:
-        break;
+  /*  private disableLayouts() {
+      this.activeLayout = null;
+      this.graphEventService.turnOffForces();
     }
-  }*/
+
+    /!**
+     * Sets current active layout
+     * @param activeLayout a layout which should be set as active
+     *!/
+    setActiveLayout(activeLayout) {
+      this.graphEventService.turnOffForces();
+      switch (activeLayout) {
+        case GraphLayoutsEnum.Hierarchical: {
+          this.graphEventService.hierarchicalLayout();
+          break;
+        }
+        default:
+          break;
+      }
+    }*/
 
   /**
    * Collapses all nodes

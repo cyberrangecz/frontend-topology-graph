@@ -8,9 +8,11 @@ export class MockDecoratorReloadTimerService extends DecoratorReloadTimerService
   turnOffAutomaticReload() {
     this.subject.next(0);
   }
+
   turnOnAutomaticReload() {
     this.subject.next(1);
   }
+
   getReloadPeriod(): number {
     return 1;
   }

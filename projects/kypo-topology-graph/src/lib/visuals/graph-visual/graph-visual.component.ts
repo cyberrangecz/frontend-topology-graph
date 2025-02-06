@@ -11,14 +11,11 @@ import {
 } from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import { Link, SwitchNode } from '@muni-kypo-crp/topology-model';
-import { Node } from '@muni-kypo-crp/topology-model';
+import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@cyberrangecz-platform/topology-model';
 import { GraphEventService } from '../../services/graph-event.service';
 import { GraphEventTypeEnum } from '../../model/enums/graph-event-type-enum';
 import { Subscription } from 'rxjs';
 import { GraphEvent } from '../../model/events/graph-event';
-import { RouterNode } from '@muni-kypo-crp/topology-model';
-import { NodePhysicalRoleEnum } from '@muni-kypo-crp/topology-model';
 import { DecoratorEventService } from '../../services/decorator-event.service';
 import { DecoratorCategoryEnum } from '../../model/enums/decorator-category-enum';
 import { GraphLockService } from '../../services/graph-lock.service';
@@ -126,6 +123,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
   onShowContainers(event: boolean): void {
     this.showContainers.emit(event);
   }
+
   /**
    * Resolves received graph event and calls appropriate methods of graph-visual model
    * @param {GraphEventTypeEnum} event received event from service

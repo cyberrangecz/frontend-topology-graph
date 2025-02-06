@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
+import { HostNode, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@cyberrangecz-platform/topology-model';
 import { NodeSemaphoreDecorator } from '../../model/decorators/node-semaphore-decorator';
 import { NodeStatusDecorator } from '../../model/decorators/node-status-decorator';
 import { DecoratorEventService } from '../../services/decorator-event.service';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
-import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@muni-kypo-crp/topology-model';
+import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@cyberrangecz-platform/topology-model';
 import * as d3 from 'd3';
 import { D3ZoomEventService } from './d3-zoom-event.service';
 import { GraphLockService } from './graph-lock.service';
@@ -102,6 +102,7 @@ export class D3Service {
     const lockService = this.graphLockService;
     const resizeEventSubject = this._resizeEventSubject;
     const dragService = this.draggedNodeService;
+
     // drag started by user
     function started(event) {
       dragService.emitNodeTouchedEvent(node);

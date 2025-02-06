@@ -1,35 +1,35 @@
 .console-link {
-  width: 150px;
-  height: 20px;
+    width: 150px;
+    height: 20px;
 }
 
 g {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 g :hover {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 g a {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 g a :hover {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 text {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
 }
 
 .disabled {
-  stroke: gainsboro;
-  cursor: wait;
+    stroke: gainsboro;
+    cursor: wait;
 }
 
 rect.item {
-  fill: rgb(245,245,245);
-  stroke: #ababab;
+    fill: rgb(245, 245, 245);
+    stroke: #ababab;
 }

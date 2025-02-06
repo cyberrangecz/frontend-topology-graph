@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { Node } from '@muni-kypo-crp/topology-model';
+import { Node } from '@cyberrangecz-platform/topology-model';
 import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
 import { D3Service } from '../services/d3.service';
 

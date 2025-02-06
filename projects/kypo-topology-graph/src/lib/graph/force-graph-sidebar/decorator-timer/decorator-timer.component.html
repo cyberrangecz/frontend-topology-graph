@@ -1,31 +1,31 @@
 <mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Decorator refresh period
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Decorator refresh period
+        </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <mat-card>
+    <mat-card>
 
-    <mat-slide-toggle
-      color="primary"
-      [disabled]="!activeDecorators"
-      [checked]="!manualDecoratorReload"
-      (change)="toggleDecoratorReload()">
-      <p *ngIf="manualDecoratorReload">Enable automatic refresh</p>
-      <p *ngIf="!manualDecoratorReload">Disable automatic refresh</p>
-    </mat-slide-toggle>
-    <p>Decorator refresh rate (s)</p>
+        <mat-slide-toggle
+            color="primary"
+            [disabled]="!activeDecorators"
+            [checked]="!manualDecoratorReload"
+            (change)="toggleDecoratorReload()">
+            <p *ngIf="manualDecoratorReload">Enable automatic refresh</p>
+            <p *ngIf="!manualDecoratorReload">Disable automatic refresh</p>
+        </mat-slide-toggle>
+        <p>Decorator refresh rate (s)</p>
 
-    <mat-slider
-      [disabled]="!activeDecorators || manualDecoratorReload"
-      [max]="inputNumberMax"
-      [min]="inputNumberMin"
-      [step]="1"
-      [(ngModel)]="reloadPeriod"
-      (change)="periodChange(reloadPeriod)">
-    </mat-slider>
-  </mat-card>
+        <mat-slider
+            [disabled]="!activeDecorators || manualDecoratorReload"
+            [max]="inputNumberMax"
+            [min]="inputNumberMin"
+            [step]="1"
+            [(ngModel)]="reloadPeriod"
+            (change)="periodChange(reloadPeriod)">
+        </mat-slider>
+    </mat-card>
 </mat-expansion-panel>
 
 

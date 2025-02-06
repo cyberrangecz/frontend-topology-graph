@@ -1,34 +1,34 @@
 
 text {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    cursor: pointer;
 }
 
 title {
-  display: block;
+    display: block;
 }
 
 g.node rect {
-  fill: rgb(245,245,245);
-  cursor: pointer;
-  stroke: #ababab;
+    fill: rgb(245, 245, 245);
+    cursor: pointer;
+    stroke: #ababab;
 }
 
 g.node rect.collapsed {
-  fill: none;
+    fill: none;
 }
 
 g.node.online rect {
-  stroke: green;
+    stroke: green;
 
 }
 
 g.node.offline rect {
-  stroke:red;
+    stroke: red;
 }
 
 image {
-  cursor: pointer;
+    cursor: pointer;
 }
 

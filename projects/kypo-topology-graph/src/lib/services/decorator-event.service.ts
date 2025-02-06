@@ -4,7 +4,7 @@ import { NodeDecorator } from '../model/decorators/node-decorator';
 import { LinkDecoratorChangeEvent } from '../model/events/link-decorator-change-event';
 import { NodeDecoratorChangeEvent } from '../model/events/node-decorator-change-event';
 
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HostNodeDecoratorTypeEnum } from '../model/enums/host-node-decorator-type-enum';
 import { RouterNodeDecoratorTypeEnum } from '../model/enums/router-node-decorator-type-enum';
 import { LinkDecoratorTypeEnum } from '../model/enums/link-decorator-type-enum';
@@ -71,11 +71,11 @@ export class DecoratorEventService {
   }
 
   /**
-   * Sends event with node decorator types which should be removed
+     * Sends event with node decorator types which should be removed
 
-   * @param decoratorCategory decorator category which types should be removed
-   * @param {HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]} decoratorTypes array of decorator types to remove
-   */
+     * @param decoratorCategory decorator category which types should be removed
+     * @param {HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[]} decoratorTypes array of decorator types to remove
+     */
   public triggerNodeDecoratorsRemoved(
     decoratorCategory: DecoratorCategoryEnum,
     decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, forkJoin, Subject } from 'rxjs';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LinkDecorator } from '../model/decorators/link-decorator';
 import { NodeDecorator } from '../model/decorators/node-decorator';
@@ -164,23 +164,23 @@ export class DecoratorFacade {
       switch (hostNodeDecoratorType) {
         case HostNodeDecoratorTypeEnum.NodeLogicalRoleDecorator: {
           /*          observablesToReturn.push(
-            this.http.post(url, requestBody, httpOptions)
-              .map(response => this.parseNodeLogicalRoleDecorators(response))
-          );*/
+                      this.http.post(url, requestBody, httpOptions)
+                        .map(response => this.parseNodeLogicalRoleDecorators(response))
+                    );*/
           break;
         }
         case HostNodeDecoratorTypeEnum.NodeSemaphoreDecorator: {
           /*          observablesToReturn.push(
-            this.http.post(url, requestBody, httpOptions)
-              .map(response => this.parseNodeSemaphoreDecorators(response))
-          );*/
+                      this.http.post(url, requestBody, httpOptions)
+                        .map(response => this.parseNodeSemaphoreDecorators(response))
+                    );*/
           break;
         }
         case HostNodeDecoratorTypeEnum.NodeStatusDecorator: {
           /*          observablesToReturn.push(
-            this.http.post(url, requestBody, httpOptions)
-              .map(response => this.parseNodeStatusDecorators(response))
-          );*/
+                      this.http.post(url, requestBody, httpOptions)
+                        .map(response => this.parseNodeStatusDecorators(response))
+                    );*/
           break;
         }
       }
@@ -217,9 +217,9 @@ export class DecoratorFacade {
       switch (routerNodeDecoratorType) {
         case RouterNodeDecoratorTypeEnum.LogicalRoleDecorator: {
           /*          observablesToReturn.push(
-              this.http.post(url, requestBody, httpOptions)
-                .map(response => this.parseNodeLogicalRoleDecorators(response))
-            );*/
+                        this.http.post(url, requestBody, httpOptions)
+                          .map(response => this.parseNodeLogicalRoleDecorators(response))
+                      );*/
           break;
         }
         default:
@@ -264,9 +264,9 @@ export class DecoratorFacade {
         }
         case LinkDecoratorTypeEnum.LinkMailDecorator: {
           /*          observablesToReturn.push(
-            this.http.post(url, requestBody, httpOptions)
-              .map(response => this.parseLinkMailDecorators(response))
-          );*/
+                      this.http.post(url, requestBody, httpOptions)
+                        .map(response => this.parseLinkMailDecorators(response))
+                    );*/
           break;
         }
         default: {
@@ -409,8 +409,8 @@ export class DecoratorFacade {
 
     // testData
     /*        nodeDecorators.push(new NodeLogicalRoleDecorator(4, NodeLogicalRoleEnum.Attacker));
-        nodeDecorators.push(new NodeSemaphoreDecorator(4, NodeSemaphoreDecoratorStatusEnum.Orange));
-        nodeDecorators.push(new NodeStatusDecorator(4, StatusEnum.Online));*/
+            nodeDecorators.push(new NodeSemaphoreDecorator(4, NodeSemaphoreDecoratorStatusEnum.Orange));
+            nodeDecorators.push(new NodeStatusDecorator(4, StatusEnum.Online));*/
 
     // forkJoin processes multiple observables and flattens the result to node and link arrays.
     // When flattening is completed event is triggered
@@ -449,7 +449,7 @@ export class DecoratorFacade {
 
     // testData
     /*    linkDecorators.push(new LinkMailDecorator(25, 100));
-    linkDecorators.push(new LinkMailDecorator(24, 1000000));*/
+        linkDecorators.push(new LinkMailDecorator(24, 1000000));*/
 
     forkJoin(linkObservables).subscribe(
       (responses) => responses.forEach((decorators) => decorators.forEach((dec) => linkDecorators.push(dec))),
@@ -470,6 +470,7 @@ export class DecoratorFacade {
       },
     );
   }
+
   /**
    * Triggers node decorator load error event
    */

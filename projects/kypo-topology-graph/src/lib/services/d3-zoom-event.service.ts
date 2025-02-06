@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Service used to trigger events when d3 zoom changed (user zoomed in or out)

@@ -1,15 +1,15 @@
 g.status.decorator circle {
-  stroke: #ababab;
+    stroke: #ababab;
 }
 
 g.status.decorator.red circle {
-  fill: red;
+    fill: red;
 }
 
 g.status.decorator.green circle {
-  fill: green;
+    fill: green;
 }
 
 g.status.decorator.orange circle {
-  fill: orange;
+    fill: orange;
 }

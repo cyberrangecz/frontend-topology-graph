@@ -1,27 +1,27 @@
 <mat-expansion-panel
-  [expanded]="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Controls
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+    [expanded]="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Controls
+        </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <mat-card>
-    <mat-card-content>
-      <button mat-button
-            *ngIf="lockedGraph"
-            (click)="toggleLock()">
-        Free mode
-      </button>
-      <button mat-button
-              *ngIf="!lockedGraph"
-              (click)="toggleLock()">
-        Locked mode
-      </button>
-      <button mat-button (click)="collapseAll()">Collapse all</button>
-      <button mat-button (click)="expandAll()">Expand all</button>
-    </mat-card-content>
-  </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <button mat-button
+                    *ngIf="lockedGraph"
+                    (click)="toggleLock()">
+                Free mode
+            </button>
+            <button mat-button
+                    *ngIf="!lockedGraph"
+                    (click)="toggleLock()">
+                Locked mode
+            </button>
+            <button mat-button (click)="collapseAll()">Collapse all</button>
+            <button mat-button (click)="expandAll()">Expand all</button>
+        </mat-card-content>
+    </mat-card>
 </mat-expansion-panel>
 
 <!--

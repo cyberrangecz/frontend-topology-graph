@@ -9,12 +9,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Link } from '@muni-kypo-crp/topology-model';
-import { Node } from '@muni-kypo-crp/topology-model';
+import { HostNode, Link, Node, RouterNode } from '@cyberrangecz-platform/topology-model';
 import { TopologyApi } from '../services/topology-api.service';
 import { DecoratorFacade } from '../services/decorator-facade.service';
-import { HostNode } from '@muni-kypo-crp/topology-model';
-import { RouterNode } from '@muni-kypo-crp/topology-model';
 
 import { DecoratorEventService } from '../services/decorator-event.service';
 import { DecoratorReloadRequestEvent } from '../model/events/decorator-reload-request-event';
@@ -43,6 +40,7 @@ import { GraphLockService } from '../services/graph-lock.service';
 import { catchError, map, take } from 'rxjs/operators';
 import { ConsoleUrl } from '../model/others/console-url';
 import { ResourcePollingService } from '../services/resource-polling.service';
+
 /**
  * Main component of the graph-visual topology application.
  * On start it loads topology and decorators and store results in nodes and links attributes which are later
@@ -405,6 +403,7 @@ export class KypoTopologyGraphComponent implements OnInit, OnChanges, OnDestroy,
       },
     );
   }
+
   /**
    * Subscribes to error in decorator loader
    */

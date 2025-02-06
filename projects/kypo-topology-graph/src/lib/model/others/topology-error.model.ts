@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+
 export class TopologyError {
   err: HttpErrorResponse;
   action: string;
