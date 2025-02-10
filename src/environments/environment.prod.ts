@@ -10,7 +10,7 @@ export const environment = {
         guardLoginPageRedirect: 'login',
         interceptorAllowedUrls: [BASE_URL, 'https://localhost'],
         authorizationStrategyConfig: {
-            authorizationUrl: BASE_URL + '/kypo-rest-user-and-group/api/v1/users/info',
+            authorizationUrl: BASE_URL + '/user-and-group/api/v1/users/info',
         },
         providers: [
             {

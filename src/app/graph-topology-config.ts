@@ -1,6 +1,6 @@
-import { KypoTopologyGraphConfig } from '../../projects/kypo-topology-graph/src/public_api';
+import { TopologyGraphConfig } from '../../projects/topology-graph/src/public_api';
 
-export const CustomTopologyConfig: KypoTopologyGraphConfig = {
+export const CustomTopologyConfig: TopologyGraphConfig = {
     decoratorsRestUrl: '',
     defaultDecoratorRefreshPeriodInSeconds: 3,
     topologyRestUrl: 'http://localhost:3000/',

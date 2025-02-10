@@ -2,7 +2,7 @@
   "root": true,
   "overrides": [
     {
-      "files": ["kypo-command-visualizations-example/**/*.ts"],
+      "files": ["command-visualizations-example/**/*.ts"],
       "rules": {
         // TODO fix these and make them errors instead of warnings
         "@angular-eslint/directive-selector": [
@@ -24,14 +24,14 @@
       }
     },
     {
-      "files": ["kypo-command-visualizations/**/*.ts"],
+      "files": ["command-visualizations/**/*.ts"],
       "rules": {
         // TODO fix these and make them errors instead of warnings
         "@angular-eslint/directive-selector": [
           "warn",
           {
             "type": "attribute",
-            "prefix": "kypo-",
+            "prefix": "crczp-",
             "style": "camelCase"
           }
         ],
@@ -39,7 +39,7 @@
           "warn",
           {
             "type": "element",
-            "prefix": "kypo-",
+            "prefix": "crczp-",
             "style": "kebab-case"
           }
         ]

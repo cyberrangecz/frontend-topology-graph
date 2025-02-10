@@ -1,0 +1,43 @@
+{
+  "extends": [
+    "../../.eslintrc.json"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/{{PROJECT_DIR}}/tsconfig.*?.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        // TODO fix these and make them errors instead of warnings
+        "@angular-eslint/directive-selector": [
+          "warn",
+          {
+            "type": "attribute",
+            "prefix": "crczp",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "warn",
+          {
+            "type": "element",
+            "prefix": "crczp",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.component.html"
+      ],
+      "rules": {}
+    }
+  ]
+}

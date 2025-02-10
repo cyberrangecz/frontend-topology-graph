@@ -1,7 +1,7 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./projects/kypo-topology-graph",
+        "baseUrl": "./projects/topology-graph",
         "downlevelIteration": true,
         "module": "esnext",
         "outDir": "./dist/out-tsc",

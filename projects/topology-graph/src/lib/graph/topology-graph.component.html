@@ -1,0 +1,80 @@
+<mat-drawer-container
+    [style.height.px]="height"
+    class="topology-view" autosize>
+    <crczp-topology-app-legend [width]="legendWidth"
+                              [height]="Math.max(height, 340)"
+                              [style.float]="'left'"
+                              [legendAttachment]="'vertical'"
+                              [showContainers]="showLegendContainers"
+    ></crczp-topology-app-legend>
+    <mat-drawer #drawer class="left-sidenav" mode="over" position="end">
+        <crczp-topology-graph-sidebar></crczp-topology-graph-sidebar>
+    </mat-drawer>
+    <div class="topology-view__topology-content">
+
+        <div class="error-message" *ngIf="isError">
+            <h3>Topology data was not loaded properly.</h3>
+            <div class="try-again">
+                <button mat-button color="primary" (click)="reloadTopology()">Try again</button>
+            </div>
+        </div>
+
+        <div class="loading" *ngIf="(isLoading$ | async) && !isError">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+
+        <!--    <button
+              class="zoom-in"
+              mat-icon-button
+              (click)="zoomIn()">
+              <mat-icon>zoom_in</mat-icon>
+            </button>
+            <button
+              class="zoom-out"
+              mat-icon-button
+              (click)="zoomOut()">
+              <mat-icon>zoom_out</mat-icon>
+            </button>-->
+
+
+        <!-- RESET ZOOM BUTTON -->
+        <button
+            class="zoom-reset"
+            mat-icon-button
+            *ngIf="showZoomResetButton"
+            (click)="resetZoom()">
+            <mat-icon>filter_center_focus</mat-icon>
+        </button>
+
+        <!-- GRAPH -->
+        <graph class="topology-content__graph" *ngIf="dataLoaded"
+               [cloudSandboxInstance]="isCloudSandboxInstance()"
+               [isConsoleReady]="isConsoleReady$ | async"
+               [draggedNode]="draggedNode"
+               [nodes]="nodes"
+               [links]="links"
+               [width]="width - legendWidth - sandwichMenuWidth"
+               [height]="height"
+               (polling)="onPollingStateChange($event)"
+               (loadConsoles)="onLoadConsoles($event)"
+               (showContainers)="onShowContainers($event)">
+        </graph>
+
+        <button
+            class="sidenav-button"
+            type="button"
+            mat-icon-button
+            (click)="drawer.toggle(); toggleSidebar()">
+            <mat-icon *ngIf="!sidebarOpen">menu</mat-icon>
+            <mat-icon *ngIf="sidebarOpen">chevron_right</mat-icon>
+        </button>
+    </div>
+</mat-drawer-container>
+
+<!-- EXAMPLE LEGEND HORIZONTAL BOTTOM -->
+<!--
+<crczp-topology-app-legend [width]="800"
+                           [height]="65"
+                           [legendAttachment]="'horizontal'"
+></crczp-topology-app-legend>
+-->

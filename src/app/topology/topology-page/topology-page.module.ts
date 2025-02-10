@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopologyPageComponent } from './topology-page.component';
 import {
-    KypoTopologyGraphModule
-} from '../../../../projects/kypo-topology-graph/src/lib/graph/kypo-topology-graph.module';
+    TopologyGraphModule
+} from '../../../../projects/topology-graph/src/lib/graph/topology-graph.module';
 import { CustomTopologyConfig } from '../../graph-topology-config';
 import {
-    KypoTopologyLegendModule
-} from '../../../../projects/kypo-topology-graph/src/lib/legend/kypo-topology-legend.module';
+    TopologyLegendModule
+} from '../../../../projects/topology-graph/src/lib/legend/topology-legend.module';
 import { TopologyPageRoutingModule } from './topology-page-routing.module';
 
 
@@ -16,8 +16,8 @@ import { TopologyPageRoutingModule } from './topology-page-routing.module';
     imports: [
         CommonModule,
         TopologyPageRoutingModule,
-        KypoTopologyGraphModule.forRoot(CustomTopologyConfig),
-        KypoTopologyLegendModule,
+        TopologyGraphModule.forRoot(CustomTopologyConfig),
+        TopologyLegendModule,
     ]
 })
 export class TopologyPageModule {

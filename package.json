@@ -10,13 +10,13 @@
         "prettier-check": "prettier --check \"projects/**/*.ts\"",
         "prettier-fix": "prettier --write \"./projects/**/*.ts\"",
         "ci-test": "ng test --browsers ChromeHeadless --watch=false",
-        "build-library": "ng build kypo-topology-graph --configuration production",
-        "build-example-app": "ng build kypo-topology-graph-example --configuration production",
-        "create-package": "cd dist/kypo-topology-graph && npm pack",
+        "build-library": "ng build topology-graph --configuration production",
+        "build-example-app": "ng build topology-graph-example --configuration production",
+        "create-package": "cd dist/topology-graph && npm pack",
         "build-and-pack": "npm install && npm run build-library && npm run create-package",
-        "ci-update-version": "cd ./projects/kypo-topology-graph/ && npm version $TAG_VERSION",
+        "ci-update-version": "cd projects/topology-graph/ && npm version $TAG_VERSION",
         "ci-build-and-pack": "npm ci --cache .npm --prefer-offline && npm run build-library && npm run create-package",
-        "ci-publish-package": "cd dist/kypo-topology-graph && npm publish",
+        "ci-publish-package": "cd dist/topology-graph && npm publish",
         "api": "json-server -w utils/json-server/db.json -r utils/json-server/routes.json"
     },
     "husky": {
