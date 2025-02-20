@@ -6,8 +6,7 @@
             [attr.x1]="link.source.x"
             [attr.y1]="link.source.y"
             [attr.x2]="link.target.x"
-            [attr.y2]="link.target.y">
-        </line>
+            [attr.y2]="link.target.y"/>
         <!-- animation motion path from source to target. USE THIS as mpath if other animated decorators are added -->
         <path
             [id]="'motion-path-' + link.id"
@@ -43,9 +42,7 @@
                 fill="freeze"
                 repeatCount="indefinite"
                 rotate="auto">
-                <mpath
-                    [attr.xlink:href]="'#motion-path-' + link.id">
-                </mpath>
+                <mpath [attr.xlink:href]="'#motion-path-' + link.id"/>
             </animateMotion>
         </g>
     </g>
@@ -53,7 +50,6 @@
     <!--- MAIL LINK DECORATOR -->
     <g *ngIf="mailDecorator != null"
        ngClass="mail-speed {{ linkDecoratorMailSpeed }}">
-
         <!-- animated object -->
         <g
             [id]="'mail-' + link.id"
@@ -61,20 +57,17 @@
             <image
                 width="50"
                 height="30"
-                [attr.xlink:href]="iconsPath + 'mail.svg'">
-            </image>
-        </g>
+                [attr.xlink:href]="iconsPath + 'mail.svg'"/>
 
-        <!-- svg animation -->
-        <animateMotion
-            [attr.xlink:href]="'#mail-' + link.id"
-            [attr.dur]="calculateDecoratorAnimationDuration(linkDecoratorMailSpeed) + 'ms'"
-            fill="freeze"
-            repeatCount="indefinite"
-            rotate="auto">
-            <mpath
-                [attr.xlink:href]="'#motion-path-' + link.id">
-            </mpath>
-        </animateMotion>
+            <!-- svg animation -->
+            <animateMotion
+                [attr.xlink:href]="'#mail-' + link.id"
+                [attr.dur]="calculateDecoratorAnimationDuration(linkDecoratorMailSpeed) + 'ms'"
+                fill="freeze"
+                repeatCount="indefinite"
+                rotate="auto">
+                <mpath [attr.xlink:href]="'#motion-path-' + link.id"/>
+            </animateMotion>
+        </g>
     </g>
 </svg>

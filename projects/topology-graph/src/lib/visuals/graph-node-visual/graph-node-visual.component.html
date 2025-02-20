@@ -16,8 +16,7 @@
             rx="5"
             ry="5"
             [attr.width]="width"
-            [attr.height]="height">
-        </rect>
+            [attr.height]="height"/>
 
         <!-- COLLAPSED SUBNET NODE BORDER -->
         <rect
@@ -28,8 +27,7 @@
             rx="5"
             ry="5"
             [attr.width]="width + 6"
-            [attr.height]="height + 6">
-        </rect>
+            [attr.height]="height + 6"/>
 
         <!-- PHYSICAL ROLE IMAGE -->
         <image
@@ -39,8 +37,7 @@
             [attr.x]="width / (-4) + 6"
             [attr.y]="height / (-2) + 5"
             [attr.width]="32"
-            [attr.height]="32">
-        </image>
+            [attr.height]="32"/>
 
         <!-- NUMBER OF HOSTS IN COLLAPSED SUBNET -->
         <text *ngIf="isSubnetHidden() && subnetSize > 0"
@@ -58,8 +55,7 @@
             [attr.x]="width / (-4.5) + 5"
             [attr.y]="height / (-2.5) + 5"
             [attr.width]="30"
-            [attr.height]="30">
-        </image>
+            [attr.height]="30"/>
 
         <!-- Docker container -->
         <image
@@ -70,17 +66,14 @@
             [attr.style]="'filter: drop-shadow(0px 0px 1px white);'"
             [attr.y]="-height / 4"
             [attr.width]="20"
-            [attr.height]="20">
-        </image>
-
+            [attr.height]="20"/>
         <!-- LOGICAL ROLE DECORATOR ICON -->
         <image *ngIf="logicalRoleDecorator != null"
                [attr.xlink:href]="iconsPath + logicalRoleDecorator.role +'.svg'"
                [attr.x]="logicalRoleDecorator.x"
                [attr.y]="logicalRoleDecorator.y"
                [attr.width]="30"
-               [attr.height]="30">
-        </image>
+               [attr.height]="30"/>
         <!-- TEXT LABELS - NAME, IPs etc. -->
         <text *ngFor="let label of labels"
               [attr.x]="label.x"
@@ -93,8 +86,7 @@
     <!-- SEMAPHORE DECORATOR -->
     <g *ngIf="semaphoreDecorator != null"
        [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
-       [semaphore-decorator]="semaphoreDecorator">
-    </g>
+       [semaphore-decorator]="semaphoreDecorator"/>
 
     <g *ngIf="hasContextMenu" context
        [node]="node"
@@ -102,6 +94,5 @@
        [graphSize]="graphSize"
        [isConsoleReady]="isConsoleReady"
        (polling)="onPollingStateChange($event)"
-       (loadConsoles)="onLoadConsoles($event)">
-    </g>
+       (loadConsoles)="onLoadConsoles($event)"/>
 </svg>

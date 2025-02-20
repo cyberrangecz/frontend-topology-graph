@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Link, Node } from '@cyberrangecz-platform/topology-model';
+import { Link, Node } from '@crczp/topology-model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@cyberrangecz-platform/topology-model';
+import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-model';
 import { GraphEventService } from '../../services/graph-event.service';
 import { GraphEventTypeEnum } from '../../model/enums/graph-event-type-enum';
 import { Subscription } from 'rxjs';
@@ -24,7 +24,7 @@ import { GraphLockService } from '../../services/graph-lock.service';
  * Visual component used to display graph-visual. Size of window is set and nodes and links are bound to the model
  */
 @Component({
-  selector: 'graph',
+  selector: 'crczp-graph',
   templateUrl: './graph-visual.component.html',
   styleUrls: ['./graph-visual.component.css'],
 })

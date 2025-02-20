@@ -12,6 +12,20 @@ const HOME_URL = 'https://localhost:4200';
 export const environment = {
     production: false,
     sessionChecksEnabled: false,
+    topologyConfig: {
+        decoratorsRestUrl: '',
+        defaultDecoratorRefreshPeriodInSeconds: 3,
+        topologyRestUrl: 'http://localhost:3000/',
+        useRealTime: false,
+        useDecorators: false,
+        pollingPeriod: 5000,
+        retryAttempts: 3,
+        guacamoleConfig: {
+            url: API_URL + '/guacamole/',
+            username: 'guacuser',
+            password: 'guacuser'
+        }
+    },
     authConfig: {
         guardMainPageRedirect: 'visualizations',
         guardLoginPageRedirect: 'login',

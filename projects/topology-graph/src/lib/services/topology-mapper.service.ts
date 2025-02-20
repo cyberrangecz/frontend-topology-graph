@@ -9,7 +9,7 @@ import {
   RouterNode,
   SpecialNode,
   SwitchNode,
-} from '@cyberrangecz-platform/topology-model';
+} from '@crczp/topology-model';
 import { TopologyDTO } from '../model/DTO/topology-dto.model';
 import { PortDTO } from '../model/DTO/port-dto.model';
 import { RouterDTO } from '../model/DTO/router-dto.model';

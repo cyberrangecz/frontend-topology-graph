@@ -1,0 +1,6 @@
+{
+    "/sandboxes/:id/topology": "/sandboxes",
+    "/sandboxes/:id/vms/:name/console": "/console",
+    "/sandboxes/:id/vms/:name": "/vms/:name",
+    "/sandboxes/:id/consoles": "/consoles"
+}

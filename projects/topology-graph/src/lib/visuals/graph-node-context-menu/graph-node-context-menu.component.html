@@ -10,7 +10,7 @@
                 [attr.height]="MENU_ROW_HEIGHT"
                 [attr.x]="location.left"
                 [attr.y]="location.top + i * MENU_ROW_HEIGHT"
-            ></rect>
+            />
             <text
                 class="item"
                 [ngClass]="{'disabled': item.title === 'Open console (deprecated)' && !isConsoleReady}"

@@ -7,7 +7,7 @@
             "root": "projects/topology-graph",
             "sourceRoot": "projects/topology-graph/src",
             "projectType": "library",
-            "prefix": "lib",
+            "prefix": "crczp",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -61,11 +61,24 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.app.json",
                         "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/@crczp/theme/assets",
+                                "output": "assets/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets/",
+                                "output": "assets/"
+                            }
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "node_modules/@crczp/theme/"
+                            ]
+                        },
                         "styles": [
-                            "src/styles.css"
+                            "node_modules/@crczp/theme/theming/apply-all.scss"
                         ],
                         "scripts": [],
                         "vendorChunk": true,
@@ -125,7 +138,7 @@
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
                         "styles": [
-                            "src/styles.css"
+                            "node_modules/@crczp/theme/theming/apply-all.scss"
                         ],
                         "scripts": [],
                         "assets": [

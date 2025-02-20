@@ -1,8 +1,4 @@
-<h1>This is sample app for testing and development of Graph Topology Component</h1>
-<p>If you want to use the component in your own application, please follow instructions in README.MD file</p>
+<h1>Topology Graph example</h1>
 
-<crczp-topology-graph [width]="800"
-                     [height]="500"
-                     [sandboxUuid]="'ffffe-eervs-sdffsf-sdsss-edsddds'"
-                     (topologyLoadEmitter)="topologyLoadingFinished($event)">
-</crczp-topology-graph>
+<crczp-topology-graph [sandboxUuid]="'ffffe-eervs-sdffsf-sdsss-edsddds'"
+                     (topologyLoadEmitter)="topologyLoadingFinished($event)"/>

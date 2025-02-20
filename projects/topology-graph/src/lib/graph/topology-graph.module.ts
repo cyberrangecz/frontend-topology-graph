@@ -19,6 +19,7 @@ import { TopologyMapper } from '../services/topology-mapper.service';
 import { TopologyLoadingService } from '../services/topology-loading.service';
 import { TopologyErrorService } from '../services/topology-error.service';
 import { TopologyLegendModule } from '../legend/topology-legend.module';
+import { LogoSpinnerComponent } from '@crczp/theme';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { TopologyLegendModule } from '../legend/topology-legend.module';
     GraphVisualComponentsModule,
     DirectivesModule,
     TopologyLegendModule,
+    LogoSpinnerComponent
   ],
   declarations: [
     TopologyGraphSidebarComponent,

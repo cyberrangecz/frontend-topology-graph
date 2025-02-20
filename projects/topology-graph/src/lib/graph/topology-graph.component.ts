@@ -1,15 +1,15 @@
 import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
+    AfterViewInit,
+    Component, ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges, ViewChild
 } from '@angular/core';
-import { HostNode, Link, Node, RouterNode } from '@cyberrangecz-platform/topology-model';
+import { HostNode, Link, Node, RouterNode } from '@crczp/topology-model';
 import { TopologyApi } from '../services/topology-api.service';
 import { DecoratorFacade } from '../services/decorator-facade.service';
 
@@ -71,15 +71,13 @@ import { ResourcePollingService } from '../services/resource-polling.service';
   ],
 })
 export class TopologyGraphComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
-  @Input() width: number;
-  @Input() height: number;
   @Input() sandboxUuid: string;
   @Input() sandboxDefinitionId: number;
   @Output() topologyLoadEmitter: EventEmitter<boolean> = new EventEmitter();
 
+  @ViewChild('topologyContent') topologyContent: ElementRef<HTMLDivElement>;
+
   protected readonly Math = Math;
-  protected readonly legendWidth = 65;
-  protected readonly sandwichMenuWidth = 48;
 
   private pollingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   polling$: Observable<boolean> = this.pollingSubject$.asObservable();
@@ -484,4 +482,12 @@ export class TopologyGraphComponent implements OnInit, OnChanges, OnDestroy, Aft
       this._nodeDragEndedSubscription.unsubscribe();
     }
   }
+
+    getTopologyHeight(): number {
+        return this.topologyContent.nativeElement.offsetHeight-4;
+    }
+
+    getTopologyWidth(): number {
+        return this.topologyContent.nativeElement.offsetWidth - 4;
+    }
 }

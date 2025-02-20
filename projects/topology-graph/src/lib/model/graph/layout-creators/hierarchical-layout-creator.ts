@@ -1,4 +1,4 @@
-import { Node, SwitchNode } from '@cyberrangecz-platform/topology-model';
+import { Node, SwitchNode } from '@crczp/topology-model';
 
 import { Point } from '../../others/point';
 import { Dictionary } from 'typescript-collections';

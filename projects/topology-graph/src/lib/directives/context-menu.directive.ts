@@ -1,6 +1,6 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { ContextMenuService } from '../services/context-menu.service';
-import { Node } from '@cyberrangecz-platform/topology-model';
+import { Node } from '@crczp/topology-model';
 
 /**
  * Directive for marking objects with context menu

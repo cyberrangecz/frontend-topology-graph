@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { INode } from '@cyberrangecz-platform/topology-model';
+import { INode } from '@crczp/topology-model';
 
 @Injectable()
 export class DraggedNodeService {

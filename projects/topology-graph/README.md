@@ -18,10 +18,5 @@ To use the topology component in your Angular application follow these steps:
 5. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
 6. Subscribe to observables of `topologyLoadingService` and `topologyErrorService` to display loading and error messages emitted from the component in a standard way of your app
 
-## Running the demo app locally
-
-1. Pull and run the [User and group service](https://github.com/cyberrangecz/backend-user-and-group) or the whole [deployment](https://github.com/cyberrangecz/devops-helm).
-2. Confirure [environment.ts](src/environments/environment.ts), pointing `authorizationUrl` to the running user and group service.
-3. Install dependencies with `npm install`.
-4. Run the app with `npm run start`.
-5. Open the app in your browser at `http://localhost:4200`. Changes in the code will be automatically reloaded. The app will use a self-signed certificate, so you will need to accept it in your browser.
+---
+Sources: https://gitlab.ics.muni.cz/muni-kypo-crp/frontend-angular/components/kypo-angular-topology
