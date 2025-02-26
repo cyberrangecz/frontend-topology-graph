@@ -8,14 +8,14 @@ import { TopologyError } from '../model/others/topology-error.model';
  */
 @Injectable()
 export class TopologyErrorService {
-  private errorSubject: Subject<any> = new Subject<any>();
-  error$ = this.errorSubject.asObservable();
+    private errorSubject: Subject<any> = new Subject<any>();
+    error$ = this.errorSubject.asObservable();
 
-  /**
-   * Emits error
-   * @param err error to emit
-   */
-  emitError(err: TopologyError) {
-    this.errorSubject.next(err);
-  }
+    /**
+     * Emits error
+     * @param err error to emit
+     */
+    emitError(err: TopologyError) {
+        this.errorSubject.next(err);
+    }
 }

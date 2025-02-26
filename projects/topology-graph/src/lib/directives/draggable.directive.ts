@@ -8,18 +8,18 @@ import { D3Service } from '../services/d3.service';
  */
 
 @Directive({
-  selector: '[draggableNode]',
+    selector: '[draggableNode]',
 })
 export class DraggableDirective implements OnInit {
-  @Input('draggableNode') node: Node;
-  @Input('draggableInGraph') graph: ForceDirectedGraph;
+    @Input('draggableNode') node: Node;
+    @Input('draggableInGraph') graph: ForceDirectedGraph;
 
-  constructor(
-    private d3Service: D3Service,
-    private _element: ElementRef,
-  ) {}
+    constructor(
+        private d3Service: D3Service,
+        private _element: ElementRef,
+    ) {}
 
-  ngOnInit() {
-    this.d3Service.applyDraggableBehaviour(this._element.nativeElement, this.node, this.graph);
-  }
+    ngOnInit() {
+        this.d3Service.applyDraggableBehaviour(this._element.nativeElement, this.node, this.graph);
+    }
 }

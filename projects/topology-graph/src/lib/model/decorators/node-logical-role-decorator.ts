@@ -5,12 +5,12 @@ import { NodeHostDecorator } from './node-host-decorator';
  * Decorator of logical role of node. Can be ATTACKER, VICTIM or BOT
  */
 export class NodeLogicalRoleDecorator extends NodeHostDecorator {
-  x: number;
-  y: number;
-  role: NodeLogicalRoleEnum;
+    x: number;
+    y: number;
+    role: NodeLogicalRoleEnum;
 
-  constructor(nodeName: string, role: NodeLogicalRoleEnum) {
-    super(nodeName);
-    this.role = role;
-  }
+    constructor(nodeName: string, role: NodeLogicalRoleEnum) {
+        super(nodeName);
+        this.role = role;
+    }
 }

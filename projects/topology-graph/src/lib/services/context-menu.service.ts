@@ -11,51 +11,51 @@ import { map } from 'rxjs/operators';
  */
 @Injectable()
 export class ContextMenuService {
-  private readonly _items;
+    private readonly _items;
 
-  constructor(private hostService: HostService) {
-    this._items = [
-      {
-        id: 1,
-        type: NodeActionEnum.GraphicalUserInterface,
-        title: NodeActionEnum.GraphicalUserInterface,
-      },
-      {
-        id: 2,
-        type: NodeActionEnum.CommandLineInterface,
-        title: NodeActionEnum.CommandLineInterface,
-      },
-      {
-        id: 3,
-        type: NodeActionEnum.OpenConsoleUrl,
-        title: NodeActionEnum.OpenConsoleUrl,
-      },
-      {
-        id: 4,
-        type: NodeActionEnum.CopyHostInfo,
-        title: NodeActionEnum.CopyHostInfo,
-      },
-    ];
-  }
+    constructor(private hostService: HostService) {
+        this._items = [
+            {
+                id: 1,
+                type: NodeActionEnum.GraphicalUserInterface,
+                title: NodeActionEnum.GraphicalUserInterface,
+            },
+            {
+                id: 2,
+                type: NodeActionEnum.CommandLineInterface,
+                title: NodeActionEnum.CommandLineInterface,
+            },
+            {
+                id: 3,
+                type: NodeActionEnum.OpenConsoleUrl,
+                title: NodeActionEnum.OpenConsoleUrl,
+            },
+            {
+                id: 4,
+                type: NodeActionEnum.CopyHostInfo,
+                title: NodeActionEnum.CopyHostInfo,
+            },
+        ];
+    }
 
-  show: Subject<{
-    position: {
-      x: number;
-      y: number;
-    };
-    nodeName: string;
-  }> = new Subject();
+    show: Subject<{
+        position: {
+            x: number;
+            y: number;
+        };
+        nodeName: string;
+    }> = new Subject();
 
-  getItems() {
-    return this._items;
-  }
+    getItems() {
+        return this._items;
+    }
 
-  /**
-   * Handles chosen context menu item by taking appropriate actions
-   * @param type type of the context menu item
-   * @param node node associated with the context menu
-   */
-  handleMenuItem(type: NodeActionEnum, node: HostNode | RouterNode): Observable<MenuItemResult> {
-    return this.hostService.performAction(type, node).pipe(map((payload) => new MenuItemResult(type, payload)));
-  }
+    /**
+     * Handles chosen context menu item by taking appropriate actions
+     * @param type type of the context menu item
+     * @param node node associated with the context menu
+     */
+    handleMenuItem(type: NodeActionEnum, node: HostNode | RouterNode): Observable<MenuItemResult> {
+        return this.hostService.performAction(type, node).pipe(map((payload) => new MenuItemResult(type, payload)));
+    }
 }

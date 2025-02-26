@@ -9,44 +9,44 @@ import { SwitchNode } from '@crczp/topology-model';
  */
 @Injectable()
 export class GraphEventService {
-  private _graphEventSubject: Subject<GraphEvent> = new Subject();
-  graphEvent: Observable<GraphEvent> = this._graphEventSubject.asObservable();
+    private _graphEventSubject: Subject<GraphEvent> = new Subject();
+    graphEvent: Observable<GraphEvent> = this._graphEventSubject.asObservable();
 
-  /**
-   * Sends event to graph-visual to collapse all subnetworks
-   */
-  collapseAll() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.CollapseAllSubnets));
-  }
+    /**
+     * Sends event to graph-visual to collapse all subnetworks
+     */
+    collapseAll() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.CollapseAllSubnets));
+    }
 
-  /**
-   * Sends event to graph-visual to expand all subnetworks
-   */
-  expandAll() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.ExpandAllSubnets));
-  }
+    /**
+     * Sends event to graph-visual to expand all subnetworks
+     */
+    expandAll() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.ExpandAllSubnets));
+    }
 
-  fitToScreen() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.FitToScreen));
-  }
+    fitToScreen() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.FitToScreen));
+    }
 
-  balloonTreeLayout() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.BalloonTreeLayout));
-  }
+    balloonTreeLayout() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.BalloonTreeLayout));
+    }
 
-  hierarchicalLayout() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.HierarchicalLayout));
-  }
+    hierarchicalLayout() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.HierarchicalLayout));
+    }
 
-  turnOffForces() {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.TurnOffForces));
-  }
+    turnOffForces() {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.TurnOffForces));
+    }
 
-  hideSubnet(node: SwitchNode) {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.HideSubnet, node));
-  }
+    hideSubnet(node: SwitchNode) {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.HideSubnet, node));
+    }
 
-  revealSubnet(node: SwitchNode) {
-    this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.RevealSubnet, node));
-  }
+    revealSubnet(node: SwitchNode) {
+        this._graphEventSubject.next(new GraphEvent(GraphEventTypeEnum.RevealSubnet, node));
+    }
 }

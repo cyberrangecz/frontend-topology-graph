@@ -1,10 +1,10 @@
 import { LinkDecorator } from './link-decorator';
 
 export class LinkMailDecorator extends LinkDecorator {
-  amount: number;
+    amount: number;
 
-  constructor(linkName: string, amount: number) {
-    super(linkName);
-    this.amount = amount;
-  }
+    constructor(linkName: string, amount: number) {
+        super(linkName);
+        this.amount = amount;
+    }
 }

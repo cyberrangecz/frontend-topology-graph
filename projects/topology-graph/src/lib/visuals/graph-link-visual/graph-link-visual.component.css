@@ -1,6 +1,6 @@
 line.link {
-    stroke: black;
-    stroke-width: 2px;
+    stroke: var(--neutral-50);
+    stroke-width: 3px;
 }
 
 polygon.speed-decorator {

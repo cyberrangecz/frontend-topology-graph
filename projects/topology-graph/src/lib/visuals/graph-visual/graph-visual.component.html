@@ -1,23 +1,23 @@
 <svg #svg
-     [attr.width]="options.width"
-     [attr.height]="options.height">
+     [attr.width]="width"
+     [attr.height]="height">
     <!-- GRAPH -->
-    <g [zoomableOf]="svg"
-       [zoomableIn]="graph">
+    <g>
         <!-- LINKS -->
         <g [linkVisual]="link"
-           *ngFor="let link of links"/>
+           *ngFor="let link of links" />
         <!-- NODES -->
-        <g nodeVisual
+        <g *ngFor="let node of nodes"
+           nodeVisual
+           [zoom]="zoom"
            [node]="node"
            [graphSize]="{width, height}"
            [cloudSandboxInstance]="cloudSandboxInstance"
-           *ngFor="let node of nodes"
            [draggableNode]="node"
            [draggableInGraph]="graph"
            [isConsoleReady]="isConsoleReady"
            (polling)="onPollingStateChange($event)"
            (loadConsoles)="onLoadConsoles($event)"
-           (showContainers)="onShowContainers($event)"/>
+           (showContainers)="onShowContainers($event)" />
     </g>
 </svg>

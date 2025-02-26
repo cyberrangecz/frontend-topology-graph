@@ -1,3 +1,3 @@
 export class ManDTO {
-  ip: string;
+    ip: string;
 }

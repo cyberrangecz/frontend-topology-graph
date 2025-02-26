@@ -1,4 +1,4 @@
 export enum UserInterface {
-  GUI = 'GUI',
-  CLI = 'CLI',
+    GUI = 'GUI',
+    CLI = 'CLI',
 }

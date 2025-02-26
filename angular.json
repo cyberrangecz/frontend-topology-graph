@@ -124,12 +124,6 @@
                         }
                     }
                 },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "buildTarget": "topology-graph-example:build"
-                    }
-                },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
@@ -151,8 +145,8 @@
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
                         "lintFilePatterns": [
-                            ".//**/*.ts",
-                            ".//**/*.components.html"
+                            "./src/**/*.ts",
+                            "./src/**/*.components.html"
                         ]
                     }
                 }

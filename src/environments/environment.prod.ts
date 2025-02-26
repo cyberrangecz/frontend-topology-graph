@@ -8,11 +8,7 @@ const HOME_URL = 'https://localhost:4200';
 export const environment = {
     production: true,
     topologyConfig: {
-        decoratorsRestUrl: '',
-        defaultDecoratorRefreshPeriodInSeconds: 3,
         topologyRestUrl: API_URL,
-        useRealTime: false,
-        useDecorators: false,
         pollingPeriod: 5000,
         retryAttempts: 3,
         guacamoleConfig: {

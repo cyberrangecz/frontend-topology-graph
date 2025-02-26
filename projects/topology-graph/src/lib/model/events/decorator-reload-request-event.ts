@@ -8,17 +8,17 @@ import { LinkDecoratorTypeEnum } from '../enums/link-decorator-type-enum';
  * DecoratorCategory decides which nodes will be affected by reload and decoratorTypes decides which decorator type will be reloaded
  */
 export class DecoratorReloadRequestEvent {
-  decoratorCategory: DecoratorCategoryEnum;
-  decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum;
-  names: string[];
+    decoratorCategory: DecoratorCategoryEnum;
+    decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum;
+    names: string[];
 
-  constructor(
-    decoratorCategory: DecoratorCategoryEnum,
-    decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
-    names: string[] = null,
-  ) {
-    this.names = names;
-    this.decoratorCategory = decoratorCategory;
-    this.decoratorType = decoratorType;
-  }
+    constructor(
+        decoratorCategory: DecoratorCategoryEnum,
+        decoratorType: HostNodeDecoratorTypeEnum | RouterNodeDecoratorTypeEnum | LinkDecoratorTypeEnum,
+        names: string[] = null,
+    ) {
+        this.names = names;
+        this.decoratorCategory = decoratorCategory;
+        this.decoratorType = decoratorType;
+    }
 }

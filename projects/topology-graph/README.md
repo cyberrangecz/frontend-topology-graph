@@ -7,16 +7,28 @@ Topology Graph Component is an Angular library using D3.js to visualize network 
 To use the topology component in your Angular application follow these steps:
 
 1. Run `npm install @crczp/topology-graph`
-2. Create topology config class extending **topologyGraphConfig** from the library. Config contains following options:
-    + topologyRestUrl (url where Sandbox microservice is running)
-    + decoratorsRestUrl (currently not supported by backend, leave as empty string)
-    + defaultDecoratorRefreshPeriodInSeconds (currently not supported by backend)
-    + useRealTime (currently not supported by backend, always set to false)
-    + useDecorators (currently not supported by backend, always set to false)
-3. Import **topologyGraphModule** from **topology-graph** and add it to imports in your module with `topologyGraphModule.forRoot(new CustomTopologyConfig())`.
-4. Use `<crczp-topology-graph>` directive in your code and set its size by binding to `[width]` and `[height]` attributes. Pass sandbox id to component by binding to `[sandboxUuid]` attribute. If you wish to be notified when data of tology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
-5. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
-6. Subscribe to observables of `topologyLoadingService` and `topologyErrorService` to display loading and error messages emitted from the component in a standard way of your app
+2. Create topology config of type `TopologyGraphConfig` with the following properties:
+   + topologyRestUrl - should point to [Sandbox service](https://github.com/cyberrangecz/backend-sandbox-service)
+   + pollingPeriod   - how often to update endpoints
+   + retryAttempts   - how many times try to update
+   + guacamoleConfig - configuration for guacamole:
+     + url - url of guacamole service
+     + username - username for guacamole service
+     + password - password for guacamole service
 
----
-Sources: https://gitlab.ics.muni.cz/muni-kypo-crp/frontend-angular/components/kypo-angular-topology
+3. Import necessary icons in your `angular.json` file:
+   ```json
+   "assets": [
+       {
+           "glob": "**/*",
+           "input": "node_modules/@crczp/topology-graph/assets",
+           "output": "assets/topology-graph"
+       }
+   ]
+   ```
+   Or provide your own icons at the same path, with the same names.
+
+4. Import **topologyGraphModule** from **topology-graph** and add it to imports in your module with `topologyGraphModule.forRoot(your-config-here)`.
+5. Use `<crczp-topology-graph>` directive in your code and pass sandbox id using `[sandboxUuid]` attribute. If you wish to be notified when data of topology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
+6. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
+7. Subscribe to observables of `topologyLoadingService` and `topologyErrorService` to display loading and error messages emitted from the component in a standard way of your app

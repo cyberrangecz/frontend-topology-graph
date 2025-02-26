@@ -7,10 +7,10 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
  */
 @Injectable()
 export class TopologyLoadingService {
-  private isLoadingSubject: Subject<boolean> = new ReplaySubject();
-  isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
+    private isLoadingSubject: Subject<boolean> = new ReplaySubject();
+    isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 
-  setIsLoading(value: boolean) {
-    this.isLoadingSubject.next(value);
-  }
+    setIsLoading(value: boolean) {
+        this.isLoadingSubject.next(value);
+    }
 }

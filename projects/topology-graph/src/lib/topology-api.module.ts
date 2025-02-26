@@ -8,27 +8,27 @@ import { ConfigService } from './services/config.service';
 import { TopologyGraphConfig } from './others/topology-graph-config';
 
 @NgModule({
-  imports: [CommonModule],
-  providers: [
-    TopologyApi,
-    TopologyMapper,
-    TopologyLoadingService,
-    TopologyErrorService,
-    TopologyGraphConfig,
-    ConfigService,
-  ],
+    imports: [CommonModule],
+    providers: [
+        TopologyApi,
+        TopologyMapper,
+        TopologyLoadingService,
+        TopologyErrorService,
+        TopologyGraphConfig,
+        ConfigService,
+    ],
 })
 export class TopologyApiModule {
-  constructor(@Optional() @SkipSelf() parentModule: TopologyApiModule) {
-    if (parentModule) {
-      throw new Error('TopologyApiModule is already loaded. Import it only once in single module hierarchy.');
+    constructor(@Optional() @SkipSelf() parentModule: TopologyApiModule) {
+        if (parentModule) {
+            throw new Error('TopologyApiModule is already loaded. Import it only once in single module hierarchy.');
+        }
     }
-  }
 
-  static forRoot(config: TopologyGraphConfig): ModuleWithProviders<TopologyApiModule> {
-    return {
-      ngModule: TopologyApiModule,
-      providers: [{ provide: TopologyGraphConfig, useValue: config }],
-    };
-  }
+    static forRoot(config: TopologyGraphConfig): ModuleWithProviders<TopologyApiModule> {
+        return {
+            ngModule: TopologyApiModule,
+            providers: [{ provide: TopologyGraphConfig, useValue: config }],
+        };
+    }
 }

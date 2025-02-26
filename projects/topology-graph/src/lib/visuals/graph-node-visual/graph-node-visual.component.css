@@ -1,6 +1,6 @@
 
 text {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Inter, sans-serif;
     font-size: 11px;
     cursor: pointer;
 }
@@ -10,9 +10,10 @@ title {
 }
 
 g.node rect {
-    fill: rgb(245, 245, 245);
+    fill: var(--neutral-100);
     cursor: pointer;
-    stroke: #ababab;
+    stroke: var(--neutral-40);
+    stroke-width: 1px;
 }
 
 g.node rect.collapsed {

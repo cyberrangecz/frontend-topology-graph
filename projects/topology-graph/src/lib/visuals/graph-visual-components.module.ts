@@ -7,20 +7,21 @@ import { CommonModule } from '@angular/common';
 import { NodeVisualSemaphoreDecoratorComponent } from './graph-node-visual/graph-node-visual-decorators/node-visual-semaphore-decorator/node-visual-semaphore-decorator.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { LabelShortenerPipe } from '../pipes/label-shortener.pipe';
+import { MatCard } from '@angular/material/card';
 
 /**
  * Main module of visual (svg and d3) components
  */
 @NgModule({
-  imports: [CommonModule, DirectivesModule],
-  declarations: [
-    LabelShortenerPipe,
-    NodeContextMenuComponent,
-    GraphVisualComponent,
-    GraphLinkVisualComponent,
-    GraphNodeVisualComponent,
-    NodeVisualSemaphoreDecoratorComponent,
-  ],
-  exports: [GraphVisualComponent],
+    imports: [CommonModule, DirectivesModule, MatCard],
+    declarations: [
+        LabelShortenerPipe,
+        NodeContextMenuComponent,
+        GraphVisualComponent,
+        GraphLinkVisualComponent,
+        GraphNodeVisualComponent,
+        NodeVisualSemaphoreDecoratorComponent,
+    ],
+    exports: [GraphVisualComponent],
 })
 export class GraphVisualComponentsModule {}

@@ -12,20 +12,20 @@ import { DecoratorCategoryEnum } from '../enums/decorator-category-enum';
  * Payload is an array of actual decorator objects to be assigned
  */
 export class NodeDecoratorChangeEvent {
-  message: DecoratorEventMessageEnum;
-  category: DecoratorCategoryEnum;
-  decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[];
-  payload?: NodeDecorator[];
+    message: DecoratorEventMessageEnum;
+    category: DecoratorCategoryEnum;
+    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[];
+    payload?: NodeDecorator[];
 
-  constructor(
-    message: DecoratorEventMessageEnum,
-    category: DecoratorCategoryEnum,
-    decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
-    payload?: NodeDecorator[],
-  ) {
-    this.message = message;
-    this.category = category;
-    this.decoratorTypes = decoratorTypes;
-    this.payload = payload;
-  }
+    constructor(
+        message: DecoratorEventMessageEnum,
+        category: DecoratorCategoryEnum,
+        decoratorTypes: HostNodeDecoratorTypeEnum[] | RouterNodeDecoratorTypeEnum[],
+        payload?: NodeDecorator[],
+    ) {
+        this.message = message;
+        this.category = category;
+        this.decoratorTypes = decoratorTypes;
+        this.payload = payload;
+    }
 }

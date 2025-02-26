@@ -5,10 +5,10 @@
 import { LinkDecorator } from './link-decorator';
 
 export class LinkSpeedDecorator extends LinkDecorator {
-  speed: number;
+    speed: number;
 
-  constructor(linkName: string, speed: number) {
-    super(linkName);
-    this.speed = speed;
-  }
+    constructor(linkName: string, speed: number) {
+        super(linkName);
+        this.speed = speed;
+    }
 }

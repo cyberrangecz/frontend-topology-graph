@@ -1,4 +1,4 @@
 export class ConsoleUrl {
-  name: string;
-  url: string;
+    name: string;
+    url: string;
 }

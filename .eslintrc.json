@@ -1,124 +1,131 @@
 {
-  "root": true,
-  "overrides": [
-    {
-      "files": ["command-visualizations-example/**/*.ts"],
-      "rules": {
-        // TODO fix these and make them errors instead of warnings
-        "@angular-eslint/directive-selector": [
-          "warn",
-          {
-            "type": "attribute",
-            "prefix": "app-",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "warn",
-          {
-            "type": "element",
-            "prefix": "app-",
-            "style": "kebab-case"
-          }
-        ]
-      }
-    },
-    {
-      "files": ["command-visualizations/**/*.ts"],
-      "rules": {
-        // TODO fix these and make them errors instead of warnings
-        "@angular-eslint/directive-selector": [
-          "warn",
-          {
-            "type": "attribute",
-            "prefix": "crczp-",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "warn",
-          {
-            "type": "element",
-            "prefix": "crczp-",
-            "style": "kebab-case"
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.ts"
-      ],
-      "parserOptions": {
-        "project": [
-          "tsconfig.*?.json"
-        ],
-        "createDefaultProgram": true
-      },
-      "plugins": [
-        "@typescript-eslint"
-      ],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/recommended"
-      ],
-      "rules": {
-        "max-len": [
-          "error",
-          {
-            "code": 140,
-            "ignorePattern": "import .*"
-          }
-        ],
-        "quotes": [
-          "error",
-          "single",
-          {
-            "allowTemplateLiterals": true
-          }
-        ],
-        // TODO fix these and make them errors instead of warnings
-        "@typescript-eslint/no-unused-vars": [
-          "warn",
-          {
-            "args": "all",
-            "argsIgnorePattern": "^_",
-            "caughtErrors": "all",
-            "caughtErrorsIgnorePattern": "^_",
-            "destructuredArrayIgnorePattern": "^_",
-            "varsIgnorePattern": "^_",
-            "ignoreRestSiblings": true
-          }
-        ],
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@angular-eslint/no-input-rename": "warn",
-        "@angular-eslint/component-selector": "warn"
-      }
-    },
-    {
-      "files": [
-        "*.component.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-        "max-len": [
-          "error",
-          {
-            "code": 140
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.component.ts"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ]
-    }
-  ]
+    "root": true,
+    "overrides": [
+        {
+            "files": [
+                "command-visualizations-example/**/*.ts"
+            ],
+            "rules": {
+                // TODO fix these and make them errors instead of warnings
+                "@angular-eslint/directive-selector": [
+                    "warn",
+                    {
+                        "type": "attribute",
+                        "prefix": "app-",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "warn",
+                    {
+                        "type": "element",
+                        "prefix": "app-",
+                        "style": "kebab-case"
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "command-visualizations/**/*.ts"
+            ],
+            "rules": {
+                // TODO fix these and make them errors instead of warnings
+                "@angular-eslint/directive-selector": [
+                    "warn",
+                    {
+                        "type": "attribute",
+                        "prefix": "crczp-",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "warn",
+                    {
+                        "type": "element",
+                        "prefix": "crczp-",
+                        "style": "kebab-case"
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "projects/**/*.ts",
+                "src/**/*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "tsconfig.*?.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "plugins": [
+                "@typescript-eslint"
+            ],
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@angular-eslint/recommended"
+            ],
+            "rules": {
+                "max-len": [
+                    "error",
+                    {
+                        "code": 140,
+                        "ignorePattern": "import .*"
+                    }
+                ],
+                "quotes": [
+                    "error",
+                    "single",
+                    {
+                        "allowTemplateLiterals": true
+                    }
+                ],
+                // TODO fix these and make them errors instead of warnings
+                "@typescript-eslint/no-unused-vars": [
+                    "warn",
+                    {
+                        "args": "all",
+                        "argsIgnorePattern": "^_",
+                        "caughtErrors": "all",
+                        "caughtErrorsIgnorePattern": "^_",
+                        "destructuredArrayIgnorePattern": "^_",
+                        "varsIgnorePattern": "^_",
+                        "ignoreRestSiblings": true
+                    }
+                ],
+                "@typescript-eslint/no-explicit-any": "warn",
+                "@angular-eslint/no-input-rename": "warn",
+                "@angular-eslint/component-selector": "warn"
+            }
+        },
+        {
+            "files": [
+                "projects/**/*.component.html",
+                "src/**/*.component.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended"
+            ],
+            "rules": {
+                "max-len": [
+                    "error",
+                    {
+                        "code": 140
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "projects/**/*.component.ts",
+                "src/**/*.component.ts"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/process-inline-templates"
+            ]
+        }
+    ]
 }

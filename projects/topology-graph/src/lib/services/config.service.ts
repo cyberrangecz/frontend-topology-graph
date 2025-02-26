@@ -6,9 +6,9 @@ import { TopologyGraphConfig } from '../others/topology-graph-config';
  */
 @Injectable()
 export class ConfigService {
-  config: TopologyGraphConfig;
+    config: TopologyGraphConfig;
 
-  constructor(configurationFile: TopologyGraphConfig) {
-    this.config = configurationFile;
-  }
+    constructor(configurationFile: TopologyGraphConfig) {
+        this.config = configurationFile;
+    }
 }

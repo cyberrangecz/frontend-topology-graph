@@ -1,3 +1,3 @@
 export class SpecialNodeDTO {
-  name: string;
+    name: string;
 }

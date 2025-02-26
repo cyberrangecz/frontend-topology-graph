@@ -18,7 +18,7 @@
 
     <!-- SPEED LINK DECORATOR -->
     <g
-        *ngIf="speedDecorator != null"
+        *ngIf="speedDecorator !== null"
         ngClass="link-speed {{ linkDecoratorSpeed }}"
     >
         <!-- for having multiple animated objects -->
@@ -48,7 +48,7 @@
     </g>
 
     <!--- MAIL LINK DECORATOR -->
-    <g *ngIf="mailDecorator != null"
+    <g *ngIf="mailDecorator !== null"
        ngClass="mail-speed {{ linkDecoratorMailSpeed }}">
         <!-- animated object -->
         <g

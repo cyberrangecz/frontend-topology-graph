@@ -1,4 +1,4 @@
 export enum TimeAlgebraOperatorEnum {
-  Minus = '-',
-  Plus = '+',
+    Minus = '-',
+    Plus = '+',
 }

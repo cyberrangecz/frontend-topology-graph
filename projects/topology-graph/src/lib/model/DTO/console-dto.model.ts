@@ -1,3 +1,3 @@
 export class ConsoleDTO {
-  url: string;
+    url: string;
 }

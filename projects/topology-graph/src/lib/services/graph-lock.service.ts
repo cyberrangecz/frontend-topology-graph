@@ -8,22 +8,22 @@ import { Observable, Subject } from 'rxjs';
  */
 @Injectable()
 export class GraphLockService {
-  private locked = true;
-  private lockEventSubject: Subject<boolean> = new Subject<boolean>();
+    private locked = true;
+    private lockEventSubject: Subject<boolean> = new Subject<boolean>();
 
-  lockedEvent: Observable<boolean> = this.lockEventSubject.asObservable();
+    lockedEvent: Observable<boolean> = this.lockEventSubject.asObservable();
 
-  lock() {
-    this.locked = true;
-    this.lockEventSubject.next(true);
-  }
+    lock() {
+        this.locked = true;
+        this.lockEventSubject.next(true);
+    }
 
-  unlock() {
-    this.locked = false;
-    this.lockEventSubject.next(false);
-  }
+    unlock() {
+        this.locked = false;
+        this.lockEventSubject.next(false);
+    }
 
-  getLocked(): boolean {
-    return this.locked;
-  }
+    getLocked(): boolean {
+        return this.locked;
+    }
 }

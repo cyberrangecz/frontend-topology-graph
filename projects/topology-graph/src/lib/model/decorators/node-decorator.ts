@@ -2,9 +2,9 @@
  * Abstract node decorator
  */
 export abstract class NodeDecorator {
-  nodeName: string;
+    nodeName: string;
 
-  constructor(nodeName: string) {
-    this.nodeName = nodeName;
-  }
+    constructor(nodeName: string) {
+        this.nodeName = nodeName;
+    }
 }

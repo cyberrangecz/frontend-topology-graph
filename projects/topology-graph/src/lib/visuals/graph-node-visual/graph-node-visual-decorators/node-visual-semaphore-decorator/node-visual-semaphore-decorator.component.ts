@@ -5,12 +5,12 @@ import { NodeSemaphoreDecorator } from '../../../../model/decorators/node-semaph
  * Visual component used for visualizing node semaphore decorator
  */
 @Component({
-  selector: '[semaphore-decorator]',
-  templateUrl: './node-visual-semaphore-decorator.component.html',
-  styleUrls: ['./node-visual-semaphore-decorator.component.css'],
+    selector: '[semaphore-decorator]',
+    templateUrl: './node-visual-semaphore-decorator.component.html',
+    styleUrls: ['./node-visual-semaphore-decorator.component.css'],
 })
 export class NodeVisualSemaphoreDecoratorComponent {
-  @Input('semaphore-decorator') decorator: NodeSemaphoreDecorator;
+    @Input('semaphore-decorator') decorator: NodeSemaphoreDecorator;
 
-  constructor() {}
+    constructor() {}
 }

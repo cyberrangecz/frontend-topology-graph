@@ -3,6 +3,7 @@
     <g
         ngClass="node {{ statusDecorator.status }}"
         [contextMenu]="node"
+        [contextMenuZoom]="zoom"
         (dblclick)="onDoubleClick()"
         [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
         <title>
@@ -13,8 +14,8 @@
         <rect
             [attr.x]="width / (-2)"
             [attr.y]="height / (-2)"
-            rx="5"
-            ry="5"
+            rx="16"
+            ry="16"
             [attr.width]="width"
             [attr.height]="height"/>
 
@@ -24,8 +25,8 @@
             class="collapsed"
             [attr.x]="width / (-2) - 3"
             [attr.y]="height / (-2) - 3"
-            rx="5"
-            ry="5"
+            rx="19"
+            ry="19"
             [attr.width]="width + 6"
             [attr.height]="height + 6"/>
 
@@ -68,7 +69,7 @@
             [attr.width]="20"
             [attr.height]="20"/>
         <!-- LOGICAL ROLE DECORATOR ICON -->
-        <image *ngIf="logicalRoleDecorator != null"
+        <image *ngIf="logicalRoleDecorator !== null"
                [attr.xlink:href]="iconsPath + logicalRoleDecorator.role +'.svg'"
                [attr.x]="logicalRoleDecorator.x"
                [attr.y]="logicalRoleDecorator.y"
@@ -84,7 +85,7 @@
     </g>
 
     <!-- SEMAPHORE DECORATOR -->
-    <g *ngIf="semaphoreDecorator != null"
+    <g *ngIf="semaphoreDecorator !== null"
        [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
        [semaphore-decorator]="semaphoreDecorator"/>
 
@@ -92,6 +93,7 @@
        [node]="node"
        [cloudSandboxInstance]="cloudSandboxInstance"
        [graphSize]="graphSize"
+       [zoom]="zoom"
        [isConsoleReady]="isConsoleReady"
        (polling)="onPollingStateChange($event)"
        (loadConsoles)="onLoadConsoles($event)"/>

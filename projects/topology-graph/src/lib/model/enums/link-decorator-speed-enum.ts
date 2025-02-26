@@ -1,5 +1,5 @@
 export enum LinkDecoratorSpeedEnum {
-  Slow = 'slow',
-  Medium = 'medium',
-  Fast = 'fast',
+    Slow = 'slow',
+    Medium = 'medium',
+    Fast = 'fast',
 }
