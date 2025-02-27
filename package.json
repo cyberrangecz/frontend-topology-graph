@@ -38,7 +38,7 @@
         "@sentinel/common": "^18.0.4",
         "@sentinel/components": "^18.2.7",
         "@sentinel/layout": "^18.1.4",
-        "@crczp/topology-model": "file:../.built/crczp-topology-model-0.0.1.tgz",
+        "@crczp/topology-graph-model": "^0.0.2",
         "@crczp/theme": "^0.0.3",
         "@sentinel/auth": "^18.0.3",
         "angular-oauth2-oidc": "^17.0.2",
