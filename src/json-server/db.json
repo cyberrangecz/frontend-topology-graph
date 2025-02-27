@@ -1,6 +1,6 @@
 {
     "console": {
-        "url": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=10f40cc5-e431-495b-9640-b6548a34cbd4"
+        "url": "https://spice.console.cz/"
     },
     "vms": [
         {
@@ -162,8 +162,8 @@
         ]
     },
     "consoles": {
-        "home": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=8de6a54c-fa6e-4568-a723-e7a9ffb06699",
-        "server-router": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=57815d0a-5d2e-45f9-92d6-a31815bb387a",
-        "home-router": "https://compute-spice.cloud.muni.cz/spice_auto.html?token=59d0fe8d-e1cf-4c5d-b89f-0028e615a518"
+        "home": "https://spice.console.cz/",
+        "server-router": "https://spice.console.cz/",
+        "home-router": "https://spice.console.cz/"
     }
 }
