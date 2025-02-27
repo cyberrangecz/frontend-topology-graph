@@ -11,7 +11,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { Link, Node } from '@crczp/topology-model';
+import { Link, Node } from '@crczp/topology-graph-model';
 import { TopologyApi } from '../services/topology-api.service';
 
 import { D3Service } from '../services/d3.service';

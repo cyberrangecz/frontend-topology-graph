@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Link } from '@crczp/topology-model';
+import { Link } from '@crczp/topology-graph-model';
 import { LinkSpeedDecorator } from '../../model/decorators/link-speed-decorator';
 import { LinkMailDecorator } from '../../model/decorators/link-mail-decorator';
 import { LinkDecoratorSpeedEnum } from '../../model/enums/link-decorator-speed-enum';

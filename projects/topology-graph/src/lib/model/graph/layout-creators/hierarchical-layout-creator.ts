@@ -1,4 +1,4 @@
-import { Node, SwitchNode } from '@crczp/topology-model';
+import { Node, SwitchNode } from '@crczp/topology-graph-model';
 
 import { Point } from '../../others/point';
 import { Dictionary } from 'typescript-collections';

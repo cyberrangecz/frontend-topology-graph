@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ForceDirectedGraph } from '../../model/graph/force-directed-graph';
 import { D3Service } from '../../services/d3.service';
-import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-model';
+import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-graph-model';
 import { GraphEventService } from '../../services/graph-event.service';
 import { GraphEventTypeEnum } from '../../model/enums/graph-event-type-enum';
 import { Subscription } from 'rxjs';

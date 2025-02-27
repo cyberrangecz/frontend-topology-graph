@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import { HierarchicalLayoutCreator } from './layout-creators/hierarchical-layout-creator';
-import { Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-model';
+import { Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-graph-model';
 
 /**
  * Model of force directed graph-visual. Used for displaying graph-visual visualization and user interaction with it.

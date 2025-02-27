@@ -9,7 +9,7 @@ import {
     RouterNode,
     SpecialNode,
     SwitchNode,
-} from '@crczp/topology-model';
+} from '@crczp/topology-graph-model';
 import { TopologyDTO } from '../model/DTO/topology-dto.model';
 import { PortDTO } from '../model/DTO/port-dto.model';
 import { RouterDTO } from '../model/DTO/router-dto.model';

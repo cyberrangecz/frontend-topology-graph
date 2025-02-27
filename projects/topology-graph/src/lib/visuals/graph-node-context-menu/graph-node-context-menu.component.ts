@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { HostNode, RouterNode } from '@crczp/topology-model';
+import { HostNode, RouterNode } from '@crczp/topology-graph-model';
 import { take } from 'rxjs/operators';
 import { NodeActionEnum } from '../../model/enums/node-context-menu-items-enum';
 import { ConfigService } from '../../services/config.service';

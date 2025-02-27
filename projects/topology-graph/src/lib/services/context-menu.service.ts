@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NodeActionEnum } from '../model/enums/node-context-menu-items-enum';
-import { HostNode, RouterNode } from '@crczp/topology-model';
+import { HostNode, RouterNode } from '@crczp/topology-graph-model';
 import { HostService } from './host.service';
 import { MenuItemResult } from '../model/events/menu-item-result';
 import { map } from 'rxjs/operators';
