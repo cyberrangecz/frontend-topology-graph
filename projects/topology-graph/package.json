@@ -1,6 +1,6 @@
 {
     "name": "@crczp/topology-graph",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "license": "MIT",
     "dependencies": {
         "tslib": "^2.7.0"

@@ -15,7 +15,6 @@ import { Link, Node } from '@crczp/topology-graph-model';
 import { TopologyApi } from '../services/topology-api.service';
 
 import { D3Service } from '../services/d3.service';
-import { D3ZoomEventService } from '../services/d3-zoom-event.service';
 import { ConfigService } from '../services/config.service';
 import { DraggedNodeService } from '../services/dragged-node.service';
 import { BehaviorSubject, EMPTY, Observable, takeWhile } from 'rxjs';
@@ -44,7 +43,6 @@ import { ConsoleUrl } from '../model/others/console-url';
         SandboxService,
         HostService,
         D3Service,
-        D3ZoomEventService,
         ContextMenuService,
         GraphEventService,
         GraphLockService,

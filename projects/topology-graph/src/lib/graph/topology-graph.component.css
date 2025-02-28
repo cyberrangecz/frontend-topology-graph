@@ -11,7 +11,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     overflow: hidden;
-    resize: both;
     background: var(--sys-background);
     border: var(--neutral-80) solid 1px;
     box-shadow: none;
@@ -24,8 +23,8 @@
 
 .topology-view__topology-content {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     width: 100%;
     padding-right: 0.5rem;

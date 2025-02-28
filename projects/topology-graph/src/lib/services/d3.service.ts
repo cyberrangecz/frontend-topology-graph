@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ForceDirectedGraph } from '../model/graph/force-directed-graph';
 import { Link, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-graph-model';
 import * as d3 from 'd3';
-import { D3ZoomEventService } from './d3-zoom-event.service';
 import { GraphLockService } from './graph-lock.service';
 import { Observable, Subject } from 'rxjs';
 import { DraggedNodeService } from './dragged-node.service';
@@ -12,83 +11,13 @@ import { DraggedNodeService } from './dragged-node.service';
  */
 @Injectable()
 export class D3Service {
-    private zoomSvg;
-    private zoomContainer;
-    private zoom;
-
-    private currentScale;
-
     private _resizeEventSubject: Subject<{ x: number; y: number }> = new Subject<{ x: number; y: number }>();
     resizeEvent: Observable<{ x: number; y: number }> = this._resizeEventSubject.asObservable();
 
     constructor(
-        private d3ZoomEventService: D3ZoomEventService,
         private draggedNodeService: DraggedNodeService,
         private graphLockService: GraphLockService,
     ) {}
-
-    /**
-     * Resets selected svg to default position and zoom
-     */
-    resetZoom() {
-        this.zoom.transform(this.zoomSvg, d3.zoomIdentity);
-        this.currentScale = 1;
-    }
-
-    zoomIn() {
-        this.currentScale += 0.1;
-        this.zoomContainer.attr('transform', 'scale(' + this.currentScale + ')');
-        this.d3ZoomEventService.triggerZoomChange(this.currentScale);
-    }
-
-    zoomOut() {
-        this.currentScale -= 0.1;
-        this.zoomContainer.attr('transform', 'scale(' + this.currentScale + ')');
-        this.d3ZoomEventService.triggerZoomChange(this.currentScale);
-    }
-
-    /**
-     * Binds selected element to custom zooming behaviour
-     * @param svgElement svg element to bind
-     * @param containerElement container of svg element
-     * @param graph to be added
-     */
-    applyZoomableBehaviour(svgElement, containerElement, graph: ForceDirectedGraph) {
-        this.zoomContainer = d3.select(containerElement);
-        this.zoomSvg = d3.select(svgElement);
-        this.currentScale = 1;
-        // sets custom anon function to d3.zoom call
-        this.zoom = d3
-            .zoom()
-            .on('zoom', (event) => {
-                if (!this.graphLockService.getLocked()) {
-                    const transform = event.transform;
-                    this.zoomContainer.attr('transform', 'scale(' + transform.k + ')');
-
-                    // triggers event to notify subscribers about zooming
-                    this.d3ZoomEventService.triggerZoomChange(transform.k);
-                    this.currentScale = transform.k;
-
-                    // allow panning only when zoomed in
-                    if (transform.k <= 1) {
-                        this.zoomSvg.on('mousedown.zoom', null);
-                    } else {
-                        this.zoomSvg.on('mousedown.zoom', defaultMouseDownListener);
-                    }
-                }
-            })
-            .scaleExtent([0.1, 5])
-            .filter((event) => {
-                return event.shiftKey;
-            });
-
-        // prevents zooming on double click which is already assigned to revealing subnetworks
-        this.zoomSvg.call(this.zoom).on('scroll', null).on('dblclick.zoom', null);
-
-        // prevents panning
-        const defaultMouseDownListener = this.zoomSvg.on('mousedown.zoom');
-        this.zoomSvg.on('mousedown.zoom', null);
-    }
 
     /**
      * Applies dragging from D3 library on selected node.

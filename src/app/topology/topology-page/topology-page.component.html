@@ -1,4 +1,8 @@
 <h1>Topology Graph example</h1>
 
-<crczp-topology-graph [sandboxUuid]="'ffffe-eervs-sdffsf-sdsss-edsddds'"
+<div class="graph-wrapper">
+<crczp-topology-graph
+    class="graph"
+    [sandboxUuid]="'ffffe-eervs-sdffsf-sdsss-edsddds'"
                      (topologyLoadEmitter)="topologyLoadingFinished($event)"/>
+</div>

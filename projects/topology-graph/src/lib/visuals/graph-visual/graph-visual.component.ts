@@ -41,7 +41,7 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
     @Output() loadConsoles: EventEmitter<string> = new EventEmitter();
     @Output() showContainers: EventEmitter<boolean> = new EventEmitter();
 
-    @ViewChild('svg') svg: ElementRef<SVGElement>;
+    @ViewChild('svg') graphSvg: ElementRef<SVGElement>;
 
     graph: ForceDirectedGraph;
 
@@ -68,7 +68,12 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
         if ('width' in changes || 'height' in changes || 'zoom' in changes) {
             this.defaultWidth = this.width;
             this.defaultHeight = this.height;
-            this.svg.nativeElement.setAttribute('viewBox', `0 0 ${this.width * this.zoom} ${this.height * this.zoom}`);
+            if (this.graphSvg) {
+                this.graphSvg.nativeElement.setAttribute(
+                    'viewBox',
+                    `0 0 ${this.width * this.zoom} ${this.height * this.zoom}`,
+                );
+            }
             if (this.graph) {
                 this.graph.onResize(this.options);
             }
@@ -151,10 +156,6 @@ export class GraphVisualComponent implements OnInit, OnChanges, OnDestroy {
             }
             case GraphEventTypeEnum.BalloonTreeLayout: {
                 this.graph.balloonTreeLayout();
-                break;
-            }
-            case GraphEventTypeEnum.HierarchicalLayout: {
-                this.graph.hierarchicalLayout();
                 break;
             }
             case GraphEventTypeEnum.FitToScreen: {

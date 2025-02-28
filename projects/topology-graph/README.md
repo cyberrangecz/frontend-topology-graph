@@ -29,6 +29,6 @@ To use the topology component in your Angular application follow these steps:
    Or provide your own icons at the same path, with the same names.
 
 4. Import **topologyGraphModule** from **topology-graph** and add it to imports in your module with `topologyGraphModule.forRoot(your-config-here)`.
-5. Use `<crczp-topology-graph>` directive in your code and pass sandbox id using `[sandboxUuid]` attribute. If you wish to be notified when data of topology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
+5. Pass sandbox id to `<crczp-topology-graph>` component by binding to `[sandboxUuid]` attribute. If you wish to be notified when data of tology is loaded for the first time you can bind to `(onTopologyLoaded)` event.
 6. Manually copy folders decorators and icons into your assets/images (script or better way to include assets TBD)
 7. Subscribe to observables of `topologyLoadingService` and `topologyErrorService` to display loading and error messages emitted from the component in a standard way of your app

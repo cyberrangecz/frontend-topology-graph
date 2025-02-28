@@ -1,6 +1,5 @@
 import { EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
-import { HierarchicalLayoutCreator } from './layout-creators/hierarchical-layout-creator';
 import { Link, LinkTypeEnum, Node, NodePhysicalRoleEnum, RouterNode, SwitchNode } from '@crczp/topology-graph-model';
 
 /**
@@ -221,10 +220,6 @@ export class ForceDirectedGraph {
 
     private turnOffSubnetRevealForces() {
         this.simulation.force('links', null).force('collide', null).restart();
-    }
-
-    private turnOffHierarchicalLayoutForces() {
-        this.simulation.force('x', null).force('y', null).force('collide', null).restart();
     }
 
     private turnOffResizeForces() {
@@ -530,39 +525,5 @@ export class ForceDirectedGraph {
             .restart();
         this.selfOrganizeAndStop();
         this.turnOffInitialForces();
-    }
-
-    /**
-     * Reshuffles graph to hierarchical topology. Uses custom forces with pre-calculated x and y positions for each node.
-     */
-    hierarchicalLayout() {
-        const nodePositions = new HierarchicalLayoutCreator(this.width, this.height).getPositionsForNodes(
-            this.nodes.concat(this.nonActiveNodes),
-        );
-
-        this.simulation
-            .force('collide', d3.forceCollide().radius(50).strength(0.6))
-            .force(
-                'y',
-                d3
-                    .forceY((d, i, nodes) => {
-                        const node = nodes[i] as Node;
-                        const nodePosition = nodePositions.getValue(node.name);
-                        return nodePosition ? nodePosition.y : 0;
-                    })
-                    .strength(1),
-            )
-            .force(
-                'x',
-                d3
-                    .forceX((d, i, nodes) => {
-                        const node = nodes[i] as Node;
-                        const nodePosition = nodePositions.getValue(node.name);
-                        return nodePosition ? nodePosition.x : 0;
-                    })
-                    .strength(1),
-            )
-            .alphaTarget(0.3)
-            .restart();
     }
 }
