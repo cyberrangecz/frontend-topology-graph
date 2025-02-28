@@ -1,6 +1,6 @@
 {
     "name": "@crczp/topology-graph",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "dependencies": {
         "tslib": "^2.7.0"
@@ -13,5 +13,9 @@
         "moment-mini": "^2.29.4",
         "typescript-collections": "^1.3.3",
         "@crczp/topology-graph-model": "^0.0.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cyberrangecz/frontend-topology-graph.git"
     }
 }
