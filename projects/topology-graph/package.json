@@ -1,6 +1,6 @@
 {
     "name": "@crczp/topology-graph",
-    "version": "0.0.3",
+    "version": "1.0.0",
     "license": "MIT",
     "dependencies": {
         "tslib": "^2.7.0"
@@ -12,7 +12,7 @@
         "d3": "^7.9.0",
         "moment-mini": "^2.29.4",
         "typescript-collections": "^1.3.3",
-        "@crczp/topology-graph-model": "^0.0.2"
+        "@crczp/topology-graph-model": "^1.0.0"
     },
     "repository": {
         "type": "git",
