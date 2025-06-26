@@ -22,7 +22,6 @@ export class ContextMenuDirective {
      */
     @HostListener('contextmenu', ['$event'])
     rightClicked(event: MouseEvent) {
-        console.log('rightClicked', this.zoom);
         this.contextMenuService.show.next({
             position: {
                 x: event.offsetX * this.zoom,

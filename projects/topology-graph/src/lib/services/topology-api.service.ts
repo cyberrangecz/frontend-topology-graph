@@ -197,7 +197,7 @@ export class TopologyApi {
                 if (vmOsType === 'linux') {
                     body.set('uri', `vnc://${vmIp}:5900/?guacd-hostname=${manIp}&guacd-port=4822`);
                 } else {
-                    body.set('uri', `rdp://${vmIp}:3389/?guacd-hostname=${manIp}&guacd-port=4822`);
+                    body.set('uri', `rdp://${vmIp}:3389/?guacd-hostname=${manIp}&guacd-port=4822&ignore-cert=true`);
                 }
         }
         return of(body);
