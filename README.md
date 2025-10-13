@@ -1,3 +1,5 @@
+> The code from this repository has been integrated to the [frontend-platform monorepo](https://github.com/cyberrangecz/frontend-platform), where development and maintenance continue.
+
 # Topology Graph Component
 
 Topology Graph Component is an Angular library using D3.js to visualize network graph topology.
